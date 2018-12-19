@@ -19,8 +19,8 @@ const router = new VueRouter({
     },
     {
       path: '/',
-      name: 'Beranda',
-      component: () => import('@/pages/Beranda')
+      name: 'Home',
+      component: () => import('@/pages/Home')
     }
   ]
 })

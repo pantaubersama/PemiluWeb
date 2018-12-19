@@ -58,7 +58,7 @@ export default {
 
 export const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
   baseUrl: process.env.OAUTH_BASE_URL,
-  storageType: 'cookieStorage',
+  storageType: 'localStorage',
   tokenName: 'access_token',
   providers: {
     symbolic: defaultProviderConfig

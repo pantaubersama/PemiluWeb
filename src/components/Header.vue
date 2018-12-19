@@ -1,11 +1,11 @@
 <template>
-  <div class="header">
+  <div class="header position-fixed">
     <div class="container d-flex">
-    <router-link exact to="/">LOG0</router-link>
+    <router-link exact to="/">LOGO</router-link>
     <div class="ml-auto navbar-right d-flex align-item-center">
       <router-link to="/another-page" style="margin-right: 20px">Another Page</router-link>
-      <!-- <a href="" v-if="isProtected()">LOGOUT</a> -->
-      <a href="" @click.prevent="auth('symbolic')">LOGIN</a>
+      <a href="" v-if="isProtected()">LOGOUT</a>
+      <a href="" v-else @click.prevent="auth('symbolic')">LOGIN</a>
     </div>
     </div>
   </div>
@@ -20,7 +20,7 @@ export default {
   mixins: [authLink],
   mounted () {
     var this_ = this
-    vueAuth.storage.removeItem(vueAuth.tokenName)
+    // vueAuth.storage.removeItem(vueAuth.tokenName)
     if (vueAuth.isAuthenticated()) {
       this_.$router.push({ path: '/' })
     }
