@@ -1,8 +1,9 @@
 <template>
   <div class="home-wrapper">
     <div class="container d-flex">
-      <div class="col-md-3 sidebar">
-        <h1>Sidebar</h1>
+      <div class="col-md-2 sidebar">
+        <NavSidebarTop></NavSidebarTop>
+        <NavSidebarBottom></NavSidebarBottom>
       </div>
       <div class="col-md-6 offset-md-3 main-content">
         <h1>Main Content</h1>
@@ -15,7 +16,14 @@
 </template>
 
 <script>
+import NavSidebarTop from '@/components/NavSidebarTop'
+import NavSidebarBottom from '@/components/NavSidebarBottom'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    NavSidebarTop,
+    NavSidebarBottom
+  }
 }
 </script>
