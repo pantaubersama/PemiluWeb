@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Bw Modelica SS01';
+    src: url('BwModelicaSS01-Bold.eot');
+    src: url('BwModelicaSS01-Bold.eot?#iefix') format('embedded-opentype'),
+        url('BwModelicaSS01-Bold.woff2') format('woff2'),
+        url('BwModelicaSS01-Bold.woff') format('woff'),
+        url('BwModelicaSS01-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+

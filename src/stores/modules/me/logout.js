@@ -5,6 +5,7 @@ import { vueAuth } from '@/services/symbolic'
 
 // initial state
 const state = {
+  userLogin: false
 }
 
 // actions
@@ -12,7 +13,7 @@ const actions = {
   logout ({ commit }) {
     ApiV2MeLogout.logout(result => {
       vueAuth.storage.removeItem(vueAuth.tokenName)
-      // commit('snackbar/setSnack', Vue.i18n.translate('logoutSuccess'), { root: true })
+      commit('userLogout')
       router.replace('/')
     })
   }
@@ -20,7 +21,12 @@ const actions = {
 
 // mutations
 const mutations = {
-
+  userLogin (state) {
+    state.userLogin = true
+  },
+  userLogout (state) {
+    state.userLogin = false
+  }
 }
 
 // getters

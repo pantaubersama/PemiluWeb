@@ -13,9 +13,17 @@ const router = new VueRouter({
       component: () => import('@/components/NotFound')
     },
     {
+      path: '/login',
+      name: 'Login',
+      component: () => import('@/pages/Login')
+    },
+    {
       path: '/another-page',
       name: 'AnotherPage',
-      component: () => import('@/pages/AnotherPage')
+      component: () => import('@/pages/AnotherPage'),
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/',

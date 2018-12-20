@@ -3,6 +3,112 @@
   border-bottom: 1px solid #bd081c
   width: 100%
   z-index: 9
+  top: 0
   .container
     min-height: 64px
     align-items: center
+  .logo
+    width: 225px
+    img 
+      width: 100%
+  .navbar-right
+    position: relative
+    > a 
+      display: flex
+      align-items: center
+      margin-right: 15px
+      color: #9b0012
+      text-transform: uppercase
+      font-family: 'Bw Modelica'
+      font-weight: bold
+      text-decoration: none
+      &:last-child
+        margin-right: 0
+  .input-search
+    position: relative
+    min-width: 300px
+    margin-right: 25px
+    input
+      background-color: #f9f9f9
+      padding-right: 30px
+      height: 32px
+      border-radius: 50px
+      padding-right: 40px
+      font-family: 'Bw Modelica'
+      font-weight: 100
+      text-align: right
+      border-color: #ececec
+      &::placeholder
+        color: #7c7c7c
+        opacity: 1
+      &:-ms-input-placeholder
+        color: #7c7c7c
+
+      &::-ms-input-placeholder
+        color: #7c7c7c
+
+    svg 
+      fill:#7C7C7C
+      width: 18px
+      height: 18px
+      position: absolute
+      right: 10px
+      top: 7px
+
+  .word-stadium
+    width: 40px
+    img
+      width: 100%
+  .notification
+    svg 
+      fill: #111111
+      width: 24px
+  
+  .profile-menu
+    .user-thumb
+      width: 28px
+      height: 28px
+      border-radius: 50%
+      overflow: hidden
+      display: inline-block
+      vertical-align: text-top
+      cursor: pointer
+      img 
+        width: 100%
+        height: 100%
+        object-fit: cover 
+        object-position: center center
+
+      &.is-active
+        + .dropdown-content
+          display: block
+
+    .dropdown-content
+      display: none
+      position: absolute
+      z-index: 9
+      right: 0
+      top: calc(100% + 3px)
+      border-radius: 5px
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16)
+      background-color: #ffffff
+      border: 1px solid #ececec 
+      min-width: 200px
+      padding: 15px 20px
+      a 
+        color: #111111
+        text-decoration: none
+        font-weight: 500
+        display: block
+        padding: 5px 0
+      ul 
+        padding: 0
+        margin: 0
+        list-style: none
+      .button-logout
+        font-weight: bold
+        padding-top: 10px
+        padding-bottom: 0
+        margin-top: 10px
+        border-top: 1px solid #cbcbcb
+        display: block
