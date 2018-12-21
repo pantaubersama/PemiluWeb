@@ -9,7 +9,7 @@
         <CardJP></CardJP>
       </div>
       <div class="col-md-3 widget-wrapper">
-        <h1>Widget</h1>
+        <WidgetVerified></WidgetVerified>
       </div>
     </div>
   </div>
@@ -19,13 +19,15 @@
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
 import CardJP from '@/components/CardJP'
+import WidgetVerified from '@/components/WidgetVerified'
 
 export default {
   name: 'Home',
   components: {
     NavSidebarTop,
     NavSidebarBottom,
-    CardJP
+    CardJP,
+    WidgetVerified
   }
 }
 </script>
