@@ -1,5 +1,5 @@
 <template>
-<div class="card">
+<div class="card card-politik">
     <h4>Janji Politik</h4>
         <div class="card-content">
             <div class="top">

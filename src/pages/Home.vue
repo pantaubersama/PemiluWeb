@@ -11,7 +11,7 @@
         <CardTanya></CardTanya>
       </div>
       <div class="col-md-3 widget-wrapper">
-        <h1>Widget</h1>
+        <CardQuiz></CardQuiz>
       </div>
     </div>
   </div>
@@ -23,6 +23,7 @@ import NavSidebarBottom from '@/components/NavSidebarBottom'
 import CardJP from '@/components/CardJP'
 import CardPilpres from '@/components/CardPilpres'
 import CardTanya from '@/components/CardTanya'
+import CardQuiz from '@/components/CardQuiz'
 
 export default {
   name: 'Home',
@@ -31,7 +32,8 @@ export default {
     NavSidebarBottom,
     CardJP,
     CardPilpres,
-    CardTanya
+    CardTanya,
+    CardQuiz
   }
 }
 </script>
