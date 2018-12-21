@@ -1,8 +1,13 @@
 .sidebar
   position: fixed
   height: calc(100vh - 100px)
+  max-width: calc(1110px / 12 * 3)
   top: 100px
   overflow: auto
+  @media (max-width: 1199px)
+    max-width: calc(930px / 12 * 3)
+  @media (max-width: 991px)
+    max-width: calc(690px / 12 * 3)
 
   .nav-top 
     margin-bottom: 15px

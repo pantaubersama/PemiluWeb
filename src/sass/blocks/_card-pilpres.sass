@@ -1,0 +1,101 @@
+.card-pilpres
+  .card-list
+    padding: 20px
+    border-bottom: 1px solid #ececec
+    &:last-child
+      border-bottom: none
+    .group
+      &-tilte
+        color: #7c7c7c
+        font-size: 10px
+        display: flex
+        align-items: center
+        padding-left: 50px
+
+      &-thumb
+        width: 16px
+        height: 16px
+        border-radius: 3px
+        margin-right: 5px
+        overflow: hidden
+        img 
+          width: 100%
+          height: 100%
+          object-fit: cover 
+          object-position: center center
+      &-name 
+        flex: 1
+        p 
+          margin-bottom: 0
+
+      &-content 
+        padding-top: 5px
+        display: flex
+        align-items: flex-start
+    .content
+      &-thumb
+        padding: 0 15px 15px 5px
+        position: relative
+        .image-thumb, .icon-thumb
+          width: 50px
+          height: 50px
+          border-radius: 50%
+          overflow: hidden
+          img 
+            width: 100%
+            height: 100%
+            object-fit: cover 
+            object-position: center center
+        .icon-thumb
+          width: 30px
+          height: 30px
+          position: absolute
+          border: 2px solid #ffffff
+          bottom: 0
+          left: 0
+      &-desc 
+        .title-desc
+          display: flex
+          align-items: center
+          justify-content: space-between
+        h5 
+          margin-bottom: 0
+          font-size: 14px
+          font-weight: bold
+          color: #000
+          span 
+            color: #7C7C7C
+        .desc-text
+          color: #393939
+          font-size: 13px
+          img 
+            margin: 10px 0
+            border-radius: 5px
+.load-more
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  color: #cbcbcb
+  height: 38px
+  transition: 0.3s
+  svg 
+    fill: #cbcbcb
+    width: 14px
+    margin-left: 14px
+    transition: 0.3s
+  &:hover
+    color: #9b0012
+    svg 
+      fill: #9b0012
+      
+
+.icon-setting
+  width: 20px
+  height: 24px
+  svg 
+    fill: #7C7C7C
+
+.card
+  margin-bottom: 15px
+
