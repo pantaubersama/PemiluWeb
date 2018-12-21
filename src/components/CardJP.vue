@@ -47,7 +47,7 @@
                 </g>
                 </svg>
             </div>
-      </div>
+        </div>
 </div>
 </template>
 

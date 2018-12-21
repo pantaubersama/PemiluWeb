@@ -8,6 +8,7 @@
       <div class="col-md-6 offset-md-3 main-content">
         <CardPilpres></CardPilpres>
         <CardJP></CardJP>
+        <CardTanya></CardTanya>
       </div>
       <div class="col-md-3 widget-wrapper">
         <h1>Widget</h1>
@@ -21,6 +22,7 @@ import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
 import CardJP from '@/components/CardJP'
 import CardPilpres from '@/components/CardPilpres'
+import CardTanya from '@/components/CardTanya'
 
 export default {
   name: 'Home',
@@ -28,7 +30,8 @@ export default {
     NavSidebarTop,
     NavSidebarBottom,
     CardJP,
-    CardPilpres
+    CardPilpres,
+    CardTanya
   }
 }
 </script>
