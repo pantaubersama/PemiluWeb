@@ -6,7 +6,7 @@
         <NavSidebarBottom></NavSidebarBottom>
       </div>
       <div class="col-md-6 offset-md-3 main-content">
-        <h1>Main Content</h1>
+        <CardJP></CardJP>
       </div>
       <div class="col-md-3 widget-wrapper">
         <h1>Widget</h1>
@@ -18,12 +18,14 @@
 <script>
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
+import CardJP from '@/components/CardJP'
 
 export default {
   name: 'Home',
   components: {
     NavSidebarTop,
-    NavSidebarBottom
+    NavSidebarBottom,
+    CardJP
   }
 }
 </script>
