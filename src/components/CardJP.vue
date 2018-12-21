@@ -50,7 +50,6 @@
                 <a href=""><img src="../assets/user.svg"></a>
             </span>
         </div>
-        <a class="more">Tampilkan lebih banyak</a>
         <div class="load-more">
             Tampilkan lebih banyak
             <div class="arrow-icon">
