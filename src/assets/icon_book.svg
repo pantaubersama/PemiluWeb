@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{opacity:.999}.cls-2{fill:none}.cls-3{fill:#4f4f4f}
+        </style>
+    </defs>
+    <g id="baseline-library_books-24px" class="cls-1">
+        <path id="Path_31" d="M0 0h24v24H0z" class="cls-2" data-name="Path 31"/>
+        <path id="Path_32" d="M4.12 6.239H2v14.838A2.126 2.126 0 0 0 4.12 23.2h14.837v-2.12H4.12zM21.077 2H8.359a2.126 2.126 0 0 0-2.12 2.12v12.718a2.126 2.126 0 0 0 2.12 2.12h12.718a2.126 2.126 0 0 0 2.12-2.12V4.12A2.126 2.126 0 0 0 21.077 2zm-1.06 9.539H9.419v-2.12h10.6zm-4.239 4.239H9.419v-2.12h6.359zM20.017 7.3H9.419V5.18h10.6z" class="cls-3" data-name="Path 32" transform="translate(-.598 -.598)"/>
+    </g>
+</svg>

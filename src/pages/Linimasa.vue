@@ -7,13 +7,9 @@
       </div>
       <div class="col-md-6 offset-md-3 main-content">
         <CardPilpres></CardPilpres>
-        <CardJP></CardJP>
-        <CardTanya></CardTanya>
       </div>
       <div class="col-md-3 widget-wrapper">
         <WidgetVerified></WidgetVerified>
-        <WidgetCluster></WidgetCluster>
-        <CardQuiz></CardQuiz>
       </div>
     </div>
   </div>
@@ -22,24 +18,19 @@
 <script>
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
-import CardJP from '@/components/CardJP'
 import WidgetVerified from '@/components/WidgetVerified'
 import CardPilpres from '@/components/CardPilpres'
-import CardTanya from '@/components/CardTanya'
-import WidgetCluster from '@/components/WidgetCluster'
-import CardQuiz from '@/components/CardQuiz'
 
 export default {
-  name: 'Home',
+  name: 'Linimasa',
   components: {
     NavSidebarTop,
     NavSidebarBottom,
-    CardJP,
     WidgetVerified,
-    CardPilpres,
-    CardTanya,
-    WidgetCluster,
-    CardQuiz
-  }
+    CardPilpres
+  },
 }
+
+
+
 </script>

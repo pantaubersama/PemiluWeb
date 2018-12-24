@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="outline-ask-24px" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .cls-1{fill:#393939}.cls-2{fill:none}
+        </style>
+    </defs>
+    <path id="Path_1137" d="M15.444 3H4.556A1.556 1.556 0 0 0 3 4.556v10.888A1.556 1.556 0 0 0 4.556 17h10.888A1.556 1.556 0 0 0 17 15.444V4.556A1.556 1.556 0 0 0 15.444 3zM4.556 15.444V4.556h10.888v10.888z" class="cls-1" data-name="Path 1137"/>
+    <path id="Rectangle_21" d="M0 0h2v2H0z" class="cls-1" data-name="Rectangle 21" transform="translate(9 12.273)"/>
+    <path id="Path_1138" d="M12 7a3 3 0 0 0-3 3h2a1 1 0 1 1 1.32.95 2 2 0 0 0-1.32 1.9V14h2v-1.15A3 3 0 0 0 12 7z" class="cls-1" data-name="Path 1138" transform="translate(-2.007 -1.647)"/>
+    <path id="Rectangle_22" d="M0 0h20v20H0z" class="cls-2" data-name="Rectangle 22"/>
+</svg>

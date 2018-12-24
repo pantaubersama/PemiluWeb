@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:#4f4f4f}.cls-2{fill:none}
+        </style>
+    </defs>
+    <g id="baseline-record_voice_over-24px">
+        <circle id="Ellipse_2" cx="4" cy="4" r="4" class="cls-1" data-name="Ellipse 2" transform="translate(5 5)"/>
+        <path id="Path_39" d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64l-1.68 1.69a3.317 3.317 0 0 1 0 3.89l1.68 1.69a5.117 5.117 0 0 0 0-7.27zM20.07 2l-1.63 1.63a7.978 7.978 0 0 1 0 10.74L20.07 16a9.829 9.829 0 0 0 0-14z" class="cls-1" data-name="Path 39"/>
+        <path id="Path_40" d="M0 0h24v24H0z" class="cls-2" data-name="Path 40"/>
+    </g>
+</svg>

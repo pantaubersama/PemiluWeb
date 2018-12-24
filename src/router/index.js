@@ -29,6 +29,16 @@ const router = new VueRouter({
       path: '/',
       name: 'Home',
       component: () => import('@/pages/Home')
+    },
+    {
+      path: '/Linimasa',
+      name: 'Linimasa',
+      component: () => import('@/pages/Linimasa')
+    },
+    {
+      path: '/Profile',
+      name: 'Profile',
+      component: () => import('@/pages/Profile')
     }
   ]
 })
