@@ -1,29 +1,28 @@
 <template>
-  <div class="home-wrapper">
-    <div class="container d-flex main-wrapper">
-      <div class="col-md-3 sidebar">
-        <NavSidebarTop/>
-        <NavSidebarBottom/>
-      </div>
-      <div class="col-md-6 offset-md-3 main-content">
-        <CardPilpres/>
-        <CardJP/>
-        <CardTanya/>
-      </div>
-      <div class="col-md-3 widget-wrapper">
-        <WidgetVerified/>
-        <CardWordStadium/>
-        <WidgetCluster/>
-        <CardQuiz/>
-      </div>
-    </div>
-  </div>
+  <LayoutTimeline>
+    <template slot="sidebar">
+      <NavSidebarTop></NavSidebarTop>
+      <NavSidebarBottom></NavSidebarBottom>
+    </template>
+    <template slot="main-content">
+      <CardPilpres></CardPilpres>
+      <CardJP></CardJP>
+      <CardTanya></CardTanya>
+    </template>
+    <template slot="widget-wrapper">
+      <WidgetVerified></WidgetVerified>
+      <CardWordStadium></CardWordStadium>
+      <WidgetCluster></WidgetCluster>
+      <CardQuiz></CardQuiz>
+    </template>
+  </LayoutTimeline>
 </template>
 
 <script>
+import LayoutTimeline from '@/layout/Timeline'
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
-import CardJP from '@/components/CardJP'
+import CardJanjiPilpres from '@/components/CardJanjiPilpres'
 import WidgetVerified from '@/components/WidgetVerified'
 import CardPilpres from '@/components/CardPilpres'
 import CardTanya from '@/components/CardTanya'
@@ -34,9 +33,10 @@ import CardWordStadium from '@/components/CardWordStadium'
 export default {
   name: 'Home',
   components: {
+    LayoutTimeline,
     NavSidebarTop,
     NavSidebarBottom,
-    CardJP,
+    CardJanjiPilpres,
     WidgetVerified,
     CardPilpres,
     CardTanya,
