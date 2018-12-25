@@ -1,9 +1,5 @@
 <template>
   <LayoutTimeline>
-    <template slot="sidebar">
-      <NavSidebarTop></NavSidebarTop>
-      <NavSidebarBottom></NavSidebarBottom>
-    </template>
     <template slot="main-content">
       <CardPilpres></CardPilpres>
       <CardJP></CardJP>
@@ -19,7 +15,7 @@
 </template>
 
 <script>
-import LayoutTimeline from '@/layout/Timeline'
+import LayoutTimeline from '@/layout/timeline'
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
 import CardJanjiPilpres from '@/components/CardJanjiPilpres'

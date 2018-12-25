@@ -45,7 +45,12 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/Profile',
+      path: '/pendidikan-politik',
+      name: 'pendidikan-politik',
+      component: () => import('@/pages/pendidikan-politik')
+    },
+    {
+      path: '/profile',
       name: 'Profile',
       component: () => import('@/pages/Profile')
     }

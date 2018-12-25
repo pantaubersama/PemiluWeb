@@ -2,7 +2,10 @@
   <div class="home-wrapper">
     <div class="container d-flex main-wrapper">
       <div class="col-md-3 sidebar">
-        <slot name="sidebar">Sidebar</slot>
+        <slot name="sidebar">
+          <nav-sidebar-top></nav-sidebar-top>
+          <nav-sidebar-bottom></nav-sidebar-bottom>
+        </slot>
       </div>
       <div class="col-md-6 offset-md-3 main-content">
         <slot name="main-content">Main Content</slot>
@@ -15,7 +18,14 @@
 </template>
 
 <script>
+import NavSidebarTop from '@/components/NavSidebarTop'
+import NavSidebarBottom from '@/components/NavSidebarBottom'
+
 export default {
-  name: 'Layout--Timeline'
+  name: 'Layout--Timeline',
+  components: {
+    NavSidebarTop,
+    NavSidebarBottom
+  }
 }
 </script>
