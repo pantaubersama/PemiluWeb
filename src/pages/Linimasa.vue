@@ -6,10 +6,23 @@
         <NavSidebarBottom></NavSidebarBottom>
       </div>
       <div class="col-md-6 offset-md-3 main-content">
-        <CardPilpres></CardPilpres>
+        <div class="card card-tabs">
+          <div class="title-tabs">
+            <router-link to="/linimasa" exact>Pilpres</router-link>
+            <router-link :to="{name: 'LinimasaJanjiPolitik', params: {name: 'janji-politik'}}">Janji Politik</router-link>
+          </div>
+
+          <div v-if="$route.name == 'LinimasaJanjiPolitik'">
+            <TabJP/>
+          </div>
+          <div v-else>
+            <TabPilpres/>
+          </div>
+
+        </div>
       </div>
       <div class="col-md-3 widget-wrapper">
-        <WidgetVerified></WidgetVerified>
+        
       </div>
     </div>
   </div>
@@ -18,16 +31,16 @@
 <script>
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
-import WidgetVerified from '@/components/WidgetVerified'
-import CardPilpres from '@/components/CardPilpres'
+import TabPilpres from '@/pages/Linimasa/TabPilpres'
+import TabJP from '@/pages/Linimasa/TabJP'
 
 export default {
   name: 'Linimasa',
   components: {
     NavSidebarTop,
     NavSidebarBottom,
-    WidgetVerified,
-    CardPilpres
+    TabPilpres,
+    TabJP
   },
 }
 
