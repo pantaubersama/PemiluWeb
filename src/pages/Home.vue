@@ -2,18 +2,19 @@
   <div class="home-wrapper">
     <div class="container d-flex main-wrapper">
       <div class="col-md-3 sidebar">
-        <NavSidebarTop></NavSidebarTop>
-        <NavSidebarBottom></NavSidebarBottom>
+        <NavSidebarTop/>
+        <NavSidebarBottom/>
       </div>
       <div class="col-md-6 offset-md-3 main-content">
-        <CardPilpres></CardPilpres>
-        <CardJP></CardJP>
-        <CardTanya></CardTanya>
+        <CardPilpres/>
+        <CardJP/>
+        <CardTanya/>
       </div>
       <div class="col-md-3 widget-wrapper">
-        <WidgetVerified></WidgetVerified>
-        <WidgetCluster></WidgetCluster>
-        <CardQuiz></CardQuiz>
+        <WidgetVerified/>
+        <CardWordStadium/>
+        <WidgetCluster/>
+        <CardQuiz/>
       </div>
     </div>
   </div>
@@ -28,6 +29,7 @@ import CardPilpres from '@/components/CardPilpres'
 import CardTanya from '@/components/CardTanya'
 import WidgetCluster from '@/components/WidgetCluster'
 import CardQuiz from '@/components/CardQuiz'
+import CardWordStadium from '@/components/CardWordStadium'
 
 export default {
   name: 'Home',
@@ -39,7 +41,8 @@ export default {
     CardPilpres,
     CardTanya,
     WidgetCluster,
-    CardQuiz
+    CardQuiz,
+    CardWordStadium
   }
 }
 </script>

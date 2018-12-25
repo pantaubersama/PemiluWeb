@@ -8,7 +8,7 @@
             <img src="../assets/trump.jpg">
             <span>
                 <h3>Jelo Caviar, @jelo</h3>
-                <btn class="line"><img src="../assets/icon_setting.svg">Terverifikasi</btn>
+                <button class="line"><img src="../assets/icon_setting.svg">Terverifikasi</button>
             </span>
             <p>An ordinary netizen who likes to talk a lot. Like, a lot. Who cares anyway!</p>
         </div>
