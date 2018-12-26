@@ -2,7 +2,7 @@
   <LayoutTimeline>
     <template slot="main-content">
       <CardPilpres></CardPilpres>
-      <CardJP></CardJP>
+      <CardJanjiPilpres></CardJanjiPilpres>
       <CardTanya></CardTanya>
     </template>
     <template slot="widget-wrapper">
