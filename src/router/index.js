@@ -31,12 +31,26 @@ const router = new VueRouter({
       component: () => import('@/pages/Home')
     },
     {
-      path: '/Linimasa',
+      path: '/linimasa',
       name: 'Linimasa',
-      component: () => import('@/pages/Linimasa')
+      component: () => import('@/pages/Linimasa'),
+      props: true,
+      children: [
+        { 
+          path: ':name',
+          name: 'LinimasaJanjiPolitik', 
+          component: () => import('@/pages/Linimasa'),
+          // props: { default: true, sidebar: false }
+        }
+      ]
     },
     {
-      path: '/Profile',
+      path: '/pendidikan-politik',
+      name: 'pendidikan-politik',
+      component: () => import('@/pages/pendidikan-politik')
+    },
+    {
+      path: '/profile',
       name: 'Profile',
       component: () => import('@/pages/Profile')
     }
