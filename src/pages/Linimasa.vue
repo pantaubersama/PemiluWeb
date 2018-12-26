@@ -9,7 +9,7 @@
         <CardPilpres></CardPilpres>
       </div>
       <div class="col-md-3 widget-wrapper">
-        <WidgetVerified></WidgetVerified>
+        <WidgetJP></WidgetJP>
       </div>
     </div>
   </div>
@@ -20,6 +20,7 @@ import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
 import WidgetVerified from '@/components/WidgetVerified'
 import CardPilpres from '@/components/CardPilpres'
+import WidgetJP from '@/components/WidgetJP'
 
 export default {
   name: 'Linimasa',
@@ -27,10 +28,8 @@ export default {
     NavSidebarTop,
     NavSidebarBottom,
     WidgetVerified,
-    CardPilpres
+    CardPilpres,
+    WidgetJP
   },
 }
-
-
-
 </script>
