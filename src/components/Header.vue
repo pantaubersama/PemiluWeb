@@ -14,7 +14,7 @@
         </svg>
       </div>
       <a href="" class="word-stadium">
-        <img src="../assets/word-stadium.png" alt="">
+        <img src="../assets/word-stadium.svg" alt="">
       </a>
       <a href="" class="notification">
         <svg version="1.1" id="outline-notifications-24px" x="0px" y="0px" viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
@@ -24,7 +24,7 @@
         </svg>
       </a>
       <div class="profile-menu" v-if="userLogin">
-        <div id="toggle-button" class="user-thumb" @click="toggleDropdown($event)">
+        <div id="toggle-button" class="user-thumb" :class="{'is-active': isActive}" @click="toggleDropdown($event)">
           <img src="../assets/user.svg" alt="">
         </div>
         <div class="dropdown-content">
@@ -55,6 +55,11 @@ import { authLink } from '@/mixins/link'
 export default {
   name: 'Header',
   mixins: [authLink],
+  data () {
+    return {
+      isActive: false
+    }
+  },
   created () {
     if (this.isProtected()) {
       this.$store.commit('meLogout/userLogin')
@@ -71,11 +76,11 @@ export default {
       this.$store.dispatch('meLogout/logout')
     },
     toggleDropdown (event) {
-      event.currentTarget.classList.toggle('is-active')
+      this.isActive = !this.isActive
     },
     removeDropdown (event) {
       if (this.userLogin && !event.target.parentNode.classList.contains('user-thumb')) {
-        document.getElementById('toggle-button').classList.remove('is-active')
+        this.isActive = false
       }
     }
   }

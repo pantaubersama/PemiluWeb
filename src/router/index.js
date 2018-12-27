@@ -35,14 +35,13 @@ const router = new VueRouter({
       name: 'Linimasa',
       component: () => import('@/pages/Linimasa'),
       props: true,
-      children: [
-        { 
-          path: ':name',
-          name: 'LinimasaJanjiPolitik', 
-          component: () => import('@/pages/Linimasa'),
-          // props: { default: true, sidebar: false }
-        }
-      ]
+      // children: [
+      //   { 
+      //     path: ':name',
+      //     name: 'LinimasaJanjiPolitik', 
+      //     component: () => import('@/pages/Linimasa')
+      //   }
+      // ]
     },
     {
       path: '/pendidikan-politik',

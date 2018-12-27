@@ -1,18 +1,13 @@
 <template>
-  <div class="home-wrapper">
-    <div class="container d-flex main-wrapper">
-      <div class="col-md-3 sidebar">
-        <NavSidebarTop></NavSidebarTop>
-        <NavSidebarBottom></NavSidebarBottom>
-      </div>
-      <div class="col-md-6 offset-md-3 main-content">
-        <div class="card card-tabs">
+  <timeline-layout>
+    <div slot="main-content" >
+      <div class="card card-tabs">
           <div class="title-tabs">
             <router-link to="/linimasa" exact>Pilpres</router-link>
-            <router-link :to="{name: 'LinimasaJanjiPolitik', params: {name: 'janji-politik'}}">Janji Politik</router-link>
+            <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
-
-          <div v-if="$route.name == 'LinimasaJanjiPolitik'">
+          
+          <div v-if="this.$route.query.type == 'janji-politik'">
             <TabJP/>
           </div>
           <div v-else>
@@ -20,34 +15,25 @@
           </div>
 
         </div>
-      </div>
-      <div class="col-md-3 widget-wrapper">
-        <WidgetJP></WidgetJP>
-        
-      </div>
     </div>
-  </div>
+    <div slot="widget-wrapper">
+      <widget-filter></widget-filter>
+    </div>
+  </timeline-layout>
 </template>
 
 <script>
-import NavSidebarTop from '@/components/NavSidebarTop'
-import NavSidebarBottom from '@/components/NavSidebarBottom'
-import WidgetVerified from '@/components/WidgetVerified'
-import CardPilpres from '@/components/CardPilpres'
-import WidgetJP from '@/components/WidgetJP'
+import TimelineLayout from '@/layout/timeline'
 import TabPilpres from '@/pages/Linimasa/TabPilpres'
 import TabJP from '@/pages/Linimasa/TabJP'
-
+import WidgetFilter from '@/pages/Linimasa/widget-filter'
 export default {
   name: 'Linimasa',
   components: {
-    NavSidebarTop,
-    NavSidebarBottom,
-    WidgetVerified,
-    CardPilpres,
-    WidgetJP,
+    TimelineLayout,
     TabPilpres,
-    TabJP
+    TabJP,
+    WidgetFilter
   },
 }
 </script>
