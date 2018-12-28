@@ -1,23 +1,23 @@
 <template>
 <div class="question-item">
-  <button class="vote">
-    <img src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up">
+  <button class="vote" @click="onUpvote()">
+    <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
+    <i v-show="!isAnimating" class="icon voteup"
+      :class="{ voted: isVoted }"></i>
+    <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
     <span class="vote-count">1k</span>
   </button>
   <div class="content">
     <div class="meta">
       <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
       <div class="title">
-        <div class="name">Trump</div>
-        <small class="question-title">Apa apa apa apa apa apa apa?</small>
+        <div class="name">{{name}}</div>
+        <small class="question-title">{{title}}</small>
       </div>
-      <small class="time">Ask 8 days ago</small>
+      <small class="time">Ask {{time}}</small>
     </div>
     <div class="question">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eum
-      voluptatibus quisquam necessitatibus asperiores ullam provident impedit
-      reprehenderit suscipit quibusdam assumenda, non soluta perferendis
-      quaerat accusamus adipisci consequuntur dolores nihil.
+      {{question}}
     </div>
     <div class="button-list">
       <button class="share">
@@ -32,8 +32,52 @@
 </template>
 
 <script>
+import lottie from 'lottie-web'
+import upvoteLottie from '@/assets/lottie/upvote.json'
+
 export default {
-  name: 'QuestionItem'
+  name: 'QuestionItem',
+  props: {
+    id: Number,
+    name: String,
+    avatar: String,
+    title: String,
+    time: String,
+    question: String,
+    isVoted: Boolean
+  },
+  data() {
+    return {
+      upvoteLottie: null,
+      isAnimating: false
+    }
+  },
+  mounted() {
+    this.upvoteLottie = lottie.loadAnimation({
+      container: this.$refs.upvote,
+      path: '/lottie/upvote.json',
+      autoplay: false,
+      renderer: 'svg'
+    })
+    this.upvoteLottie.addEventListener('complete', (...args) => {
+      this.isAnimating = false
+    })
+  },
+  destroyed() {
+    this.upvoteLottie.destroy()
+  },
+  watch: {
+    isAnimating(value) {
+      if (value) return this.upvoteLottie.play()
+      return this.upvoteLottie.stop()
+    }
+  },
+  methods: {
+    onUpvote() {
+      this.isAnimating = true
+      this.$emit('upvoted', this.id)
+    }
+  }
 }
 </script>
 <style lang="sass" scoped>
@@ -53,6 +97,16 @@ button.vote
   .vote-count
     color: #727272
     font-size: 14px
+  .icon.voteup
+    background-color: #727272
+    height: 35px
+    width: 35px
+    display: block;
+    mask-image: url('~@/assets/icon-upvote.svg')
+    &.voted
+      background-color: #9b0012
+  .icon.vote-up.upvote-lottie
+    transform: scale(1.8) translateY(-7px)
 
 .content
   flex: 1

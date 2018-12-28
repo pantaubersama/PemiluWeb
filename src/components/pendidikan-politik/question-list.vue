@@ -9,9 +9,18 @@
       <p class="trigger">Apa pertanyaan Anda untuk kedua calon Presiden?</p>
     </button>
   </li>
-  <li v-for="index in Array.from(Array(20).keys())"
-    :key="index">
-    <question-item></question-item>
+  <li v-for="question in questions"
+    :key="question.id">
+    <question-item
+      :id="question.id"
+      :title="question.title"
+      :question="question.question"
+      :time="question.time"
+      :name="question.name"
+      :avatar="question.avatar"
+      :is-voted="question.isVoted"
+      @upvoted="$emit('upvoted', $event)">
+    </question-item>
   </li>
 </ul>
 </template>
@@ -22,6 +31,9 @@ import QuestionItem from '@/components/pendidikan-politik/question-item'
 export default {
   name: 'QuestionList',
   components: {QuestionItem},
+  props: {
+    questions: Array
+  },
   data () {
     return {
     }
