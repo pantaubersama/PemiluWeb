@@ -2,7 +2,7 @@
   <div class="header position-fixed">
     <div class="container d-flex">
     <router-link exact class="logo" to="/">
-      <img src="../assets/logo.svg" alt="Pantau Bersama">
+      <img src="@/assets/logo.svg" alt="Pantau Bersama">
     </router-link>
     <div class="ml-auto navbar-right d-flex align-item-center">
       <div class="input-search">
@@ -14,7 +14,7 @@
         </svg>
       </div>
       <a href="" class="word-stadium">
-        <img src="../assets/word-stadium.svg" alt="">
+        <img src="@/assets/word-stadium.svg" alt="">
       </a>
       <a href="" class="notification">
         <svg version="1.1" id="outline-notifications-24px" x="0px" y="0px" viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
@@ -25,7 +25,7 @@
       </a>
       <div class="profile-menu" v-if="userLogin">
         <div id="toggle-button" class="user-thumb" :class="{'is-active': isActive}" @click="toggleDropdown($event)">
-          <img src="../assets/user.svg" alt="">
+          <img src="@/assets/user.svg" alt="">
         </div>
         <div class="dropdown-content">
           <ul>

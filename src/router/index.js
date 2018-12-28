@@ -36,9 +36,14 @@ const router = new VueRouter({
       component: () => import('@/pages/Linimasa'),
       props: true,
       children: [
-        { 
+        {
           path: 'hint',
-          name: 'LinimasaHint', 
+          name: 'LinimasaHint',
+          component: () => import('@/pages/Linimasa')
+        },
+        {
+          path: 'detail/:id',
+          name: 'LinimasaDetail',
           component: () => import('@/pages/Linimasa')
         }
       ]

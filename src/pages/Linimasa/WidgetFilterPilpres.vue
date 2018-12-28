@@ -1,9 +1,12 @@
 <template>
 <div class="card widget-filter">
+  <div class="button-reset">
+    <button class="btn btn-outline">Reset</button>
+  </div>
   <button class="button-filter" id="button-filter" :class="{'is-active': isActive}" @click="toggleDropdown($event)">
     Filter
     <i class="icon icon-filter">
-      <img src="../../assets/icon-filter.svg" alt="">
+      <img src="@/assets/icon-filter.svg" alt="">
     </i>
   </button>
 

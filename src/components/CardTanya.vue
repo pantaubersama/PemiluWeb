@@ -6,14 +6,14 @@
         <div class="group-content">
           <div class="content-count">
             <div class="icon-count">
-              <img src="../assets/arrow-top.png" alt="">
+              <img src="@/assets/arrow-top.png" alt="">
             </div>
             <div class="total-count">100</div>
           </div>
           <div class="content-desc">
             <div class="title-desc">
               <div class="title-thumb">
-                <img src="../assets/trump.jpg" alt="">
+                <img src="@/assets/trump.jpg" alt="">
               </div>
               <div class="title-center">
                 <h5>Ariel Tatum Similikiti,</h5>
@@ -25,7 +25,7 @@
               Kapan realisasi penghapusan system tenaga kerja alih daya diterapkan seutuhnya? Kita ini insan bukan seekor sapi!
             </div>
             <div class="desc-icon">
-              <a href=""><img src="../assets/icon_share.svg"></a>
+              <a href=""><img src="@/assets/icon_share.svg"></a>
                 <a href="" class="icon-setting">
                     <svg version="1.1" viewBox="0 0 18 6.4" style="enable-background:new 0 0 18 6.4;" xml:space="preserve">
                     <path id="Path_108" class="st0" d="M3.2,1.1c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S4.3,1.1,3.2,1.1z M15.2,1.1c-1.1,0-2,0.9-2,2
@@ -40,14 +40,14 @@
         <div class="group-content">
           <div class="content-count">
             <div class="icon-count">
-              <img src="../assets/arrow-top-red.png" alt="">
+              <img src="@/assets/arrow-top-red.png" alt="">
             </div>
             <div class="total-count">100</div>
           </div>
           <div class="content-desc">
             <div class="title-desc">
               <div class="title-thumb">
-                <img src="../assets/trump.jpg" alt="">
+                <img src="@/assets/trump.jpg" alt="">
               </div>
               <div class="title-center">
                 <h5>Ariel Tatum Similikiti,</h5>
@@ -59,7 +59,7 @@
               Kapan realisasi penghapusan system tenaga kerja alih daya diterapkan seutuhnya? Kita ini insan bukan seekor sapi!
             </div>
             <div class="desc-icon">
-              <a href=""><img src="../assets/icon_share.svg"></a>
+              <a href=""><img src="@/assets/icon_share.svg"></a>
                 <a href="" class="icon-setting">
                     <svg version="1.1" viewBox="0 0 18 6.4" style="enable-background:new 0 0 18 6.4;" xml:space="preserve">
                     <path id="Path_108" class="st0" d="M3.2,1.1c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S4.3,1.1,3.2,1.1z M15.2,1.1c-1.1,0-2,0.9-2,2

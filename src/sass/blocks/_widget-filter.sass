@@ -1,7 +1,9 @@
 .widget-filter
   padding: 10px
   display: flex
-  align-items: flex-end
+  justify-content: flex-end 
+  flex-direction: row 
+  // justify-content: space-between
 
   .button-filter
     border: 0
@@ -14,6 +16,7 @@
     padding: 0
     flex: 1
     align-items: center
+    justify-content: flex-end
     img
       width: 28px
       padding-left: 10px
@@ -62,8 +65,6 @@
       border-radius: 2px
       letter-spacing: 1.2px
       padding: 0.2rem 1rem
-      &.btn-outline
-        color: #bd081c
 
   .cluster-search
     margin-bottom: 10px
@@ -79,3 +80,10 @@
   .icon.icon-filter
     display: flex
     align-items: center
+
+.btn-outline
+  color: #bd081c
+  text-transform: uppercase
+  font-size: 12px
+  letter-spacing: 1.2px
+  padding: 0.2rem 0

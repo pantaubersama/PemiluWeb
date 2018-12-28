@@ -5,7 +5,7 @@
       <div class="card-list">
         <div class="group-tilte">
           <div class="group-thumb">
-            <img src="../assets/icon-group.png" alt="">
+            <img src="@/assets/icon-group.png" alt="">
           </div>
           <div class="group-name">
             <p>Disematkan dari Team Pemenangan Prabowo - Sandi</p>
@@ -14,10 +14,10 @@
         <div class="group-content">
           <div class="content-thumb">
             <div class="image-thumb">
-              <img src="../assets/trump.jpg" alt="">
+              <img src="@/assets/trump.jpg" alt="">
             </div>
             <div class="icon-thumb">
-              <img src="../assets/twitter-icon.png" alt="">
+              <img src="@/assets/twitter-icon.png" alt="">
             </div>
           </div>
           <div class="content-desc">
@@ -41,7 +41,7 @@
       <div class="card-list">
         <div class="group-tilte">
           <div class="group-thumb">
-            <img src="../assets/icon-group.png" alt="">
+            <img src="@/assets/icon-group.png" alt="">
           </div>
           <div class="group-name">
             <p>Disematkan dari Team Pemenangan Prabowo - Sandi</p>
@@ -50,10 +50,10 @@
         <div class="group-content">
           <div class="content-thumb">
             <div class="image-thumb">
-              <img src="../assets/trump.jpg" alt="">
+              <img src="@/assets/trump.jpg" alt="">
             </div>
             <div class="icon-thumb">
-              <img src="../assets/twitter-icon.png" alt="">
+              <img src="@/assets/twitter-icon.png" alt="">
             </div>
           </div>
           <div class="content-desc">
@@ -70,7 +70,7 @@
             </div>
             <div class="desc-text">
               The @Tesla Gigafactory’s economic impact on Nevada has exceeded projections, bringing in more than 7K jobs and $6B in capital investment, according to a new economic impact.
-              <img src="../assets/image-desc-pilpres.png" alt="">
+              <img src="@/assets/image-desc-pilpres.png" alt="">
             </div>
           </div>
         </div>
