@@ -1,4 +1,4 @@
-image: node:10
+image: node:latest
 
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -14,6 +14,9 @@ build_staging:
     - echo $CI_PROJECT_DIR
     - touch config/env/prod.js
     - echo "$STAGING_JS" >> config/env/prod.js
+    - rm -rf node_modules
+    - node -v
+    - npm -v
   script: 
     - npm install
     - npm run build
