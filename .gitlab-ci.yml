@@ -1,7 +1,7 @@
 image: node:10.15.0-alpine
 
 before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y && apt-get install -y git )'
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$RUNNER_EXI_PRV_KEY")
   - mkdir -p ~/.ssh
