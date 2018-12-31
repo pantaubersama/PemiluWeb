@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 // modules
 import meLogout from '@/stores/modules/me/logout'
+import imagesUpload from '@/stores/modules/images/upload'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ const beforeAction = store => {
 
 export default new Vuex.Store({
   modules: {
-    meLogout
+    meLogout,
+    imagesUpload
   },
   strict: debug,
   plugins: [beforeAction]

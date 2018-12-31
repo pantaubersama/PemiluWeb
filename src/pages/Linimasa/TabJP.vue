@@ -1,6 +1,7 @@
 <template>
   <div class="card-jp">
-    <div class="create-post">
+    <modal-create v-if="modal === 'modalCreate' || this.$route.query.post == 'create-post'" v-on:close="closeModal()"/>
+    <div class="create-post" @click.stop="modalCreate()">
       <div class="card-content">
         <div class="top">
         <div class="avatar"><a href=""><img src="@/assets/user.svg"></a></div>
@@ -29,13 +30,12 @@
         <div class="dropdown-content" >
           <ul>
             <li>
-              <a href="">
-                <svg version="1.1" id="Layer_1" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-                <path id="Path_1522" class="st0" d="M11.9,2.8C7,2.8,3,6.8,3,11.7s4,8.9,8.9,8.9s8.9-4,8.9-8.9l0,0C20.8,6.8,16.8,2.8,11.9,2.8z
-                  M11.9,18.8c-3.9,0-7.1-3.2-7.1-7.1S8,4.6,11.9,4.6S19,7.8,19,11.7l0,0C19,15.6,15.8,18.8,11.9,18.8z"/>
-                <path id="Path_1523" class="st0" d="M14.7,7.5l-2.9,2.9L8.8,7.5L7.6,8.8l2.9,2.9l-2.9,2.9l1.3,1.3l2.9-2.9l2.9,2.9l1.3-1.3L13,11.7
-                  l2.9-2.9L14.7,7.5z"/>
-                </svg>
+                <a href="">
+                  <svg version="1.1" id="Layer_1" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                  <path id="Path_1522" class="st0" d="M11.9,2.5c-5.1,0-9.2,4.1-9.2,9.2s4.1,9.2,9.2,9.2s9.2-4.1,9.2-9.2l0,0
+                    C21.1,6.6,17,2.5,11.9,2.5z M11.9,19.1c-4,0-7.4-3.3-7.4-7.4s3.3-7.4,7.4-7.4s7.4,3.3,7.4,7.4l0,0C19.3,15.7,15.9,19.1,11.9,19.1z"/>
+                  <path id="Path_1523" class="st0" d="M14.8,7.3l-3,3l-3.1-3L7.4,8.7l3,3l-3,3l1.3,1.3l3-3l3,3l1.3-1.3l-3.1-3l3-3L14.8,7.3z"/>
+                  </svg>
                 Hapus
               </a>
             </li>
@@ -90,13 +90,12 @@
         <div class="dropdown-content" >
           <ul>
             <li>
-              <a href="">
-                <svg version="1.1" id="Layer_1" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-                <path id="Path_1522" class="st0" d="M11.9,2.8C7,2.8,3,6.8,3,11.7s4,8.9,8.9,8.9s8.9-4,8.9-8.9l0,0C20.8,6.8,16.8,2.8,11.9,2.8z
-                  M11.9,18.8c-3.9,0-7.1-3.2-7.1-7.1S8,4.6,11.9,4.6S19,7.8,19,11.7l0,0C19,15.6,15.8,18.8,11.9,18.8z"/>
-                <path id="Path_1523" class="st0" d="M14.7,7.5l-2.9,2.9L8.8,7.5L7.6,8.8l2.9,2.9l-2.9,2.9l1.3,1.3l2.9-2.9l2.9,2.9l1.3-1.3L13,11.7
-                  l2.9-2.9L14.7,7.5z"/>
-                </svg>
+                <a href="">
+                  <svg version="1.1" id="Layer_1" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                  <path id="Path_1522" class="st0" d="M11.9,2.5c-5.1,0-9.2,4.1-9.2,9.2s4.1,9.2,9.2,9.2s9.2-4.1,9.2-9.2l0,0
+                    C21.1,6.6,17,2.5,11.9,2.5z M11.9,19.1c-4,0-7.4-3.3-7.4-7.4s3.3-7.4,7.4-7.4s7.4,3.3,7.4,7.4l0,0C19.3,15.7,15.9,19.1,11.9,19.1z"/>
+                  <path id="Path_1523" class="st0" d="M14.8,7.3l-3,3l-3.1-3L7.4,8.7l3,3l-3,3l1.3,1.3l3-3l3,3l1.3-1.3l-3.1-3l3-3L14.8,7.3z"/>
+                  </svg>
                 Hapus
               </a>
             </li>
@@ -151,13 +150,12 @@
         <div class="dropdown-content" >
           <ul>
             <li>
-              <a href="">
-                <svg version="1.1" id="Layer_1" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-                <path id="Path_1522" class="st0" d="M11.9,2.8C7,2.8,3,6.8,3,11.7s4,8.9,8.9,8.9s8.9-4,8.9-8.9l0,0C20.8,6.8,16.8,2.8,11.9,2.8z
-                  M11.9,18.8c-3.9,0-7.1-3.2-7.1-7.1S8,4.6,11.9,4.6S19,7.8,19,11.7l0,0C19,15.6,15.8,18.8,11.9,18.8z"/>
-                <path id="Path_1523" class="st0" d="M14.7,7.5l-2.9,2.9L8.8,7.5L7.6,8.8l2.9,2.9l-2.9,2.9l1.3,1.3l2.9-2.9l2.9,2.9l1.3-1.3L13,11.7
-                  l2.9-2.9L14.7,7.5z"/>
-                </svg>
+                <a href="">
+                  <svg version="1.1" id="Layer_1" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                  <path id="Path_1522" class="st0" d="M11.9,2.5c-5.1,0-9.2,4.1-9.2,9.2s4.1,9.2,9.2,9.2s9.2-4.1,9.2-9.2l0,0
+                    C21.1,6.6,17,2.5,11.9,2.5z M11.9,19.1c-4,0-7.4-3.3-7.4-7.4s3.3-7.4,7.4-7.4s7.4,3.3,7.4,7.4l0,0C19.3,15.7,15.9,19.1,11.9,19.1z"/>
+                  <path id="Path_1523" class="st0" d="M14.8,7.3l-3,3l-3.1-3L7.4,8.7l3,3l-3,3l1.3,1.3l3-3l3,3l1.3-1.3l-3.1-3l3-3L14.8,7.3z"/>
+                  </svg>
                 Hapus
               </a>
             </li>
@@ -200,11 +198,16 @@
 </template>
 
 <script>
+import ModalCreate from '@/pages/Linimasa/ModalCreate'
 export default {
   name: 'TabJP',
+  components: {
+    ModalCreate
+  },
   data () {
     return {
-      isActive: false
+      isActive: false,
+      modal: false
     }
   },
   created () {
@@ -223,6 +226,14 @@ export default {
       if (isClickOutside) {
         this.isActive = 0
       }
+    },
+    modalCreate () {
+      this.$router.replace({query: { type: 'janji-politik', post: 'create-post' } })
+      this.modal = 'modalCreate'
+    },
+    closeModal(){
+      this.$router.replace({query: { type: 'janji-politik'} })
+      this.modal = false
     }
   }
 }
