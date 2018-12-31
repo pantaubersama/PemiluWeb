@@ -2,7 +2,7 @@
   <div class="login-wrapper">
     <div class="container">
       <h1>Kamu Harus Login</h1>
-      <div class="btn btn-outline btn-primary" @click="$router.go(-1)">Kembali</div>
+      <div class="btn btn-primary" @click="$router.go(-1)">Kembali</div>
       <div class="btn btn-primary" @click="auth('symbolic')">masuk</div>
     </div>
     </div>

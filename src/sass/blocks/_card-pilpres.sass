@@ -58,6 +58,7 @@
           display: flex
           align-items: center
           justify-content: space-between
+          position: relative
         h5 
           margin-bottom: 0
           font-size: 14px
@@ -71,6 +72,21 @@
           img 
             margin: 10px 0
             border-radius: 5px
+        .dropdown-content
+          padding: 10px
+          border-radius: 2px
+          min-width: 175px
+          a 
+            font-size: 12px
+          svg 
+            width: 25px
+            height: 16px
+            padding-right: 5px
+
+  .icon-setting
+    &.is-active
+      + .dropdown-content
+        display: block
 .load-more
   display: flex
   align-items: center
@@ -92,7 +108,7 @@
 
 .icon-setting
   width: 20px
-  height: 24px
+  // height: 24px
   svg 
     fill: #7C7C7C
 
