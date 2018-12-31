@@ -23,21 +23,15 @@ build_staging:
     expire_in: 1 day
     paths:
       - dist
-  tags:
-    - docker
       
 test_staging:
   only:  [staging, manual]
   stage: test
   script:
     - echo "not yet ..."
-  tags:
-    - docker
     
 deploy_staging:
   only:  [staging, manual]
   stage: deploy
   script:
     - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
-  tags:
-    - docker
