@@ -1,0 +1,35 @@
+image: node:latest
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$RUNNER_EXI_PRV_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+build_staging:
+  only: [staging, manual]
+  stage: build
+  before_script:
+    - echo $CI_PROJECT_DIR
+    - touch config/env/prod.js
+    - echo "$STAGING_JS" >> config/env/prod.js
+  script: 
+    - npm install --progress=false
+    - npm run build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist
+      
+test_staging:
+  only:  [staging, manual]
+  stage: test
+  script:
+    - echo "not yet ..."
+    
+deploy_staging:
+  only:  [staging, manual]
+  stage: deploy
+  script:
+    - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
