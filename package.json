@@ -58,7 +58,7 @@
     "store": "^2.0.12",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
-    "vue-authenticate": "github:yunanhelmy/vue-authenticate",
+    "vue-authenticate": "git+https://github.com/yunanhelmy/vue-authenticate.git",
     "vue-axios": "^2.1.1",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",

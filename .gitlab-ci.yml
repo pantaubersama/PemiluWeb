@@ -14,7 +14,6 @@ build_staging:
     - echo $CI_PROJECT_DIR
     - touch config/env/prod.js
     - echo "$STAGING_JS" >> config/env/prod.js
-    - rm -rf node_modules
     - node -v
     - npm -v
   script: 
