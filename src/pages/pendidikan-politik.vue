@@ -17,7 +17,8 @@
       <div class="content">
         <question-list v-if="activePage === 'tanya'"
           :questions="questions"
-          @upvoted="onUpvote($event)"></question-list>
+          @upvoted="onUpvote($event)">
+        </question-list>
         <quiz-list v-if="activePage === 'quiz'"></quiz-list>
       </div>
     </div>
