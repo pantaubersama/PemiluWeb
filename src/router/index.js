@@ -45,6 +45,11 @@ const router = new VueRouter({
           path: 'detail/:id',
           name: 'LinimasaDetail',
           component: () => import('@/pages/Linimasa')
+        },
+        {
+          path: 'create-post',
+          name: 'LinimasaCreatePost',
+          component: () => import('@/pages/Linimasa')
         }
       ]
     },
