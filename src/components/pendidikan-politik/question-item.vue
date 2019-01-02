@@ -33,7 +33,6 @@
 
 <script>
 import lottie from 'lottie-web'
-import upvoteLottie from '@/assets/lottie/upvote.json'
 
 export default {
   name: 'QuestionItem',
