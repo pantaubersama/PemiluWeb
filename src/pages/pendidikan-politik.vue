@@ -24,7 +24,11 @@
         </div>
       </div>
       <div v-else>
-        <quiz-detail></quiz-detail>
+        <quiz-detail
+          :showModal="showModal"
+          @onClickNextButton="onClickNextButton"
+          @onClickChoicesButton="onClickChoicesButton"
+        />
       </div>
     </div>
     <div slot="widget-wrapper">
@@ -124,7 +128,8 @@ export default {
           time: '8 days ago',
           isVoted: false,
           question: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam, harum quibusdam voluptatem rem nihil, eius repellat, atque soluta praesentium eligendi illum dolores quo quae nemo ex nam quam aut ab.'
-        }))
+        })),
+      showModal: false
     }
   },
   methods: {
@@ -134,6 +139,13 @@ export default {
     onUpvote (id) {
       const question = this.questions.find(it => it.id === id)
       question.isVoted = true
+    },
+    onClickNextButton (isShow) {
+      this.showModal = !isShow
+    },
+    onClickChoicesButton (choice) {
+      console.log('choice is', choice)
+      this.showModal = false
     }
   }
 }
