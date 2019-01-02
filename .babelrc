@@ -8,5 +8,15 @@
     }],
     "stage-2"
   ],
-  "plugins": ["transform-vue-jsx", "transform-runtime"]
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "test": "./test",
+        "@": "./src"
+      }
+    }],
+    "transform-vue-jsx",
+    "transform-runtime"
+  ]
 }
