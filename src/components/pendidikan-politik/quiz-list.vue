@@ -20,7 +20,7 @@
           <i class="icon icon-share"></i> Bagikan
         </a>
         <div class="spacer"></div>
-        <button class="btn btn-primary orange">Ikuti >></button>
+        <router-link class="btn btn-primary orange" :to="{name: 'PendidikanPolitikQuiz'}">Ikuti >></router-link>
       </div>
     </li>
     <li class="quiz-item">
