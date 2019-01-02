@@ -55,8 +55,16 @@ const router = new VueRouter({
     },
     {
       path: '/pendidikan-politik',
-      name: 'pendidikan-politik',
-      component: () => import('@/pages/pendidikan-politik')
+      name: 'PendidikanPolitik',
+      component: () => import('@/pages/pendidikan-politik'),
+      props: true,
+      children: [
+        {
+          path: 'quiz/ikuti',
+          name: 'PendidikanPolitikQuiz',
+          component: () => import('@/pages/pendidikan-politik')
+        }
+      ]
     },
     {
       path: '/profile',
