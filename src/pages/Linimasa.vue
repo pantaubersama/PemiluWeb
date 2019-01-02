@@ -38,13 +38,13 @@
           </router-link>
         </div>
       </div>
-      
+
     </div>
   </timeline-layout>
 </template>
 
 <script>
-import TimelineLayout from '@/layout/timeline'
+import TimelineLayout from '@/layout/Timeline'
 import TabPilpres from '@/pages/Linimasa/TabPilpres'
 import TabJP from '@/pages/Linimasa/TabJP'
 import WidgetFilterJP from '@/pages/Linimasa/WidgetFilterJP'

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import LayoutTimeline from '@/layout/timeline'
+import LayoutTimeline from '@/layout/Timeline'
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
 import CardJanjiPilpres from '@/components/CardJanjiPilpres'

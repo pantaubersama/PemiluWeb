@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import TimelineLayout from '@/layout/timeline'
+import TimelineLayout from '@/layout/Timeline'
 import QuestionList from '@/components/pendidikan-politik/question-list'
 import QuizList from '@/components/pendidikan-politik/quiz-list'
 import WidgetFilter from '@/components/WidgetFilter'
