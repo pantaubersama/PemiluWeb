@@ -2,67 +2,121 @@
   <timeline-layout>
     <div slot="main-content" class="page card pendidikan-politik">
       <div class="nav-tab--list">
-          <router-link class="nav-tab--item"
-            :class="{ active: activePage === 'tanya' }"
-            :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }">
-            Tanya
-          </router-link>
-          <router-link class="nav-tab--item"
-            :class="{ active: activePage === 'quiz' }"
-            :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }">
-            Quiz
-          </router-link>
+        <router-link
+          class="nav-tab--item"
+          :class="{ active: activePage === 'tanya' }"
+          :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
+        >Tanya</router-link>
+        <router-link
+          class="nav-tab--item"
+          :class="{ active: activePage === 'quiz' }"
+          :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
+        >Quiz</router-link>
       </div>
 
       <div class="content">
-        <question-list v-if="activePage === 'tanya'"
+        <question-list
+          v-if="activePage === 'tanya'"
           :questions="questions"
-          @upvoted="onUpvote($event)">
-        </question-list>
+          @upvoted="onUpvote($event)"
+        ></question-list>
         <quiz-list v-if="activePage === 'quiz'"></quiz-list>
       </div>
     </div>
     <div slot="widget-wrapper">
       <widget-filter
+        v-if="activePage === 'tanya'"
         :is-active="isWidgetFilterExpanded"
         @open="onOpenWidgetFilter(true)"
-        @close="onOpenWidgetFilter(false)">
+        @close="onOpenWidgetFilter(false)"
+      >
         <div slot="content">
           <div class="dropdown-title">User</div>
           <ul>
             <li>
-              <input type="radio" id="user1"
-                name="user1"
-                value="semua"
-                v-model="filterUser">
+              <input type="radio" id="user1" name="user1" value="semua" v-model="filterUser">
               <label for="user1">Semua</label>
             </li>
             <li>
-              <input type="radio" id="user2" name="user2"
+              <input
+                type="radio"
+                id="user2"
+                name="user2"
                 value="belum-verifikasi"
-                v-model="filterUser">
+                v-model="filterUser"
+              >
               <label for="user2">Belum Verifikasi</label>
             </li>
             <li>
-              <input type="radio" id="user3" name="user3"
+              <input
+                type="radio"
+                id="user3"
+                name="user3"
                 value="terverifikasi"
-                v-model="filterUser">
+                v-model="filterUser"
+              >
               <label for="user3">Terverifikasi</label>
             </li>
           </ul>
           <div class="dropdown-title">Urutan</div>
           <ul>
             <li>
-              <input type="radio" id="urutan1" name="urutan1"
+              <input
+                type="radio"
+                id="urutan1"
+                name="urutan1"
                 value="paling-baru"
-                v-model="filterUrutan">
+                v-model="filterUrutan"
+              >
               <label for="urutan1">Paling baru</label>
             </li>
             <li>
-              <input type="radio" id="urutan2" name="urutan2"
+              <input
+                type="radio"
+                id="urutan2"
+                name="urutan2"
                 value="paling-banyak-divoting"
-                v-model="filterUrutan">
+                v-model="filterUrutan"
+              >
               <label for="urutan2">Paling banyak divoting</label>
+            </li>
+          </ul>
+          <div class="button-filter-group">
+            <button class="btn btn-primary">Terapkan</button>
+            <button class="btn btn-outline">Reset</button>
+          </div>
+        </div>
+      </widget-filter>
+      <widget-filter
+        v-if="activePage === 'quiz'"
+        :is-active="isWidgetFilterExpanded"
+        @open="onOpenWidgetFilter(true)"
+        @close="onOpenWidgetFilter(false)"
+      >
+        <div slot="content">
+          <div class="dropdown-title">Quiz</div>
+          <ul>
+            <li>
+              <input type="radio" id="quiz1" name="quiz1" value="semua" v-model="filterQuiz">
+              <label for="quiz1">Semua</label>
+            </li>
+            <li>
+              <input
+                type="radio"
+                id="quiz2"
+                name="quiz2"
+                value="belum-diikuti"
+                v-model="filterQuiz"
+              >
+              <label for="quiz2">Belum Diikuti</label>
+            </li>
+            <li>
+              <input type="radio" id="quiz3" name="quiz3" value="diikuti" v-model="filterQuiz">
+              <label for="quiz3">Diikuti</label>
+            </li>
+            <li>
+              <input type="radio" id="quiz4" name="quiz4" value="selesai" v-model="filterQuiz">
+              <label for="quiz4">Selesai</label>
             </li>
           </ul>
           <div class="button-filter-group">
@@ -101,28 +155,29 @@ export default {
       return this.$route.query.type
     }
   },
-  data() {
+  data () {
     return {
       isWidgetFilterExpanded: false,
       filterUser: 'semua',
       filterUrutan: 'paling-baru',
-      questions: Array.from(Array(20).keys())
-        .map((id) => ({
-          id: id,
-          name: 'Trump',
-          avatar: '@/assets/trump.jpg',
-          title: 'Apa apa apa apa apa?',
-          time: '8 days ago',
-          isVoted: false,
-          question: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam, harum quibusdam voluptatem rem nihil, eius repellat, atque soluta praesentium eligendi illum dolores quo quae nemo ex nam quam aut ab.'
-        }))
+      filterQuiz: 'semua',
+      questions: Array.from(Array(20).keys()).map(id => ({
+        id: id,
+        name: 'Trump',
+        avatar: '@/assets/trump.jpg',
+        title: 'Apa apa apa apa apa?',
+        time: '8 days ago',
+        isVoted: false,
+        question:
+          'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam, harum quibusdam voluptatem rem nihil, eius repellat, atque soluta praesentium eligendi illum dolores quo quae nemo ex nam quam aut ab.'
+      }))
     }
   },
   methods: {
-    onOpenWidgetFilter(open) {
+    onOpenWidgetFilter (open) {
       this.isWidgetFilterExpanded = open
     },
-    onUpvote(id) {
+    onUpvote (id) {
       const question = this.questions.find(it => it.id === id)
       question.isVoted = true
     }
