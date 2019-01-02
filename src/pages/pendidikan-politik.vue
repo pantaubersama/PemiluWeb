@@ -1,83 +1,73 @@
 <template>
   <timeline-layout>
     <div slot="main-content" class="page card pendidikan-politik">
-      <div class="nav-tab--list">
-        <router-link
-          class="nav-tab--item"
-          :class="{ active: activePage === 'tanya' }"
-          :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
-        >Tanya</router-link>
-        <router-link
-          class="nav-tab--item"
-          :class="{ active: activePage === 'quiz' }"
-          :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
-        >Quiz</router-link>
-      </div>
+      <div v-if="$route.name != 'PendidikanPolitikQuiz'">
+        <div class="nav-tab--list">
+            <router-link class="nav-tab--item"
+              :class="{ active: activePage === 'tanya' }"
+              :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }">
+              Tanya
+            </router-link>
+            <router-link class="nav-tab--item"
+              :class="{ active: activePage === 'quiz' }"
+              :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }">
+              Quiz
+            </router-link>
+        </div>
 
-      <div class="content">
-        <question-list
-          v-if="activePage === 'tanya'"
-          :questions="questions"
-          @upvoted="onUpvote($event)"
-        ></question-list>
-        <quiz-list v-if="activePage === 'quiz'"></quiz-list>
+        <div class="content">
+          <question-list v-if="activePage === 'tanya'"
+            :questions="questions"
+            @upvoted="onUpvote($event)">
+          </question-list>
+          <quiz-list v-if="activePage === 'quiz'"></quiz-list>
+        </div>
+      </div>
+      <div v-else>
+        <quiz-detail></quiz-detail>
       </div>
     </div>
-    <div slot="widget-wrapper">
+    <template slot="widget-wrapper">
       <widget-filter
         v-if="activePage === 'tanya'"
         :is-active="isWidgetFilterExpanded"
         @open="onOpenWidgetFilter(true)"
-        @close="onOpenWidgetFilter(false)"
-      >
+        @close="onOpenWidgetFilter(false)">
         <div slot="content">
           <div class="dropdown-title">User</div>
           <ul>
             <li>
-              <input type="radio" id="user1" name="user1" value="semua" v-model="filterUser">
+              <input type="radio" id="user1"
+                name="user1"
+                value="semua"
+                v-model="filterUser">
               <label for="user1">Semua</label>
             </li>
             <li>
-              <input
-                type="radio"
-                id="user2"
-                name="user2"
+              <input type="radio" id="user2" name="user2"
                 value="belum-verifikasi"
-                v-model="filterUser"
-              >
+                v-model="filterUser">
               <label for="user2">Belum Verifikasi</label>
             </li>
             <li>
-              <input
-                type="radio"
-                id="user3"
-                name="user3"
+              <input type="radio" id="user3" name="user3"
                 value="terverifikasi"
-                v-model="filterUser"
-              >
+                v-model="filterUser">
               <label for="user3">Terverifikasi</label>
             </li>
           </ul>
           <div class="dropdown-title">Urutan</div>
           <ul>
             <li>
-              <input
-                type="radio"
-                id="urutan1"
-                name="urutan1"
+              <input type="radio" id="urutan1" name="urutan1"
                 value="paling-baru"
-                v-model="filterUrutan"
-              >
+                v-model="filterUrutan">
               <label for="urutan1">Paling baru</label>
             </li>
             <li>
-              <input
-                type="radio"
-                id="urutan2"
-                name="urutan2"
+              <input type="radio" id="urutan2" name="urutan2"
                 value="paling-banyak-divoting"
-                v-model="filterUrutan"
-              >
+                v-model="filterUrutan">
               <label for="urutan2">Paling banyak divoting</label>
             </li>
           </ul>
@@ -91,8 +81,7 @@
         v-if="activePage === 'quiz'"
         :is-active="isWidgetFilterExpanded"
         @open="onOpenWidgetFilter(true)"
-        @close="onOpenWidgetFilter(false)"
-      >
+        @close="onOpenWidgetFilter(false)">
         <div slot="content">
           <div class="dropdown-title">Quiz</div>
           <ul>
@@ -127,7 +116,7 @@
       </widget-filter>
       <widget-footer-tanya v-if="activePage === 'tanya'"></widget-footer-tanya>
       <widget-footer-quiz v-if="activePage === 'quiz'"></widget-footer-quiz>
-    </div>
+    </template>
   </timeline-layout>
 </template>
 
@@ -135,6 +124,7 @@
 import TimelineLayout from '@/layout/Timeline'
 import QuestionList from '@/components/pendidikan-politik/question-list'
 import QuizList from '@/components/pendidikan-politik/quiz-list'
+import QuizDetail from '@/components/pendidikan-politik/quiz-detail'
 import WidgetFilter from '@/components/WidgetFilter'
 import WidgetFooterTanya from '@/components/pendidikan-politik/widget-footer-tanya'
 import WidgetFooterQuiz from '@/components/pendidikan-politik/widget-footer-quiz'
@@ -145,6 +135,7 @@ export default {
     TimelineLayout,
     QuestionList,
     QuizList,
+    QuizDetail,
     WidgetFilter,
     WidgetFooterTanya,
     WidgetFooterQuiz
