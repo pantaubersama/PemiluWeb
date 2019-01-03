@@ -1,13 +1,12 @@
 <template>
-  <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-          <slot name="modal-content">default Modal</slot>
-        </div>
+  <transition-group name="modal">
+    <div key="2" class="modal-wrapper">
+      <div class="modal-container">
+        <slot name="modal-content">default Modal</slot>
       </div>
     </div>
-  </transition>
+    <div key="1" class="modal-mask" @click.stop="$emit('close-request')"></div>
+  </transition-group>
 </template>
 
 <script>

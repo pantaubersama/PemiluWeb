@@ -38,6 +38,9 @@
             <li>
               <router-link to="/">Badge</router-link>
             </li>
+            <li>
+              <router-link to="/profile-setting">Setting</router-link>
+            </li>
           </ul>
           <a href="" class="button-logout" @click.prevent="logout">Keluar</a>
         </div>
@@ -55,12 +58,12 @@ import { authLink } from '@/mixins/link'
 export default {
   name: 'Header',
   mixins: [authLink],
-  data () {
+  data() {
     return {
       isActive: false
     }
   },
-  created () {
+  created() {
     if (this.isProtected()) {
       this.$store.commit('meLogout/userLogin')
     }
@@ -72,13 +75,13 @@ export default {
     ])
   },
   methods: {
-    logout () {
+    logout() {
       this.$store.dispatch('meLogout/logout')
     },
-    toggleDropdown (event) {
+    toggleDropdown(event) {
       this.isActive = !this.isActive
     },
-    removeDropdown (event) {
+    removeDropdown(event) {
       if (this.userLogin && !event.target.parentNode.classList.contains('user-thumb')) {
         this.isActive = false
       }

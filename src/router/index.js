@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 import Meta from 'vue-meta'
 
 Vue.use(VueRouter)
@@ -17,14 +19,6 @@ const router = new VueRouter({
       name: 'Login',
       component: () => import('@/pages/Login')
     },
-    // {
-    //   path: '/another-page',
-    //   name: 'AnotherPage',
-    //   component: () => import('@/pages/AnotherPage'),
-    //   meta: {
-    //     AuthenticationRequired: true
-    //   }
-    // },
     {
       path: '/',
       name: 'Home',
@@ -80,6 +74,10 @@ const router = new VueRouter({
       path: '/profile/verified-steps',
       name: 'ProfileVerified',
       component: () => import('@/pages/Profile/ProfileVerified')
+    }, {
+      path: '/profile/setting',
+      name: 'ProfileSetting',
+      component: () => import('@/pages/Profile/Setting')
     }
   ]
 })
@@ -89,7 +87,12 @@ router.beforeEach(function(to, from, next) {
     to.matched.some(record => record.meta.AuthenticationRequired) &&
     !vueAuth.isAuthenticated()
   ) {
-    next({ path: '/login', query: { redirect: to.fullPath } })
+    next({
+      path: '/login',
+      query: {
+        redirect: to.fullPath
+      }
+    })
   } else {
     next()
   }

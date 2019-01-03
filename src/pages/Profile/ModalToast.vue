@@ -10,14 +10,14 @@
 
 <script>
 import lottie from 'lottie-web'
-import Modal from '@/components/Modal'
+import Modal from '@/layout/Modal'
 export default {
   name: 'ModalToast',
   components: {
     Modal,
     lottie
   },
-  data () {
+  data() {
     return {
       validationSuccess: null
     }
