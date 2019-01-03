@@ -17,14 +17,14 @@ const router = new VueRouter({
       name: 'Login',
       component: () => import('@/pages/Login')
     },
-    {
-      path: '/another-page',
-      name: 'AnotherPage',
-      component: () => import('@/pages/AnotherPage'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
+    // {
+    //   path: '/another-page',
+    //   name: 'AnotherPage',
+    //   component: () => import('@/pages/AnotherPage'),
+    //   meta: {
+    //     AuthenticationRequired: true
+    //   }
+    // },
     {
       path: '/',
       name: 'Home',
@@ -70,6 +70,11 @@ const router = new VueRouter({
       path: '/profile',
       name: 'Profile',
       component: () => import('@/pages/Profile')
+    },
+    {
+      path: '/profile/verified-steps',
+      name: 'ProfileVerified',
+      component: () => import('@/pages/Profile/ProfileVerified')
     }
   ]
 })
