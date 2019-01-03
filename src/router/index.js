@@ -61,7 +61,12 @@ const router = new VueRouter({
       children: [
         {
           path: 'quiz/ikuti',
-          name: 'PendidikanPolitikQuiz',
+          name: 'PendidikanPolitikQuizIkuti',
+          component: () => import('@/pages/pendidikan-politik')
+        },
+        {
+          path: 'quiz/lanjut',
+          name: 'PendidikanPolitikQuizLanjut',
           component: () => import('@/pages/pendidikan-politik')
         }
       ]
@@ -74,8 +79,11 @@ const router = new VueRouter({
   ]
 })
 
-router.beforeEach(function (to, from, next) {
-  if (to.matched.some(record => record.meta.AuthenticationRequired) && !vueAuth.isAuthenticated()) {
+router.beforeEach(function(to, from, next) {
+  if (
+    to.matched.some(record => record.meta.AuthenticationRequired) &&
+    !vueAuth.isAuthenticated()
+  ) {
     next({ path: '/login', query: { redirect: to.fullPath } })
   } else {
     next()
