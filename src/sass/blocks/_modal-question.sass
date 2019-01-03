@@ -1,68 +1,78 @@
 .modal-quiz-question
-    padding: 0
-    margin: 0
+  padding: 0
+  margin: 0
 
 .modal-header
-    border-width: 0
-    margin: 0
-    padding: 0
+  border-width: 0
+  margin: 0
+  padding: 0
 
 .modal-header--question
-    align-items: center
-    color: #ffffff
-    .close-icon svg
-        fill: #ffffff
+  align-items: center
+  color: #ffffff
 
-.modal-title--question
+  .modal-title
     font-size: 12px
 
-.modal-bg--question
-    margin: 0
-    padding: 0
+  .close-icon svg
+    fill: #ffffff
+
+.modal-background--question
+  margin: 0
+  padding: 0
+  background-size: contain
+  position: fixed
+  top: 0
+  left: 0
+  min-width: 100%
+  min-height: 100%
+  z-index: -1
+
+  &.background-1
     background: url(~@/assets/bg-01.svg) no-repeat top center;
-    background-size: contain
-    position: fixed
-    top: 0
-    left: 0
-    min-width: 100%
-    min-height: 100%
-    z-index: -1
+
+  &.background-2
+    background: url(~@/assets/bg-01.svg) no-repeat top center;
 
 .modal-body--question
-    margin: 0
-    padding: 0
-    color: #ffffff
-    h2
-        height: 120px
-        font-size: 18px
-        line-height: 24px
-        text-align: center
-        display: flex
-        justify-content: center
-        align-items: center
+  margin: 0
+  padding: 0
+  color: #ffffff
 
-.row-question
-    height: 100%
-    margin: 0
-    padding: 0
-    .col
-        margin: 0
-        padding-left: 4px
-        padding-right: 4px
-
-.col-question
-    margin: 0
-    padding: 0
-    height: 100%
-    color: #111111
-    background-color: #f4f4f4
+  h2
+    height: 120px
+    font-size: 18px
+    line-height: 24px
     text-align: center
     display: flex
-    flex-direction: column
-    justify-content: space-between
-    p
-        padding: 14px
-    .btn
-        border-radius: 0
-        border-width: 0
-        background-color: #54369f
+    justify-content: center
+    align-items: center
+
+.row-question
+  height: 100%
+  margin: 0
+  padding: 0
+
+  .col
+    margin: 0
+    padding-left: 4px
+    padding-right: 4px
+
+.col-question
+  margin: 0
+  padding: 0
+  height: 100%
+  color: #111111
+  background-color: #f4f4f4
+  text-align: center
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+  p
+    padding: 14px
+
+  .btn
+    border-radius: 0
+    border-width: 0
+    background-color: #54369f

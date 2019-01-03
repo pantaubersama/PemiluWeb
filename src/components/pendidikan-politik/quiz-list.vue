@@ -1,57 +1,64 @@
 <template>
-<div class="quiz-list">
-  <div class="total-kecenderungan">
-    <p class="title">
-      Total Kecenderunganmu:
-    </p>
-    <p class="total">
-      70% (Jokowi-Makruf)
-    </p>
+  <div class="quiz-list">
+    <div class="total-kecenderungan">
+      <p class="title">Total Kecenderunganmu:</p>
+      <p class="total">70% (Jokowi-Makruf)</p>
+    </div>
+    <ul>
+      <li class="quiz-item">
+        <div class="artwork-container">
+          <img src="@/assets/image-quiz-1.svg" class="quiz-artwork">
+        </div>
+        <div class="info-container">
+          <h3 class="title">Quiz Minggu ke-3</h3>
+          <span class="question-count">7 Pertanyaan</span>
+          <a href="#" class="share">
+            <i class="icon icon-share"></i> Bagikan
+          </a>
+          <div class="spacer"></div>
+          <router-link
+            class="btn btn-primary orange"
+            :to="{name: 'PendidikanPolitikQuizIkuti'}"
+          >Ikuti >></router-link>
+        </div>
+      </li>
+      <li class="quiz-item">
+        <div class="artwork-container">
+          <img
+            src="@/assets/image-quiz-2.png"
+            srcset="@/assets/image-quiz-2@2x.png 2x, @/assets/image-quiz-2@3x.png 3x"
+            class="quiz-artwork"
+          >
+        </div>
+        <div class="info-container">
+          <h3 class="title">Quiz Minggu ke-2</h3>
+          <span class="question-count">5 Pertanyaan</span>
+          <a href="#" class="share">
+            <i class="icon icon-share"></i> Bagikan
+          </a>
+          <div class="spacer"></div>
+          <router-link
+            class="btn btn-primary red"
+            :to="{name: 'PendidikanPolitikQuizLanjut'}"
+          >Lanjut >></router-link>
+        </div>
+      </li>
+      <li class="quiz-item">
+        <div class="artwork-container">
+          <img src="@/assets/image-quiz-3.svg" class="quiz-artwork">
+        </div>
+        <div class="info-container">
+          <h3 class="title">Quiz Minggu ke-2</h3>
+          <span class="question-count">5 Pertanyaan</span>
+          <a href="#" class="share">
+            <i class="icon icon-share"></i> Bagikan
+          </a>
+          <div class="spacer"></div>
+          <button class="btn btn-primary torquoise">Result >></button>
+        </div>
+      </li>
+    </ul>
   </div>
-  <ul>
-    <li class="quiz-item">
-      <div class="artwork-container">
-        <img src="@/assets/image-quiz-1.svg" class="quiz-artwork">
-      </div>
-      <div class="info-container">
-        <h3 class="title">Quiz Minggu ke-3</h3>
-        <span class="question-count">7 Pertanyaan</span>
-        <a href="#" class="share">
-          <i class="icon icon-share"></i> Bagikan
-        </a>
-        <div class="spacer"></div>
-        <router-link class="btn btn-primary orange" :to="{name: 'PendidikanPolitikQuiz'}">Ikuti >></router-link>
-      </div>
-    </li>
-    <li class="quiz-item">
-      <div class="artwork-container">
-        <img src="@/assets/image-quiz-2.png"
-          srcset="@/assets/image-quiz-2@2x.png 2x,
-                  @/assets/image-quiz-2@3x.png 3x"
-          class="quiz-artwork">
-      </div>
-      <div class="info-container">
-        <h3 class="title">Quiz Minggu ke-2</h3>
-        <span class="question-count">5 Pertanyaan</span>
-        <a href="#" class="share"><i class="icon icon-share"></i> Bagikan</a>
-        <div class="spacer"></div>
-        <button class="btn btn-primary red">Lanjut >></button>
-      </div>
-    </li>
-    <li class="quiz-item">
-      <div class="artwork-container">
-        <img src="@/assets/image-quiz-3.svg" class="quiz-artwork">
-      </div>
-      <div class="info-container">
-        <h3 class="title">Quiz Minggu ke-2</h3>
-        <span class="question-count">5 Pertanyaan</span>
-        <a href="#" class="share"><i class="icon icon-share"></i> Bagikan</a>
-        <div class="spacer"></div>
-        <button class="btn btn-primary torquoise">Result >></button>
-      </div>
-    </li>
-  </ul>
-</div>
 </template>
 
 <script>
