@@ -1,8 +1,7 @@
 <template>
   <div>
     <card-question-layout>
-      <img slot="background" src="@/assets/card-quiz.svg" alt="background">
-
+      <meditation-illustration slot="background"></meditation-illustration>
       <div slot="title" class="quiz-title">
         <div class="quiz-title">
           <h3>Quiz Minggu ke-2</h3>
@@ -30,12 +29,19 @@
 </template>
 
 <script>
+import { MeditationIllustration } from '@/svg/illustrations'
 import CardQuestionLayout from '@/layout/CardQuestion'
 import QuestionModal from '@/components/pendidikan-politik/question-modal'
 
 export default {
   name: 'QuizDetail',
-  components: { QuestionModal, CardQuestionLayout },
-  props: { showModal: Boolean }
+  components: {
+    MeditationIllustration,
+    QuestionModal,
+    CardQuestionLayout
+  },
+  props: {
+    showModal: Boolean
+  }
 }
 </script>
