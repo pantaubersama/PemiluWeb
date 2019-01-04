@@ -81,6 +81,9 @@ export default {
     }
     window.addEventListener('click', this.removeDropdown)
   },
+  beforeDestroy() {
+    window.removeEventListener('click', this.removeDropdown)
+  },
   computed: {
     ...mapState('meLogout', ['userLogin'])
   },
