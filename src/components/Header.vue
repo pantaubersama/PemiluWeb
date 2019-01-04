@@ -94,7 +94,7 @@ export default {
     removeDropdown(event) {
       if (
         this.userLogin &&
-        !event.target.parentNode.classList.contains('user-thumb')
+        !event.target.parentNode.parentNode.classList.contains('user-thumb')
       ) {
         this.isActive = false
       }

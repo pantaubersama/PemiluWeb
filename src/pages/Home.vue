@@ -2,7 +2,7 @@
   <LayoutTimeline>
     <template slot="main-content">
       <CardPilpres></CardPilpres>
-      <CardJanjiPilpres></CardJanjiPilpres>
+      <CardJanjiPolitik></CardJanjiPolitik>
       <CardTanya></CardTanya>
     </template>
     <template slot="widget-wrapper">
@@ -18,7 +18,7 @@
 import LayoutTimeline from '@/layout/Timeline'
 import NavSidebarTop from '@/components/NavSidebarTop'
 import NavSidebarBottom from '@/components/NavSidebarBottom'
-import CardJanjiPilpres from '@/components/CardJanjiPilpres'
+import CardJanjiPolitik from '@/components/CardJanjiPolitik'
 import WidgetVerified from '@/components/WidgetVerified'
 import CardPilpres from '@/components/CardPilpres'
 import CardTanya from '@/components/CardTanya'
@@ -32,7 +32,7 @@ export default {
     LayoutTimeline,
     NavSidebarTop,
     NavSidebarBottom,
-    CardJanjiPilpres,
+    CardJanjiPolitik,
     WidgetVerified,
     CardPilpres,
     CardTanya,
