@@ -1,34 +1,31 @@
 <template>
-<div class="question-item">
-  <button class="vote" @click="onUpvote()">
-    <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
-    <i v-show="!isAnimating" class="icon voteup"
-      :class="{ voted: isVoted }"></i>
-    <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
-    <span class="vote-count">1k</span>
-  </button>
-  <div class="content">
-    <div class="meta">
-      <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
-      <div class="title">
-        <div class="name">{{name}}</div>
-        <small class="question-title">{{title}}</small>
+  <div class="question-item">
+    <button class="vote" @click="onUpvote()">
+      <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
+      <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
+      <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
+      <span class="vote-count">1k</span>
+    </button>
+    <div class="content">
+      <div class="meta">
+        <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
+        <div class="title">
+          <div class="name">{{name}}</div>
+          <small class="question-title">{{title}}</small>
+        </div>
+        <small class="time">Ask {{time}}</small>
       </div>
-      <small class="time">Ask {{time}}</small>
-    </div>
-    <div class="question">
-      {{question}}
-    </div>
-    <div class="button-list">
-      <button class="share">
-        <img src="@/assets/icon_share.svg">
-      </button>
-      <button class="menu">
-        <img src="@/assets/dots-icon.svg">
-      </button>
+      <div class="question">{{question}}</div>
+      <div class="button-list">
+        <button class="share">
+          <img src="@/assets/icon_share.svg">
+        </button>
+        <button class="menu">
+          <img src="@/assets/dots-icon.svg">
+        </button>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
