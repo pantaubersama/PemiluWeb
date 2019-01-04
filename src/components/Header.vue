@@ -2,7 +2,7 @@
   <div class="header position-fixed">
     <div class="container d-flex">
       <router-link exact class="logo" to="/">
-        <logo-icon></logo-icon>
+        <logo-product></logo-product>
       </router-link>
       <div class="ml-auto navbar-right d-flex align-item-center">
         <div class="input-search">
@@ -52,18 +52,18 @@
 import { mapState } from 'vuex'
 import { authLink } from '@/mixins/link'
 
+import { LogoProduct } from '@/svg/products'
 import {
-  LogoIcon,
   UserIcon,
   SearchIcon,
   NotificationIcon,
   WordStadiumIcon
-} from '@/svg'
+} from '@/svg/icons'
 
 export default {
   name: 'Header',
   components: {
-    LogoIcon,
+    LogoProduct,
     UserIcon,
     SearchIcon,
     NotificationIcon,
