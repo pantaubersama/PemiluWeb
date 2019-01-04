@@ -36,7 +36,7 @@
                 <router-link to="/">Badge</router-link>
               </li>
               <li>
-                <router-link to="/profile-setting">Setting</router-link>
+                <router-link to="/profile/setting">Setting</router-link>
               </li>
             </ul>
             <a href class="button-logout" @click.prevent="logout">Keluar</a>
@@ -94,7 +94,7 @@ export default {
     removeDropdown(event) {
       if (
         this.userLogin &&
-        !event.target.parentNode.classList.contains('user-thumb')
+        !event.target.parentNode.parentNode.classList.contains('user-thumb')
       ) {
         this.isActive = false
       }
