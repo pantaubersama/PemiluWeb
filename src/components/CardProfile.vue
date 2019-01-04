@@ -2,7 +2,7 @@
   <div class="profil-list">
     <div class="card grey">
       <span class="edit-icon">
-        <a href>
+        <a href="#">
           <img src="@/assets/icon_edit.svg">
         </a>
       </span>
@@ -11,22 +11,41 @@
         <span>
           <h3>Jelo Caviar, @jelo</h3>
           <div v-if="isVerified" class="line-verified">
-            <svg version="1.1" id="Layer_1" viewBox="0 0 48 48" style="enable-background:new 0 0 48 48;" xml:space="preserve">
-            <path id="Path_1872" class="st0" d="M38.9,24l3.1-4.8l-5.1-2.6l0.3-5.7l-5.7,0.3L28.8,6L24,9.1L19.2,6l-2.6,5.1l-5.7-0.3l0.3,5.7
+            <svg
+              version="1.1"
+              id="Layer_1"
+              viewBox="0 0 48 48"
+              style="enable-background:new 0 0 48 48;"
+              xml:space="preserve"
+            >
+              <path
+                id="Path_1872"
+                class="st0"
+                d="M38.9,24l3.1-4.8l-5.1-2.6l0.3-5.7l-5.7,0.3L28.8,6L24,9.1L19.2,6l-2.6,5.1l-5.7-0.3l0.3,5.7
               L6,19.2L9.1,24L6,28.8l5.1,2.6l-0.3,5.7l5.7-0.3l2.6,5.1l4.8-3.1l4.8,3.1l2.6-5.1l5.7,0.3l-0.3-5.7l5.1-2.6L38.9,24z M21.2,31
-              l-6.4-6.4l2.1-2.1l4.2,4.2L31,17l2.1,2.1L21.2,31z"/>
+              l-6.4-6.4l2.1-2.1l4.2,4.2L31,17l2.1,2.1L21.2,31z"
+              ></path>
             </svg>
-             Terverifikasi
+            Terverifikasi
           </div>
           <router-link v-else class="btn line" to="/profile/verified-steps">
-            <svg version="1.1" id="Layer_1" viewBox="0 0 48 48" style="enable-background:new 0 0 48 48;" xml:space="preserve">
-            <path id="Path_1872" class="st0" d="M38.9,24l3.1-4.8l-5.1-2.6l0.3-5.7l-5.7,0.3L28.8,6L24,9.1L19.2,6l-2.6,5.1l-5.7-0.3l0.3,5.7
+            <svg
+              version="1.1"
+              id="Layer_1"
+              viewBox="0 0 48 48"
+              style="enable-background:new 0 0 48 48;"
+              xml:space="preserve"
+            >
+              <path
+                id="Path_1872"
+                class="st0"
+                d="M38.9,24l3.1-4.8l-5.1-2.6l0.3-5.7l-5.7,0.3L28.8,6L24,9.1L19.2,6l-2.6,5.1l-5.7-0.3l0.3,5.7
               L6,19.2L9.1,24L6,28.8l5.1,2.6l-0.3,5.7l5.7-0.3l2.6,5.1l4.8-3.1l4.8,3.1l2.6-5.1l5.7,0.3l-0.3-5.7l5.1-2.6L38.9,24z M21.2,31
-              l-6.4-6.4l2.1-2.1l4.2,4.2L31,17l2.1,2.1L21.2,31z"/>
+              l-6.4-6.4l2.1-2.1l4.2,4.2L31,17l2.1,2.1L21.2,31z"
+              ></path>
             </svg>
-             Belum Verifikasi
+            Belum Verifikasi
           </router-link>
-          
         </span>
         <p>An ordinary netizen who likes to talk a lot. Like, a lot. Who cares anyway!</p>
       </div>
@@ -38,14 +57,26 @@
           <img src="@/assets/user.svg">
           <p>Universitas Gajah Mada</p>
           <span class="icon">
-            <a href>
+            <button
+              id="toggle-button"
+              class="request-cluster"
+              :class="{ 'is-active': isDropdownActive }"
+              @click.stop="toggleDropdownCluster()"
+            >
               <img src="@/assets/icon_more_vertical.svg">
-            </a>
+            </button>
+            <div class="dropdown-content">
+              <button
+                class="create-cluster"
+                @click.stop="() => isModalRequestClusterOpen = true"
+              >Request Buat Cluster</button>
+            </div>
           </span>
         </div>
       </div>
       <div class="list-wrap">
-        <h4 class="title">Biodata
+        <h4 class="title">
+          Biodata
           <a href>
             <img src="@/assets/icon_edit.svg">
           </a>
@@ -122,21 +153,101 @@
       <ListCardJP></ListCardJP>
       <ListCardJP></ListCardJP>
     </div>
+
+    <modal-request-cluster
+      v-if="isModalRequestClusterOpen"
+      :name="requestCluster.name"
+      :category="requestCluster.category"
+      :description="requestCluster.description"
+      @close-request="() => isModalRequestClusterOpen = false"
+      @submit="onSubmitRequest($event)"
+    ></modal-request-cluster>
+    <modal-confirm-request-cluster
+      v-if="isModalConfirmOpen"
+      @back="onConfirmBack()"
+      @confirm="onConfirmRequestCluster()"
+    ></modal-confirm-request-cluster>
   </div>
 </template>
 
 <script>
 import ListCardJP from '@/components/ListCardJP'
+import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
+import ModalConfirmRequestCluster from '@/pages/Profile/ModalConfirmRequestCluster'
 
 export default {
   name: 'CardProfile',
   components: {
-    ListCardJP
+    ListCardJP,
+    ModalRequestCluster,
+    ModalConfirmRequestCluster
   },
-  data (){
+  data() {
     return {
-      isVerified: false
+      isVerified: false,
+      isDropdownActive: false,
+      isModalRequestClusterOpen: false,
+      isModalConfirmOpen: true,
+      requestCluster: {
+        name: 'PDIP',
+        category: 'partai',
+        description: 'Merupakan Cluster Yang Bergerak'
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('click', this.removeDropdown)
+  },
+  beforeDestroy() {
+    window.removeEventListener('click', this.removeDropdown)
+  },
+  methods: {
+    toggleDropdownCluster() {
+      this.isDropdownActive = !this.isDropdownActive
+    },
+    onConfirmBack() {
+      this.isModalConfirmOpen = false
+      this.isModalRequestClusterOpen = true
+    },
+    onConfirmRequestCluster() {
+      this.isModalConfirmOpen = false
+    },
+    onSubmitRequest({ name, category, description }) {
+      this.requestCluster.name = name
+      this.requestCluster.category = category
+      this.requestCluster.description = description
+      this.isModalRequestClusterOpen = false
+      this.isModalConfirmOpen = true
+    },
+    removeDropdown(event) {
+      const isInsideDropdown = event.target.parentNode.parentNode.classList.contains(
+        'request-cluster'
+      )
+      if (!this.isDropdownActive) return
+      if (!isInsideDropdown) {
+        console.log('remove dropdown')
+        this.isDropdownActive = false
+      }
     }
   }
 }
 </script>
+<style lang="sass" scoped>
+span.icon
+  position: relative
+button.request-cluster
+  background: none
+  border: none
+  cursor: pointer
+  &.is-active + .dropdown-content
+    display: block
+button.create-cluster
+  background: none
+  border: none
+  font-size: 12px
+  font-weight: bold
+  line-height: 1.33
+  text-align: left
+  color: #f2771d
+  cursor: pointer
+</style>

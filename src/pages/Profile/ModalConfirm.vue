@@ -4,10 +4,12 @@
     <div key="modal-confirm" class="modal-mask" v-if="hide == false">
       <div class="modal-wrapper">
         <div class="modal-container modal-confirm">
-          <h3>Apakah kamu yakin data yang  <br> dikirim sudah benar ?</h3>
+          <h3>Apakah kamu yakin data yang
+            <br>dikirim sudah benar ?
+          </h3>
           <div class="button-options">
-            <a href="" class="cancel-modal" @click.prevent="$emit('close')">Tidak</a>
-            <a href="" @click.prevent="modalToast()">Ya</a>
+            <a href class="cancel-modal" @click.prevent="$emit('close')">Tidak</a>
+            <a href @click.prevent="modalToast()">Ya</a>
           </div>
         </div>
       </div>
@@ -19,7 +21,7 @@
 import ModalToast from '@/pages/Profile/ModalToast'
 export default {
   name: 'ModalConfirm',
-  data () {
+  data() {
     return {
       modal: false,
       hide: false
@@ -29,19 +31,19 @@ export default {
     ModalToast
   },
   methods: {
-    modalToast () {
+    modalToast() {
       this.modal = 'modalToast'
       this.hide = true
       setTimeout(() => {
         this.modal = false
         document.documentElement.className = ''
-      }, 3000);
+      }, 3000)
     }
   },
-  created(){
+  created() {
     document.documentElement.className = 'overflow-y-hidden'
   },
-  destroyed (){
+  destroyed() {
     document.documentElement.className = ''
   }
 }

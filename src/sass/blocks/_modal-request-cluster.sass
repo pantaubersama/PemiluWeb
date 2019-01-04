@@ -1,0 +1,111 @@
+.modal-request-cluster
+  border: none
+  .modal-container
+    @media (max-width: 1199px)
+      max-width: calc(1080px / 12 * 6)
+      transform: initial
+  .description
+    font-size: 12px
+    line-height: 1.25
+    text-align: left
+    color: #707070
+    background: #f4f4f4
+    padding: 15px
+  .modal-header
+    display: flex
+    height: 60px
+    align-items: flex-end
+    position: relative
+    margin-top: 65px
+    margin-left: 10px
+    margin-right: 10px
+  .modal-title
+    flex: 1
+    font-family: BwModelica, Lato
+    font-size: 22px
+    font-weight: bold
+    font-stretch: condensed
+    line-height: 1.23
+    text-align: center
+    color: #4f4f4f
+  button.close-btn
+    flex: 0
+    flex-basis: 45px
+    align-self: flex-start
+    background: none
+    border: none
+    cursor: pointer
+    position: absolute
+    top: -70px
+    right: -5px
+    padding: 0
+    i.icon.icon-close
+      display: inline-block
+      height: 30px
+      width: 30px
+      background-color: #7c7c7c
+      -webkit-mask: url('~@/assets/icon-close.svg')
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+  .modal-content
+    border: none
+    width: auto
+    margin-top: 25px
+    margin-left: 10px
+    margin-right: 10px
+
+  .card
+    border-radius: 0
+    border: .5px solid #ececec
+  .card-column
+    display: flex
+    flex-direction: column
+    border-bottom: .5px solid #ececec
+    padding: 10px
+    &:last-child
+      border: none
+    label
+      font-size: 10px
+      font-style: italic
+      line-height: 1.2
+      text-align: left
+      color: #7c7c7c
+    input[type=password],
+    input[type=text],
+    select
+      border: none
+      background: white
+      padding: 5px 10px
+    input[type=text]
+      font-size: 12px
+      font-weight: bold
+      line-height: 1.25
+      text-align: left
+      color: #111111
+  form
+    display: flex
+    flex-direction: column
+  input[type=submit]
+    color: #bd1c1c
+    border: 1px solid #bd1c1c
+    padding: 10px 25px
+    background: none
+    margin-left: auto
+    margin-right: 0
+  .card.avatar
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 135px
+  button.add-image
+    background: none
+    border: none
+    font-size: 14px
+    font-style: italic
+    line-height: 1.21
+    text-align: center
+    color: #08bda8
+    cursor: pointer
+    margin-top: 12px
