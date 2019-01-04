@@ -23,6 +23,7 @@
       }
     ],
     "transform-vue-jsx",
-    "transform-runtime"
+    "transform-runtime",
+    "transform-export-extensions"
   ]
 }

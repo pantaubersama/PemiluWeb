@@ -1,67 +1,37 @@
-import AlertIcon from './icons/alert.svg'
-import ArrowDownIcon from './icons/arrow-down.svg'
-import AssignmentIcon from './icons/assignment.svg'
-import BookOpenIcon from './icons/book-open.svg'
-import BookIcon from './icons/book.svg'
-import BriefcaseIcon from './icons/briefcase.svg'
-import CheckGreenIcon from './icons/check-green.svg'
-import ChevronRightIcon from './icons/chevron-right.svg'
-import CloseIcon from './icons/close.svg'
-import DateIcon from './icons/date.svg'
-import FilterIcon from './icons/filter.svg'
-import HelpIcon from './icons/help.svg'
-import HomeRedIcon from './icons/home-red.svg'
-import LinkIcon from './icons/link.svg'
-import LockIcon from './icons/lock.svg'
-import LoveIcon from './icons/love.svg'
-import MessageIcon from './icons/message.svg'
-import MoreHorizontalIcon from './icons/more-horizontal.svg'
-import MoreVerticalIcon from './icons/more-vertical.svg'
-import NotificationIcon from './icons/notification.svg'
-import PencilIcon from './icons/pencil.svg'
-import PointIcon from './icons/point.svg'
-import RecordIcon from './icons/record.svg'
-import ReportIcon from './icons/report.svg'
-import SearchIcon from './icons/search.svg'
-import SettingIcon from './icons/setting.svg'
-import ShareIcon from './icons/share.svg'
-import SosmedTwitterIcon from './icons/sosmed-twitter.svg'
-import UpvoteIcon from './icons/upvote.svg'
-import UserIcon from './icons/user.svg'
-import VerifiedIcon from './icons/verified.svg'
-import WordStadiumIcon from './icons/word-stadium.svg'
-
-export {
-  AlertIcon,
-  ArrowDownIcon,
-  AssignmentIcon,
-  BookOpenIcon,
-  BookIcon,
-  BriefcaseIcon,
-  CheckGreenIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  DateIcon,
-  FilterIcon,
-  HelpIcon,
-  HomeRedIcon,
-  LinkIcon,
-  LockIcon,
-  LoveIcon,
-  MessageIcon,
-  MoreHorizontalIcon,
-  MoreVerticalIcon,
-  NotificationIcon,
-  PencilIcon,
-  PointIcon,
-  RecordIcon,
-  ReportIcon,
-  SearchIcon,
-  SettingIcon,
-  ShareIcon,
-  SosmedTwitterIcon,
-  UpvoteIcon,
-  UserIcon,
-  VerifiedIcon,
-  WordStadiumIcon
-}
+export AlertIcon from './icons/alert.svg'
+export ArrowDownIcon from './icons/arrow-down.svg'
+export AssignmentIcon from './icons/assignment.svg'
+export BookOpenIcon from './icons/book-open.svg'
+export BookIcon from './icons/book.svg'
+export BriefcaseIcon from './icons/briefcase.svg'
+export CheckGreenIcon from './icons/check-green.svg'
+export ChevronRightIcon from './icons/chevron-right.svg'
+export CloseIcon from './icons/close.svg'
+export DateIcon from './icons/date.svg'
+export FilterIcon from './icons/filter.svg'
+export HelpIcon from './icons/help.svg'
+export HomeRedIcon from './icons/home-red.svg'
+export LinkIcon from './icons/link.svg'
+export LockIcon from './icons/lock.svg'
+export LoveIcon from './icons/love.svg'
+export MessageIcon from './icons/message.svg'
+export MoreHorizontalIcon from './icons/more-horizontal.svg'
+export MoreVerticalIcon from './icons/more-vertical.svg'
+export NotificationIcon from './icons/notification.svg'
+export PencilIcon from './icons/pencil.svg'
+export PointIcon from './icons/point.svg'
+export RecordIcon from './icons/record.svg'
+export ReportIcon from './icons/report.svg'
+export SearchIcon from './icons/search.svg'
+export SettingIcon from './icons/setting.svg'
+export ShareIcon from './icons/share.svg'
+export SosmedTwitterIcon from './icons/sosmed-twitter.svg'
+export UpvoteIcon from './icons/upvote.svg'
+export UserIcon from './icons/user.svg'
+export VerifiedIcon from './icons/verified.svg'
+export WordStadiumIcon from './icons/word-stadium.svg'
+export IconFacebook from './icons/icon-facebook.svg'
+export IconTwitter from './icons/icon-twitter.svg'
+export IconDots from './icons/icon-dots.svg'
+export BottomArrow from './icons/bottom-arrow.svg'
+export IconAvatar from './icons/avatar.svg'
