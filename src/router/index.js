@@ -9,8 +9,7 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '*',
       component: () => import('@/components/NotFound')
     },
@@ -29,8 +28,7 @@ const router = new VueRouter({
       name: 'Linimasa',
       component: () => import('@/pages/Linimasa'),
       props: true,
-      children: [
-        {
+      children: [{
           path: 'hint',
           name: 'LinimasaHint',
           component: () => import('@/pages/Linimasa')
@@ -52,8 +50,7 @@ const router = new VueRouter({
       name: 'PendidikanPolitik',
       component: () => import('@/pages/pendidikan-politik'),
       props: true,
-      children: [
-        {
+      children: [{
           path: 'quiz/ikuti',
           name: 'PendidikanPolitikQuizIkuti',
           component: () => import('@/pages/pendidikan-politik')
@@ -74,15 +71,32 @@ const router = new VueRouter({
       path: '/profile/verified-steps',
       name: 'ProfileVerified',
       component: () => import('@/pages/Profile/ProfileVerified')
-    }, {
+    },
+    {
       path: '/profile/setting',
       name: 'ProfileSetting',
       component: () => import('@/pages/Profile/Setting')
-    }
+    },
+    {
+      path: '/wordstadium',
+      name: 'WordStadium',
+      component: () => import('@/pages/WordStadium')
+    },
+    {
+      path: '/lapor',
+      name: 'Lapor',
+      component: () => import('@/pages/Lapor')
+    },
+    {
+      path: '/perhitungan',
+      name: 'Perhitungan',
+      component: () => import('@/pages/Perhitungan')
+    },
+
   ]
 })
 
-router.beforeEach(function(to, from, next) {
+router.beforeEach(function (to, from, next) {
   if (
     to.matched.some(record => record.meta.AuthenticationRequired) &&
     !vueAuth.isAuthenticated()
