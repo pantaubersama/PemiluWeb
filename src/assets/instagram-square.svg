@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="instagram_1_" width="36" height="36" data-name="instagram (1)" viewBox="0 0 36 36">
+    <defs>
+        <style>
+            .cls-1{fill:url(#linear-gradient)}.cls-2{fill:url(#linear-gradient-2)}.cls-3{fill:url(#linear-gradient-3)}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y1=".008" y2=".998" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#e09b3d"/>
+            <stop offset=".3" stop-color="#c74c4d"/>
+            <stop offset=".6" stop-color="#c21975"/>
+            <stop offset="1" stop-color="#7024c4"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-2" y1="-.451" y2="1.462" xlink:href="#linear-gradient"/>
+        <linearGradient id="linear-gradient-3" y1="-1.396" y2="6.586" xlink:href="#linear-gradient"/>
+    </defs>
+    <path id="Path_2231" d="M25.275 0h-14.55A10.737 10.737 0 0 0 0 10.725v14.55A10.737 10.737 0 0 0 10.725 36h14.55A10.737 10.737 0 0 0 36 25.275v-14.55A10.737 10.737 0 0 0 25.275 0zm7.1 25.275a7.1 7.1 0 0 1-7.1 7.1h-14.55a7.1 7.1 0 0 1-7.1-7.1v-14.55a7.1 7.1 0 0 1 7.1-7.1h14.55a7.1 7.1 0 0 1 7.1 7.1v14.55z" class="cls-1" data-name="Path 2231"/>
+    <path id="Path_2232" d="M142.311 133a9.311 9.311 0 1 0 9.311 9.311 9.321 9.321 0 0 0-9.311-9.311zm0 15a5.689 5.689 0 1 1 5.689-5.689 5.689 5.689 0 0 1-5.689 5.689z" class="cls-2" data-name="Path 2232" transform="translate(-124.311 -124.311)"/>
+    <circle id="Ellipse_4055" cx="2.231" cy="2.231" r="2.231" class="cls-3" data-name="Ellipse 4055" transform="translate(25.098 6.528)"/>
+</svg>
