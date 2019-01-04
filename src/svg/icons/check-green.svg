@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#08bda8}
+        </style>
+    </defs>
+    <g id="Symbol_82" data-name="Symbol 82" transform="translate(-400 -432)">
+        <path id="Path_61" d="M0 0h16v16H0z" class="cls-1" data-name="Path 61" transform="translate(400 432)"/>
+        <path id="Icon" d="M7.133 12.667l-2.8-2.8-.933.933 3.733 3.733 8-8L14.2 5.6z" class="cls-2" transform="translate(398.867 430.133)"/>
+    </g>
+</svg>

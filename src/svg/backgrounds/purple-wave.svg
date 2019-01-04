@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="536" height="461.178" viewBox="0 0 536 461.178">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:url(#linear-gradient)}.cls-3{clip-path:url(#clip-path)}.cls-4{fill:#d8d8d8;opacity:.055}.cls-5{opacity:.102}.cls-5,.cls-6,.cls-7{fill:url(#linear-gradient-2)}.cls-6{opacity:.302}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#412c8d"/>
+            <stop offset="1" stop-color="#995be3"/>
+        </linearGradient>
+        <clipPath id="clip-path">
+            <path id="vectorMask" d="M0 0h536v311.178H0z" class="cls-1" transform="translate(637 1727)"/>
+        </clipPath>
+        <linearGradient id="linear-gradient-2" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fd5cb7"/>
+            <stop offset="1" stop-color="#ac5fb5"/>
+        </linearGradient>
+    </defs>
+    <g id="_22" data-name="22" transform="translate(-637 -1476)">
+        <path id="Rectangle" d="M0 0h536v460H0z" class="cls-2" transform="translate(637 1476)"/>
+        <g id="Mask_by_Rectangle" class="cls-3" data-name="Mask by Rectangle" transform="translate(0 -101)">
+            <g id="Mask_by_Rectangle-2" data-name="Mask by Rectangle" transform="translate(619.133 1766.617)">
+                <path id="Oval_Copy" d="M626.592 1872.808c0 69.781-12.591 156.977 75.189 156.977s501.179-55.1 501.179-124.882c0-26.515 15.978-65.989-50.3-71.557-28.82-2.421-51.691-83.4-97.895-79.609-19.625 1.609-67.061 92.919-81.144 91.276-46.843-5.467-81.47-30.426-119.484-30.653-24.62-.147-105.84 58.448-119.111 58.448-87.778 0-108.434-69.781-108.434 0z" class="cls-4" data-name="Oval Copy" transform="translate(-625.966 -1753.609)"/>
+                <path id="Oval_Copy_4" d="M625.967 1942.316c0-81.585 76.78-5.819 157.077-55.589 87.473-54.217 135.578-25.222 175.317-9.608 45.411 17.844 74.828-55.028 82.261-64.854 48.017-63.481 65.676 43.265 91.567 45.295 55.636 4.362 73.328-47.02 73.328-12.01 0 31.594 69.31 95.614 6.328 137.257-99.656 65.892-355.285 106.374-409.072 106.374-87.781 0-176.806-65.281-176.806-146.865z" class="cls-5" data-name="Oval Copy 4" transform="translate(-625.966 -1734.774)"/>
+                <path id="Oval_Copy_2" d="M625.967 1968.82c0-81.585 76.78-5.819 157.077-55.589 87.473-54.216 135.578-25.222 175.317-9.608 45.411 17.844 74.828-55.027 82.261-64.854 48.017-63.481 65.676 43.265 91.567 45.295 55.636 4.362 73.328-47.02 73.328-12.01 0 31.594 69.31 95.614 6.328 137.257-99.656 65.892-355.285 106.374-409.072 106.374-87.781 0-176.806-65.28-176.806-146.865z" class="cls-6" data-name="Oval Copy 2" transform="translate(-625.966 -1721.817)"/>
+                <path id="Oval_Copy_3" d="M625.967 2012.634c0-81.585 76.78-5.819 157.077-55.589 87.473-54.217 135.578-25.222 175.317-9.608 45.411 17.844 74.828-55.028 82.261-64.854 48.017-63.481 65.676 43.265 91.567 45.295 55.636 4.362 73.328-47.02 73.328-12.01 0 31.594 69.31 95.614 6.328 137.257-99.656 65.892-355.285 106.374-409.072 106.374-87.781.001-176.806-65.28-176.806-146.865z" class="cls-7" data-name="Oval Copy 3" transform="translate(-625.966 -1700.397)"/>
+            </g>
+        </g>
+    </g>
+</svg>

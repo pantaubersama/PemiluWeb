@@ -16,22 +16,22 @@ build_staging:
     - echo "$STAGING_JS" >> config/env/prod.js
     - node -v
     - npm -v
-  script: 
+  script:
     - npm install
     - npm run build
   artifacts:
     expire_in: 1 day
     paths:
       - dist
-      
+
 test_staging:
-  only:  [staging, manual]
+  only: [staging, manual]
   stage: test
   script:
     - echo "not yet ..."
-    
+
 deploy_staging:
-  only:  [staging, manual]
+  only: [staging, manual]
   stage: deploy
   script:
     - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
