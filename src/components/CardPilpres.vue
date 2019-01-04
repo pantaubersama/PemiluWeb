@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { BottomArrow, IconDots } from '@/svg'
+import { BottomArrow, IconDots } from '@/svg/icons'
 export default {
   name: 'CardPilpress',
   components: {

@@ -42,7 +42,7 @@
 <script>
 import TimelineLayout from '@/layout/Timeline'
 import ModalChangePassword from '@/pages/Profile/ModalChangePassword'
-import { IconTwitter, IconFacebook } from '@/svg'
+import { IconTwitter, IconFacebook } from '@/svg/icons'
 export default {
   name: 'ProfileSetting',
   components: {
