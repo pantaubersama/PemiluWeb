@@ -7,10 +7,6 @@ import BottomArrow from './bottom-arrow.svg'
 import IconDots from './icon-dots.svg'
 import IconTwitter from './icon-twitter.svg'
 import IconFacebook from './icon-facebook.svg'
-import BottomArrow from './bottom-arrow.svg'
-import IconDots from './icon-dots.svg'
-import IconTwitter from './icon-twitter.svg'
-import IconFacebook from './icon-facebook.svg'
 
 export {
   LogoIcon,
@@ -18,10 +14,6 @@ export {
   SearchIcon,
   NotificationIcon,
   WordStadiumIcon,
-  BottomArrow,
-  IconDots,
-  IconTwitter,
-  IconFacebook,
   BottomArrow,
   IconDots,
   IconTwitter,
