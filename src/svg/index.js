@@ -5,6 +5,8 @@ import NotificationIcon from './icon-notification.svg'
 import WordStadiumIcon from './word-stadium.svg'
 import IconTwitter from './icon-twitter.svg'
 import IconFacebook from './icon-facebook.svg'
+import BottomArrow from './bottom-arrow.svg'
+import IconDots from './icon-dots.svg'
 
 export {
   LogoIcon,
@@ -13,5 +15,7 @@ export {
   NotificationIcon,
   WordStadiumIcon,
   IconTwitter,
-  IconFacebook
+  IconFacebook,
+  BottomArrow,
+  IconDots
 }
