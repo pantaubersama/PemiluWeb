@@ -141,3 +141,120 @@
                 height: 38px
                 font-size: 18px
                 line-height: 16px
+
+.card-quiz-result
+  padding: 0
+  margin: 0
+  height: 571px
+  border-width: 0
+  background-color: #ffffff
+
+  .quiz-content
+    background-color: transparent
+    text-align: center
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    flex-direction: column
+    padding: 0
+    margin: 0
+    z-index: 3
+
+    .title
+      font-family: Lato
+      color: #bc071b
+      font-weight: 800
+      font-size: 22px
+      line-height: 33px
+      border-width: 0
+
+    p
+      font-family: Lato
+      font-size: 12px
+      font-weight: 500
+      color: #7c7c7c
+      margin: 2px 0
+      text-align: center
+
+      strong
+        color: #111111
+
+    img.thumbnail
+      width: 150px
+      height: 150px
+      border: 1px solid #ffffff
+      margin: 14px 0 36px
+      z-index: 4
+
+    .percentage
+      display: block
+      font-family: BwModelicaSS01, Lato
+      font-weight: 800
+      font-size: 60px
+      line-height: 62px
+      margin: 0
+      color: #ffffff
+
+    .subtitle
+      font-weight: 400
+      font-size: 14px
+      line-height: 16px
+      color: #ffffff
+
+
+    .share
+      text-decoration: none
+      font-family: BwModelicaSS01, Lato
+      font-size: 14px
+      line-height: 16px
+      text-align: center
+      color: #ffffff
+      display: block
+      line-height: 30px
+      border-radius: 50px
+      background-color: transparent
+      border: 1px solid #ffffff
+      margin-top: 40px
+      padding: 4px 15px
+      width: 140px
+
+      svg
+        fill: #ffffff
+        display: inline-block
+        height: 24px
+        width: 24px
+        margin-right: 8px
+
+  .quiz-description
+    background-color: #ffffff
+    z-index: 3
+    width: 270px
+    padding: 32px 24px 0
+    margin: 0
+    height: 130px
+
+    &--content
+      width: 100%
+      position: absolute
+      top: 320px
+      left: 50%
+      transform: translate(-50%, -50%)
+      z-index: 4
+      display: flex
+      align-items: center
+      flex-direction: column
+
+  .quiz-description--curve
+    height: 140px
+    width: 100%
+    background-color: #ffffff
+    border-radius: 0% 0% 115% 115% / 0% 0% 255% 255%
+    position: absolute
+    top: 108px
+    z-index: 2
+
+  .quiz-background
+    bottom: 0
+    left: 0
+    z-index: 1
+    overflow: hidden

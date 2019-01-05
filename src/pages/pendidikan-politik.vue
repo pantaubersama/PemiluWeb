@@ -1,10 +1,7 @@
 <template>
   <timeline-layout>
     <div slot="main-content" class="page card pendidikan-politik">
-      <div
-        v-if="$route.name != 'PendidikanPolitikQuizIkuti'
-        && $route.name != 'PendidikanPolitikQuizLanjut'"
-      >
+      <div v-if="$route.name === 'PendidikanPolitik'">
         <div class="nav-tab--list">
           <router-link
             class="nav-tab--item"
@@ -27,7 +24,18 @@
           <quiz-list v-if="activePage === 'quiz'"></quiz-list>
         </div>
       </div>
-      <div v-else>
+      <div v-if="$route.name === 'PendidikanPolitikQuizHasil'">
+        <quiz-result
+          :showModal="showModal"
+          @close="onClickCloseButton"
+          @onClickNextButton="onClickNextButton"
+          @onClickChoicesButton="onClickChoicesButton"
+        />
+      </div>
+      <div
+        v-if="$route.name === 'PendidikanPolitikQuizIkuti' ||
+        $route.name === 'PendidikanPolitikQuizLanjut'"
+      >
         <quiz-detail
           :showModal="showModal"
           @close="onClickCloseButton"
@@ -149,6 +157,7 @@ import TimelineLayout from '@/layout/Timeline'
 import QuestionList from '@/components/pendidikan-politik/question-list'
 import QuizList from '@/components/pendidikan-politik/quiz-list'
 import QuizDetail from '@/components/pendidikan-politik/quiz-detail'
+import QuizResult from '@/components/pendidikan-politik/quiz-result'
 import WidgetFilter from '@/components/WidgetFilter'
 import WidgetFooterTanya from '@/components/pendidikan-politik/widget-footer-tanya'
 import WidgetFooterQuiz from '@/components/pendidikan-politik/widget-footer-quiz'
@@ -160,6 +169,7 @@ export default {
     QuestionList,
     QuizList,
     QuizDetail,
+    QuizResult,
     WidgetFilter,
     WidgetFooterTanya,
     WidgetFooterQuiz
@@ -205,7 +215,6 @@ export default {
       this.showModal = false
     },
     onClickCloseButton() {
-      console.log('on click close button')
       this.showModal = false
     }
   }

@@ -54,7 +54,10 @@
             <i class="icon icon-share"></i> Bagikan
           </a>
           <div class="spacer"></div>
-          <button class="btn btn-primary torquoise">Result >></button>
+          <router-link
+            class="btn btn-primary torquoise"
+            :to="{name: 'PendidikanPolitikQuizHasil'}"
+          >Hasil >></router-link>
         </div>
       </li>
     </ul>
