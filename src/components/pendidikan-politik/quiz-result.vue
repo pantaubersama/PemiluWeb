@@ -16,23 +16,40 @@
         <a href="#" class="share">
           <share-icon></share-icon>BAGIKAN
         </a>
+        <div class="block-bottom">
+          <a
+            class="block-bottom--title"
+            @click="$emit('onClickAnswerButton')"
+          >Lihat kunci jawaban >>></a>
+        </div>
       </div>
     </div>
     <div class="quiz-background">
       <purple-wave-background></purple-wave-background>
     </div>
+
+    <quiz-modal-jawaban
+      v-if="showModal"
+      @close="$emit('onClickNextButton', showModal)"
+      @click.stop="$emit('onClickNextButton', showModal)"
+    />
   </div>
 </template>
 
 <script>
 import { PurpleWaveBackground } from '@/svg/backgrounds'
 import { ShareIcon } from '@/svg/icons'
+import QuizModalJawaban from '@/components/pendidikan-politik/quiz-modal-jawaban'
 
 export default {
   name: 'QuizResult',
   components: {
     PurpleWaveBackground,
-    ShareIcon
+    ShareIcon,
+    QuizModalJawaban
+  },
+  props: {
+    showModal: Boolean
   }
 }
 </script>
