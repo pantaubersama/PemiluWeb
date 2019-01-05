@@ -27,6 +27,7 @@
       <div v-if="$route.name === 'PendidikanPolitikQuizHasil'">
         <quiz-result
           :showModal="showModal"
+          @onClickAnswerButton="onClickAnswerButton"
           @close="onClickCloseButton"
           @onClickNextButton="onClickNextButton"
           @onClickChoicesButton="onClickChoicesButton"
@@ -216,6 +217,9 @@ export default {
     },
     onClickCloseButton() {
       this.showModal = false
+    },
+    onClickAnswerButton() {
+      this.showModal = true
     }
   }
 }
