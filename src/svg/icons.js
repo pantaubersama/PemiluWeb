@@ -11,6 +11,7 @@ import DateIcon from './icons/date.svg'
 import FilterIcon from './icons/filter.svg'
 import HelpIcon from './icons/help.svg'
 import HomeRedIcon from './icons/home-red.svg'
+import HomeIcon from './icons/home.svg'
 import LinkIcon from './icons/link.svg'
 import LockIcon from './icons/lock.svg'
 import LoveIcon from './icons/love.svg'
@@ -50,6 +51,7 @@ export {
   FilterIcon,
   HelpIcon,
   HomeRedIcon,
+  HomeIcon,
   LinkIcon,
   LockIcon,
   LoveIcon,
