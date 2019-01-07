@@ -21,29 +21,10 @@
       </div>
     </div>
     <div class="card">
-      <div class="list-wrap">
-        <h4 class="title">Cluster</h4>
-        <div class="item">
-          <img src="@/assets/user.svg">
-          <p>Universitas Gajah Mada</p>
-          <span class="icon">
-            <button
-              id="toggle-button"
-              class="request-cluster"
-              :class="{ 'is-active': isDropdownActive }"
-              @click.stop="toggleDropdownCluster()"
-            >
-              <img src="@/assets/icon_more_vertical.svg">
-            </button>
-            <div class="dropdown-content">
-              <button
-                class="create-cluster"
-                @click.stop="() => isModalRequestClusterOpen = true"
-              >Request Buat Cluster</button>
-            </div>
-          </span>
-        </div>
-      </div>
+      <cluster-panel
+        @request-cluster="() => modal = 'ModalRequestCluster'"
+        @invite-cluster="() => modal = 'ModalInviteCluster'"
+      ></cluster-panel>
       <div class="list-wrap">
         <h4 class="title">
           Biodata
@@ -125,7 +106,7 @@
     </div>
 
     <modal-request-cluster
-      v-if="isModalRequestClusterOpen"
+      v-if="modal === 'ModalRequestCluster'"
       :name="requestCluster.name"
       :category="requestCluster.category"
       :description="requestCluster.description"
@@ -133,11 +114,12 @@
       @submit="onSubmitRequest($event)"
     ></modal-request-cluster>
     <modal-confirm-request-cluster
-      v-if="isModalConfirmOpen"
+      v-if="modal === 'ModalConfirmCluster'"
       @back="onConfirmBack()"
       @confirm="onConfirmRequestCluster()"
     ></modal-confirm-request-cluster>
     <modal-edit-profile v-if="modal === 'ModalEditProfile'" v-on:close="closeModal()"/>
+    <modal-invite-cluster v-if="modal === 'ModalInviteCluster'" @close-request="closeModal()"></modal-invite-cluster>
   </div>
 </template>
 
@@ -147,6 +129,8 @@ import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
 import ModalConfirmRequestCluster from '@/pages/Profile/ModalConfirmRequestCluster'
 import ModalEditProfile from '@/pages/Profile/ModalEditProfile'
 import { VerifiedIconDefault } from '@/svg/icons'
+import ClusterPanel from '@/components/profile/cluster-panel'
+import ModalInviteCluster from '@/pages/Profile/ModalInviteCluster'
 export default {
   name: 'CardProfile',
   components: {
@@ -154,14 +138,14 @@ export default {
     ModalRequestCluster,
     ModalConfirmRequestCluster,
     VerifiedIconDefault,
-    ModalEditProfile
+    ModalEditProfile,
+    ClusterPanel,
+    ModalInviteCluster
   },
   data() {
     return {
       isVerified: false,
       isDropdownActive: false,
-      isModalRequestClusterOpen: false,
-      isModalConfirmOpen: true,
       modal: false,
       requestCluster: {
         name: 'PDIP',
@@ -181,11 +165,10 @@ export default {
       this.isDropdownActive = !this.isDropdownActive
     },
     onConfirmBack() {
-      this.isModalConfirmOpen = false
-      this.isModalRequestClusterOpen = true
+      this.modal = 'ModalRequestCluster'
     },
     onConfirmRequestCluster() {
-      this.isModalConfirmOpen = false
+      this.modal = false
     },
     onSubmitRequest({ name, category, description }) {
       this.requestCluster.name = name

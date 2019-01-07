@@ -1,0 +1,125 @@
+.modal-invite-cluster
+  display: flex
+  flex-direction: column
+  button.close-btn
+    display: block
+    flex: 0
+    flex-basis: 45px
+    align-self: flex-end
+    background: none
+    border: none
+    cursor: pointer
+    margin-right: 0
+    margin-left: auto
+    i.icon.icon-close
+      display: inline-block
+      height: 30px
+      width: 30px
+      background-color: #7c7c7c
+      -webkit-mask: url(~@/assets/icon-close.svg)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+  .card.email-panel,
+  .card.link-panel
+    height: 209px
+    width: 487px
+    padding: 20px
+    border: 1px solid #f4f4f4
+    .title
+      font-family: BwModelica, Lato
+      font-size: 22px
+      font-weight: bold
+      font-stretch: condensed
+      line-height: 1.23
+      text-align: center
+      color: #4f4f4f
+    input[type=email]
+      margin-top: 23.5px
+      padding: 10px 20px
+      border: .5px solid #ececec
+      border-radius: 3px
+      &::-webkit-placeholder
+        font-family: Lato
+        font-size: 14px
+        line-height: 1.21
+        text-align: left
+        color: #707070
+    input[type=submit]
+      cursor: pointer
+      align-self: flex-end
+      margin-top: 39px
+      font-size: 18px
+      font-weight: bold
+      line-height: 1.22
+      color: #9b0012
+      text-transform: uppercase
+      background: none
+      border: none
+  .card.link-panel
+    display: flex
+    flex-direction: column
+    .panel-header
+      padding: 10px
+      font-size: 10px
+      line-height: 1.2
+      text-align: left
+      color: #707070
+      background: #f4f4f4
+      margin: -20px
+      margin-bottom: 0
+    .title
+      margin-top: 20px
+    .input-container
+      position: relative
+      margin-top: 25px
+      .icon.icon-link
+        position: absolute
+        background-color: #111
+        -webkit-mask: url(~@/assets/icon-link.svg)
+        display: block
+        width: 20px
+        height: 20px
+        transform: translateY(-50%)
+        top: 50%
+        left: 10px
+      input
+        width: 100%
+        border: 1px solid #ececec
+        border-radius: 3px
+        padding: 10px 10px
+        padding-left: 35px
+        font-size: 12px
+        line-height: 1.33
+        letter-spacing: 0.3px
+        color: #111111
+    .enable-link-container
+      margin-top: 20px
+      input[type=checkbox]
+        position: absolute
+        left: -10000px
+        & + label
+          position: relative
+          padding-left: 28px
+          cursor: pointer
+          display: inline-block
+          color: #666
+          &:before,
+          &:after
+            position: absolute
+            transform: translateY(-50%)
+            top: 50%
+            left: 0
+            width: 20px
+            height: 20px
+            content: ' '
+          &:before
+            border: 1px solid #676767
+            border-radius: 3px
+          &:after
+            display: none
+        &:checked + label
+          &:after
+            display: inline-block
+            background: grey
+            -webkit-mask: url(~@/assets/icon_check_green.svg)
