@@ -36,8 +36,12 @@ import IconFacebook from './icons/icon-facebook.svg'
 import IconTwitter from './icons/icon-twitter.svg'
 import IconDots from './icons/icon-dots.svg'
 import BottomArrow from './icons/bottom-arrow.svg'
-import IconAvatar from './icons/avatar.svg'
-import IconShare from './icons/icon-share.svg';
+import IconAvatar from './icons/avatar.svg' <<
+<< << < HEAD
+import IconShare from './icons/icon-share.svg'; ===
+=== =
+import LogoPantau from './icons/logo-pantau.svg' >>>
+>>> > login layout
 
 export {
   AlertIcon,
@@ -79,5 +83,6 @@ export {
   IconDots,
   BottomArrow,
   IconAvatar,
-  IconShare
+  IconShare,
+  LogoPantau
 }
