@@ -1,8 +1,11 @@
 <template>
   <div class="quiz-list">
     <div class="total-kecenderungan">
-      <p class="title">Total Kecenderunganmu:</p>
+      <p class="title">Total Kecenderunganmu, 4 Dari 6 Kuis:</p>
       <p class="total">70% (Jokowi-Makruf)</p>
+      <button class="share-btn">
+        <i class="icon icon-share"></i>
+      </button>
     </div>
     <ul>
       <li class="quiz-item">
@@ -143,7 +146,7 @@ export default {
 .total-kecenderungan
   display: flex
   flex-direction: column
-  align-items: center
+  align-items: flex-start
   justify-content: center
   padding: 20px
   width: 100%
@@ -155,17 +158,18 @@ export default {
   background-position-x: -73px
   background-position-y: -55px
   border-bottom: 1px solid #ececec
-
+  padding-left: 130px
+  position: relative
   .title,
   .total
     margin: 0
     padding: 5px
   .title
-    font-size: 18px
+    font-size: 14px
     font-weight: bold
     font-stretch: condensed
-    line-height: 0.89
-    letter-spacing: 0.4px
+    line-height: 1.14
+    letter-spacing: 0.3px
     color: #000000
   .total
     font-family: BwModelica, Lato
@@ -174,4 +178,18 @@ export default {
     font-stretch: condensed
     line-height: 0.89
     color: #f2771d
+  .share-btn
+    position: absolute
+    transform: translateY(-50%)
+    top: 50%
+    right: 20px
+    background: none
+    border: none
+    cursor: pointer
+    .icon.icon-share
+      background-color: grey
+      -webkit-mask: url('~@/assets/icon_share.svg')
+      display: block
+      height: 25px
+      width: 25px
 </style>
