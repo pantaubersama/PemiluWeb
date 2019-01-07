@@ -110,7 +110,7 @@
       :name="requestCluster.name"
       :category="requestCluster.category"
       :description="requestCluster.description"
-      @close-request="() => isModalRequestClusterOpen = false"
+      @close-request="closeModal()"
       @submit="onSubmitRequest($event)"
     ></modal-request-cluster>
     <modal-confirm-request-cluster

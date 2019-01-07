@@ -6,15 +6,14 @@
       </button>
       <div class="card email-panel">
         <h3 class="title">Bagikan Undangan Lewat Email</h3>
-        <input type="email" name="email" placeholder="Masukkan email disini" id="email">
+        <input type="email" name="email" placeholder="Masukkan email di sini" id="email">
         <input type="submit" value="Undang" class="submit-email">
       </div>
       <div class="card link-panel">
         <div class="panel-header">
-          Dengan metode bagikan link undangan siapapun yg meng klik
-          Otomatis akan menjadi anggota.
-          <br>Anda dapat mematikan link
-          undangan sewaktu waktu
+          Link di bawah ini dapat digunakan untuk menambah anggota secara otomatis
+          apabila di-klik oleh penerima.
+          <br>Kamu bisa non-aktifkan link undangan sewaktu-waktu.
         </div>
         <h3 class="title">Bagikan Undangan Lewat Link</h3>
         <div class="input-container">
