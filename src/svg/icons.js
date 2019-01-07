@@ -37,6 +37,7 @@ import IconTwitter from './icons/icon-twitter.svg'
 import IconDots from './icons/icon-dots.svg'
 import BottomArrow from './icons/bottom-arrow.svg'
 import IconAvatar from './icons/avatar.svg'
+import IconShare from './icons/icon-share.svg';
 
 export {
   AlertIcon,
@@ -77,5 +78,6 @@ export {
   IconTwitter,
   IconDots,
   BottomArrow,
-  IconAvatar
+  IconAvatar,
+  IconShare
 }

@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 import Meta from 'vue-meta'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '*',
       component: () => import('@/components/NotFound')
     },
@@ -27,8 +28,7 @@ const router = new VueRouter({
       name: 'Linimasa',
       component: () => import('@/pages/Linimasa'),
       props: true,
-      children: [
-        {
+      children: [{
           path: 'hint',
           name: 'LinimasaHint',
           component: () => import('@/pages/Linimasa')
@@ -50,8 +50,7 @@ const router = new VueRouter({
       name: 'PendidikanPolitik',
       component: () => import('@/pages/pendidikan-politik'),
       props: true,
-      children: [
-        {
+      children: [{
           path: 'quiz/ikuti',
           name: 'PendidikanPolitikQuizIkuti',
           component: () => import('@/pages/pendidikan-politik')
@@ -84,6 +83,16 @@ const router = new VueRouter({
       component: () => import('@/pages/Profile/Setting')
     },
     {
+      path: '/profile/badge',
+      name: 'ProfileBadge',
+      component: () => import('@/pages/Profile/Badge')
+    },
+    {
+      path: '/profile/badge-detail',
+      name: 'ProfileBadgeDetail',
+      component: () => import('@/pages/Profile/BadgeDetail')
+    },
+    {
       path: '/wordstadium',
       name: 'WordStadium',
       component: () => import('@/pages/WordStadium')
@@ -101,7 +110,7 @@ const router = new VueRouter({
   ]
 })
 
-router.beforeEach(function(to, from, next) {
+router.beforeEach(function (to, from, next) {
   if (
     to.matched.some(record => record.meta.AuthenticationRequired) &&
     !vueAuth.isAuthenticated()
