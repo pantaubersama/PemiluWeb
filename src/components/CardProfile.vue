@@ -11,40 +11,10 @@
         <span>
           <h3>Jelo Caviar, @jelo</h3>
           <div v-if="isVerified" class="line-verified">
-            <svg
-              version="1.1"
-              id="Layer_1"
-              viewBox="0 0 48 48"
-              style="enable-background:new 0 0 48 48;"
-              xml:space="preserve"
-            >
-              <path
-                id="Path_1872"
-                class="st0"
-                d="M38.9,24l3.1-4.8l-5.1-2.6l0.3-5.7l-5.7,0.3L28.8,6L24,9.1L19.2,6l-2.6,5.1l-5.7-0.3l0.3,5.7
-              L6,19.2L9.1,24L6,28.8l5.1,2.6l-0.3,5.7l5.7-0.3l2.6,5.1l4.8-3.1l4.8,3.1l2.6-5.1l5.7,0.3l-0.3-5.7l5.1-2.6L38.9,24z M21.2,31
-              l-6.4-6.4l2.1-2.1l4.2,4.2L31,17l2.1,2.1L21.2,31z"
-              ></path>
-            </svg>
-            Terverifikasi
+            <verified-icon-default/>Terverifikasi
           </div>
           <router-link v-else class="btn line" to="/profile/verified-steps">
-            <svg
-              version="1.1"
-              id="Layer_1"
-              viewBox="0 0 48 48"
-              style="enable-background:new 0 0 48 48;"
-              xml:space="preserve"
-            >
-              <path
-                id="Path_1872"
-                class="st0"
-                d="M38.9,24l3.1-4.8l-5.1-2.6l0.3-5.7l-5.7,0.3L28.8,6L24,9.1L19.2,6l-2.6,5.1l-5.7-0.3l0.3,5.7
-              L6,19.2L9.1,24L6,28.8l5.1,2.6l-0.3,5.7l5.7-0.3l2.6,5.1l4.8-3.1l4.8,3.1l2.6-5.1l5.7,0.3l-0.3-5.7l5.1-2.6L38.9,24z M21.2,31
-              l-6.4-6.4l2.1-2.1l4.2,4.2L31,17l2.1,2.1L21.2,31z"
-              ></path>
-            </svg>
-            Belum Verifikasi
+            <verified-icon-default/>Belum Verifikasi
           </router-link>
         </span>
         <p>An ordinary netizen who likes to talk a lot. Like, a lot. Who cares anyway!</p>
@@ -77,7 +47,7 @@
       <div class="list-wrap">
         <h4 class="title">
           Biodata
-          <a href>
+          <a href="#" @click.prevent="ModalEditProfile">
             <img src="@/assets/icon_edit.svg">
           </a>
         </h4>
@@ -167,6 +137,7 @@
       @back="onConfirmBack()"
       @confirm="onConfirmRequestCluster()"
     ></modal-confirm-request-cluster>
+    <modal-edit-profile v-if="modal === 'ModalEditProfile'" v-on:close="closeModal()"/>
   </div>
 </template>
 
@@ -174,13 +145,16 @@
 import ListCardJP from '@/components/ListCardJP'
 import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
 import ModalConfirmRequestCluster from '@/pages/Profile/ModalConfirmRequestCluster'
-
+import ModalEditProfile from '@/pages/Profile/ModalEditProfile'
+import { VerifiedIconDefault } from '@/svg/icons'
 export default {
   name: 'CardProfile',
   components: {
     ListCardJP,
     ModalRequestCluster,
-    ModalConfirmRequestCluster
+    ModalConfirmRequestCluster,
+    VerifiedIconDefault,
+    ModalEditProfile
   },
   data() {
     return {
@@ -188,6 +162,7 @@ export default {
       isDropdownActive: false,
       isModalRequestClusterOpen: false,
       isModalConfirmOpen: true,
+      modal: false,
       requestCluster: {
         name: 'PDIP',
         category: 'partai',
@@ -228,6 +203,12 @@ export default {
         console.log('remove dropdown')
         this.isDropdownActive = false
       }
+    },
+    ModalEditProfile() {
+      this.modal = 'ModalEditProfile'
+    },
+    closeModal() {
+      this.modal = false
     }
   }
 }

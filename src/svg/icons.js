@@ -29,6 +29,7 @@ import SosmedTwitterIcon from './icons/sosmed-twitter.svg'
 import UpvoteIcon from './icons/upvote.svg'
 import UserIcon from './icons/user.svg'
 import VerifiedIcon from './icons/verified.svg'
+import VerifiedIconDefault from './icons/icon-verified.svg'
 import WordStadiumIcon from './icons/word-stadium.svg'
 import IconFacebook from './icons/icon-facebook.svg'
 import IconTwitter from './icons/icon-twitter.svg'
@@ -68,6 +69,7 @@ export {
   UpvoteIcon,
   UserIcon,
   VerifiedIcon,
+  VerifiedIconDefault,
   WordStadiumIcon,
   IconFacebook,
   IconTwitter,
