@@ -30,7 +30,7 @@
                 <router-link to="/profile">Edit Profile</router-link>
               </li>
               <li>
-                <router-link to="/">Data Profile Lapor</router-link>
+                <router-link to="/profile/data-lapor">Data Profile Lapor</router-link>
               </li>
               <li>
                 <router-link to="/profile/badge">Badge</router-link>
