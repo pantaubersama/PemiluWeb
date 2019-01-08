@@ -39,6 +39,7 @@ import BottomArrow from './icons/bottom-arrow.svg'
 import IconShare from './icons/icon-share.svg'
 import LogoPantau from './icons/logo-pantau.svg'
 import IconAvatar from './icons/avatar.svg'
+import ImageDefault from './icons/image-default.svg'
 
 export {
   AlertIcon,
@@ -81,5 +82,6 @@ export {
   BottomArrow,
   IconAvatar,
   IconShare,
-  LogoPantau
+  LogoPantau,
+  ImageDefault
 }
