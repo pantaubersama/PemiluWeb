@@ -44,6 +44,9 @@ export default {
       loop: true,
       renderer: 'svg'
     })
+  },
+  destroyed() {
+    this.comingsoonLottie.destroy()
   }
 }
 </script>

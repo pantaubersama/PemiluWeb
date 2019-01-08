@@ -46,6 +46,9 @@ export default {
       renderer: 'svg'
     })
   },
+  destroyed() {
+    this.loginBackground.destroy()
+  },
   methods: {
     auth: function(provider) {
       this.response = null
