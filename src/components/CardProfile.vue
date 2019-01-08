@@ -177,8 +177,7 @@ export default {
       this.requestCluster.name = name
       this.requestCluster.category = category
       this.requestCluster.description = description
-      this.isModalRequestClusterOpen = false
-      this.isModalConfirmOpen = true
+      this.modal = 'ModalConfirmCluster'
     },
     removeDropdown(event) {
       const isInsideDropdown = event.target.parentNode.parentNode.classList.contains(
