@@ -3,7 +3,9 @@
     <div slot="modal-content" class="modal-toast">
       <div class="validation-success lottie-card" ref="validationSuccess"></div>
       <p>Yapp, Selamat</p>
-      <p>Tunggu datamu dalam proses <br>pengecekan</p>
+      <p>Tunggu datamu dalam proses
+        <br>pengecekan
+      </p>
     </div>
   </modal>
 </template>
@@ -30,6 +32,9 @@ export default {
       loop: true,
       renderer: 'svg'
     })
+  },
+  destroyed() {
+    this.validationSuccess.destroy()
   }
 }
 </script>
