@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="142.045" height="83.918" viewBox="0 0 142.045 83.918">
+    <defs>
+        <style>
+            .cls-1{fill:#c0241f}
+        </style>
+    </defs>
+    <g id="Asset_1" data-name="Asset 1" transform="translate(.001)">
+        <g id="Layer_1" data-name="Layer 1" transform="translate(0 29.894)">
+            <path id="Path_1536" d="M98.2 216.377a30.924 30.924 0 1 1-54.342 0A277.877 277.877 0 0 0 0 222.986c12.029-6.811 29.381-11.834 49.428-13.959 4.477-.477 9.088-.807 13.805-.977a24.375 24.375 0 1 0 15.578 0c4.717.17 9.328.5 13.805.977 20.053 2.125 37.4 7.148 49.428 13.959a277.513 277.513 0 0 0-43.844-6.609z" class="cls-1" data-name="Path 1536" transform="translate(0 -208.05)"/>
+        </g>
+        <g id="Layer_2" data-name="Layer 2" transform="translate(90.022 6.066)">
+            <circle id="Ellipse_420" cx="8.781" cy="8.781" r="8.781" class="cls-1" data-name="Ellipse 420"/>
+        </g>
+        <g id="Layer_3" data-name="Layer 3" transform="translate(62.249)">
+            <circle id="Ellipse_421" cx="8.781" cy="8.781" r="8.781" class="cls-1" data-name="Ellipse 421"/>
+        </g>
+        <g id="Layer_4" data-name="Layer 4" transform="translate(34.476 6.066)">
+            <circle id="Ellipse_422" cx="8.781" cy="8.781" r="8.781" class="cls-1" data-name="Ellipse 422"/>
+        </g>
+        <g id="Layer_5" data-name="Layer 5" transform="translate(53.128 35.105)">
+            <path id="Path_1537" d="M387.649 244.32a17.9 17.9 0 1 0 17.9 17.9 17.9 17.9 0 0 0-17.9-17.9zm0 23.708a5.8 5.8 0 1 0 0-.006zm7.792 6.3a1.338 1.338 0 1 0 0-.006z" class="cls-1" data-name="Path 1537" transform="translate(-369.75 -244.32)"/>
+        </g>
+    </g>
+</svg>
