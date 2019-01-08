@@ -45,27 +45,30 @@
           <p>Pantau Bersama</p>
         </div>
       </div>
+
       <div class="list-wrap">
-        <h4 class="title">Badge</h4>
+        <h4 class="title">Badge
+          <router-link class="badge-more" to="/profile/badge">Lihat lainnya</router-link>
+        </h4>
         <div class="item">
-          <img src="@/assets/sketchbook.png">
+          <img src="@/assets/flag-star-1.png">
           <span>
-            <p>CLEVER</p>
-            <p class="sub-text">Misi Tanya Presiden 10X</p>
+            <p>KADET</p>
+            <p class="sub-text">Ikut Kuis Pendidikan Pertama Kali</p>
           </span>
         </div>
         <div class="item">
-          <img src="@/assets/hearts.png">
+          <img src="@/assets/finger-star-1.png">
           <span>
-            <p>LOPELOPE</p>
-            <p class="sub-text">Ikut Kuis Pendidikan</p>
+            <p>KEPO</p>
+            <p class="sub-text">Ikut Tanya Calon Presiden Pertama Kali</p>
           </span>
         </div>
         <div class="item">
-          <img src="@/assets/headphones.png">
+          <img src="@/assets/flag-star-3.png">
           <span>
-            <p>LISTENER</p>
-            <p class="sub-text">Ikut Kuis Pendidikan</p>
+            <p>VETERAN</p>
+            <p class="sub-text">Misi Ikut Kuis Pendidikan 10 X</p>
           </span>
         </div>
       </div>
