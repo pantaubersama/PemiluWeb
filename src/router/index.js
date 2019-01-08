@@ -91,6 +91,8 @@ const router = new VueRouter({
       path: '/profile/badge-detail',
       name: 'ProfileBadgeDetail',
       component: () => import('@/pages/Profile/BadgeDetail')
+    },
+    {
       path: '/profile/data-lapor',
       name: 'DataProfileLapor',
       component: () => import('@/pages/Profile/DataProfileLapor')

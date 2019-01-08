@@ -35,22 +35,10 @@ import WordStadiumIcon from './icons/word-stadium.svg'
 import IconFacebook from './icons/icon-facebook.svg'
 import IconTwitter from './icons/icon-twitter.svg'
 import IconDots from './icons/icon-dots.svg'
-import BottomArrow from './icons/bottom-arrow.svg' <<
-<< << < HEAD
-import IconAvatar from './icons/avatar.svg' <<
-<<
-<< < HEAD
-import IconShare from './icons/icon-share.svg'; ===
-===
-=
-import LogoPantau from './icons/logo-pantau.svg' >>>
->>>
-> login layout
-  ===
-  === =
-  import IconAvatar from './icons/avatar.svg'
-import LogoPantau from './icons/logo-pantau.svg' >>>
->>> > 3 db36bb2b992c310ada19d8244707861b84147a8
+import BottomArrow from './icons/bottom-arrow.svg'
+import IconShare from './icons/icon-share.svg'
+import LogoPantau from './icons/logo-pantau.svg'
+import IconAvatar from './icons/avatar.svg'
 
 export {
   AlertIcon,
