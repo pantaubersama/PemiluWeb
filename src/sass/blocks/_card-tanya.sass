@@ -30,14 +30,14 @@
             border-radius: 50%
             overflow: hidden
             margin-right: 8px
-            img 
+            img
               width: 100%
               height: 100%
-              object-fit: cover 
+              object-fit: cover
               object-position: center center
           &-center
             flex: 1
-            h5 
+            h5
               font-size: 12px
               font-weight: bold
               margin: 0
@@ -46,7 +46,7 @@
               margin-bottom: 0
               font-size: 11px
               color: #4f4f4f
-          &-right 
+          &-right
             font-size: 11px
             color: #7c7c7c
 
@@ -60,9 +60,9 @@
 
         .desc-icon
           display: flex
-          align-items: center 
+          align-items: center
           justify-content: flex-end
-          a 
+          a
             width: 24px
             display: block
             margin-left: 10px
@@ -70,3 +70,25 @@
               // display: flex
               svg
                 width: 24px
+
+  button.vote
+    background: white
+    border: none
+    cursor: pointer
+    padding: 0
+    .vote-count
+      color: #727272
+      font-size: 14px
+    .icon.voteup
+      background-color: #727272
+      height: 35px
+      width: 35px
+      display: block
+      margin: auto
+      mask-image: url('~@/assets/icon-upvote.svg')
+      &.voted
+        background-color: #9b0012
+    .icon.vote-up.upvote-lottie
+      transform: scale(1.8) translateY(-6px)
+      height: 35px
+      width: 35px
