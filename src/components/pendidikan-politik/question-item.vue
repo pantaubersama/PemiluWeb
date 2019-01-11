@@ -90,6 +90,10 @@ button.vote
   border-left: 0
   border-top: 0
   cursor: pointer
+  @media (max-width: 991px)
+    height: auto
+    border-bottom: none
+    background-color: #f9f9f9
   .vote-count
     color: #727272
     font-size: 14px
@@ -108,9 +112,11 @@ button.vote
   flex: 1
   margin: 20px
   margin-top: 16.5px
-
+  @media (max-width: 575px)
+    margin: 15px
   .meta
-    display: flex;
+    display: flex
+    align-items: center
     .avatar
       flex: 0
       flex-basis: 32px
@@ -119,6 +125,10 @@ button.vote
       border-radius: 50%
       overflow: hidden
       object-fit: cover
+      @media (max-width: 575px)
+        flex-basis: 28px
+        height: 28px
+        width: 28px
     .title
       flex: 2
       display: flex
@@ -141,6 +151,8 @@ button.vote
       font-size: 11px
       line-height: 1.18
       color: #7c7c7c
+      @media (max-width: 575px)
+        font-size: 10px
 
   .question
     font-family: BwModelicaSS01, Lato
@@ -150,6 +162,10 @@ button.vote
     line-height: 1.38
     text-align: left
     color: #393939
+    padding: 10px 0
+    @media (max-width: 575px)
+      font-size: 14px
+      line-height: 19px
 
 .button-list
   display: flex

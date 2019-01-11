@@ -1,6 +1,6 @@
 <template>
   <timeline-layout>
-    <div slot="main-content" >
+    <div slot="main-content">
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div class="card card-tabs">
           <div class="title-tabs">
@@ -27,18 +27,23 @@
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div v-if="this.$route.query.type == 'janji-politik'">
           <WidgetFilterJP/>
-          <router-link :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}">
+          <router-link
+            :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
+            class="d-none d-lg-block"
+          >
             <WidgetBannerJP/>
           </router-link>
         </div>
         <div v-else>
           <WidgetFilterPilpres/>
-          <router-link :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}">
+          <router-link
+            :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}"
+            class="d-none d-lg-block"
+          >
             <WidgetBannerPilpres/>
           </router-link>
         </div>
       </div>
-
     </div>
   </timeline-layout>
 </template>
@@ -67,6 +72,6 @@ export default {
     HintPilpres,
     HintJP,
     DetailPost
-  },
+  }
 }
 </script>

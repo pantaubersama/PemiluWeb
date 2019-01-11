@@ -6,10 +6,12 @@
       <CardTanya></CardTanya>
     </template>
     <template slot="widget-wrapper">
-      <WidgetVerified></WidgetVerified>
-      <CardWordStadium></CardWordStadium>
-      <WidgetCluster></WidgetCluster>
-      <CardQuiz></CardQuiz>
+      <div class="d-none d-lg-block">
+        <WidgetVerified></WidgetVerified>
+        <CardWordStadium></CardWordStadium>
+        <WidgetCluster></WidgetCluster>
+        <CardQuiz></CardQuiz>
+      </div>
     </template>
   </LayoutTimeline>
 </template>

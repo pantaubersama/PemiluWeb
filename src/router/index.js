@@ -112,7 +112,17 @@ const router = new VueRouter({
       name: 'Perhitungan',
       component: () => import('@/pages/Perhitungan')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {
+        x: 0,
+        y: 0
+      }
+    }
+  }
 })
 
 router.beforeEach(function (to, from, next) {
