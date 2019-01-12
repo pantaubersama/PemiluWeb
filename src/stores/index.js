@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 // modules
 import meLogout from '@/stores/modules/me/logout'
 import imagesUpload from '@/stores/modules/images/upload'
+import liniMasa from '@/stores/modules/lini-masa'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ const beforeAction = store => {
 export default new Vuex.Store({
   modules: {
     meLogout,
-    imagesUpload
+    imagesUpload,
+    liniMasa
   },
   strict: debug,
   plugins: [beforeAction]
