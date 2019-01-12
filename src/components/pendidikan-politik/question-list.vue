@@ -1,28 +1,27 @@
 <template>
-<ul class="question-list">
-  <li>
-    <button class="add-question">
-      <div class="avatar-container">
-        <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
-        <span class="name">Budi Santoso</span>
-      </div>
-      <p class="trigger">Apa pertanyaan Anda untuk kedua calon Presiden?</p>
-    </button>
-  </li>
-  <li v-for="question in questions"
-    :key="question.id">
-    <question-item
-      :id="question.id"
-      :title="question.title"
-      :question="question.question"
-      :time="question.time"
-      :name="question.name"
-      :avatar="question.avatar"
-      :is-voted="question.isVoted"
-      @upvoted="$emit('upvoted', $event)">
-    </question-item>
-  </li>
-</ul>
+  <ul class="question-list">
+    <li>
+      <button class="add-question">
+        <div class="avatar-container">
+          <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
+          <span class="name">Budi Santoso</span>
+        </div>
+        <p class="trigger">Apa pertanyaan Anda untuk kedua calon Presiden?</p>
+      </button>
+    </li>
+    <li v-for="question in questions" :key="question.id">
+      <question-item
+        :id="question.id"
+        :title="question.title"
+        :question="question.question"
+        :time="question.time"
+        :name="question.name"
+        :avatar="question.avatar"
+        :is-voted="question.isVoted"
+        @upvoted="$emit('upvoted', $event)"
+      ></question-item>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -30,13 +29,12 @@ import QuestionItem from '@/components/pendidikan-politik/question-item'
 
 export default {
   name: 'QuestionList',
-  components: {QuestionItem},
+  components: { QuestionItem },
   props: {
     questions: Array
   },
-  data () {
-    return {
-    }
+  data() {
+    return {}
   }
 }
 </script>
@@ -83,4 +81,6 @@ export default {
       font-weight: bold
       line-height: 1.22
       color: #4f4f4f
+      @media (max-width: 575px)
+        font-size: 14px
 </style>

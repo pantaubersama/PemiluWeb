@@ -9,31 +9,34 @@
     align-items: center
   .logo
     width: 225px
-    img 
+    @media (max-width: 575px)
+      width: 75px
+      svg
+        height: 100%
+    svg
       width: 100%
   .navbar-right
     position: relative
-    > a 
+    > a
       display: flex
       align-items: center
-      margin-right: 15px
+      margin-left: 10px
       color: #9b0012
       text-transform: uppercase
       font-family: 'Bw Modelica'
       font-weight: bold
       text-decoration: none
-      &:last-child
-        margin-right: 0
+
   .input-search
     position: relative
     min-width: 300px
-    margin-right: 25px
+    margin-right: 20px
     input
       background-color: #f9f9f9
       padding-right: 30px
-      height: 32px
+      height: 30px
       border-radius: 50px
-      padding-right: 40px
+      padding-right: 35px
       font-family: 'Bw Modelica'
       font-weight: 100
       text-align: right
@@ -47,24 +50,28 @@
       &::-ms-input-placeholder
         color: #7c7c7c
 
-    svg 
+    svg
       fill:#7C7C7C
       width: 18px
       height: 18px
       position: absolute
       right: 10px
-      top: 7px
+      top: 6px
 
   .word-stadium
-    width: 32px
-    img
-      width: 100%
+    svg
+      width: 28px
+      @media (max-width: 991px)
+        width: 32px
   .notification
-    svg 
+    svg
       fill: #111111
       width: 24px
-  
+      @media (max-width: 991px)
+        width: 28px
   .profile-menu
+    position: relative
+    margin-left: 10px
     .user-thumb
       width: 28px
       height: 28px
@@ -73,10 +80,10 @@
       display: inline-block
       vertical-align: text-top
       cursor: pointer
-      img 
+      img
         width: 100%
         height: 100%
-        object-fit: cover 
+        object-fit: cover
         object-position: center center
 
       &.is-active
@@ -92,3 +99,48 @@
         margin-top: 10px
         border-top: 1px solid #cbcbcb
         display: block
+
+.burger
+  background-color: transparent
+  border-radius: 50%
+  border: none
+  cursor: pointer
+  display: block
+  height: 30px
+  padding: 0
+  position: relative
+  width: 30px
+  margin-left: 15px
+  z-index: 1000
+  transition: all .3s ease-out
+
+.burger-wrapper
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+
+.x,
+.y,
+.z
+  position: absolute
+  margin: auto
+  top: 0px
+  bottom: 16px
+  left: 0
+  right: 0
+  background: #bd081c
+  transition: all .3s ease-out
+
+.x,
+.y,
+.z
+  width: 30px
+  height: 4px
+
+.y
+  top: 18px
+
+.z
+  top: 35px

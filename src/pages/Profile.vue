@@ -1,31 +1,27 @@
 <template>
-  <div class="home-wrapper">
-    <div class="container d-flex main-wrapper">
-      <div class="col-md-3 sidebar">
-        <NavSidebarTop></NavSidebarTop>
-        <NavSidebarBottom></NavSidebarBottom>
-      </div>
-      <div class="col-md-6 offset-md-3 main-content">
+  <div class="profile-page">
+    <LayoutTimeline>
+      <template slot="main-content">
         <CardProfile></CardProfile>
-      </div>
-      <div class="col-md-3 widget-wrapper">
-        <WidgetVerified></WidgetVerified>
-      </div>
-    </div>
+      </template>
+      <template slot="widget-wrapper">
+        <div class="d-none d-lg-block">
+          <WidgetVerified></WidgetVerified>
+        </div>
+      </template>
+    </LayoutTimeline>
   </div>
 </template>
 
 <script>
-import NavSidebarTop from '@/components/NavSidebarTop'
-import NavSidebarBottom from '@/components/NavSidebarBottom'
+import LayoutTimeline from '@/layout/Timeline'
 import WidgetVerified from '@/components/WidgetVerified'
 import CardProfile from '@/components/CardProfile'
 
 export default {
   name: 'Profile',
   components: {
-    NavSidebarTop,
-    NavSidebarBottom,
+    LayoutTimeline,
     WidgetVerified,
     CardProfile
   }

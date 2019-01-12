@@ -15,7 +15,7 @@
             <img src="@/assets/trump.jpg" alt>
           </div>
           <div class="icon-thumb">
-            <img src="@/assets/twitter-icon.png" alt>
+            <img src="@/assets/icon-twitter-rounded.svg" alt>
           </div>
         </div>
         <div class="content-desc">
@@ -74,7 +74,7 @@
             <img src="@/assets/trump.jpg" alt>
           </div>
           <div class="icon-thumb">
-            <img src="@/assets/twitter-icon.png" alt>
+            <img src="@/assets/icon-twitter-rounded.svg" alt>
           </div>
         </div>
         <div class="content-desc">

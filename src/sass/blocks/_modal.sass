@@ -15,6 +15,9 @@
   left: 50%
   transform: translate(-50%, -50%)
   vertical-align: middle
+  @media (max-width: 575px)
+    width: 100%
+    padding: 15px
 
 .modal-container
   margin: 0px auto
@@ -31,7 +34,13 @@
     max-width: calc(898px / 12 * 6)
     transform: translateX(-8px)
   @media (max-width: 991px)
-    max-width: calc(658px / 12 * 6)
+    max-width: 100%
+    width: 690px
+    transform: translateX(0)
+  @media (max-width: 767px)
+    width: 510px
+  @media (max-width: 575px)
+    width: 100%
   .close-icon
     width: 24px
     height: 24px

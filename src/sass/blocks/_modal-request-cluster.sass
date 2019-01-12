@@ -13,12 +13,8 @@
     padding: 15px
   .modal-header
     display: flex
-    height: 60px
-    align-items: flex-end
+    flex-direction: column-reverse
     position: relative
-    margin-top: 65px
-    margin-left: 10px
-    margin-right: 10px
   .modal-title
     flex: 1
     font-family: BwModelica, Lato
@@ -31,13 +27,10 @@
   button.close-btn
     flex: 0
     flex-basis: 45px
-    align-self: flex-start
+    align-self: flex-end
     background: none
     border: none
     cursor: pointer
-    position: absolute
-    top: -70px
-    right: -5px
     padding: 0
     i.icon.icon-close
       display: inline-block
@@ -52,8 +45,6 @@
     border: none
     width: auto
     margin-top: 25px
-    margin-left: 10px
-    margin-right: 10px
 
   .card
     border-radius: 0

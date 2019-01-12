@@ -2,6 +2,8 @@
   .card-list
     padding: 20px
     border-bottom: 1px solid #ececec
+    @media (max-width: 575px)
+      padding: 20px 15px
     &:last-child
       border-bottom: none
     .group
@@ -11,13 +13,15 @@
         display: flex
         align-items: center
         padding-left: 50px
-
+        @media (max-width: 575px)
+          padding-left: 30px
       &-thumb
         width: 16px
         height: 16px
         border-radius: 3px
         margin-right: 5px
         overflow: hidden
+        display: flex
         img
           width: 100%
           height: 100%
@@ -36,11 +40,17 @@
       &-thumb
         padding: 0 15px 15px 5px
         position: relative
+        @media (max-width: 575px)
+          padding-left: 0
+          padding-right: 10px
         .image-thumb, .icon-thumb
           width: 50px
           height: 50px
           border-radius: 50%
           overflow: hidden
+          @media (max-width: 575px)
+            width: 40px
+            height: 40px
           img
             width: 100%
             height: 100%
@@ -50,9 +60,16 @@
           width: 30px
           height: 30px
           position: absolute
-          border: 2px solid #ffffff
           bottom: 0
           left: 0
+          padding: 2px
+          background-color: #fff
+          display: flex
+          @media (max-width: 575px)
+            width: 25px
+            height: 25px
+            left: -5px
+
       &-desc
         .title-desc
           display: flex
@@ -64,11 +81,15 @@
           font-size: 14px
           font-weight: bold
           color: #000
+          @media (max-width: 575px)
+            font-size: 12px
           span
             color: #7C7C7C
         .desc-text
           color: #393939
           font-size: 13px
+          @media (max-width: 575px)
+            font-size: 12px
           img
             margin: 10px 0
             border-radius: 5px
@@ -96,11 +117,16 @@
   color: #cbcbcb
   height: 38px
   transition: 0.3s
+  @media (max-width: 575px)
+    font-size: 12px
   svg
     fill: #cbcbcb
     width: 14px
     margin-left: 14px
     transition: 0.3s
+    @media (max-width: 575px)
+      width: 12px
+      margin-left: 10px
   &:hover
     color: #9b0012
     svg
@@ -109,10 +135,9 @@
 
 .icon-setting
   width: 20px
-  // height: 24px
+  @media (max-width: 575px)
+    width: 15px
   svg
     fill: #7C7C7C
 
-.card
-  margin-bottom: 15px
 
