@@ -34,7 +34,7 @@
         <div v-else>
           <WidgetFilterPilpres/>
           <router-link :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}">
-            <WidgetBannerPilpres link/>
+            <WidgetBannerPilpres/>
           </router-link>
         </div>
       </div>
