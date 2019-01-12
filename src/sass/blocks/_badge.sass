@@ -9,9 +9,13 @@
     padding: 0 35px
 
   .list-item
-    padding: 10px 0
+    padding: 10px 0 0
     display: flex
     align-items: center
+    &:last-child
+      padding-bottom: 10px
+      .list-content-desc
+        border: none
     img
       width: 72px
     .list-content-desc
@@ -49,6 +53,9 @@
   text-align: center
   position: relative
   overflow: hidden
+  @media (max-width: 575px)
+    border: none
+
   .profile-desc
     padding-top: 50px
     position: relative
@@ -83,6 +90,19 @@
     z-index: -1
     left: -10%
     right: -10%
+    @media (max-width: 1199px)
+      top: -190%
+      left: -30%
+      right: -30%
+    @media (max-width: 991px)
+      top: -150%
+      left: -15%
+      right: -15%
+    @media (max-width: 991px)
+      top: -170%
+    @media (max-width: 575px)
+      left: -40%
+      right: -40%
   .profile-description--content
     position: absolute
     width: 100%
@@ -91,6 +111,8 @@
     .thumbnail
       width: 120px
       margin-bottom: 10px
+      @media (max-width: 1199px)
+        width: 100px
     h4
       text-transform: uppercase
       color: #f4f4f4
@@ -101,3 +123,10 @@
       color: #f4f4f4
   .profile-background
     margin-top: -20px
+    svg
+      object-fit: cover
+      width: 100%
+      height: 100%
+      @media (max-width: 575px)
+        width: auto
+        height: auto

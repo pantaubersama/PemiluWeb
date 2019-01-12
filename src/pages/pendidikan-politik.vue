@@ -147,8 +147,10 @@
           </div>
         </div>
       </widget-filter>
-      <widget-footer-tanya v-if="activePage === 'tanya'"></widget-footer-tanya>
-      <widget-footer-quiz v-if="activePage === 'quiz'"></widget-footer-quiz>
+      <div class="d-none d-lg-block">
+        <widget-footer-tanya v-if="activePage === 'tanya'"></widget-footer-tanya>
+        <widget-footer-quiz v-if="activePage === 'quiz'"></widget-footer-quiz>
+      </div>
     </template>
   </timeline-layout>
 </template>

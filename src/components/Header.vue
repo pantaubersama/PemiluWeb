@@ -2,12 +2,19 @@
   <div class="header position-fixed">
     <div class="container d-flex">
       <router-link exact class="logo" to="/">
-        <logo-product></logo-product>
+        <div class="d-block d-sm-none">
+          <logo-pantau/>
+        </div>
+        <div class="d-none d-sm-block">
+          <logo-product></logo-product>
+        </div>
       </router-link>
-      <div class="ml-auto navbar-right d-flex align-item-center">
-        <div class="input-search">
-          <input type="text" class="form-control" placeholder="CARI">
-          <search-icon></search-icon>
+      <div class="ml-auto navbar-right align-item-center d-flex">
+        <div class="d-none d-lg-flex">
+          <div class="input-search">
+            <input type="text" class="form-control" placeholder="CARI">
+            <search-icon></search-icon>
+          </div>
         </div>
         <a href class="word-stadium">
           <word-stadium-icon></word-stadium-icon>
@@ -43,6 +50,17 @@
           </div>
         </div>
         <router-link v-else to="/login" class="login">LOGIN</router-link>
+        <button
+          type="button"
+          class="navbar-toggle burger d-block d-lg-none"
+          @click.prevent="toggleSidebar"
+        >
+          <div class="burger-wrapper">
+            <div class="x"></div>
+            <div class="y"></div>
+            <div class="z"></div>
+          </div>
+        </button>
       </div>
     </div>
   </div>
@@ -51,13 +69,13 @@
 <script>
 import { mapState } from 'vuex'
 import { authLink } from '@/mixins/link'
-
 import { LogoProduct } from '@/svg/products'
 import {
   UserIcon,
   SearchIcon,
   NotificationIcon,
-  WordStadiumIcon
+  WordStadiumIcon,
+  LogoPantau
 } from '@/svg/icons'
 
 export default {
@@ -67,7 +85,8 @@ export default {
     UserIcon,
     SearchIcon,
     NotificationIcon,
-    WordStadiumIcon
+    WordStadiumIcon,
+    LogoPantau
   },
   mixins: [authLink],
   data() {
@@ -101,6 +120,9 @@ export default {
       ) {
         this.isActive = false
       }
+    },
+    toggleSidebar(event) {
+      this.$emit('toggleSidebar')
     }
   }
 }

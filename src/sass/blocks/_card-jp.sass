@@ -17,6 +17,10 @@
   .card-content
     padding: 20px 25px 20px
     border-bottom: 1px solid #ececec
+    @media (max-width: 575px)
+      padding: 20px 15px
+      p
+        font-size: 13px
     .top
       display: flex
       align-items: center
@@ -26,14 +30,29 @@
         border-radius: 100%
         background: #eaeaea
         margin-right: 10px
+        display: flex
+        a
+          display: flex
+          img
+            width: 100%
+            height: 100%
+            object-fit: cover
+        @media (max-width: 575px)
+          width: 20px
+          height: 20px
+          margin-right: 6px
       h5
         margin: 0
         font-size: 14px
+        @media (max-width: 575px)
+          font-size: 11px
       span
         color: #7c7c7c
       .right
         font-size: 11px
         margin-left: auto
+        @media (max-width: 575px)
+          font-size: 10px
     h4.title
       border: 0
       font-size: 18px
@@ -41,6 +60,9 @@
       padding: 13px 0
       margin: 0
       text-transform: none
+      @media (max-width: 575px)
+        font-size: 14px
+        padding: 10px 0
     .icon-right
       text-align: right
       display: flex
@@ -49,17 +71,17 @@
         width: 24px
         margin-left: 10px
 
-  &-jp 
+  &-jp
     .dropdown-content
       padding: 10px
       border-radius: 2px
       min-width: 175px
-      top: auto 
+      top: auto
       bottom: 100%
-      a 
+      a
         text-align: left
         font-size: 12px
-      svg 
+      svg
         width: 25px
         height: 16px
         padding-right: 5px
@@ -68,9 +90,9 @@
       position: relative
     .icon-setting
       width: 20px
-      img 
+      img
         margin-left: 0!important
-        
+
       &.is-active
         + .dropdown-content
           display: block

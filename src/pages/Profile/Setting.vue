@@ -35,7 +35,9 @@
         @close-request="() => isModalChangePasswordOpen = false"
       ></modal-change-password>
     </div>
-    <template slot="widget-wrapper">&nbsp;</template>
+    <template slot="widget-wrapper">
+      <div class="d-none d-lg-block">&nbsp;</div>
+    </template>
   </timeline-layout>
 </template>
 

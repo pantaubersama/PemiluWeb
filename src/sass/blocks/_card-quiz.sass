@@ -42,6 +42,8 @@
     position: relative
     height: 571px
     border-width: 0
+    @media (max-width: 575px)
+      padding: 15px
     .quiz
         &-content
             height: 100%
@@ -118,7 +120,8 @@
             justify-content: space-between
             align-items: center
             border-radius: 0
-
+            @media (max-width: 575px)
+                width: calc(100% - 30px)
         &-title
             height: 90px
             margin-top: 30px
