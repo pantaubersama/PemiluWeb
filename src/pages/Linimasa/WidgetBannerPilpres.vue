@@ -1,10 +1,36 @@
 <template>
   <div class="card widget-blog">
     <div class="blog-caption">
-      <p>Halaman <span>PILPRES</span> berisikan informasi dari channel Resmi twitter Jokowi - Makruf dan Prabowo - Sandi yang terdaftar di Bawaslu
-      <span class="read-more">Read more…</span>
+      <p>
+        {{ this.bannerPilpresData ? bannerPilpresData.body : '' }}
+        <a class="read-more">Read more…</a>
       </p>
     </div>
-    <img src="@/assets/banner-pilpres.svg" alt="">
+    <img
+      :src="this.bannerPilpresData ? bannerPilpresData.header_image.url : ''"
+      :alt="this.bannerPilpresData ? bannerPilpresData.title : ''"
+    >
   </div>
 </template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  name: 'LiniMasaWidgetBannerPilpres',
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapGetters({
+      bannerPilpresData: 'bannerPilpresData'
+    })
+  },
+  methods: {
+    ...mapActions(['fetchBannerInfo'])
+  },
+  mounted() {
+    this.fetchBannerInfo('pilpres')
+  }
+}
+</script>

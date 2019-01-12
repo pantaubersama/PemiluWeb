@@ -1,6 +1,6 @@
 <template>
   <timeline-layout>
-    <div slot="main-content" >
+    <div slot="main-content">
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div class="card card-tabs">
           <div class="title-tabs">
@@ -34,11 +34,10 @@
         <div v-else>
           <WidgetFilterPilpres/>
           <router-link :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}">
-            <WidgetBannerPilpres/>
+            <WidgetBannerPilpres link/>
           </router-link>
         </div>
       </div>
-
     </div>
   </timeline-layout>
 </template>
@@ -67,6 +66,6 @@ export default {
     HintPilpres,
     HintJP,
     DetailPost
-  },
+  }
 }
 </script>
