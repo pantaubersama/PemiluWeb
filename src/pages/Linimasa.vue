@@ -7,7 +7,7 @@
             <router-link to="/linimasa" exact>Pilpres</router-link>
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
-          <TabJP v-if="this.$route.query.type == 'janji-politik'"/>
+          <TabJP v-if="this.$route.query.type == 'janji-politik'" :data="janjiPolitiks"/>
           <TabPilpres v-else/>
         </div>
       </div>
@@ -26,7 +26,7 @@
             :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
             class="d-none d-lg-block"
           >
-            <WidgetBanner :data="bannerJanjiPolitikData ? bannerJanjiPolitikData : null"/>
+            <WidgetBanner :data="bannerJanjiPolitikData ? bannerJanjiPolitikData : {}"/>
           </router-link>
         </div>
         <div v-else>
@@ -35,7 +35,7 @@
             :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}"
             class="d-none d-lg-block"
           >
-            <WidgetBanner :data="bannerPilpresData ? bannerPilpresData : null"/>
+            <WidgetBanner :data="bannerPilpresData ? bannerPilpresData : {}"/>
           </router-link>
         </div>
       </div>
@@ -44,17 +44,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import TimelineLayout from '@/layout/Timeline'
 
-import TabPilpres from '@/pages/Linimasa/TabPilpres'
-import TabJP from '@/pages/Linimasa/TabJP'
-import WidgetFilterJP from '@/pages/Linimasa/WidgetFilterJP'
-import WidgetFilterPilpres from '@/pages/Linimasa/WidgetFilterPilpres'
-import WidgetBanner from '@/pages/Linimasa/WidgetBanner'
-import HintBanner from '@/pages/Linimasa/HintBanner'
-import DetailPost from '@/pages/Linimasa/DetailPost'
+import TabPilpres from '@/components/Linimasa/TabPilpres'
+import TabJP from '@/components/Linimasa/TabJP'
+import WidgetFilterJP from '@/components/Linimasa/WidgetFilterJP'
+import WidgetFilterPilpres from '@/components/Linimasa/WidgetFilterPilpres'
+import WidgetBanner from '@/components/Linimasa/WidgetBanner'
+import HintBanner from '@/components/Linimasa/HintBanner'
+import DetailPost from '@/components/Linimasa/DetailPost'
 
 export default {
   name: 'Linimasa',
@@ -69,6 +69,9 @@ export default {
     DetailPost
   },
   computed: {
+    ...mapState({
+      janjiPolitiks: state => state.liniMasa.janjiPolitiks
+    }),
     ...mapGetters([
       'bannerPilpresData',
       'bannerKuisData',
@@ -77,7 +80,7 @@ export default {
     ])
   },
   methods: {
-    ...mapActions(['fetchBannerInfo']),
+    ...mapActions(['fetchBannerInfo', 'fetchJanjiPolitik']),
     getObject(type) {
       switch (type) {
         case 'janji-politik':
@@ -87,9 +90,15 @@ export default {
       }
     }
   },
-  // TODO: ketika route berubah atau direoad, ambil ulang data
   mounted() {
-    this.fetchBannerInfo('janji politik')
+    const payload = {
+      page: 1,
+      perPage: 100,
+      query: ''
+    }
+    this.fetchBannerInfo('janji politik').then(async () => {
+      await this.fetchJanjiPolitik(payload)
+    })
   }
 }
 </script>
