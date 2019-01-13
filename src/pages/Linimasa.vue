@@ -15,12 +15,7 @@
         <DetailPost/>
       </div>
       <div v-else>
-        <div v-if="this.$route.query.type == 'janji-politik'">
-          <HintJP/>
-        </div>
-        <div v-if="this.$route.query.type == 'pilpres'">
-          <HintPilpres/>
-        </div>
+        <HintBanner :object="getObject($route.query.type)"/>
       </div>
     </div>
     <div slot="widget-wrapper">
@@ -31,7 +26,7 @@
             :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
             class="d-none d-lg-block"
           >
-            <WidgetBannerJP/>
+            <WidgetBanner :data="bannerJanjiPolitikData ? bannerJanjiPolitikData : null"/>
           </router-link>
         </div>
         <div v-else>
@@ -40,7 +35,7 @@
             :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}"
             class="d-none d-lg-block"
           >
-            <WidgetBannerPilpres/>
+            <WidgetBanner :data="bannerPilpresData ? bannerPilpresData : null"/>
           </router-link>
         </div>
       </div>
@@ -49,16 +44,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 import TimelineLayout from '@/layout/Timeline'
+
 import TabPilpres from '@/pages/Linimasa/TabPilpres'
 import TabJP from '@/pages/Linimasa/TabJP'
 import WidgetFilterJP from '@/pages/Linimasa/WidgetFilterJP'
 import WidgetFilterPilpres from '@/pages/Linimasa/WidgetFilterPilpres'
-import WidgetBannerJP from '@/pages/Linimasa/WidgetBannerJP'
-import WidgetBannerPilpres from '@/pages/Linimasa/WidgetBannerPilpres'
-import HintPilpres from '@/pages/Linimasa/HintPilpres'
-import HintJP from '@/pages/Linimasa/HintJP'
+import WidgetBanner from '@/pages/Linimasa/WidgetBanner'
+import HintBanner from '@/pages/Linimasa/HintBanner'
 import DetailPost from '@/pages/Linimasa/DetailPost'
+
 export default {
   name: 'Linimasa',
   components: {
@@ -67,11 +64,32 @@ export default {
     TabJP,
     WidgetFilterJP,
     WidgetFilterPilpres,
-    WidgetBannerJP,
-    WidgetBannerPilpres,
-    HintPilpres,
-    HintJP,
+    WidgetBanner,
+    HintBanner,
     DetailPost
+  },
+  computed: {
+    ...mapGetters([
+      'bannerPilpresData',
+      'bannerKuisData',
+      'bannerTanyaData',
+      'bannerJanjiPolitikData'
+    ])
+  },
+  methods: {
+    ...mapActions(['fetchBannerInfo']),
+    getObject(type) {
+      switch (type) {
+        case 'janji-politik':
+          return this.bannerJanjiPolitikData
+        case 'pilpres':
+          return this.bannerPilpresData
+      }
+    }
+  },
+  // TODO: ketika route berubah atau direoad, ambil ulang data
+  mounted() {
+    this.fetchBannerInfo('janji politik')
   }
 }
 </script>
