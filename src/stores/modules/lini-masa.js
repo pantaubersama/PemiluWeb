@@ -2,7 +2,8 @@ import types from '../mutations.js'
 import serviceLiniMasa from '@/services/api/modules/lini-masa'
 
 const state = {
-  bannerData: []
+  bannerData: [],
+  janjiPolitiks: []
 }
 
 const getters = {
@@ -35,6 +36,15 @@ const actions = {
         commit(types.SUCCESS_BANNER_INFO, response.banner_infos)
       )
       .catch(() => commit(types.ERROR_BANNER_INFO, { savedBannerData }))
+  },
+  fetchJanjiPolitik({ commit, state }, payload) {
+    const savedJanjiPolitiks = [...state.janjiPolitiks]
+    serviceLiniMasa
+      .fetchJanjiPolitik(payload)
+      .then(response =>
+        commit(types.SUCCESS_JANJI_POLITIK, response.janji_politiks)
+      )
+      .catch(() => commit(types.ERROR_JANJI_POLITIK, { savedJanjiPolitiks }))
   }
 }
 
@@ -45,6 +55,13 @@ const mutations = {
   [types.ERROR_BANNER_INFO](state, { savedBannerData }) {
     // rollback to the data saved before sending the request
     state.bannerData = savedBannerData
+  },
+  [types.SUCCESS_JANJI_POLITIK](state, payload) {
+    state.janjiPolitiks = payload
+  },
+  [types.ERROR_JANJI_POLITIK](state, { savedJanjiPolitiks }) {
+    // rollback to the data saved before sending the request
+    state.janjiPolitiks = savedJanjiPolitiks
   }
 }
 

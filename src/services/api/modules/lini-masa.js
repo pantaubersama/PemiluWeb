@@ -16,8 +16,32 @@ const fetchBannerInfo = (page_name = 'pilpres') => {
     .catch(error => error)
 }
 
+const fetchJanjiPolitik = ({
+  query,
+  clusterId,
+  filterBy = 'user_verified_all',
+  page = 1,
+  perPage = 20
+}) => {
+  return axios
+    .get(`${PREFIX}/v1/janji_politiks`, {
+      params: {
+        page,
+        q: query,
+        per_page: perPage,
+        cluster_id: clusterId,
+        filter_by: filterBy,
+        client_id: '',
+        token: vueAuth.getToken()
+      }
+    })
+    .then(response => response.data.data)
+    .catch(error => error)
+}
+
 const services = {
-  fetchBannerInfo
+  fetchBannerInfo,
+  fetchJanjiPolitik
 }
 
 export default services
