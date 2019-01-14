@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './components/App'
 import router from './router'
-import { http } from './services/http'
+import {
+  http
+} from './services/http'
 import store from '@/stores'
 Vue.config.productionTip = false
 
@@ -13,7 +15,7 @@ new Vue({
   store,
   router,
   render: h => h(App),
-  created () {
+  created() {
     http.init()
   }
 })
