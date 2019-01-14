@@ -24,6 +24,10 @@ const getters = {
     return state.bannerData
       .filter(item => item.page_name === 'janji politik')
       .pop()
+  },
+  detailJanjiPolitik: state => id => {
+    if (!id || !state.janjiPolitiks) return {}
+    return state.janjiPolitiks.filter(item => item.id === id).pop()
   }
 }
 
