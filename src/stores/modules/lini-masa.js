@@ -41,7 +41,8 @@ const actions = {
       )
       .catch(() => commit(types.ERROR_BANNER_INFO, { savedBannerData }))
   },
-  fetchJanjiPolitik({ commit, state }, payload) {
+  fetchJanjiPolitik({ commit, state }, payload, isFilter = false) {
+    if (isFilter) commit(types.CLEAR_JANJI_POLITIK)
     const savedJanjiPolitiks = [...state.janjiPolitiks]
     serviceLiniMasa
       .fetchJanjiPolitik(payload)
@@ -62,6 +63,9 @@ const mutations = {
   },
   [types.SUCCESS_JANJI_POLITIK](state, payload) {
     state.janjiPolitiks = payload
+  },
+  [types.CLEAR_JANJI_POLITIK](state) {
+    state.janjiPolitiks.removeAll()
   },
   [types.ERROR_JANJI_POLITIK](state, { savedJanjiPolitiks }) {
     // rollback to the data saved before sending the request

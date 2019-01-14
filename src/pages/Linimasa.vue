@@ -21,7 +21,12 @@
     <div slot="widget-wrapper">
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div v-if="$route.query.type == 'janji-politik'">
-          <WidgetFilterJP/>
+          <WidgetFilterJP
+            @onClickApplyButton="filterJanjiPolitik"
+            @onClickResetButton="resetJanjiPolitik"
+            @onChangeUserStatus="filterStatusChange"
+            @onChangeCluster="filterClusterChange"
+          />
           <router-link
             :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
             class="d-none d-lg-block"
@@ -80,6 +85,12 @@ export default {
       'detailJanjiPolitik'
     ])
   },
+  data() {
+    return {
+      clusterId: '',
+      userStatus: 'user_verified_all' // user_verified_all, user_verified_true, user_verified_false
+    }
+  },
   methods: {
     ...mapActions(['fetchBannerInfo', 'fetchJanjiPolitik']),
     getObject(type) {
@@ -89,6 +100,32 @@ export default {
         case 'pilpres':
           return this.bannerPilpresData
       }
+    },
+    filterJanjiPolitik() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        clusterId: this.clusterId,
+        filterBy: this.userStatus
+      }
+      this.fetchJanjiPolitik(payload, true)
+    },
+    resetJanjiPolitik() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        clusterId: '',
+        filterBy: 'user_verified_all'
+      }
+      this.fetchJanjiPolitik(payload)
+    },
+    filterStatusChange(value) {
+      this.userStatus = value
+    },
+    filterClusterChange(value) {
+      this.clusterId = value
     }
   },
   mounted() {
