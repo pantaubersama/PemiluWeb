@@ -58,6 +58,31 @@
       right: 10px
       top: 6px
 
+  .dropdown-note-container
+    display: flex
+    justify-content: center
+    align-items: center
+    .dropdown-content
+      border-radius: 16px
+      padding: 0
+      overflow: hidden
+  button.note
+    width: 28px
+    height: 28px
+    padding: 0
+    margin-left: 10px
+    border: none
+    background: none
+    cursor: pointer
+    .icon.icon-pins
+      width: 28px
+      height: 28px
+      display: block
+      background-color: #333
+      -webkit-mask: url(~@/assets/icon-pins.svg)
+  button.note.is-active + .dropdown-content
+    display: block
+
   .word-stadium
     svg
       width: 28px

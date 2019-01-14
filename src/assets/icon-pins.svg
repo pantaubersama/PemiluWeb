@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="outline-pinned-48px" width="28" height="28" viewBox="0 0 28 28">
+    <defs>
+        <style>
+            .cls-1{fill:#111}.cls-2{fill:none}
+        </style>
+    </defs>
+    <path id="Path_1879" d="M25.372 6.293L20.588 1.51 12.2 8.218a3.5 3.5 0 0 0-4.083.63l-2.474 2.474 3.71 3.722-6.346 6.346L1.77 25.1l3.768-1.237 6.347-6.347 3.722 3.71 2.473-2.473a3.483 3.483 0 0 0 .63-4.083zm-9 9.158a1.167 1.167 0 0 1 0 1.645l-.817.828-2.06-2.064-2.485-2.473-2.065-2.065.828-.817a1.167 1.167 0 0 1 1.645 0l.735.735 8.248-6.6 1.832 1.832-6.6 8.248z" class="cls-1" data-name="Path 1879" transform="translate(.295 .252)"/>
+    <path id="Rectangle_128" d="M0 0h28v28H0z" class="cls-2" data-name="Rectangle 128"/>
+</svg>

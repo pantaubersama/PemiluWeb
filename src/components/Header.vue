@@ -16,10 +16,22 @@
             <search-icon></search-icon>
           </div>
         </div>
-        <a href class="word-stadium">
+        <a href="#" class="word-stadium">
           <word-stadium-icon></word-stadium-icon>
         </a>
-        <a href class="notification">
+        <div class="dropdown-note-container">
+          <button
+            class="note"
+            :class="{'is-active': isDropdownNoteActive}"
+            @click.stop="toggleDropdownNote()"
+          >
+            <i class="icon icon-pins"></i>
+          </button>
+          <div class="dropdown-content">
+            <header-note></header-note>
+          </div>
+        </div>
+        <a href="#" class="notification">
           <notification-icon></notification-icon>
         </a>
         <div class="profile-menu" v-if="userLogin">
@@ -46,7 +58,7 @@
                 <router-link to="/profile/setting">Setting</router-link>
               </li>
             </ul>
-            <a href class="button-logout" @click.prevent="logout">Keluar</a>
+            <a href="#" class="button-logout" @click.prevent="logout">Keluar</a>
           </div>
         </div>
         <router-link v-else to="/login" class="login">LOGIN</router-link>
@@ -77,6 +89,7 @@ import {
   WordStadiumIcon,
   LogoPantau
 } from '@/svg/icons'
+import HeaderNote from '@/components/HeaderNote'
 
 export default {
   name: 'Header',
@@ -86,12 +99,14 @@ export default {
     SearchIcon,
     NotificationIcon,
     WordStadiumIcon,
-    LogoPantau
+    LogoPantau,
+    HeaderNote
   },
   mixins: [authLink],
   data() {
     return {
-      isActive: false
+      isActive: false,
+      isDropdownNoteActive: false
     }
   },
   created() {
@@ -109,6 +124,9 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('meLogout/logout')
+    },
+    toggleDropdownNote() {
+      this.isDropdownNoteActive = !this.isDropdownNoteActive
     },
     toggleDropdown(event) {
       this.isActive = !this.isActive
