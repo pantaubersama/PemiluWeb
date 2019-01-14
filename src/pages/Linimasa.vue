@@ -7,12 +7,12 @@
             <router-link to="/linimasa" exact>Pilpres</router-link>
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
-          <TabJP v-if="this.$route.query.type == 'janji-politik'" :data="janjiPolitiks"/>
+          <TabJP v-if="$route.query.type == 'janji-politik'" :data="janjiPolitiks"/>
           <TabPilpres v-else/>
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
-        <DetailPost/>
+        <DetailPost :data="detailJanjiPolitik($route.params.id)"/>
       </div>
       <div v-else>
         <HintBanner :object="getObject($route.query.type)"/>
@@ -20,7 +20,7 @@
     </div>
     <div slot="widget-wrapper">
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
-        <div v-if="this.$route.query.type == 'janji-politik'">
+        <div v-if="$route.query.type == 'janji-politik'">
           <WidgetFilterJP/>
           <router-link
             :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
@@ -76,7 +76,8 @@ export default {
       'bannerPilpresData',
       'bannerKuisData',
       'bannerTanyaData',
-      'bannerJanjiPolitikData'
+      'bannerJanjiPolitikData',
+      'detailJanjiPolitik'
     ])
   },
   methods: {
