@@ -35,7 +35,11 @@
           </router-link>
         </div>
         <div v-else>
-          <WidgetFilterPilpres/>
+          <WidgetFilterPilpres
+            @onClickApplyButton="filterFeeds"
+            @onClickResetButton="resetFeeds"
+            @onChangeSource="filterSourceChange"
+          />
           <router-link
             :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}"
             class="d-none d-lg-block"
@@ -89,7 +93,8 @@ export default {
   data() {
     return {
       clusterId: '',
-      userStatus: 'user_verified_all' // user_verified_all, user_verified_true, user_verified_false
+      userStatus: 'user_verified_all', // user_verified_all, user_verified_true, user_verified_false
+      source: 'team_all'
     }
   },
   methods: {
@@ -131,6 +136,27 @@ export default {
     },
     filterClusterChange(value) {
       this.clusterId = value
+    },
+    filterFeeds() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        filterBy: this.source
+      }
+      this.fetchFeedsPilpres(payload, true)
+    },
+    resetFeeds() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        filterBy: 'team_all'
+      }
+      this.fetchFeedsPilpres(payload)
+    },
+    filterSourceChange(value) {
+      this.source = value
     }
   },
   mounted() {
