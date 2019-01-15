@@ -8,7 +8,7 @@
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
           <TabJP v-if="$route.query.type == 'janji-politik'" :data="janjiPolitiks"/>
-          <TabPilpres v-else/>
+          <TabPilpres v-else :data="feedsPilpres"/>
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
@@ -75,7 +75,8 @@ export default {
   },
   computed: {
     ...mapState({
-      janjiPolitiks: state => state.liniMasa.janjiPolitiks
+      janjiPolitiks: state => state.liniMasa.janjiPolitiks,
+      feedsPilpres: state => state.liniMasa.feedsPilpres
     }),
     ...mapGetters([
       'bannerPilpresData',
@@ -92,7 +93,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchBannerInfo', 'fetchJanjiPolitik']),
+    ...mapActions([
+      'fetchBannerInfo',
+      'fetchJanjiPolitik',
+      'fetchFeedsPilpres'
+    ]),
     getObject(type) {
       switch (type) {
         case 'janji-politik':
@@ -134,8 +139,14 @@ export default {
       perPage: 100,
       query: ''
     }
+    const payloadFeeds = {
+      page: 1,
+      perPage: 100,
+      query: ''
+    }
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
+      await this.fetchFeedsPilpres(payloadFeeds)
     })
   }
 }

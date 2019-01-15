@@ -46,9 +46,31 @@ const fetchJanjiPolitik = ({
     .catch(error => error)
 }
 
+const fetchFeedsPilpres = ({
+  filterBy = 'team_all',
+  query = '',
+  page = 1,
+  perPage = 100
+}) => {
+  return httpClient
+    .get(`${PREFIX}/v1/feeds/pilpres`, {
+      params: {
+        page,
+        q: query,
+        filter_by: filterBy,
+        per_page: perPage,
+        token: vueAuth.getToken(),
+        client_id: ''
+      }
+    })
+    .then(response => response.data.data)
+    .catch(error => error)
+}
+
 const services = {
   fetchBannerInfo,
-  fetchJanjiPolitik
+  fetchJanjiPolitik,
+  fetchFeedsPilpres
 }
 
 export default services

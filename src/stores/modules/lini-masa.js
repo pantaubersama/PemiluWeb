@@ -3,7 +3,8 @@ import serviceLiniMasa from '@/services/api/modules/lini-masa'
 
 const state = {
   bannerData: [],
-  janjiPolitiks: []
+  janjiPolitiks: [],
+  feedsPilpres: []
 }
 
 const getters = {
@@ -28,6 +29,10 @@ const getters = {
   detailJanjiPolitik: state => id => {
     if (!id || !state.janjiPolitiks) return {}
     return state.janjiPolitiks.filter(item => item.id === id).pop()
+  },
+  detailFeedPilpres: state => id => {
+    if (!id || !state.feedsPilpres) return {}
+    return state.feedsPilpres.filter(item => item.id === id).pop()
   }
 }
 
@@ -50,6 +55,14 @@ const actions = {
         commit(types.SUCCESS_JANJI_POLITIK, response.janji_politiks)
       )
       .catch(() => commit(types.ERROR_JANJI_POLITIK, { savedJanjiPolitiks }))
+  },
+  fetchFeedsPilpres({ commit, state }, payload, isFilter = false) {
+    if (isFilter) commit(types.CLEAR_FEEDS_PILPRES)
+    const savedFeedsPilpres = [...state.feedsPilpres]
+    serviceLiniMasa
+      .fetchFeedsPilpres(payload)
+      .then(response => commit(types.SUCCESS_FEEDS_PILPRES, response.feeds))
+      .catch(() => commit(types.ERROR_FEEDS_PILPRES, { savedFeedsPilpres }))
   }
 }
 
@@ -70,6 +83,16 @@ const mutations = {
   [types.ERROR_JANJI_POLITIK](state, { savedJanjiPolitiks }) {
     // rollback to the data saved before sending the request
     state.janjiPolitiks = savedJanjiPolitiks
+  },
+  [types.SUCCESS_FEEDS_PILPRES](state, payload) {
+    state.feedsPilpres = payload
+  },
+  [types.CLEAR_FEEDS_PILPRES](state) {
+    state.feedsPilpres.removeAll()
+  },
+  [types.ERROR_FEEDS_PILPRES](state, { savedFeedsPilpres }) {
+    // rollback to the data saved before sending the request
+    state.feedsPilpres = savedFeedsPilpres
   }
 }
 
