@@ -6,6 +6,7 @@ import meLogout from '@/stores/modules/me/logout'
 import imagesUpload from '@/stores/modules/images/upload'
 import liniMasa from '@/stores/modules/lini-masa'
 import * as profile from '@/stores/modules/profile'
+import pendidikanPolitik from '@/stores/modules/pendidikan-politik'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     meLogout,
     imagesUpload,
     liniMasa,
-    profile
+    profile,
+    pendidikanPolitik
   },
   strict: debug,
   plugins: [beforeAction]

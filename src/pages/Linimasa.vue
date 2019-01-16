@@ -8,7 +8,7 @@
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
           <TabJP v-if="$route.query.type == 'janji-politik'" :data="janjiPolitiks"/>
-          <TabPilpres v-else/>
+          <TabPilpres v-else :data="feedsPilpres"/>
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
@@ -21,7 +21,12 @@
     <div slot="widget-wrapper">
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div v-if="$route.query.type == 'janji-politik'">
-          <WidgetFilterJP/>
+          <WidgetFilterJP
+            @onClickApplyButton="filterJanjiPolitik"
+            @onClickResetButton="resetJanjiPolitik"
+            @onChangeUserStatus="filterStatusChange"
+            @onChangeCluster="filterClusterChange"
+          />
           <router-link
             :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
             class="d-none d-lg-block"
@@ -30,7 +35,11 @@
           </router-link>
         </div>
         <div v-else>
-          <WidgetFilterPilpres/>
+          <WidgetFilterPilpres
+            @onClickApplyButton="filterFeeds"
+            @onClickResetButton="resetFeeds"
+            @onChangeSource="filterSourceChange"
+          />
           <router-link
             :to="{name: 'LinimasaHint', query: {type: 'pilpres'}}"
             class="d-none d-lg-block"
@@ -70,7 +79,8 @@ export default {
   },
   computed: {
     ...mapState({
-      janjiPolitiks: state => state.liniMasa.janjiPolitiks
+      janjiPolitiks: state => state.liniMasa.janjiPolitiks,
+      feedsPilpres: state => state.liniMasa.feedsPilpres
     }),
     ...mapGetters([
       'bannerPilpresData',
@@ -80,8 +90,19 @@ export default {
       'detailJanjiPolitik'
     ])
   },
+  data() {
+    return {
+      clusterId: '',
+      userStatus: 'user_verified_all', // user_verified_all, user_verified_true, user_verified_false
+      source: 'team_all'
+    }
+  },
   methods: {
-    ...mapActions(['fetchBannerInfo', 'fetchJanjiPolitik']),
+    ...mapActions([
+      'fetchBannerInfo',
+      'fetchJanjiPolitik',
+      'fetchFeedsPilpres'
+    ]),
     getObject(type) {
       switch (type) {
         case 'janji-politik':
@@ -89,6 +110,53 @@ export default {
         case 'pilpres':
           return this.bannerPilpresData
       }
+    },
+    filterJanjiPolitik() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        clusterId: this.clusterId,
+        filterBy: this.userStatus
+      }
+      this.fetchJanjiPolitik(payload, true)
+    },
+    resetJanjiPolitik() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        clusterId: '',
+        filterBy: 'user_verified_all'
+      }
+      this.fetchJanjiPolitik(payload)
+    },
+    filterStatusChange(value) {
+      this.userStatus = value
+    },
+    filterClusterChange(value) {
+      this.clusterId = value
+    },
+    filterFeeds() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        filterBy: this.source
+      }
+      this.fetchFeedsPilpres(payload, true)
+    },
+    resetFeeds() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        filterBy: 'team_all'
+      }
+      this.fetchFeedsPilpres(payload)
+    },
+    filterSourceChange(value) {
+      this.source = value
     }
   },
   mounted() {
@@ -97,8 +165,14 @@ export default {
       perPage: 100,
       query: ''
     }
+    const payloadFeeds = {
+      page: 1,
+      perPage: 100,
+      query: ''
+    }
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
+      await this.fetchFeedsPilpres(payloadFeeds)
     })
   }
 }

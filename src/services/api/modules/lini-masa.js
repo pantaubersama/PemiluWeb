@@ -2,9 +2,16 @@ import axios from 'axios'
 import { vueAuth } from '@/services/symbolic'
 
 const PREFIX = 'linimasa'
+const BASE_URL = process.env.API_PEMILU_BASE_URL
+  ? process.env.API_PEMILU_BASE_URL
+  : 'https://staging-pemilu.pantaubersama.com/'
+
+const httpClient = axios.create({
+  baseURL: BASE_URL
+})
 
 const fetchBannerInfo = (page_name = 'pilpres') => {
-  return axios
+  return httpClient
     .get(`${PREFIX}/v1/banner_infos`, {
       params: {
         page_name,
@@ -23,7 +30,7 @@ const fetchJanjiPolitik = ({
   page = 1,
   perPage = 20
 }) => {
-  return axios
+  return httpClient
     .get(`${PREFIX}/v1/janji_politiks`, {
       params: {
         page,
@@ -39,9 +46,31 @@ const fetchJanjiPolitik = ({
     .catch(error => error)
 }
 
+const fetchFeedsPilpres = ({
+  filterBy = 'team_all',
+  query = '',
+  page = 1,
+  perPage = 100
+}) => {
+  return httpClient
+    .get(`${PREFIX}/v1/feeds/pilpres`, {
+      params: {
+        page,
+        q: query,
+        filter_by: filterBy,
+        per_page: perPage,
+        token: vueAuth.getToken(),
+        client_id: ''
+      }
+    })
+    .then(response => response.data.data)
+    .catch(error => error)
+}
+
 const services = {
   fetchBannerInfo,
-  fetchJanjiPolitik
+  fetchJanjiPolitik,
+  fetchFeedsPilpres
 }
 
 export default services
