@@ -25,36 +25,38 @@
               <span>{{ `@${item.account.name}` }}</span>.
               <span>{{ item.created_at_in_word.id }}</span>
             </h5>
-            <a
-              href
-              class="icon-setting"
-              :class="{'is-active': isActive == item.id}"
-              @click.prevent="toggleDropdown(item.id, $event)"
-            >
-              <img src="@/assets/dots-icon.svg" alt>
-            </a>
-            <div class="dropdown-content">
-              <ul>
-                <li>
-                  <a href>
-                    <link-icon/>Salin Tautan
-                  </a>
-                </li>
-                <li>
-                  <a href>
-                    <share-icon/>Bagikan
-                  </a>
-                </li>
-                <li>
-                  <a href>
-                    <sosmed-twitter-icon/>Buka di Aplikasi Twitter
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
           <div class="desc-text">
             <p v-html="item.source.text"></p>
+          </div>
+        </div>
+        <div class="content-action">
+          <a
+            href
+            class="icon-setting"
+            :class="{'is-active': isActive == item.id}"
+            @click.prevent="toggleDropdown(item.id, $event)"
+          >
+            <more-horizontal-icon/>
+          </a>
+          <div class="dropdown-content">
+            <ul>
+              <li>
+                <a href>
+                  <link-icon/>Salin Tautan
+                </a>
+              </li>
+              <li>
+                <a href>
+                  <share-icon/>Bagikan
+                </a>
+              </li>
+              <li>
+                <a href>
+                  <sosmed-twitter-icon/>Buka di Aplikasi Twitter
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -63,7 +65,12 @@
 </template>
 
 <script>
-import { LinkIcon, SosmedTwitterIcon, ShareIcon } from '@/svg/icons'
+import {
+  LinkIcon,
+  SosmedTwitterIcon,
+  ShareIcon,
+  MoreHorizontalIcon
+} from '@/svg/icons'
 export default {
   name: 'TabPilpress',
   data() {
@@ -80,7 +87,8 @@ export default {
   components: {
     LinkIcon,
     SosmedTwitterIcon,
-    ShareIcon
+    ShareIcon,
+    MoreHorizontalIcon
   },
   created() {
     window.addEventListener('click', this.removeDropdown)
