@@ -4,7 +4,7 @@
     <div class="item">
       <img v-if="!isEmptyCluster" src="@/assets/user.svg">
       <p v-if="isEmptyCluster" class="cluster-name t-grey">Belum punya cluster</p>
-      <p v-else class="cluster-name">Universitas Gajah Mada</p>
+      <p v-else class="cluster-name">{{user.cluster}}</p>
       <span class="icon">
         <button
           id="toggle-button"
@@ -32,19 +32,20 @@
         </div>
       </span>
     </div>
-    <div class="fiexed">
-      <button @click="onToggleClusterState()">Toggle cluster state</button>
-    </div>
   </div>
 </template>
 <script>
 export default {
+  props: ['user'],
   data() {
     return {
-      // TODO: Remove me on production
-      isEmptyCluster: false,
       isModalRequestClusterOpen: false,
       isDropdownRequestActive: false
+    }
+  },
+  computed: {
+    isEmptyCluster() {
+      return this.user.cluster == null
     }
   },
   methods: {

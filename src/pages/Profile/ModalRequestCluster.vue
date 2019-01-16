@@ -16,8 +16,22 @@
       <div class="modal-content">
         <form @submit.prevent="submit($event)">
           <div class="card avatar">
-            <icon-avatar></icon-avatar>
-            <button class="add-image">Tambah Gambar</button>
+            <icon-avatar v-if="avatarURL == null"></icon-avatar>
+            <img v-else class="avatar" :src="avatarURL">
+            <button
+              type="button"
+              class="add-image"
+              @click="() => $refs.inputFile.click()"
+            >Tambah Gambar</button>
+            <input
+              ref="inputFile"
+              type="file"
+              name="avatar"
+              id="avatar"
+              style="display: none"
+              accept="image/*"
+              @change="inputAvatarChanged($event)"
+            >
           </div>
           <div class="card">
             <div class="card-column">
@@ -34,7 +48,8 @@
                 :class="{'is-active': isDropdownCategoryActive}"
                 @click.stop="toggleDropdown()"
               >
-                {{selectedCategory}}
+                <template v-if="selectedCategory">{{selectedCategory.name}}</template>
+                <template v-else>-</template>
                 <i class="icon icon-chevron-down"></i>
               </button>
               <div class="dropdown-content">
@@ -47,7 +62,7 @@
                     v-model="inputCustomCategory"
                     @keydown.enter="addCategory()"
                   >
-                  <button class="add-category" @click.stop="addCategory()">
+                  <button type="button" class="add-category" @click.stop="addCategory()">
                     <i class="icon icon-add"></i>
                   </button>
                 </div>
@@ -55,9 +70,9 @@
                   type="button"
                   class="category-item"
                   v-for="category in categories"
-                  :key="category"
-                  @click.stop="setCategory(category)"
-                >{{category}}</button>
+                  :key="category.id"
+                  @click.stop="setCategory(category.id)"
+                >{{category.name}}</button>
               </div>
             </div>
             <div class="card-column">
@@ -75,46 +90,88 @@
 <script>
 import Modal from '@/layout/Modal'
 import { IconAvatar } from '@/svg/icons'
+import { mapState } from 'vuex'
 export default {
   name: 'ModalRequestCluster',
   components: { Modal, IconAvatar },
-  props: ['name', 'category', 'description'],
   data() {
     return {
+      name: '',
+      description: '',
       inputCustomCategory: '',
-      selectedCategory: 'komunitas',
-      categories: ['komunitas', 'universitas', 'perusahaan'],
-      isDropdownCategoryActive: false
+      selectedCategoryId: -1,
+      isDropdownCategoryActive: false,
+      avatarURL: null,
+      avatarFile: null
     }
+  },
+  computed: {
+    ...mapState({
+      categories: s => s.profile.categories
+    }),
+    selectedCategory() {
+      return this.categories.find(it => it.id === this.selectedCategoryId)
+    }
+  },
+  mounted() {
+    this.$store.dispatch('profile/getClusterCategories')
   },
   methods: {
     submit(event) {
       const name = event.target['name'].value
-      const category = this.selectedCategory
+      const categoryId = this.selectedCategoryId
       const description = event.target['description'].value
-      this.$emit('submit', {
-        name: name,
-        category: category,
-        description: description
-      })
+      const avatarFile = this.avatarFile
+      this.$store
+        .dispatch('profile/createCluster', {
+          name,
+          categoryId,
+          description,
+          avatarFile
+        })
+        .then(() => {
+          this.$emit('close-request')
+        })
+      // this.$emit('submit', {
+      //   avatar,
+      //   name: name,
+      //   category: category,
+      //   description: description
+      // })
     },
     toggleDropdown() {
       this.isDropdownCategoryActive = !this.isDropdownCategoryActive
     },
     addCategory() {
       if (this.inputCustomCategory.length <= 0) return
-      this.categories = [this.inputCustomCategory, ...this.categories]
-      this.inputCustomCategory = ''
+      // this.categories = [this.inputCustomCategory, ...this.categories]
+      // this.inputCustomCategory = ''
+      this.$store
+        .dispatch('profile/createCategories', this.inputCustomCategory)
+        .then(() => {
+          this.inputCustomCategory = ''
+        })
     },
-    setCategory(category) {
-      this.selectedCategory = category
+    setCategory(id) {
+      this.selectedCategoryId = id
       this.isDropdownCategoryActive = false
+    },
+    inputAvatarChanged(event) {
+      const file = Array.from(event.target.files).pop()
+      if (this.avatarURL != null) URL.revokeObjectURL(this.avatarURL)
+      this.avatarFile = file
+      this.avatarURL = URL.createObjectURL(file)
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+img.avatar
+  height: 48px
+  width: 48px
+  object-fit: cover
+  border-radius: 50%
 .custom-container
   display: flex
   flex-direction: column
