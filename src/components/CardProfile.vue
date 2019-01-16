@@ -2,47 +2,52 @@
   <div class="profil-list">
     <div class="card grey">
       <span class="edit-icon">
-        <a href="#">
+        <a href="#" @click.prevent="() => modal = 'ModalEditProfile'">
           <img src="@/assets/icon_edit.svg">
         </a>
       </span>
       <div class="profile">
-        <img src="@/assets/trump.jpg">
+        <img :src="user.avatar.url">
         <span>
-          <h3>Jelo Caviar, @jelo</h3>
-          <div v-if="isVerified" class="line-verified">
+          <h3>{{user.full_name}}, @{{user.username}}</h3>
+          <div v-if="user.verified" class="line-verified">
             <verified-icon-default/>Terverifikasi
           </div>
           <router-link v-else class="btn line" to="/profile/verified-steps">
             <verified-icon-default/>Belum Verifikasi
           </router-link>
         </span>
-        <p>An ordinary netizen who likes to talk a lot. Like, a lot. Who cares anyway!</p>
+        <p v-if="user.about && user.about.length > 0">{{user.about}}</p>
+        <p v-else>-</p>
       </div>
     </div>
     <div class="card">
       <cluster-panel
+        :user="user"
         @request-cluster="() => modal = 'ModalRequestCluster'"
         @invite-cluster="() => modal = 'ModalInviteCluster'"
       ></cluster-panel>
       <div class="list-wrap">
         <h4 class="title">
           Biodata
-          <a href="#" @click.prevent="ModalEditProfile">
+          <a href="#" @click.prevent="() => modal = 'ModalEditProfile'">
             <img src="@/assets/icon_edit.svg">
           </a>
         </h4>
         <div class="item">
           <img src="@/assets/icon_point.svg">
-          <p>Bandung</p>
+          <p v-if="user.location">{{user.location}}</p>
+          <p v-else>-</p>
         </div>
         <div class="item">
           <img src="@/assets/icon_open_book.svg">
-          <p>Universitas Gajah Mada</p>
+          <p v-if="user.education">{{user.education}}</p>
+          <p v-else>-</p>
         </div>
         <div class="item">
           <img src="@/assets/icon_briefcase.svg">
-          <p>Pantau Bersama</p>
+          <p v-if="user.occupation">{{user.occupation}}</p>
+          <p v-else>-</p>
         </div>
       </div>
 
@@ -50,27 +55,47 @@
         <h4 class="title">Badge
           <router-link class="badge-more" to="/profile/badge">Lihat lainnya</router-link>
         </h4>
-        <div class="item">
-          <img src="@/assets/flag-star-1.png">
-          <span>
-            <p>KADET</p>
-            <p class="sub-text">Ikut Kuis Pendidikan Pertama Kali</p>
-          </span>
-        </div>
-        <div class="item">
-          <img src="@/assets/finger-star-1.png">
-          <span>
-            <p>KEPO</p>
-            <p class="sub-text">Ikut Tanya Calon Presiden Pertama Kali</p>
-          </span>
-        </div>
-        <div class="item">
-          <img src="@/assets/flag-star-3.png">
-          <span>
-            <p>VETERAN</p>
-            <p class="sub-text">Misi Ikut Kuis Pendidikan 10 X</p>
-          </span>
-        </div>
+        <template v-if="badges.length > 0">
+          <div v-for="badge in badges" :key="badge" class="item">
+            <img src="@/assets/flag-star-1.png">
+            <span>
+              <p :data-title="badge.title">KADET</p>
+              <p class="sub-text" :data-text="badge.description">Ikut Kuis Pendidikan Pertama Kali</p>
+            </span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="item">
+            <img src="@/assets/flag-star-1.png">
+            <span>
+              <p>
+                KADET -
+                <i>placeholder</i>
+              </p>
+              <p class="sub-text">Ikut Kuis Pendidikan Pertama Kali</p>
+            </span>
+          </div>
+          <div class="item">
+            <img src="@/assets/finger-star-1.png">
+            <span>
+              <p>
+                KEPO -
+                <i>placeholder</i>
+              </p>
+              <p class="sub-text">Ikut Tanya Calon Presiden Pertama Kali</p>
+            </span>
+          </div>
+          <div class="item">
+            <img src="@/assets/flag-star-3.png">
+            <span>
+              <p>
+                VETERAN -
+                <i>placeholder</i>
+              </p>
+              <p class="sub-text">Misi Ikut Kuis Pendidikan 10 X</p>
+            </span>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -78,27 +103,27 @@
       <div class="nav-tabs">
         <ul>
           <li>
-            <a class="active" href>
+            <a class="active" href="#">
               <img src="@/assets/icon_book.svg">
             </a>
           </li>
           <li>
-            <a href>
+            <a href="#">
               <img src="@/assets/icon_education.svg">
             </a>
           </li>
           <li>
-            <a href>
+            <a href="#">
               <img src="@/assets/icon_record.svg">
             </a>
           </li>
           <li>
-            <a href>
+            <a href="#">
               <img src="@/assets/icon_report.svg">
             </a>
           </li>
           <li>
-            <a href>
+            <a href="#">
               <img src="@/assets/icon_date.svg">
             </a>
           </li>
@@ -108,25 +133,24 @@
       <ListCardJP></ListCardJP>
     </div>
 
-    <modal-request-cluster
-      v-if="modal === 'ModalRequestCluster'"
-      :name="requestCluster.name"
-      :category="requestCluster.category"
-      :description="requestCluster.description"
-      @close-request="closeModal()"
-      @submit="onSubmitRequest($event)"
-    ></modal-request-cluster>
+    <modal-request-cluster v-if="modal === 'ModalRequestCluster'" @close-request="closeModal()"></modal-request-cluster>
     <modal-confirm-request-cluster
       v-if="modal === 'ModalConfirmCluster'"
       @back="onConfirmBack()"
       @confirm="onConfirmRequestCluster()"
     ></modal-confirm-request-cluster>
-    <modal-edit-profile v-if="modal === 'ModalEditProfile'" v-on:close="closeModal()"/>
+    <modal-edit-profile
+      v-if="modal === 'ModalEditProfile'"
+      @close="closeModal()"
+      @submit="onSubmitProfile($event)"
+      :user="user"
+    />
     <modal-invite-cluster v-if="modal === 'ModalInviteCluster'" @close-request="closeModal()"></modal-invite-cluster>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ListCardJP from '@/components/ListCardJP'
 import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
 import ModalConfirmRequestCluster from '@/pages/Profile/ModalConfirmRequestCluster'
@@ -149,15 +173,18 @@ export default {
     return {
       isVerified: false,
       isDropdownActive: false,
-      modal: false,
-      requestCluster: {
-        name: 'PDIP',
-        category: 'partai',
-        description: 'Merupakan Cluster Yang Bergerak'
-      }
+      modal: false
     }
   },
+  computed: {
+    ...mapState({
+      user: s => s.profile.user,
+      badges: s => s.profile.badges
+    })
+  },
   mounted() {
+    this.$store.dispatch('profile/getMe')
+    this.$store.dispatch('profile/getBadges')
     window.addEventListener('click', this.removeDropdown)
   },
   beforeDestroy() {
@@ -179,6 +206,9 @@ export default {
       this.requestCluster.description = description
       this.modal = 'ModalConfirmCluster'
     },
+    onSubmitProfile(data) {
+      this.$store.dispatch('profile/update', data)
+    },
     removeDropdown(event) {
       const isInsideDropdown = event.target.parentNode.parentNode.classList.contains(
         'request-cluster'
@@ -188,9 +218,6 @@ export default {
         console.log('remove dropdown')
         this.isDropdownActive = false
       }
-    },
-    ModalEditProfile() {
-      this.modal = 'ModalEditProfile'
     },
     closeModal() {
       this.modal = false
