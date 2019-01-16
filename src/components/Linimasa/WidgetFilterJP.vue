@@ -1,8 +1,5 @@
 <template>
   <div class="card widget-filter">
-    <div class="button-reset">
-      <button class="btn btn-outline">Reset</button>
-    </div>
     <button
       class="button-filter"
       id="button-filter"

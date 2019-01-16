@@ -42,7 +42,7 @@
       </router-link>
       <p v-html="trimCharacters(item.body)"></p>
       <span class="icon-right">
-        <a href="javascript:void(0)">
+        <a href="javascript:void(0)" @click.stop="modalShare(item.id)">
           <img src="@/assets/icon_share.svg">
         </a>
         <a
@@ -66,7 +66,7 @@
               </a>
             </li>
             <li>
-              <a @click.stop="modalShare(item.id)" href="javascript:void(0)">
+              <a href="javascript:void(0)" @click.stop="modalShare(item.id)">
                 <share-icon/>Bagikan
               </a>
             </li>
