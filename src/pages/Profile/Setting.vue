@@ -5,11 +5,11 @@
         <div class="card-title">Setting</div>
         <div class="card-body">
           <div class="card-column">
-            <button class="change-password" @click.stop="isModalChangePasswordOpen = true">
+            <a href="//identitas.extrainteger.com" class="change-password" target="_blank">
               <i class="icon icon-lock"></i>
               <span class="label">Ubah Sandi</span>
               <i class="icon icon-chevron-right"></i>
-            </button>
+            </a>
           </div>
           <div class="card-column">
             <div class="connect">
