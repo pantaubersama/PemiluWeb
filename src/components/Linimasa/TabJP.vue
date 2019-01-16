@@ -22,7 +22,12 @@
       <div class="top">
         <div class="avatar">
           <a href="javascript:void(0)">
-            <img :src="item.creator.avatar.thumbnail_square.url">
+            <img
+              :src="item.creator.avatar.thumbnail_square.url"
+              v-if="item.creator.avatar.thumbnail_square.url"
+              class="rounded-circle"
+            >
+            <img src="@/assets/user.svg" alt v-else>
           </a>
         </div>
         <h5>
