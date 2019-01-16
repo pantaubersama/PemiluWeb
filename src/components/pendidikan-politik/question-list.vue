@@ -1,6 +1,6 @@
 <template>
   <ul class="question-list">
-    <li>
+    <!-- <li>
       <button class="add-question">
         <div class="avatar-container">
           <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
@@ -8,16 +8,16 @@
         </div>
         <p class="trigger">Apa pertanyaan Anda untuk kedua calon Presiden?</p>
       </button>
-    </li>
+    </li>-->
     <li v-for="question in questions" :key="question.id">
       <question-item
         :id="question.id"
-        :title="question.title"
-        :question="question.question"
-        :time="question.time"
-        :name="question.name"
-        :avatar="question.avatar"
-        :is-voted="question.isVoted"
+        :title="question.user.about"
+        :question="question.body"
+        :time="question.created_at_in_word.id"
+        :name="question.user.full_name"
+        :avatar="question.user.avatar.thumbnail_square.url"
+        :is-voted="question.is_liked"
         @upvoted="$emit('upvoted', $event)"
       ></question-item>
     </li>
@@ -31,7 +31,10 @@ export default {
   name: 'QuestionList',
   components: { QuestionItem },
   props: {
-    questions: Array
+    questions: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {}

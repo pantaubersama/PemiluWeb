@@ -8,12 +8,13 @@
     </button>
     <div class="content">
       <div class="meta">
-        <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
+        <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+        <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
         <div class="title">
           <div class="name">{{name}}</div>
           <small class="question-title">{{title}}</small>
         </div>
-        <small class="time">Ask {{time}}</small>
+        <small class="time">{{time}}</small>
       </div>
       <div class="question">{{question}}</div>
       <div class="button-list">
