@@ -11,6 +11,33 @@ const httpClient = axios.create({
   headers: { Authorization: `Bearer ${vueAuth.getToken()}` }
 })
 
+const fetchQuestions = ({
+  page = 1,
+  perPage = 100,
+  query = '',
+  operator = 'and',
+  match = 'word_start',
+  orderBy = 'created_at',
+  direction = 'desc',
+  filter = 'user_verified_all'
+}) => {
+  return httpClient
+    .get(`${PREFIX}/v1/questions`, {
+      params: {
+        page,
+        direction,
+        per_page: perPage,
+        q: query,
+        o: operator,
+        m: match,
+        order_by: orderBy,
+        filter_by: filter
+      }
+    })
+    .then(response => response.data.data)
+    .catch(error => error)
+}
+
 const postReport = (id, className = 'Question') => {
   return httpClient
     .post(`${PREFIX}/v1/reports`, {
@@ -22,6 +49,7 @@ const postReport = (id, className = 'Question') => {
 }
 
 const services = {
+  fetchQuestions,
   postReport
 }
 

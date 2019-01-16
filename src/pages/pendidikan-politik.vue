@@ -156,6 +156,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import TimelineLayout from '@/layout/Timeline'
 import QuestionList from '@/components/pendidikan-politik/question-list'
 import QuizList from '@/components/pendidikan-politik/quiz-list'
@@ -178,6 +180,9 @@ export default {
     WidgetFooterQuiz
   },
   computed: {
+    ...mapState({
+      questions: state => state.pendidikanPolitik.questions
+    }),
     activePage() {
       if (this.$route.query.type == null) return 'tanya'
       return this.$route.query.type
@@ -189,20 +194,11 @@ export default {
       filterUser: 'semua',
       filterUrutan: 'paling-baru',
       filterQuiz: 'semua',
-      questions: Array.from(Array(20).keys()).map(id => ({
-        id: id,
-        name: 'Trump',
-        avatar: '@/assets/trump.jpg',
-        title: 'Apa apa apa apa apa?',
-        time: '8 days ago',
-        isVoted: false,
-        question:
-          'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam, harum quibusdam voluptatem rem nihil, eius repellat, atque soluta praesentium eligendi illum dolores quo quae nemo ex nam quam aut ab.'
-      })),
       showModal: false
     }
   },
   methods: {
+    ...mapActions(['fetchQuestions']),
     onOpenWidgetFilter(open) {
       this.isWidgetFilterExpanded = open
     },
@@ -223,6 +219,21 @@ export default {
     onClickAnswerButton() {
       this.showModal = true
     }
+  },
+  mounted() {
+    const payload = {
+      page: 1,
+      perPage: 100,
+      query: '',
+      operator: 'and',
+      match: 'word_start',
+      orderBy: 'created_at',
+      direction: 'desc',
+      filter: 'user_verified_all'
+    }
+    this.fetchQuestions(payload).then(result =>
+      console.log('fetch questions', result)
+    )
   }
 }
 </script>
