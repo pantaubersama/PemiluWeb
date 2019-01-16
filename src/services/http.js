@@ -1,7 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
 import router from '@/router'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 
 export const http = {
   request(method, url, data, successCb = null, errorCb = null, headers = {}) {
@@ -11,9 +13,7 @@ export const http = {
         data: data instanceof FormData ? data : qs.stringify(data),
         params: method === 'get' ? data : {},
         method,
-        headers: Object.assign(
-          {},
-          {
+        headers: Object.assign({}, {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           headers
@@ -26,8 +26,7 @@ export const http = {
   get(url, data, successCb = null, errorCb = null) {
     return this.request(
       'get',
-      url + '?' + qs.stringify(data),
-      {},
+      url + '?' + qs.stringify(data), {},
       successCb,
       errorCb
     )
@@ -66,13 +65,15 @@ export const http = {
       },
       error => {
         // Also, if we receive / Unauthorized error
-        if (error.response.status === 401) {
-          router.replace({
-            path: '/login',
-            query: { redirect: window.location.pathname }
-          })
-        }
-        return Promise.reject(error)
+        // if (error.response.status === 401) {
+        //   router.replace({
+        //     path: '/login',
+        //     query: {
+        //       redirect: window.location.pathname
+        //     }
+        //   })
+        // }
+        // return Promise.reject(error)
       }
     )
   }

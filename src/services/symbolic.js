@@ -1,17 +1,19 @@
 import Vue from 'vue'
 import VueAxios from 'vue-axios'
-import { VueAuthenticate } from 'vue-authenticate'
+import {
+  VueAuthenticate
+} from 'vue-authenticate'
 import axios from 'axios'
 
-function isUndefined (value) {
+function isUndefined(value) {
   return typeof value === 'undefined'
 }
 
-function getRedirectUri (uri) {
+function getRedirectUri(uri) {
   try {
-    return (!isUndefined(uri))
-      ? ('' + (window.location.origin) + uri)
-      : window.location.origin
+    return (!isUndefined(uri)) ?
+      ('' + (window.location.origin) + uri) :
+      window.location.origin
   } catch (e) {}
 
   return uri || null
@@ -32,7 +34,10 @@ var defaultProviderConfig = {
   state: null,
   oauthType: '2.0',
   display: 'popup',
-  popupOptions: {width: 500, height: 500},
+  popupOptions: {
+    width: 500,
+    height: 500
+  },
   responseType: 'code',
   responseParams: {
     clientId: 'client_id',
@@ -49,7 +54,7 @@ export default {
 
   name: 'Symbolic',
 
-  data () {
+  data() {
     return {
       auth: vueAuth
     }
@@ -64,3 +69,4 @@ export const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
     symbolic: defaultProviderConfig
   }
 })
+window.vueAuth = vueAuth
