@@ -2,7 +2,6 @@
   <div class="profile-page">
     <LayoutTimeline>
       <template slot="main-content">
-        <modal-confirm v-if="modal === 'modalConfirm'" v-on:close="closeModal()"/>
         <div class="verified-steps">
           <div class="title">Verifikasi Akun (0/3)</div>
           <div class="thumb">
@@ -14,7 +13,7 @@
               <br>Mendapatkan manfaat dan is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
             </p>
             <label>Masukkan No Identitas KTP</label>
-            <input type="text" class="form-group">
+            <input type="text" class="form-group" v-model="inputKTPNumber">
           </div>
         </div>
         <div class="verified-steps">
@@ -31,7 +30,13 @@
             <img src="@/assets/selfie-idcard-2.png" alt>
           </div>
           <div class="upload-img">
-            <input type="file" name="pic" accept="image/*">
+            <img :src="inputSelfieURL" class="input-placeholder">
+            <input
+              type="file"
+              name="pic"
+              accept="image/*"
+              @change="inputChange('inputSelfie', $event)"
+            >
             <div class="upload-placeholder">
               <image-default/>
               <p>Upload Gambar</p>
@@ -52,7 +57,13 @@
             <img src="@/assets/ktp-2.png" alt>
           </div>
           <div class="upload-img">
-            <input type="file" name="pic" accept="image/*">
+            <img :src="inputKTPURL" class="input-placeholder">
+            <input
+              type="file"
+              name="pic"
+              accept="image/*"
+              @change="inputChange('inputKTP', $event)"
+            >
             <div class="upload-placeholder">
               <image-default/>
               <p>Upload Gambar</p>
@@ -69,14 +80,31 @@
             <p>Yakk, langkah terakhir foto tanda tanganmu diatas kertas putih dengan kameramu</p>
           </div>
           <div class="upload-img">
-            <input type="file" name="pic" accept="image/*">
+            <img :src="inputSignatureURL" class="input-placeholder">
+            <input
+              type="file"
+              name="pic"
+              accept="image/*"
+              @change="inputChange('inputSignature', $event)"
+            >
             <div class="upload-placeholder">
               <image-default/>
               <p>Upload Gambar</p>
             </div>
           </div>
         </div>
-        <button class="btn btn-primary btn-block btn-submit" @click.prevent="modalConfirm()">Submit</button>
+        <button
+          type="button"
+          class="btn btn-primary btn-block btn-submit"
+          @click.prevent="() => modal = 'ModalConfirm'"
+        >Submit</button>
+
+        <modal-confirm
+          v-if="modal === 'ModalConfirm'"
+          @close="closeModal()"
+          @confirm="confirmSubmit()"
+        ></modal-confirm>
+        <modal-toast v-if="modal === 'ModalToast'" @close="closeModal()"></modal-toast>
       </template>
       <template slot="widget-wrapper">
         <div class="d-none d-lg-block">&nbsp;</div>
@@ -89,22 +117,31 @@
 import lottie from 'lottie-web'
 import LayoutTimeline from '@/layout/Timeline'
 import ModalConfirm from '@/pages/Profile/ModalConfirm'
+import ModalToast from '@/pages/Profile/ModalToast'
 import { VerifiedIconDefault, ImageDefault } from '@/svg/icons'
 export default {
   name: 'ProfileVerified',
+  components: {
+    LayoutTimeline,
+    ModalConfirm,
+    ModalToast,
+    VerifiedIconDefault,
+    ImageDefault
+  },
   data() {
     return {
       selfieLottie: null,
       idCardLottie: null,
       uploadLottie: null,
-      modal: false
+      modal: false,
+      inputKTPNumber: null,
+      inputSelfieURL: null,
+      inputSelfieFile: null,
+      inputKTPURL: null,
+      inputKTPFile: null,
+      inputSignatureURL: null,
+      inputSignatureFile: null
     }
-  },
-  components: {
-    LayoutTimeline,
-    ModalConfirm,
-    VerifiedIconDefault,
-    ImageDefault
   },
   mounted() {
     this.selfieLottie = lottie.loadAnimation({
@@ -130,11 +167,33 @@ export default {
     })
   },
   methods: {
-    modalConfirm() {
-      this.modal = 'modalConfirm'
+    confirmSubmit() {
+      this.$store
+        .dispatch('profile/verify', {
+          signature: this.inputSignatureFile,
+          ktp_photo: this.inputKTPFile,
+          ktp_selfie: this.inputSelfieFile,
+          ktp_number: this.inputKTPNumber
+        })
+        .then(() => {
+          showToast()
+        })
+    },
+    showToast() {
+      this.modal = 'ModalToast'
+      const timeoutId = window.setTimeout(() => {
+        this.modal = false
+        window.clearTimeout(timeoutId)
+      }, 1000)
     },
     closeModal() {
       this.modal = false
+    },
+    inputChange(type, event) {
+      const file = Array.from(event.target.files).pop()
+      if (this[`${type}URL`] != null) URL.revokeObjectURL(this[`${type}URL`])
+      this[`${type}URL`] = URL.createObjectURL(file)
+      this[`${type}File`] = file
     }
   },
   destroyed() {
@@ -144,3 +203,12 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.input-placeholder
+  position: absolute
+  height: 100%
+  width: 100%
+  object-fit: cover
+  opacity: 0.2
+</style>

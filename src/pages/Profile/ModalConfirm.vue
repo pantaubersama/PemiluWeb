@@ -8,8 +8,8 @@
             <br>dikirim sudah benar ?
           </h3>
           <div class="button-options">
-            <a href class="cancel-modal" @click.prevent="$emit('close')">Tidak</a>
-            <a href @click.prevent="modalToast()">Ya</a>
+            <a href="#" class="cancel-modal" @click.prevent="$emit('close')">Tidak</a>
+            <a href="#" @click.prevent="$emit('confirm')">Ya</a>
           </div>
         </div>
       </div>
