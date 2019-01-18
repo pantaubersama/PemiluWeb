@@ -6,13 +6,14 @@ import {
 } from '@/services/symbolic'
 
 export const http = {
+  base_url: process.env.API_BASE_URL,
   request(method, url, data, successCb = null, errorCb = null, headers = {}) {
     axios
       .request({
+        method,
         url,
         data: data instanceof FormData ? data : qs.stringify(data),
         params: method === 'get' ? data : {},
-        method,
         headers: Object.assign({}, {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -49,7 +50,8 @@ export const http = {
   },
 
   init() {
-    axios.defaults.baseURL = process.env.API_BASE_URL
+
+    axios.defaults.baseURL = this.base_url
 
     // Intercept the request to make sure the token is injected into the header.
     axios.interceptors.request.use(config => {
