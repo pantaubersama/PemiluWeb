@@ -7,6 +7,8 @@ import imagesUpload from '@/stores/modules/images/upload'
 import liniMasa from '@/stores/modules/lini-masa'
 import * as profile from '@/stores/modules/profile'
 import pendidikanPolitik from '@/stores/modules/pendidikan-politik'
+import homePilpres from '@/stores/modules/home/pilpres'
+import loadingLottie from '@/stores/modules/loading-lottie'
 
 Vue.use(Vuex)
 
@@ -22,11 +24,14 @@ const beforeAction = store => {
 
 export default new Vuex.Store({
   modules: {
+    loadingLottie,
     meLogout,
     imagesUpload,
     liniMasa,
     profile,
-    pendidikanPolitik
+    pendidikanPolitik,
+    homePilpres
+
   },
   strict: debug,
   plugins: [beforeAction]
