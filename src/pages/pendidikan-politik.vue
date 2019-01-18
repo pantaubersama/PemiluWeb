@@ -55,57 +55,39 @@
         <div slot="content">
           <div class="dropdown-title">User</div>
           <ul>
-            <li>
-              <input type="radio" id="user1" name="user1" value="semua" v-model="filterUser">
-              <label for="user1">Semua</label>
-            </li>
-            <li>
+            <li v-for="input in listFilterUser" :key="input.id">
               <input
                 type="radio"
-                id="user2"
-                name="user2"
-                value="belum-verifikasi"
+                name="radio.user"
                 v-model="filterUser"
+                :id="`user.${input.id}`"
+                :value="input.value"
               >
-              <label for="user2">Belum Verifikasi</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                id="user3"
-                name="user3"
-                value="terverifikasi"
-                v-model="filterUser"
-              >
-              <label for="user3">Terverifikasi</label>
+              <label
+                :for="`user.${input.id}`"
+                v-on:click.stop="filterUser = input.value"
+              >{{ input.name }}</label>
             </li>
           </ul>
           <div class="dropdown-title">Urutan</div>
           <ul>
-            <li>
+            <li v-for="input in listFilterSorting" :key="input.id">
               <input
                 type="radio"
-                id="urutan1"
-                name="urutan1"
-                value="paling-baru"
+                name="radio.urutan"
                 v-model="filterUrutan"
+                :id="`urutan.${input.id}`"
+                :value="input.value"
               >
-              <label for="urutan1">Paling baru</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                id="urutan2"
-                name="urutan2"
-                value="paling-banyak-divoting"
-                v-model="filterUrutan"
-              >
-              <label for="urutan2">Paling banyak divoting</label>
+              <label
+                :for="`urutan.${input.id}`"
+                v-on:click.stop="filterUrutan = input.value"
+              >{{ input.name }}</label>
             </li>
           </ul>
           <div class="button-filter-group">
-            <button class="btn btn-primary">Terapkan</button>
-            <button class="btn btn-outline">Reset</button>
+            <button class="btn btn-primary" @click.stop="filterApply()">Terapkan</button>
+            <button class="btn btn-outline" @click.stop="filterReset()">Reset</button>
           </div>
         </div>
       </widget-filter>
@@ -191,10 +173,39 @@ export default {
   data() {
     return {
       isWidgetFilterExpanded: false,
-      filterUser: 'semua',
-      filterUrutan: 'paling-baru',
+      filterUser: 'user_verified_all',
+      filterUrutan: 'created_at',
       filterQuiz: 'semua',
-      showModal: false
+      showModal: false,
+      listFilterUser: [
+        {
+          id: 1,
+          value: 'user_verified_all',
+          name: 'Semua'
+        },
+        {
+          id: 2,
+          value: 'user_verified_false',
+          name: 'Belum Verifikasi'
+        },
+        {
+          id: 3,
+          value: 'user_verified_true',
+          name: 'Terverifikasi'
+        }
+      ],
+      listFilterSorting: [
+        {
+          id: 1,
+          value: 'created_at',
+          name: 'Paling baru'
+        },
+        {
+          id: 2,
+          value: 'cached_votes_up',
+          name: 'Paling banyak divoting'
+        }
+      ]
     }
   },
   methods: {
@@ -210,7 +221,6 @@ export default {
       this.showModal = !isShow
     },
     onClickChoicesButton(choice) {
-      console.log('choice is', choice)
       this.showModal = false
     },
     onClickCloseButton() {
@@ -218,22 +228,31 @@ export default {
     },
     onClickAnswerButton() {
       this.showModal = true
+    },
+    filterApply() {
+      this.fetchDataQuestions()
+    },
+    async filterReset() {
+      this.filterUser = 'user_verified_all'
+      this.filterUrutan = 'created_at'
+      await this.fetchDataQuestions()
+    },
+    fetchDataQuestions() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        operator: 'and',
+        match: 'word_start',
+        orderBy: this.filterUrutan,
+        direction: 'desc',
+        filter: this.filterUser
+      }
+      this.fetchQuestions(payload)
     }
   },
   mounted() {
-    const payload = {
-      page: 1,
-      perPage: 100,
-      query: '',
-      operator: 'and',
-      match: 'word_start',
-      orderBy: 'created_at',
-      direction: 'desc',
-      filter: 'user_verified_all'
-    }
-    this.fetchQuestions(payload).then(result =>
-      console.log('fetch questions', result)
-    )
+    this.fetchDataQuestions()
   }
 }
 </script>

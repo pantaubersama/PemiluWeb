@@ -35,7 +35,7 @@ import lottie from 'lottie-web'
 export default {
   name: 'QuestionItem',
   props: {
-    id: Number,
+    id: String,
     name: String,
     avatar: String,
     title: String,
