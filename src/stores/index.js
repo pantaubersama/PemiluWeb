@@ -8,6 +8,8 @@ import liniMasa from '@/stores/modules/lini-masa'
 import * as profile from '@/stores/modules/profile'
 import pendidikanPolitik from '@/stores/modules/pendidikan-politik'
 import homePilpres from '@/stores/modules/home/pilpres'
+import homeJanjiPolitik from '@/stores/modules/home/janji-politik'
+import homeQuestions from '@/stores/modules/home/questions'
 import loadingLottie from '@/stores/modules/loading-lottie'
 
 Vue.use(Vuex)
@@ -30,8 +32,9 @@ export default new Vuex.Store({
     liniMasa,
     profile,
     pendidikanPolitik,
-    homePilpres
-
+    homePilpres,
+    homeJanjiPolitik,
+    homeQuestions
   },
   strict: debug,
   plugins: [beforeAction]

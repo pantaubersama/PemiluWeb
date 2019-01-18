@@ -43,12 +43,14 @@
                   <icon-dots/>
                 </a>
               </div>
-              <div class="desc-text">{{pilpres.source.text}}</div>
+              <div class="desc-text">
+                <p v-html="pilpres.source.text"></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <loading-lottie v-if="isAnimating"/>
+      <loading-lottie v-if="loadingAnimating"/>
       <div class="load-more" @click="loadMore" v-if="!paginations.isLast">Tampilkan lebih banyak
         <div class="arrow-icon">
           <bottom-arrow/>
@@ -71,7 +73,7 @@ export default {
   },
   computed: {
     ...mapState('homePilpres', ['feedsPilpres', 'paginations']),
-    ...mapState('loadingLottie', ['isAnimating'])
+    ...mapState('loadingLottie', ['loadingAnimating'])
   },
   created() {
     this.$store.dispatch('homePilpres/homePilpres')

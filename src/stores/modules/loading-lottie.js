@@ -1,6 +1,6 @@
 // initial state
 const state = {
-  isAnimating: false
+  loadingAnimating: false
 }
 
 // actions
@@ -11,10 +11,10 @@ const actions = {
 // mutations
 const mutations = {
   playLoading(state) {
-    state.isAnimating = true
+    state.loadingAnimating = true
   },
   stopLoading(state) {
-    state.isAnimating = false
+    state.loadingAnimating = false
   }
 }
 
