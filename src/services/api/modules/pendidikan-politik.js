@@ -48,9 +48,20 @@ const postReport = (id, className = 'Question') => {
     .catch(error => error)
 }
 
+const vote = (id, className = 'Question') => {
+  return httpClient
+    .post(`${PREFIX}/v1/votes`, {
+      id,
+      class_name: className
+    })
+    .then(response => response.data.data)
+    .catch(error => error)
+}
+
 const services = {
   fetchQuestions,
-  postReport
+  postReport,
+  vote
 }
 
 export default services
