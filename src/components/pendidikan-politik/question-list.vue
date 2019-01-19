@@ -18,6 +18,7 @@
         :name="question.user.full_name"
         :avatar="question.user.avatar.thumbnail_square.url"
         :is-voted="question.is_liked"
+        :count="question.like_count"
         @upvoted="$emit('upvoted', $event)"
       ></question-item>
     </li>

@@ -4,7 +4,7 @@
       <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
       <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
       <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
-      <span class="vote-count">1k</span>
+      <span class="vote-count">{{ count }}</span>
     </button>
     <div class="content">
       <div class="meta">
@@ -41,7 +41,8 @@ export default {
     title: String,
     time: String,
     question: String,
-    isVoted: Boolean
+    isVoted: Boolean,
+    count: Number
   },
   data() {
     return {

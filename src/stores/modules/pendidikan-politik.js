@@ -42,6 +42,7 @@ const mutations = {
     const index = state.questions.findIndex(question => question.id === id)
     let question = state.questions.find(question => question.id === id)
     question.is_liked = true
+    question.like_count += 1
 
     state.questions[index] = question
   },
