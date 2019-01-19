@@ -4,7 +4,6 @@ import {
 import {
   vueAuth
 } from '@/services/symbolic'
-
 export default {
   logout(cb, errorCb) {
     http.api('post', '/oauth/revoke', {

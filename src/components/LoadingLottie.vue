@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAnimating" class="loading-lottie" ref="loadingLottie"></div>
+  <div v-if="loadingAnimating" class="loading-lottie" ref="loadingLottie"></div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
     lottie
   },
   computed: {
-    ...mapState('loadingLottie', ['isAnimating'])
+    ...mapState('loadingLottie', ['loadingAnimating'])
   },
   mounted() {
     this.loadingLottie = lottie.loadAnimation({
@@ -23,7 +23,7 @@ export default {
     })
   },
   watch: {
-    isAnimating(value) {
+    loadingAnimating(value) {
       if (value) return this.loadingLottie.play()
       return this.loadingLottie.stop()
     }
