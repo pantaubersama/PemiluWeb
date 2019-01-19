@@ -110,6 +110,22 @@ export const actions = {
   },
   async verify(store, payload) {
     return ProfileAPI.verify(payload)
+  },
+
+  async updateInformant(ctx, p) {
+    const user0 = {
+      informant: {
+        ...p,
+        gender_str: ctx.getters.getGender(p.gender)
+      }
+    }
+    ctx.commit('setProfileData', {
+      user: user0
+    })
+    const user1 = await ProfileAPI.updateInformant(p)
+    ctx.commit('setProfileData', {
+      user: user1
+    })
   }
 }
 
@@ -137,5 +153,18 @@ export const mutations = {
       cluster,
       ...state.cluster
     ]
+  }
+}
+
+export const getters = {
+  getGender: state => genderId => {
+    switch (genderId) {
+      case 0:
+        return 'Female'
+      case 1:
+        return 'Male'
+      default:
+        return ''
+    }
   }
 }

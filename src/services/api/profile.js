@@ -108,3 +108,16 @@ export const verify = (payload) => axios
       ktpNumber
     })
   }))
+
+export const updateInformant = (p) => axios
+  .put('/v1/informants', {
+    identity_number: p.identity_number,
+    pob: p.pob,
+    dob: p.dob,
+    gender: p.gender,
+    occupation: p.occupation,
+    nationality: p.nationality,
+    address: p.address,
+    phone_number: p.phone_number
+  })
+  .then(resp => resp.data.data.informant)
