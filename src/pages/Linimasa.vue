@@ -7,7 +7,13 @@
             <router-link to="/linimasa" exact>Pilpres</router-link>
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
-          <TabJP v-if="$route.query.type == 'janji-politik'" :data="janjiPolitiks"/>
+          <TabJP
+            v-if="$route.query.type == 'janji-politik'"
+            :data="janjiPolitiks"
+            :userAuth="userAuth"
+            :user="user"
+            @successSubmitPublikasi="filterJanjiPolitik"
+          />
           <TabPilpres v-else :data="feedsPilpres"/>
         </div>
       </div>
@@ -80,7 +86,9 @@ export default {
   computed: {
     ...mapState({
       janjiPolitiks: state => state.liniMasa.janjiPolitiks,
-      feedsPilpres: state => state.liniMasa.feedsPilpres
+      feedsPilpres: state => state.liniMasa.feedsPilpres,
+      user: state => state.profile.user,
+      userAuth: state => state.meLogout.userLogin
     }),
     ...mapGetters([
       'bannerPilpresData',

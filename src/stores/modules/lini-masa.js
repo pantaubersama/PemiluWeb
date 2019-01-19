@@ -39,7 +39,7 @@ const getters = {
 const actions = {
   fetchBannerInfo({ commit, state }, name = 'pilpres') {
     const savedBannerData = [...state.bannerData]
-    serviceLiniMasa
+    return serviceLiniMasa
       .fetchBannerInfo(name)
       .then(response =>
         commit(types.SUCCESS_BANNER_INFO, response.banner_infos)
@@ -49,7 +49,7 @@ const actions = {
   fetchJanjiPolitik({ commit, state }, payload, isFilter = false) {
     if (isFilter) commit(types.CLEAR_JANJI_POLITIK)
     const savedJanjiPolitiks = [...state.janjiPolitiks]
-    serviceLiniMasa
+    return serviceLiniMasa
       .fetchJanjiPolitik(payload)
       .then(response =>
         commit(types.SUCCESS_JANJI_POLITIK, response.janji_politiks)
@@ -59,10 +59,18 @@ const actions = {
   fetchFeedsPilpres({ commit, state }, payload, isFilter = false) {
     if (isFilter) commit(types.CLEAR_FEEDS_PILPRES)
     const savedFeedsPilpres = [...state.feedsPilpres]
-    serviceLiniMasa
+    return serviceLiniMasa
       .fetchFeedsPilpres(payload)
       .then(response => commit(types.SUCCESS_FEEDS_PILPRES, response.feeds))
       .catch(() => commit(types.ERROR_FEEDS_PILPRES, { savedFeedsPilpres }))
+  },
+  postJanjiPolitik({ commit }, payload) {
+    return serviceLiniMasa
+      .postJanjiPolitik(payload)
+      .then(response =>
+        commit(types.SUCCESS_POST_JANJI_POLITIK, response.janji_politik)
+      )
+      .catch(() => commit(types.ERROR_POST_JANJI_POLITIK, {}))
   }
 }
 
@@ -93,7 +101,9 @@ const mutations = {
   [types.ERROR_FEEDS_PILPRES](state, { savedFeedsPilpres }) {
     // rollback to the data saved before sending the request
     state.feedsPilpres = savedFeedsPilpres
-  }
+  },
+  [types.SUCCESS_POST_JANJI_POLITIK](state, payload) {},
+  [types.ERROR_POST_JANJI_POLITIK](state, error) {}
 }
 
 export default {
