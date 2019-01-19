@@ -3,9 +3,9 @@ import {
 } from '@/services/http'
 
 export default {
-  homePilpres(page, perPage, cb, errorCb) {
+  homeJanjiPolitik(page, perPage, cb, errorCb) {
     http.base_url = process.env.API_PEMILU_URL ? process.env.API_PEMILU_URL : 'https://staging-pemilu.pantaubersama.com/'
-    http.api('get', http.base_url + '/linimasa/v1/feeds/pilpres', {
+    http.api('get', http.base_url + '/linimasa/v1/janji_politiks', {
       page: page,
       per_page: perPage
     }, cb, errorCb)
