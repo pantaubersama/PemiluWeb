@@ -46,6 +46,15 @@ const actions = {
       )
       .catch(() => commit(types.ERROR_BANNER_INFO, { savedBannerData }))
   },
+  fetchBannerInfoShow({ commit, state }, name = 'pilpres') {
+    const savedBannerData = [...state.bannerData]
+    return serviceLiniMasa
+      .fetchBannerInfo(name)
+      .then(response =>
+        commit(types.SUCCESS_BANNER_INFO, response.banner_infos)
+      )
+      .catch(() => commit(types.ERROR_BANNER_INFO, { savedBannerData }))
+  },
   fetchJanjiPolitik({ commit, state }, payload, isFilter = false) {
     if (isFilter) commit(types.CLEAR_JANJI_POLITIK)
     const savedJanjiPolitiks = [...state.janjiPolitiks]

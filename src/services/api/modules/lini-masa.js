@@ -20,6 +20,15 @@ const fetchBannerInfo = (page_name = 'pilpres') => {
     .catch(error => Promise.reject(error))
 }
 
+const fetchBannerInfoShow = (page_name = 'pilpres') => {
+  return httpClient
+    .get(`${PREFIX}/v1/banner_infos/show`, {
+      params: { page_name }
+    })
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
+}
+
 const fetchJanjiPolitik = ({
   query,
   clusterId,
@@ -74,6 +83,7 @@ const postJanjiPolitik = ({ title, body, image }) => {
 
 const services = {
   fetchBannerInfo,
+  fetchBannerInfoShow,
   fetchJanjiPolitik,
   fetchFeedsPilpres,
   postJanjiPolitik
