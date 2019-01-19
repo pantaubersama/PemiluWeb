@@ -14,7 +14,7 @@
             :user="user"
             @successSubmitPublikasi="filterJanjiPolitik"
           />
-          <TabPilpres v-else :data="feedsPilpres"/>
+          <TabPilpres v-else :data="feedsPilpres" :loading="isLoading"/>
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
@@ -102,7 +102,8 @@ export default {
     return {
       clusterId: '',
       userStatus: 'user_verified_all', // user_verified_all, user_verified_true, user_verified_false
-      source: 'team_all'
+      source: 'team_all',
+      isLoading: true
     }
   },
   methods: {
@@ -181,6 +182,7 @@ export default {
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
       await this.fetchFeedsPilpres(payloadFeeds)
+      await setTimeout(() => (this.isLoading = false), 1000)
     })
   }
 }

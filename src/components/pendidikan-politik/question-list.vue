@@ -9,7 +9,10 @@
         <p class="trigger">Apa pertanyaan Anda untuk kedua calon Presiden?</p>
       </button>
     </li>-->
-    <li v-for="question in questions" :key="question.id">
+    <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
+      <ContentLoader/>
+    </li>
+    <li v-for="question in questions" :key="question.id" v-else>
       <question-item
         :id="question.id"
         :title="question.user.about"
@@ -26,14 +29,19 @@
 </template>
 
 <script>
+import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
 
 export default {
   name: 'QuestionList',
-  components: { QuestionItem },
+  components: { QuestionItem, ContentLoader },
   props: {
     questions: {
       type: Array,
+      required: true
+    },
+    loading: {
+      type: Boolean,
       required: true
     }
   },

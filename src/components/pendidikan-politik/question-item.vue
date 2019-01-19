@@ -117,6 +117,7 @@ button.vote
   flex: 1
   margin: 20px
   margin-top: 16.5px
+  overflow: hidden
   @media (max-width: 575px)
     margin: 15px
   .meta

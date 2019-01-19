@@ -20,6 +20,7 @@
             v-if="activePage === 'tanya'"
             :questions="questions"
             @upvoted="onUpvote($event)"
+            :loading="isLoading"
           ></question-list>
           <quiz-list v-if="activePage === 'quiz'"></quiz-list>
         </div>
@@ -191,6 +192,7 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
       isWidgetFilterExpanded: false,
       filterUser: 'user_verified_all',
       filterUrutan: 'created_at',
@@ -280,6 +282,7 @@ export default {
   mounted() {
     this.fetchBannerInfo('tanya').then(async () => {
       await this.fetchDataQuestions()
+      await setTimeout(() => (this.isLoading = false), 1000)
     })
   }
 }
