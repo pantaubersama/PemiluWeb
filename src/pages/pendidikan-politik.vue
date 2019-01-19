@@ -209,13 +209,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchQuestions']),
+    ...mapActions(['fetchQuestions', 'vote']),
     onOpenWidgetFilter(open) {
       this.isWidgetFilterExpanded = open
     },
     onUpvote(id) {
-      const question = this.questions.find(it => it.id === id)
-      question.isVoted = true
+      this.vote(id)
     },
     onClickNextButton(isShow) {
       this.showModal = !isShow

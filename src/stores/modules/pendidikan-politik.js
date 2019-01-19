@@ -20,6 +20,12 @@ const actions = {
       .postReport(payload)
       .then(response => commit(types.SUCCESS_REPORT, response))
       .catch(() => commit(types.ERROR_REPORT))
+  },
+  vote({ commit }, id) {
+    servicePendidikanPolitik
+      .vote(id)
+      .then(() => commit(types.SUCCESS_VOTE, id))
+      .catch(() => commit(types.ERROR_VOTE))
   }
 }
 
@@ -31,7 +37,15 @@ const mutations = {
     state.questions = savedQuestions
   },
   [types.SUCCESS_REPORT](state, payload) {},
-  [types.ERROR_REPORT](state) {}
+  [types.ERROR_REPORT](state) {},
+  [types.SUCCESS_VOTE](state, id) {
+    const index = state.questions.findIndex(question => question.id === id)
+    let question = state.questions.find(question => question.id === id)
+    question.is_liked = true
+
+    state.questions[index] = question
+  },
+  [types.ERROR_VOTE](state) {}
 }
 
 export default {

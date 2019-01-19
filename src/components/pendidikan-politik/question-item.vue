@@ -1,6 +1,6 @@
 <template>
   <div class="question-item">
-    <button class="vote" @click="onUpvote()">
+    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote()">
       <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
       <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
       <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
@@ -71,6 +71,7 @@ export default {
   },
   methods: {
     onUpvote() {
+      if (this.isVoted) return
       this.isAnimating = true
       this.$emit('upvoted', this.id)
     }
@@ -91,6 +92,8 @@ button.vote
   border-left: 0
   border-top: 0
   cursor: pointer
+  &.voted
+    cursor: default
   @media (max-width: 991px)
     height: auto
     border-bottom: none
