@@ -7,20 +7,17 @@ const BASE_URL = process.env.API_PEMILU_BASE_URL
   : 'https://staging-pemilu.pantaubersama.com/'
 
 const httpClient = axios.create({
-  baseURL: BASE_URL
+  baseURL: BASE_URL,
+  headers: { Authorization: `Bearer ${vueAuth.getToken()}` }
 })
 
 const fetchBannerInfo = (page_name = 'pilpres') => {
   return httpClient
     .get(`${PREFIX}/v1/banner_infos`, {
-      params: {
-        page_name,
-        token: vueAuth.getToken(),
-        client_id: ''
-      }
+      params: { page_name }
     })
-    .then(response => response.data.data)
-    .catch(error => error)
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
 }
 
 const fetchJanjiPolitik = ({
@@ -37,13 +34,11 @@ const fetchJanjiPolitik = ({
         q: query,
         per_page: perPage,
         cluster_id: clusterId,
-        filter_by: filterBy,
-        client_id: '',
-        token: vueAuth.getToken()
+        filter_by: filterBy
       }
     })
-    .then(response => response.data.data)
-    .catch(error => error)
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
 }
 
 const fetchFeedsPilpres = ({
@@ -58,19 +53,30 @@ const fetchFeedsPilpres = ({
         page,
         q: query,
         filter_by: filterBy,
-        per_page: perPage,
-        token: vueAuth.getToken(),
-        client_id: ''
+        per_page: perPage
       }
     })
-    .then(response => response.data.data)
-    .catch(error => error)
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
+}
+
+const postJanjiPolitik = ({ title, body, image }) => {
+  const formData = new FormData()
+  formData.append('title', title)
+  formData.append('body', body)
+  formData.append('image', image)
+
+  return httpClient
+    .post(`${PREFIX}/v1/janji_politiks`, formData)
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
 }
 
 const services = {
   fetchBannerInfo,
   fetchJanjiPolitik,
-  fetchFeedsPilpres
+  fetchFeedsPilpres,
+  postJanjiPolitik
 }
 
 export default services

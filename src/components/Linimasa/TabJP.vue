@@ -1,24 +1,31 @@
 <template>
   <div class="card-jp">
     <modal-create
+      :name="setName(user.full_name)"
+      :avatar="user.avatar.medium_square.url"
       v-if="modal === 'modalCreate' || this.$route.query.post == 'create-post'"
       v-on:close="closeModal()"
+      v-on:submit="submitPublikasi($event)"
     />
     <modal-share v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/>
-    <!--  TODO: Jika user sudah login tampilkan div create-post -->
-    <!-- <div class="create-post" @click.stop="modalCreate()">
+    <div class="create-post" @click.stop="modalCreate()" v-if="userAuth">
       <div class="card-content">
         <div class="top">
           <div class="avatar">
             <a href="javascript:void(0)">
-              <img src="@/assets/user.svg">
+              <img
+                :src="user.avatar.medium_square.url"
+                v-if="user.avatar.medium_square.url"
+                alt="avatar"
+              >
+              <img src="@/assets/user.svg" alt="avatar" v-else>
             </a>
           </div>
-          <h5>Anik Kemala</h5>
+          <h5>{{ setName(user.full_name) }}</h5>
         </div>
         <h4 class="title">Publikasi kembali Janji Politik?</h4>
       </div>
-    </div>-->
+    </div>
     <div class="card-content" v-for="item in data" :key="item.id">
       <div class="top">
         <div class="avatar">
@@ -55,7 +62,8 @@
         </a>
         <div class="dropdown-content">
           <ul>
-            <!-- <li>
+            <!-- TODO: tampilkan button hapus jika user sdh login, dan ini adalah postingannya -->
+            <!-- <li v-if="userAuth">
               <a href="javascript:void(0)">
                 <close-icon/>Hapus
               </a>
@@ -103,7 +111,12 @@ export default {
     data: {
       type: Array,
       required: true
-    }
+    },
+    userAuth: {
+      type: Boolean,
+      required: true
+    },
+    user: Object
   },
   data() {
     return {
@@ -116,7 +129,7 @@ export default {
     window.addEventListener('click', this.removeDropdown)
   },
   methods: {
-    ...mapActions(['postReport']),
+    ...mapActions(['postReport', 'postJanjiPolitik']),
     toggleDropdown(el, event) {
       var toggleClick =
         event.target.classList.contains('is-active') ||
@@ -164,6 +177,16 @@ export default {
         Math.min(string.length, string.lastIndexOf(' '))
       )
       return dots ? `${result}...` : result
+    },
+    setName(name) {
+      if (!name || !name.length) return 'Unknown'
+      return name
+    },
+    submitPublikasi(data) {
+      this.postJanjiPolitik(data).then(async () => {
+        await this.closeModal()
+        await this.$emit('successSubmitPublikasi')
+      })
     }
   }
 }

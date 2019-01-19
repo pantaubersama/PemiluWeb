@@ -10,38 +10,49 @@
       <div class="create-title">
         <div class="user-profile">
           <div class="thumb">
-            <img src="@/assets/trump.jpg" alt>
-          </div>Budi Santoso
+            <img :src="avatar" alt="avatar" v-if="avatar">
+            <img src="@/assets/user.svg" alt="avatar" v-else>
+          </div>
+          {{ name }}
         </div>
-        <textarea placeholder="Judul Janji Politik"></textarea>
+        <textarea v-model="title" placeholder="Judul Janji Politik"></textarea>
       </div>
       <div class="html-editor">
         <vue-editor
           useCustomImageHandler
-          @imageAdded="handleImageAdded"
+          @imageAdded="inputAvatarChanged($event)"
           :editorToolbar="customToolbar"
+          v-model="body"
           placeholder="Beri deskripsi detail lebih lanjut dari Judul "
         ></vue-editor>
       </div>
       <div class="button-submit">
-        <button class="btn btn-outline-primary" @click.prevent="$emit('close')">publikasikan</button>
+        <button class="btn btn-outline-primary" @click.prevent="submit()">publikasikan</button>
       </div>
     </div>
   </modal-layout>
 </template>
 
 <script>
-import ModalLayout from '@/layout/Modal'
 import { VueEditor } from 'vue2-editor'
-import { customizedToolbar } from '@/mixins/customizedToolbar'
-import { imageUpload } from '@/mixins/imageUpload'
+
 import { CloseIcon } from '@/svg/icons'
+import ModalLayout from '@/layout/Modal'
+import { customizedToolbar } from '@/mixins/customizedToolbar'
+
 export default {
   name: 'ModalCreate',
   data() {
     return {
-      customToolbar: customizedToolbar.render
+      customToolbar: customizedToolbar.render,
+      title: '',
+      body: '',
+      image: ''
     }
+  },
+  props: {
+    name: String,
+    avatar: URL
   },
   components: {
     ModalLayout,
@@ -49,7 +60,17 @@ export default {
     CloseIcon
   },
   methods: {
-    handleImageAdded: imageUpload.handleImageAdded
+    inputAvatarChanged(event) {
+      if (!event) return
+      this.image = event
+    },
+    submit() {
+      this.$emit('submit', {
+        title: this.title,
+        body: this.body,
+        image: this.image
+      })
+    }
   },
   created() {
     document.documentElement.className = 'overflow-y-hidden'
