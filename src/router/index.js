@@ -65,6 +65,11 @@ const router = new VueRouter({
           path: 'quiz/hasil',
           name: 'PendidikanPolitikQuizHasil',
           component: () => import('@/pages/pendidikan-politik')
+        },
+        {
+          path: 'hint',
+          name: 'PendidikanPolitikHint',
+          component: () => import('@/pages/pendidikan-politik')
         }
       ]
     },
