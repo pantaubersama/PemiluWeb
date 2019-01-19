@@ -1,9 +1,13 @@
 <template>
   <div class="pilpres-content">
-    <div class="card-list" v-for="item in data" :key="item.id">
+    <div v-if="loading" :style="{margin: '10px 0'}">
+      <ContentLoader/>
+    </div>
+    <div class="card-list" v-for="item in data" :key="item.id" v-else>
       <div class="group-tilte">
         <div class="group-thumb">
-          <img :src="item.team.avatar || '@/assets/icon-group.png'" alt="team">
+          <img :src="item.team.avatar" alt="team" v-if="item.team.avatar">
+          <img src="@/assets/icon-group.png" alt="team" v-else>
         </div>
         <div class="group-name">
           <p>Disematkan dari Team Pemenangan {{ item.team.title }}</p>
@@ -65,12 +69,15 @@
 </template>
 
 <script>
+import ContentLoader from '@/components/Loading/ContentLoader'
+
 import {
   LinkIcon,
   SosmedTwitterIcon,
   ShareIcon,
   MoreHorizontalIcon
 } from '@/svg/icons'
+
 export default {
   name: 'TabPilpress',
   data() {
@@ -82,13 +89,18 @@ export default {
     data: {
       type: Array,
       required: true
+    },
+    loading: {
+      type: Boolean,
+      require: true
     }
   },
   components: {
     LinkIcon,
     SosmedTwitterIcon,
     ShareIcon,
-    MoreHorizontalIcon
+    MoreHorizontalIcon,
+    ContentLoader
   },
   created() {
     window.addEventListener('click', this.removeDropdown)
