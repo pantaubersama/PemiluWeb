@@ -7,14 +7,14 @@
             <router-link to="/linimasa" exact>Pilpres</router-link>
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
-          <TabJP
+          <JanjiPolitikList
             v-if="$route.query.type == 'janji-politik'"
             :data="janjiPolitiks"
             :userAuth="userAuth"
             :user="user"
             @successSubmitPublikasi="filterJanjiPolitik"
           />
-          <TabPilpres v-else :data="feedsPilpres" :loading="isLoading"/>
+          <PilpresList v-else :data="feedsPilpres" :loading="isLoading"/>
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
@@ -65,8 +65,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 import TimelineLayout from '@/layout/Timeline'
 
-import TabPilpres from '@/components/Linimasa/TabPilpres'
-import TabJP from '@/components/Linimasa/TabJP'
+import PilpresList from '@/components/Linimasa/PilpresList'
+import JanjiPolitikList from '@/components/Linimasa/JanjiPolitikList'
 import WidgetFilterJP from '@/components/Linimasa/WidgetFilterJP'
 import WidgetFilterPilpres from '@/components/Linimasa/WidgetFilterPilpres'
 import WidgetBanner from '@/components/Linimasa/WidgetBanner'
@@ -77,8 +77,8 @@ export default {
   name: 'Linimasa',
   components: {
     TimelineLayout,
-    TabPilpres,
-    TabJP,
+    PilpresList,
+    JanjiPolitikList,
     WidgetFilterJP,
     WidgetFilterPilpres,
     WidgetBanner,
@@ -99,7 +99,6 @@ export default {
       'bannerTanyaData',
       'bannerJanjiPolitikData',
       'detailJanjiPolitik'
-      // 'clusterNames'
     ])
   },
   data() {
