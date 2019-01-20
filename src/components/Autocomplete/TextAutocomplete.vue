@@ -20,7 +20,8 @@ export default {
     items: {
       type: Array,
       required: true
-    }
+    },
+    cleared: Boolean
   },
   data() {
     return {
@@ -30,8 +31,18 @@ export default {
   },
   methods: {
     getLabel(item) {
-      if (!item || !item.name || !item.name.length) return ''
-      return item.name
+      if (item && item.name && item.name.length > 0) {
+        return item.name
+      }
+      return undefined
+    }
+  },
+  watch: {
+    cleared(value) {
+      if (value) {
+        this.item = {}
+        this.$emit('alreadyCleared')
+      }
     }
   }
 }

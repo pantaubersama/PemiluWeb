@@ -29,12 +29,14 @@
           >{{ input.name }}</label>
         </li>
       </ul>
-      <div class="dropdown-title">Cluster 2</div>
+      <div class="dropdown-title">Cluster</div>
       <div class="cluster-search">
         <TextAutocomplete
           :items="clusters"
+          :cleared="isCleared"
           @onUpdateItems="$emit('onUpdateItems', $event)"
           @onSelectedItem="$emit('onSelectedItem', $event)"
+          @alreadyCleared="clearedAutocomplete()"
         />
       </div>
       <div class="button-filter-group">
@@ -61,6 +63,7 @@ export default {
     return {
       isActive: false,
       selectedStatus: 'user_verified_all',
+      isCleared: false,
       inputFilters: [
         {
           id: 1,
@@ -103,7 +106,11 @@ export default {
     },
     handleResetButton() {
       this.selectedStatus = 'user_verified_all'
+      this.isCleared = true
       this.$emit('onClickResetButton')
+    },
+    clearedAutocomplete() {
+      this.isCleared = false
     }
   }
 }
