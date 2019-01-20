@@ -134,7 +134,8 @@ export default {
       }
       this.fetchJanjiPolitik(payload, true)
     },
-    resetJanjiPolitik() {
+    async resetJanjiPolitik() {
+      await (this.clusterId = '')
       const payload = {
         page: 1,
         perPage: 100,
@@ -142,7 +143,7 @@ export default {
         clusterId: '',
         filterBy: 'user_verified_all'
       }
-      this.fetchJanjiPolitik(payload)
+      await this.fetchJanjiPolitik(payload)
     },
     filterStatusChange(value) {
       this.userStatus = value
