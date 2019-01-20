@@ -16,7 +16,12 @@
     <router-link :to="{name: 'LinimasaDetail', params: {id: id}}">
       <h4 class="title">{{ title }}</h4>
     </router-link>
-    <p v-html="description"></p>
+    <div class="main-content">
+      <p v-html="description"></p>
+      <div class="content-thumb" v-if="image != null">
+        <img :src="image" alt="image">
+      </div>
+    </div>
     <span class="icon-right">
       <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
         <img src="@/assets/icon_share.svg">
@@ -76,7 +81,8 @@ export default {
     author_about: String,
     created_at_in_word: String,
     title: String,
-    description: String
+    description: String,
+    image: String
   },
   data() {
     return {
