@@ -28,10 +28,12 @@
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div v-if="$route.query.type == 'janji-politik'">
           <WidgetFilterJP
-            @onClickApplyButton="filterJanjiPolitik"
-            @onClickResetButton="resetJanjiPolitik"
-            @onChangeUserStatus="filterStatusChange"
-            @onChangeCluster="filterClusterChange"
+            :clusters="clusters"
+            @onClickApplyButton="filterJanjiPolitik()"
+            @onClickResetButton="resetJanjiPolitik()"
+            @onChangeUserStatus="filterStatusChange($event)"
+            @onUpdateItems="searchClusters($event)"
+            @onSelectedItem="filterClusterChange($event)"
           />
           <router-link
             :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
@@ -88,7 +90,8 @@ export default {
       janjiPolitiks: state => state.liniMasa.janjiPolitiks,
       feedsPilpres: state => state.liniMasa.feedsPilpres,
       user: state => state.profile.user,
-      userAuth: state => state.meLogout.userLogin
+      userAuth: state => state.meLogout.userLogin,
+      clusters: state => state.dashboard.clusters
     }),
     ...mapGetters([
       'bannerPilpresData',
@@ -96,6 +99,7 @@ export default {
       'bannerTanyaData',
       'bannerJanjiPolitikData',
       'detailJanjiPolitik'
+      // 'clusterNames'
     ])
   },
   data() {
@@ -110,7 +114,8 @@ export default {
     ...mapActions([
       'fetchBannerInfo',
       'fetchJanjiPolitik',
-      'fetchFeedsPilpres'
+      'fetchFeedsPilpres',
+      'fetchClusters'
     ]),
     getObject(type) {
       switch (type) {
@@ -143,8 +148,8 @@ export default {
     filterStatusChange(value) {
       this.userStatus = value
     },
-    filterClusterChange(value) {
-      this.clusterId = value
+    filterClusterChange(item) {
+      this.clusterId = item.id
     },
     filterFeeds() {
       const payload = {
@@ -166,6 +171,12 @@ export default {
     },
     filterSourceChange(value) {
       this.source = value
+    },
+    async searchClusters(value) {
+      const payload = {
+        query: value
+      }
+      await this.fetchClusters(payload)
     }
   },
   mounted() {
@@ -182,6 +193,7 @@ export default {
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
       await this.fetchFeedsPilpres(payloadFeeds)
+      await this.fetchClusters({})
       await setTimeout(() => (this.isLoading = false), 1000)
     })
   }
