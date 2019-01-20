@@ -29,9 +29,13 @@
           >{{ input.name }}</label>
         </li>
       </ul>
-      <div class="dropdown-title">Cluster</div>
+      <div class="dropdown-title">Cluster 2</div>
       <div class="cluster-search">
-        <input type="text" v-on:change="$emit('onChangeCluster', $event.target.value)">
+        <TextAutocomplete
+          :items="clusters"
+          @onUpdateItems="$emit('onUpdateItems', $event)"
+          @onSelectedItem="$emit('onSelectedItem', $event)"
+        />
       </div>
       <div class="button-filter-group">
         <button class="btn btn-primary" @click="$emit('onClickApplyButton')">Terapkan</button>
@@ -42,8 +46,17 @@
 </template>
 
 <script>
+import TextAutocomplete from '@/components/Autocomplete/TextAutocomplete'
+
 export default {
   name: 'WidgetFilterJP',
+  components: { TextAutocomplete },
+  props: {
+    clusters: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       isActive: false,
