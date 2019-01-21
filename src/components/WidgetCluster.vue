@@ -1,30 +1,32 @@
 <template>
-    <div class="card">
-        <h4 class="title">Cluster</h4>
-        <div class="card-content">
-            <ul>
-                <li>
-                    <span class="wrap">
-                        <img src="@/assets/icon_book.svg">
-                        <h5>Universitas Gadjah Mada</h5>
-                    </span>
-                    <p>1000 Anggota</p>
-                </li>
-                <li>
-                    <span class="wrap">
-                        <img src="@/assets/icon_book.svg">
-                        <h5>PDIP Klaster Jogja</h5>
-                    </span>
-                    <p>1000 Anggota</p>
-                </li>
-            </ul>
-        </div>
+  <div class="card">
+    <h4 class="title">Cluster</h4>
+    <div class="card-content">
+      <ul>
+        <li class="wrap-cluster" v-for="cluster in feedsCluster" :key="cluster.id">
+          <span class="wrap">
+            <div class="thumb">
+              <img v-if="cluster.image.thumbnail.url != null" :src="cluster.image.thumbnail.url">
+              <img v-else src="@/assets/icon_book.svg">
+            </div>
+            <h5>{{cluster.name}}</h5>
+          </span>
+          <p v-if="cluster.members_count != null">{{cluster.members_count}} Anggota</p>
+        </li>
+      </ul>
     </div>
+  </div>
 </template>
 
 <script>
-export default{
-    name: 'WidgetCluster'
-
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: 'WidgetCluster',
+  computed: {
+    ...mapState('homeCluster', ['feedsCluster'])
+  },
+  created() {
+    this.$store.dispatch('homeCluster/homeCluster')
+  }
 }
 </script>

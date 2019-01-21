@@ -2,33 +2,34 @@
   <div class="card card-tanya">
     <h4 class="title">Tanya</h4>
     <div class="tanya-content">
-      <div class="card-list" v-for="questions in feedsQuestions" :key="questions.id">
+      <div class="card-list" v-for="question in feedsQuestions" :key="question.id">
         <div class="group-content">
           <div class="content-count">
-            <button class="vote" @click="onUpvote()">
-              <i class="icon voteup" :class="{ voted: isVoted }"></i>
-              <!-- <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>-->
-              <div class="total-count">{{questions.like_count}}</div>
-            </button>
+            <tanya-upvote
+              :id="question.id"
+              :is-voted="question.is_liked"
+              :count="question.like_count"
+              @upvoted="$emit('upvoted', $event)"
+            ></tanya-upvote>
           </div>
           <div class="content-desc">
             <div class="title-desc">
               <div class="title-thumb">
                 <img
-                  v-if="questions.user.avatar.url != null"
-                  :src="questions.user.avatar.url"
-                  :alt="questions.user.title"
+                  v-if="question.user.avatar.thumbnail.url != null"
+                  :src="question.user.avatar.thumbnail.url"
+                  :alt="question.user.title"
                 >
                 <img src="@/assets/user.svg">
               </div>
               <div class="title-center">
-                <h5>{{questions.user.full_name}},</h5>
-                <p>{{questions.user.about}}</p>
+                <h5>{{question.user.full_name}},</h5>
+                <p>{{question.user.about}}</p>
               </div>
-              <div class="title-right">{{questions.created_at_in_word.id}}</div>
+              <div class="title-right">{{question.created_at_in_word.id}}</div>
             </div>
             <div class="desc-text">
-              <p v-html="trimCharacters(questions.body, 150)"></p>
+              <p v-html="trimCharacters(question.body, 150)"></p>
             </div>
             <div class="desc-icon">
               <a href>
@@ -55,20 +56,14 @@
 import { BottomArrow, IconDots } from '@/svg/icons'
 import { mapState, mapActions } from 'vuex'
 import LoadingLottie from '@/components/LoadingLottie'
-import lottie from 'lottie-web'
+import TanyaUpvote from '@/components/CardTanyaUpvote'
 export default {
   name: 'CardTanya',
-  data() {
-    return {
-      upvoteLottie: null,
-      isAnimating: false,
-      isVoted: false
-    }
-  },
   components: {
     BottomArrow,
     IconDots,
-    LoadingLottie
+    LoadingLottie,
+    TanyaUpvote
   },
   computed: {
     ...mapState('homeQuestions', ['feedsQuestions', 'paginations']),
@@ -77,31 +72,7 @@ export default {
   created() {
     this.$store.dispatch('homeQuestions/homeQuestions')
   },
-  // mounted() {
-  //   this.upvoteLottie = lottie.loadAnimation({
-  //     container: this.$refs.upvote,
-  //     path: '/lottie/upvote.json',
-  //     autoplay: false,
-  //     renderer: 'svg'
-  //   })
-  //   this.upvoteLottie.addEventListener('complete', (...args) => {
-  //     this.isAnimating = false
-  //   })
-  // },
-  // destroyed() {
-  //   this.upvoteLottie.destroy()
-  // },
-  // watch: {
-  //   isAnimating(value) {
-  //     if (value) return this.upvoteLottie.play()
-  //     return this.upvoteLottie.stop()
-  //   }
-  // },
   methods: {
-    // onUpvote() {
-    //   this.isAnimating = true
-    //   this.isVoted = true
-    // },
     loadMore() {
       if (this.paginations.isLast === false) {
         this.$store.dispatch('homeQuestions/nextPage')
