@@ -36,7 +36,7 @@
           <div class="card">
             <div class="card-column">
               <label for="name">Nama</label>
-              <input type="text" id="name" name="name" :value="name">
+              <input type="text" id="name" name="name" v-model="name">
             </div>
             <div class="card-column category-dropdown">
               <label for="category">Kategori</label>
@@ -77,7 +77,7 @@
             </div>
             <div class="card-column">
               <label for="description">Deskripsi</label>
-              <input type="text" id="description" name="description" :value="description">
+              <input type="text" id="description" name="description" v-model="description">
             </div>
           </div>
           <input type="submit" value="Request" class="btn btn-outline">

@@ -2,9 +2,14 @@
   <div class="list-wrap">
     <h4 class="title">Cluster</h4>
     <div class="item">
-      <img v-if="!isEmptyCluster" src="@/assets/user.svg">
+      <!-- <img v-if="!isEmptyCluster" src="@/assets/user.svg"> -->
+      <img
+        v-if="!isEmptyCluster && user.cluster.image.url"
+        :src="user.cluster.image.url"
+        class="cluster-image"
+      >
       <p v-if="isEmptyCluster" class="cluster-name t-grey">Belum punya cluster</p>
-      <p v-else class="cluster-name">{{user.cluster}}</p>
+      <p v-else class="cluster-name">{{user.cluster.name}}</p>
       <span class="icon">
         <button
           id="toggle-button"
@@ -73,6 +78,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.cluster-image
+  width: 35px !important
+  height: 35px !important
+  object-fit: cover
+  border-radius: 50%
 span.icon
   position: relative
 button.request-cluster
