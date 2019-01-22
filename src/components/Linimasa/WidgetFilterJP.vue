@@ -31,7 +31,13 @@
       </ul>
       <div class="dropdown-title">Cluster</div>
       <div class="cluster-search">
-        <input type="text" v-on:change="$emit('onChangeCluster', $event.target.value)">
+        <TextAutocomplete
+          :items="clusters"
+          :cleared="isCleared"
+          @onUpdateItems="$emit('onUpdateItems', $event)"
+          @onSelectedItem="$emit('onSelectedItem', $event)"
+          @alreadyCleared="clearedAutocomplete()"
+        />
       </div>
       <div class="button-filter-group">
         <button class="btn btn-primary" @click="$emit('onClickApplyButton')">Terapkan</button>
@@ -42,12 +48,22 @@
 </template>
 
 <script>
+import TextAutocomplete from '@/components/Autocomplete/TextAutocomplete'
+
 export default {
   name: 'WidgetFilterJP',
+  components: { TextAutocomplete },
+  props: {
+    clusters: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       isActive: false,
       selectedStatus: 'user_verified_all',
+      isCleared: false,
       inputFilters: [
         {
           id: 1,
@@ -90,7 +106,11 @@ export default {
     },
     handleResetButton() {
       this.selectedStatus = 'user_verified_all'
+      this.isCleared = true
       this.$emit('onClickResetButton')
+    },
+    clearedAutocomplete() {
+      this.isCleared = false
     }
   }
 }

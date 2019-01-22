@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import SocialSharing from 'vue-social-sharing'
 import Clipboard from 'v-clipboard'
+import Autocomplete from 'v-autocomplete'
 
 import App from './components/App'
 import router from './router'
@@ -13,6 +14,7 @@ Vue.config.productionTip = false
 
 Vue.use(SocialSharing)
 Vue.use(Clipboard)
+Vue.use(Autocomplete)
 
 /* eslint-disable no-new */
 new Vue({

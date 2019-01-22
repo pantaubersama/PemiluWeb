@@ -7,14 +7,14 @@
             <router-link to="/linimasa" exact>Pilpres</router-link>
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
-          <TabJP
+          <JanjiPolitikList
             v-if="$route.query.type == 'janji-politik'"
             :data="janjiPolitiks"
             :userAuth="userAuth"
             :user="user"
             @successSubmitPublikasi="filterJanjiPolitik"
           />
-          <TabPilpres v-else :data="feedsPilpres" :loading="isLoading"/>
+          <PilpresList v-else :data="feedsPilpres" :loading="isLoading"/>
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
@@ -28,10 +28,12 @@
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div v-if="$route.query.type == 'janji-politik'">
           <WidgetFilterJP
-            @onClickApplyButton="filterJanjiPolitik"
-            @onClickResetButton="resetJanjiPolitik"
-            @onChangeUserStatus="filterStatusChange"
-            @onChangeCluster="filterClusterChange"
+            :clusters="clusters"
+            @onClickApplyButton="filterJanjiPolitik()"
+            @onClickResetButton="resetJanjiPolitik()"
+            @onChangeUserStatus="filterStatusChange($event)"
+            @onUpdateItems="searchClusters($event)"
+            @onSelectedItem="filterClusterChange($event)"
           />
           <router-link
             :to="{name: 'LinimasaHint', query: {type: 'janji-politik'}}"
@@ -63,8 +65,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 import TimelineLayout from '@/layout/Timeline'
 
-import TabPilpres from '@/components/Linimasa/TabPilpres'
-import TabJP from '@/components/Linimasa/TabJP'
+import PilpresList from '@/components/Linimasa/PilpresList'
+import JanjiPolitikList from '@/components/Linimasa/JanjiPolitikList'
 import WidgetFilterJP from '@/components/Linimasa/WidgetFilterJP'
 import WidgetFilterPilpres from '@/components/Linimasa/WidgetFilterPilpres'
 import WidgetBanner from '@/components/Linimasa/WidgetBanner'
@@ -75,8 +77,8 @@ export default {
   name: 'Linimasa',
   components: {
     TimelineLayout,
-    TabPilpres,
-    TabJP,
+    PilpresList,
+    JanjiPolitikList,
     WidgetFilterJP,
     WidgetFilterPilpres,
     WidgetBanner,
@@ -88,7 +90,8 @@ export default {
       janjiPolitiks: state => state.liniMasa.janjiPolitiks,
       feedsPilpres: state => state.liniMasa.feedsPilpres,
       user: state => state.profile.user,
-      userAuth: state => state.meLogout.userLogin
+      userAuth: state => state.meLogout.userLogin,
+      clusters: state => state.dashboard.clusters
     }),
     ...mapGetters([
       'bannerPilpresData',
@@ -110,7 +113,8 @@ export default {
     ...mapActions([
       'fetchBannerInfo',
       'fetchJanjiPolitik',
-      'fetchFeedsPilpres'
+      'fetchFeedsPilpres',
+      'fetchClusters'
     ]),
     getObject(type) {
       switch (type) {
@@ -130,7 +134,8 @@ export default {
       }
       this.fetchJanjiPolitik(payload, true)
     },
-    resetJanjiPolitik() {
+    async resetJanjiPolitik() {
+      await (this.clusterId = '')
       const payload = {
         page: 1,
         perPage: 100,
@@ -138,13 +143,13 @@ export default {
         clusterId: '',
         filterBy: 'user_verified_all'
       }
-      this.fetchJanjiPolitik(payload)
+      await this.fetchJanjiPolitik(payload)
     },
     filterStatusChange(value) {
       this.userStatus = value
     },
-    filterClusterChange(value) {
-      this.clusterId = value
+    filterClusterChange(item) {
+      this.clusterId = item.id
     },
     filterFeeds() {
       const payload = {
@@ -166,6 +171,12 @@ export default {
     },
     filterSourceChange(value) {
       this.source = value
+    },
+    async searchClusters(value) {
+      const payload = {
+        query: value
+      }
+      await this.fetchClusters(payload)
     }
   },
   mounted() {
@@ -182,6 +193,7 @@ export default {
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
       await this.fetchFeedsPilpres(payloadFeeds)
+      await this.fetchClusters({})
       await setTimeout(() => (this.isLoading = false), 1000)
     })
   }

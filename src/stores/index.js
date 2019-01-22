@@ -10,6 +10,9 @@ import pendidikanPolitik from '@/stores/modules/pendidikan-politik'
 import homePilpres from '@/stores/modules/home/pilpres'
 import homeJanjiPolitik from '@/stores/modules/home/janji-politik'
 import homeQuestions from '@/stores/modules/home/questions'
+import homeQuiz from '@/stores/modules/home/quiz'
+import homeCluster from '@/stores/modules/home/cluster'
+import dashboard from '@/stores/modules/dashboard'
 import loadingLottie from '@/stores/modules/loading-lottie'
 
 Vue.use(Vuex)
@@ -34,7 +37,10 @@ export default new Vuex.Store({
     pendidikanPolitik,
     homePilpres,
     homeJanjiPolitik,
-    homeQuestions
+    dashboard,
+    homeQuestions,
+    homeQuiz,
+    homeCluster
   },
   strict: debug,
   plugins: [beforeAction]

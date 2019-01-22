@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "lottie-web": "^5.4.2",
+    "v-autocomplete": "^1.8.2",
     "v-clipboard": "^2.2.1",
     "vue": "^2.5.2",
     "vue-content-loader": "^0.2.1",

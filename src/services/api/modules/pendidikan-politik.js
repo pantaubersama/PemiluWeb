@@ -4,7 +4,7 @@ import { vueAuth } from '@/services/symbolic'
 const PREFIX = 'pendidikan_politik'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? process.env.API_PEMILU_BASE_URL
-  : 'https://staging-pemilu.pantaubersama.com/'
+  : 'https://staging-pemilu.pantaubersama.com'
 
 const httpClient = axios.create({
   baseURL: BASE_URL,

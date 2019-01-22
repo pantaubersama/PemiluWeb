@@ -14,13 +14,15 @@
           </div>
           <h5>
             {{janjiPolitik.creator.full_name}},
-            <span>{{janjiPolitik.creator.cluster.name}}</span>
+            <span
+              v-if="janjiPolitik.creator.cluster != null"
+            >{{janjiPolitik.creator.cluster.name}}</span>
           </h5>
           <span class="right">{{janjiPolitik.created_at_in_word.id}}</span>
         </div>
         <h4 class="title" v-html="trimCharacters(janjiPolitik.title, 150)"></h4>
         <div class="main-content">
-          <p v-html="trimCharacters(janjiPolitik.body)"></p>
+          <p v-html="trimCharacters(janjiPolitik.body, 450)"></p>
           <div class="content-thumb" v-if="janjiPolitik.image != null">
             <img :src="janjiPolitik.image.url">
           </div>
@@ -69,7 +71,7 @@ export default {
         this.$store.dispatch('homeJanjiPolitik/updateJanjiPolitik')
       }
     },
-    trimCharacters(text, maxLength = 350) {
+    trimCharacters(text, maxLength) {
       const dots = text.length > maxLength
       if (dots) {
         text = text.substr(0, maxLength)
