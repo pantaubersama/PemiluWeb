@@ -5,12 +5,13 @@
   "author": "Ade Putra <poetrajerami@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --https --key build/key.pem --cert build/cert.pem --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@voerro/vue-tagsinput": "^1.11.1",
     "lottie-web": "^5.4.2",
     "v-autocomplete": "^1.8.2",
     "v-clipboard": "^2.2.1",
@@ -63,6 +64,7 @@
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
     "store": "^2.0.12",
+    "style-loader": "^0.23.1",
     "svg-to-vue-component": "^0.2.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",

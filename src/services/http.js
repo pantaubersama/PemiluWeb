@@ -15,9 +15,9 @@ export const http = {
         data: data instanceof FormData ? data : qs.stringify(data),
         params: method === 'get' ? data : {},
         headers: Object.assign({}, {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          headers
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        headers
         )
       })
       .then(successCb)
@@ -50,7 +50,6 @@ export const http = {
   },
 
   init() {
-
     axios.defaults.baseURL = this.base_url
 
     // Intercept the request to make sure the token is injected into the header.

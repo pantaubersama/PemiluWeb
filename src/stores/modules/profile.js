@@ -1,4 +1,6 @@
+import Vue from 'vue'
 import * as ProfileAPI from '@/services/api/profile'
+import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
 
 export const namespaced = true
 export const state = {
@@ -51,15 +53,18 @@ export const state = {
   },
   badges: [],
   categories: [],
-  cluster: []
+  cluster: [],
+  historyLinimasa: [],
+  historyPendidikanPolitik: [],
+  historyWordStadium: [],
+  historyLapor: [],
+  historyPerhitungan: []
 }
 
 export const actions = {
-  async getMe({
-    commit
-  }) {
+  async getMe(ctx) {
     const user = await ProfileAPI.getMe()
-    commit('setProfileData', {
+    ctx.commit('setProfileData', {
       user
     })
   },
@@ -126,6 +131,23 @@ export const actions = {
     ctx.commit('setProfileData', {
       user: user1
     })
+  },
+
+  async getLinimasaHistory(ctx) {
+    const feeds = (await LiniMasaAPI.fetchFeedsPilpres({
+      perPage: 5
+    })).feeds
+    ctx.commit('setLinimasaHistory', feeds)
+  },
+
+  inviteToCluster(ctx, payload) {
+    return ProfileAPI.inviteToCluster(payload.clusterId, payload.emails)
+  },
+  enableMagicLink(ctx, payload) {
+    return ProfileAPI.enableMagicLink(payload.clusterId, payload.enabled)
+      .then(data => {
+        ctx.commit('setCluster', data.cluster)
+      })
   }
 }
 
@@ -153,6 +175,12 @@ export const mutations = {
       cluster,
       ...state.cluster
     ]
+  },
+  setLinimasaHistory(state, feeds) {
+    state.historyLinimasa = feeds
+  },
+  setCluster(state, cluster) {
+    Vue.set(state.user, 'cluster', cluster)
   }
 }
 

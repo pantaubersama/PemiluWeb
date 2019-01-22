@@ -10,6 +10,9 @@ const api = axios.create({
     Authorization: `Bearer ${vueAuth.getToken()}`
   }
 })
+export const setToken = (token) => {
+  api.defaults.headers['Authorization'] = `Bearer ${token}`
+}
 export const getMe = () => api
   .get('/v1/me')
   .then(resp => resp.data)
@@ -121,3 +124,15 @@ export const updateInformant = (p) => axios
     phone_number: p.phone_number
   })
   .then(resp => resp.data.data.informant)
+
+export const inviteToCluster = (clusterId, ...emails) => axios
+  .post('/v1/clusters/invite', {
+    cluster_id: clusterId,
+    emails: emails.join(',')
+  })
+  .then(resp => resp.data.data)
+export const enableMagicLink = (clusterId, enable = true) => axios
+  .post(`/v1/clusters/${clusterId}/magic_link`, {
+    enable
+  })
+  .then(resp => resp.data.data)

@@ -11,9 +11,9 @@ function isUndefined(value) {
 
 function getRedirectUri(uri) {
   try {
-    return (!isUndefined(uri)) ?
-      ('' + (window.location.origin) + uri) :
-      window.location.origin
+    return (!isUndefined(uri))
+      ? ('' + (window.location.origin) + uri)
+      : window.location.origin
   } catch (e) {}
 
   return uri || null

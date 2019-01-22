@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 
 const PREFIX = 'linimasa'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
@@ -8,13 +10,21 @@ const BASE_URL = process.env.API_PEMILU_BASE_URL
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${vueAuth.getToken()}` }
+  headers: {
+    Authorization: `Bearer ${vueAuth.getToken()}`
+  }
 })
+
+export const setToken = (token) => {
+  httpClient.defaults.headers['Authorization'] = `Bearer ${token}`
+}
 
 const fetchBannerInfo = (page_name = 'pilpres') => {
   return httpClient
     .get(`${PREFIX}/v1/banner_infos`, {
-      params: { page_name }
+      params: {
+        page_name
+      }
     })
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
@@ -23,7 +33,9 @@ const fetchBannerInfo = (page_name = 'pilpres') => {
 const fetchBannerInfoShow = (page_name = 'pilpres') => {
   return httpClient
     .get(`${PREFIX}/v1/banner_infos/show`, {
-      params: { page_name }
+      params: {
+        page_name
+      }
     })
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
@@ -50,7 +62,7 @@ const fetchJanjiPolitik = ({
     .catch(error => Promise.reject(error))
 }
 
-const fetchFeedsPilpres = ({
+export const fetchFeedsPilpres = ({
   filterBy = 'team_all',
   query = '',
   page = 1,
@@ -69,7 +81,11 @@ const fetchFeedsPilpres = ({
     .catch(error => Promise.reject(error))
 }
 
-const postJanjiPolitik = ({ title, body, image }) => {
+const postJanjiPolitik = ({
+  title,
+  body,
+  image
+}) => {
   const formData = new FormData()
   formData.append('title', title)
   formData.append('body', body)
