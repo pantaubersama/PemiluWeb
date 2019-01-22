@@ -8,7 +8,7 @@
             <a href v-if="janjiPolitik.creator.avatar.thumbnail.url != null">
               <img :src="janjiPolitik.creator.avatar.thumbnail.url">
             </a>
-            <a href v-else>
+            <a href="#" v-else>
               <img src="@/assets/user.svg">
             </a>
           </div>
@@ -21,7 +21,7 @@
         <h4 class="title" v-html="trimCharacters(janjiPolitik.title, 150)"></h4>
         <div class="main-content">
           <p v-html="trimCharacters(janjiPolitik.body)"></p>
-          <div class="content-thumb" v-if="janjiPolitik.image.url != null">
+          <div class="content-thumb" v-if="janjiPolitik.image != null">
             <img :src="janjiPolitik.image.url">
           </div>
         </div>
