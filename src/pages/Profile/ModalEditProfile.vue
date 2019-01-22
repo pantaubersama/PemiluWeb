@@ -51,7 +51,7 @@
             <input type="text" id="pekerjaan" name="pekerjaan" :value="user.occupation">
           </div>
         </div>
-        <input type="submit" value="Simpan" class="btn btn-outline">
+        <input type="submit" :value="buttonSaveLabel" class="btn btn-outline">
       </form>
     </template>
   </modal>
@@ -67,6 +67,12 @@ export default {
   data() {
     return {
       avatarURL: this.user.avatar.medium.url
+    }
+  },
+  computed: {
+    buttonSaveLabel() {
+      if (this.$route.query.hasOwnProperty('edit-profile')) return 'Lanjut'
+      return 'Simpan'
     }
   },
   methods: {

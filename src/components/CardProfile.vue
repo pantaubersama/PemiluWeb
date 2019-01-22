@@ -182,6 +182,11 @@ export default {
       badges: s => s.profile.badges
     })
   },
+  created() {
+    if (this.$route.query.hasOwnProperty('edit-profile')) {
+      this.modal = 'ModalEditProfile'
+    }
+  },
   mounted() {
     this.$store.dispatch('profile/getMe')
     this.$store.dispatch('profile/getBadges')
@@ -207,7 +212,11 @@ export default {
       this.modal = 'ModalConfirmCluster'
     },
     onSubmitProfile(data) {
-      this.$store.dispatch('profile/update', data)
+      this.$store.dispatch('profile/update', data).then(() => {
+        if (this.$route.query.hasOwnProperty('edit-profile')) {
+          this.$router.push('/profile/setting')
+        }
+      })
     },
     removeDropdown(event) {
       const isInsideDropdown = event.target.parentNode.parentNode.classList.contains(

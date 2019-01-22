@@ -21,6 +21,8 @@ import { LogoPantau } from '@/svg/icons'
 import lottie from 'lottie-web'
 import { http } from '@/services/http'
 import { vueAuth } from '@/services/symbolic'
+import * as ProfileAPI from '@/services/api/profile'
+import * as LinimasaAPI from '@/services/api/modules/lini-masa'
 export default {
   name: 'Login',
   components: {
@@ -33,10 +35,9 @@ export default {
     }
   },
   mounted() {
-    var this_ = this
     vueAuth.storage.removeItem(vueAuth.tokenName)
     if (vueAuth.isAuthenticated()) {
-      this_.$router.push({ path: '/' })
+      this.$router.push({ path: '/' })
     }
     this.loginBackground = lottie.loadAnimation({
       container: this.$refs.loginBackground,
@@ -52,28 +53,38 @@ export default {
   methods: {
     auth: function(provider) {
       this.response = null
-      var this_ = this
 
       vueAuth
         .authenticate(provider)
-        .then(function(authResponse) {
+        .then(authResponse => {
           // Execute application logic after successful symbolic authentication
           http.api(
             'get',
             'v1/callback',
             { provider_token: vueAuth.getToken() },
-            ({ data }) => {
-              vueAuth.setToken(data)
-              this_.$store.commit('meLogout/userLogin')
-              var successUrl = this_.$route.query.redirect
-                ? this_.$route.query.redirect
-                : '/'
-              this_.$router.push(successUrl)
+            async resp => {
+              vueAuth.setToken(resp.data)
+              const token = resp.data.data.access_token
+
+              this.$store.commit('meLogout/userLogin')
+              LinimasaAPI.setToken(token)
+              ProfileAPI.setToken(token)
+              const user = await ProfileAPI.getMe()
+              const shouldUpdateProfile =
+                user.location == null ||
+                user.education == null ||
+                user.occupation == null ||
+                user.about == null
+              const url = shouldUpdateProfile
+                ? '/profile?edit-profile=1'
+                : this.$route.query.redirect || '/'
+
+              this.$router.push(url)
             }
           )
         })
         .catch(function(err) {
-          this_.response = err
+          this.response = err
           console.log(err)
         })
     }
