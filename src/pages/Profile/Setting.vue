@@ -23,9 +23,19 @@
           <div class="card-column">
             <div class="connect">
               <p>Connected as :</p>
-              <button class="btn btn-facebook">
+              <!-- <button class="btn btn-facebook">
                 <icon-facebook/>John Doe
-              </button>
+              </button>-->
+              <div
+                onlogin="onClickFBLoginButton"
+                class="fb-login-button"
+                data-max-rows="1"
+                data-size="medium"
+                data-button-type="continue_with"
+                data-show-faces="true"
+                data-auto-logout-link="true"
+                data-use-continue-as="true"
+              ></div>
             </div>
           </div>
         </div>
@@ -45,6 +55,7 @@
 import TimelineLayout from '@/layout/Timeline'
 import ModalChangePassword from '@/pages/Profile/ModalChangePassword'
 import { IconTwitter, IconFacebook } from '@/svg/icons'
+import * as FBService from '@/services/facebook'
 export default {
   name: 'ProfileSetting',
   components: {
@@ -55,13 +66,39 @@ export default {
   },
   data() {
     return {
-      isModalChangePasswordOpen: false
+      isModalChangePasswordOpen: false,
+      // Facebook
+      isFbLoaded: false,
+      fbName: null,
+      fbStatus: null
+    }
+  },
+  async mounted() {
+    window.fb = FBService
+    window.onClickFBLoginButton = this.onClickFBLoginButton
+    window.init = this.init
+
+    FBService.init()
+    FB.XFBML.parse()
+    FB.Event.subscribe('xfbml.render', () => {
+      this.isFbLoaded = true
+    })
+    this.fbStatus = await FBService.getLoginStatus()
+    if (this.fbStatus === 'connected') {
+      this.fbName = await FBService.getEmail()
+      this.fbAccessToken = FBService.getAccessToken()
     }
   },
   methods: {
     closeModal() {
       console.log('close modal')
       this.isModalChangePasswordOpen = false
+    },
+    async onClickFBLoginButton(...args) {
+      console.log('fb.clicked', ...args)
+      const status = await FBService.getLoginStatus()
+      if (status === this.fbStatus) return
+      this.status = status
     }
   }
 }
