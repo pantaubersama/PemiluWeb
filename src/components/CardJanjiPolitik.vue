@@ -62,7 +62,7 @@
               </li>
               <li>
                 <a href="javascript:void(0)" @click.stop="handleReport(janjiPolitik.id)">
-                  <alert-icon/>Laporkan
+                  <alert-icon/>Laporkan sebagai spam
                 </a>
               </li>
             </ul>
@@ -150,12 +150,12 @@ export default {
     handleReport(id) {
       this.postReport(id)
       this.modal = false
-      this.$store.commit('snackbar/setSnack', 'Reported')
+      this.$store.commit('snackbar/setSnack', 'Laporan Berhasil')
     },
     copyToClipboard(id) {
       this.$clipboard(`${process.env.BASE_URL}linimasa/detail/${id}`)
       this.isActive = false
-      this.$store.commit('snackbar/setSnack', 'Copy to Clipboard')
+      this.$store.commit('snackbar/setSnack', 'Tautan Tersalin')
     },
     modalShare(id) {
       this.shareId = id

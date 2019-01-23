@@ -14,7 +14,7 @@
             class="add-image"
             type="button"
             @click.stop="() => $refs.inputAvatar.click()"
-          >Ganti Gambar</button>
+          >Ubah Gambar</button>
           <input
             id="avatar"
             name="avatar"
@@ -35,7 +35,7 @@
             <input type="text" id="username" name="username" :value="user.username">
           </div>
           <div class="card-column">
-            <label for="description">Deskripsi Tentang Kamu</label>
+            <label for="description">Bio</label>
             <input type="text" id="description" name="description" :value="user.about">
           </div>
           <div class="card-column">

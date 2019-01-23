@@ -2,9 +2,8 @@
   <modal>
     <div slot="modal-content" class="modal-toast">
       <div class="validation-success lottie-card" ref="validationSuccess"></div>
-      <p>Yapp, Selamat</p>
-      <p>Tunggu datamu dalam proses
-        <br>pengecekan
+      <p>Yaay!
+        <br>Akunmu sudah lengkap untuk proses verifikasi!
       </p>
     </div>
   </modal>

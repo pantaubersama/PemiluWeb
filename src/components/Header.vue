@@ -31,6 +31,7 @@
             <header-note></header-note>
           </div>
         </div>
+
         <a href="#" class="notification">
           <notification-icon></notification-icon>
         </a>
@@ -58,6 +59,15 @@
                 <router-link to="/profile/setting">Setting</router-link>
               </li>
             </ul>
+            <!-- hanya muncul ketika jadi admin cluster -->
+            <!-- <ul>
+              <li>
+                <router-link to="/">Atur Cluster</router-link>
+              </li>
+              <li>
+                <router-link to="/">Ubah Data Lapor</router-link>
+              </li>
+            </ul>-->
             <a href="#" class="button-logout" @click.prevent="logout">Keluar</a>
           </div>
         </div>

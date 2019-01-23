@@ -5,8 +5,8 @@
       <div class="logo">
         <logo-pantau/>
       </div>
-      <p>Pantau Bersama untuk Indonesia
-        <br>yang lebih baik
+      <p>Pantau Bersama Pemilu 2019
+        <br>Rayakan Partisipasi Pesta Demokrasi!
       </p>
       <div class="button-group">
         <div class="btn btn-primary" @click="auth('symbolic')">Mulai</div>

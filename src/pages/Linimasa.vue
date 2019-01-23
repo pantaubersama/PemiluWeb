@@ -4,7 +4,7 @@
       <div v-if="$route.name != 'LinimasaHint' && $route.name != 'LinimasaDetail'">
         <div class="card card-tabs">
           <div class="title-tabs">
-            <router-link to="/linimasa" exact>Pilpres</router-link>
+            <router-link to="/linimasa" exact>Linimasa</router-link>
             <router-link :to="{path: '/linimasa', query: {type: 'janji-politik'}}">Janji Politik</router-link>
           </div>
           <JanjiPolitikList

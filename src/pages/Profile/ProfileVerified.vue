@@ -9,10 +9,11 @@
           </div>
           <div class="text">
             <h3>Kenapa Akunmu Perlu Diverifikasi?</h3>
-            <p>Dengan diverifikasi kamu akan….
-              <br>Mendapatkan manfaat dan is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            <p>
+              Apabila akun kamu telah terverifikasi, badge centang hijau akan terpasang di profile. Ini menunjukkan informasi yang kamu bagikan sudah sesuai antara identitas online dan offline.
+              Selain itu, poin-poin interaksi akun yang telah terverifikasi akan terarsip rapi dalam Symbolic id.
             </p>
-            <label>Masukkan No Identitas KTP</label>
+            <label>Masukkan Nomor Induk Kependudukan/Nomor KTP</label>
             <input type="text" class="form-group" v-model="inputKTPNumber">
           </div>
         </div>
@@ -22,8 +23,8 @@
             <div class="selfie-idcard lottie-card" ref="selfieIdcard"></div>
           </div>
           <div class="text">
-            <h4>Foto Diri Bersama Dengan KTP</h4>
-            <p>Pastikan seluruh bagian wajah dari KTP anda gerada dalam bingkai foto dan terlihat jelas. Pastikan foto yang anda kirim adalar foto asli tanpa editan</p>
+            <h4>Foto Diri Dengan KTP</h4>
+            <p>Jangan lupa pastikan seluruh bagian wajah dan KTP berada dalam satu frame. Agar lebih jelas, tidak perlu diedit berlebihan, ya :)</p>
           </div>
           <div class="img-sample">
             <img src="@/assets/selfie-idcard-1.png" alt>
@@ -50,7 +51,7 @@
           </div>
           <div class="text">
             <h4>Foto KTP</h4>
-            <p>Pastikan seluruh bagian KTP anda breada dalam bingkai foto ( KTP asli dan bukan fotokopi KTP)</p>
+            <p>Potret foto KTP asli kamu dan pastikan semua terlihat jelas dalam satu frame.</p>
           </div>
           <div class="img-sample">
             <img src="@/assets/ktp-1.png" alt>
@@ -77,7 +78,7 @@
           </div>
           <div class="text">
             <h4>Foto Tanda Tangan</h4>
-            <p>Yakk, langkah terakhir foto tanda tanganmu diatas kertas putih dengan kameramu</p>
+            <p>Langkah terakhir verifikasi! Foto tandatangan kamu yang sama dengan KTP asli di atas kertas putih.</p>
           </div>
           <div class="upload-img">
             <img :src="inputSignatureURL" class="input-placeholder">

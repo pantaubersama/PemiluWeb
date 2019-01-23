@@ -9,31 +9,31 @@
 
       <li>
         <router-link to="/linimasa">
-          <assignment-icon/>Linimasa
+          <assignment-icon/>Menyerap
         </router-link>
       </li>
 
       <li>
         <router-link to="/pendidikan-politik">
-          <book-icon/>Pendidikan Politik
+          <book-icon/>Menggali
         </router-link>
       </li>
 
       <li>
         <router-link to="/wordstadium">
-          <record-icon/>Wordstadium
+          <record-icon/>Menguji
         </router-link>
       </li>
 
       <li>
         <router-link to="/lapor">
-          <report-icon/>Lapor
+          <report-icon/>Menjaga
         </router-link>
       </li>
 
       <li>
         <router-link to="/perhitungan">
-          <date-icon/>Perhitungan
+          <date-icon/>Merayakan
         </router-link>
       </li>
     </ul>
