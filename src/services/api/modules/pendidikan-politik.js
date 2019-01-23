@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 
 const PREFIX = 'pendidikan_politik'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
@@ -8,10 +10,12 @@ const BASE_URL = process.env.API_PEMILU_BASE_URL
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${vueAuth.getToken()}` }
+  headers: {
+    Authorization: `Bearer ${vueAuth.getToken()}`
+  }
 })
 
-const fetchQuestions = ({
+export const fetchQuestions = ({
   page = 1,
   perPage = 100,
   query = '',

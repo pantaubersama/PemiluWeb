@@ -103,34 +103,66 @@
       <div class="nav-tabs">
         <ul>
           <li>
-            <a class="active" href="#">
-              <img src="@/assets/icon_book.svg">
-            </a>
+            <router-link class="tab-nav" :to="{ path: '/profile', query: { history: 'linimasa' }}">
+              <i class="icon icon-book"></i>
+            </router-link>
           </li>
           <li>
-            <a href="#">
-              <img src="@/assets/icon_education.svg">
-            </a>
+            <router-link class="tab-nav" :to="{ path: '/profile', query: { history: 'penpol' }}">
+              <i class="icon icon-education"></i>
+            </router-link>
           </li>
           <li>
-            <a href="#">
-              <img src="@/assets/icon_record.svg">
-            </a>
+            <router-link
+              class="tab-nav"
+              :to="{ path: '/profile', query: { history: 'wordstadium' }}"
+            >
+              <i class="icon icon-record"></i>
+            </router-link>
           </li>
           <li>
-            <a href="#">
-              <img src="@/assets/icon_report.svg">
-            </a>
+            <router-link class="tab-nav" :to="{ path: '/profile', query: { history: 'lapor' }}">
+              <i class="icon icon-report"></i>
+            </router-link>
           </li>
           <li>
-            <a href="#">
-              <img src="@/assets/icon_date.svg">
-            </a>
+            <router-link
+              class="tab-nav"
+              :to="{ path: '/profile', query: { history: 'perhitungan' }}"
+            >
+              <i class="icon icon-date"></i>
+            </router-link>
           </li>
         </ul>
       </div>
-      <ListCardJP></ListCardJP>
-      <ListCardJP></ListCardJP>
+      <template v-if="$route.query.history == null || $route.query.history === 'linimasa'">
+        <janji-politik-card
+          v-for="feed in feedLinimasa"
+          :key="feed.id"
+          :avatarURL="feed.account.profile_image_url"
+          :name="feed.account.name"
+          :cluster="feed.team.title"
+          :text="feed.source.text"
+          :time="feed.created_at_in_word.en"
+        ></janji-politik-card>
+      </template>
+      <template v-else-if="$route.query.history === 'penpol'">
+        <question-item
+          v-for="question in feedPenpol"
+          :key="question.id"
+          :id="question.id"
+          :name="question.user.full_name"
+          :avatar="question.user.avatar.url"
+          :title="question.title"
+          :time="question.created_at_in_word.en"
+          :question="question.body"
+          :is-voted="question.is_liked"
+          :count="question.like_count"
+        ></question-item>
+      </template>
+      <template v-else>
+        <comming-soon></comming-soon>
+      </template>
     </div>
 
     <modal-request-cluster v-if="modal === 'ModalRequestCluster'" @close-request="closeModal()"></modal-request-cluster>
@@ -145,7 +177,11 @@
       @submit="onSubmitProfile($event)"
       :user="user"
     />
-    <modal-invite-cluster v-if="modal === 'ModalInviteCluster'" @close-request="closeModal()"></modal-invite-cluster>
+    <modal-invite-cluster
+      v-if="modal === 'ModalInviteCluster'"
+      :cluster="user.cluster"
+      @close-request="closeModal()"
+    ></modal-invite-cluster>
   </div>
 </template>
 
@@ -158,16 +194,22 @@ import ModalEditProfile from '@/pages/Profile/ModalEditProfile'
 import { VerifiedIconDefault } from '@/svg/icons'
 import ClusterPanel from '@/components/profile/cluster-panel'
 import ModalInviteCluster from '@/pages/Profile/ModalInviteCluster'
+import JanjiPolitikCard from '@/components/janji-politik-card'
+import QuestionItem from '@/components/pendidikan-politik/question-item'
+import CommingSoon from '@/components/ComingSoon'
 export default {
   name: 'CardProfile',
   components: {
     ListCardJP,
+    JanjiPolitikCard,
     ModalRequestCluster,
     ModalConfirmRequestCluster,
     VerifiedIconDefault,
     ModalEditProfile,
     ClusterPanel,
-    ModalInviteCluster
+    ModalInviteCluster,
+    QuestionItem,
+    CommingSoon
   },
   data() {
     return {
@@ -179,7 +221,9 @@ export default {
   computed: {
     ...mapState({
       user: s => s.profile.user,
-      badges: s => s.profile.badges
+      badges: s => s.profile.badges,
+      feedLinimasa: s => s.profile.historyLinimasa,
+      feedPenpol: s => s.profile.historyPendidikanPolitik
     })
   },
   created() {
@@ -190,6 +234,8 @@ export default {
   mounted() {
     this.$store.dispatch('profile/getMe')
     this.$store.dispatch('profile/getBadges')
+    this.$store.dispatch('profile/getLinimasaHistory')
+    this.$store.dispatch('profile/getQuestionList')
     window.addEventListener('click', this.removeDropdown)
   },
   beforeDestroy() {
@@ -235,6 +281,24 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+a.router-link-exact-active i.icon
+  background-color: #bd081c
+i.icon
+  display: block
+  height: 25px
+  width: 25px
+  background: #4f4f4f
+
+  &.icon-book
+    -webkit-mask: url(~@/assets/icon_book.svg)
+  &.icon-education
+    -webkit-mask: url(~@/assets/icon_education.svg)
+  &.icon-record
+    -webkit-mask: url(~@/assets/icon_record.svg)
+  &.icon-report
+    -webkit-mask: url(~@/assets/icon_report.svg)
+  &.icon-date
+    -webkit-mask: url(~@/assets/icon_date.svg)
 span.icon
   position: relative
 button.request-cluster
