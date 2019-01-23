@@ -54,7 +54,7 @@
           </li>
           <li>
             <a href="javascript:void(0)" @click.stop="$emit('onReport', id)">
-              <alert-icon/>Laporkan
+              <alert-icon/>Laporkan sebagai spam
             </a>
           </li>
         </ul>

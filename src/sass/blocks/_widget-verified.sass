@@ -1,24 +1,28 @@
 .widget-wrapper
-    .card
-        h4.title
-            font-size: 13px
-            text-transform: capitalize
-            font-weight: bold
-        .card-content
-            padding: 10px 25px 10px
-        ul 
-            padding: 0
-            li
-                list-style-type: none
-                a 
-                    font-size: 12px
-                    text-decoration: none
-                    color: #cbcbcb
-                    padding: 5px 0
-                    display: flex
-                    align-items: center
-                    img
-                        width: 16px
-                        margin-right: 10px
-                .active
-                    color: #f2771d
+  .card
+    h4.title
+      font-size: 13px
+      text-transform: capitalize
+      font-weight: bold
+    .card-content
+      padding: 10px 25px 10px
+    ul
+      padding: 0
+      li
+        list-style-type: none
+        a, .content-past
+          font-size: 12px
+          text-decoration: none
+          color: #cbcbcb
+          padding: 5px 0
+          display: flex
+          align-items: end
+          svg
+            width: 16px
+            fill: #08BDA8
+            margin-right: 10px
+        .active
+          color: #f2771d
+          svg
+            fill: #cbcbcb
+

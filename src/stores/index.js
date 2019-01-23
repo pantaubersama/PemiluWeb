@@ -13,6 +13,7 @@ import homeJanjiPolitik from '@/stores/modules/home/janji-politik'
 import homeQuestions from '@/stores/modules/home/questions'
 import homeQuiz from '@/stores/modules/home/quiz'
 import homeCluster from '@/stores/modules/home/cluster'
+import homeKenalan from '@/stores/modules/home/kenalan'
 import dashboard from '@/stores/modules/dashboard'
 import loadingLottie from '@/stores/modules/loading-lottie'
 
@@ -42,7 +43,8 @@ export default new Vuex.Store({
     homeQuestions,
     homeQuiz,
     homeCluster,
-    snackbar
+    snackbar,
+    homeKenalan
   },
   strict: debug,
   plugins: [beforeAction]

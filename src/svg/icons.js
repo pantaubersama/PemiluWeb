@@ -4,7 +4,7 @@ import AssignmentIcon from './icons/assignment.svg'
 import BookOpenIcon from './icons/book-open.svg'
 import BookIcon from './icons/book.svg'
 import BriefcaseIcon from './icons/briefcase.svg'
-import CheckGreenIcon from './icons/check-green.svg'
+import CheckIcon from './icons/icon-check.svg'
 import ChevronRightIcon from './icons/chevron-right.svg'
 import CloseIcon from './icons/close.svg'
 import DateIcon from './icons/date.svg'
@@ -48,7 +48,7 @@ export {
   BookOpenIcon,
   BookIcon,
   BriefcaseIcon,
-  CheckGreenIcon,
+  CheckIcon,
   ChevronRightIcon,
   CloseIcon,
   DateIcon,

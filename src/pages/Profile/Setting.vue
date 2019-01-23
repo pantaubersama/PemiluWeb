@@ -13,7 +13,7 @@
           </div>
           <div class="card-column">
             <div class="connect">
-              <p>Click below to connect your Symbolic account with Twitter</p>
+              <p>Tap di bawah ini untuk mengubungkan Symbolic kamu dengan Twitter</p>
               <button class="btn btn-twitter">
                 <icon-twitter/>
                 <span>CONNECT WITH TWITTER</span>
@@ -22,10 +22,10 @@
           </div>
           <div class="card-column">
             <div class="connect">
-              <p>Connected as :</p>
-              <!-- <button class="btn btn-facebook">
+              <p>Connected as:</p>
+              <button class="btn btn-facebook">
                 <icon-facebook/>John Doe
-              </button>-->
+              </button>
               <div
                 onlogin="onClickFBLoginButton"
                 class="fb-login-button"

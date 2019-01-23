@@ -1,7 +1,7 @@
 <template>
   <modal-question-layout>
     <template slot="header">
-      <h6 class="modal-title">Pertanyaan no 2 dari 10</h6>
+      <h6 class="modal-title">Pertanyaan 2 dari 10</h6>
       <button class="close-icon" @click="$emit('close')">
         <close-icon></close-icon>
       </button>

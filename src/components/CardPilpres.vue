@@ -1,7 +1,7 @@
 <template>
   <div class="card card-pilpres">
     <!-- <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/> -->
-    <h4 class="title">Pilpres</h4>
+    <h4 class="title">Linimasa</h4>
     <div class="pilpres-content">
       <div v-if="feedsPilpres">
         <div class="card-list" v-for="pilpres in feedsPilpres" :key="pilpres.id">
@@ -15,7 +15,7 @@
               <img v-else src="@/assets/icon-group.png" alt>
             </div>
             <div class="group-name">
-              <p>Disematkan dari Team Pemenangan {{pilpres.team.title}}</p>
+              <p>Disematkan dari {{pilpres.team.title}}</p>
             </div>
           </div>
           <div class="group-content">
