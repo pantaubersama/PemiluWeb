@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // modules
+import snackbar from '@/stores/modules/snackbar'
 import meLogout from '@/stores/modules/me/logout'
 import imagesUpload from '@/stores/modules/images/upload'
 import liniMasa from '@/stores/modules/lini-masa'
@@ -40,7 +41,8 @@ export default new Vuex.Store({
     dashboard,
     homeQuestions,
     homeQuiz,
-    homeCluster
+    homeCluster,
+    snackbar
   },
   strict: debug,
   plugins: [beforeAction]
