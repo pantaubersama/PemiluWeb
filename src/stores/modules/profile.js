@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
+import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 
 export const namespaced = true
 export const state = {
@@ -139,6 +140,12 @@ export const actions = {
     })).feeds
     ctx.commit('setLinimasaHistory', feeds)
   },
+  async getQuestionList(ctx) {
+    const data = await PenpolAPI.fetchQuestions({
+      perPage: 5
+    })
+    ctx.commit('setPenpolHistory', data.questions)
+  },
 
   inviteToCluster(ctx, payload) {
     return ProfileAPI.inviteToCluster(payload.clusterId, payload.emails)
@@ -178,6 +185,9 @@ export const mutations = {
   },
   setLinimasaHistory(state, feeds) {
     state.historyLinimasa = feeds
+  },
+  setPenpolHistory(state, histories) {
+    state.historyPendidikanPolitik = histories
   },
   setCluster(state, cluster) {
     Vue.set(state.user, 'cluster', cluster)
