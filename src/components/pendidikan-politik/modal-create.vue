@@ -5,7 +5,7 @@
         <close-icon/>
       </div>
       <div class="create-desc">
-        Buat pertanyaan singkat untuk pasangan calon presiden periode 2019 - 2014.
+        Buat pertanyaan singkat untuk pasangan calon presiden periode 2019 - 2024.
         Pertanyaan terpilih akan disampaikan kepada kedua tim pasangan calon
         Presiden. Gunakan tata Bahasa yang sopan.
       </div>
