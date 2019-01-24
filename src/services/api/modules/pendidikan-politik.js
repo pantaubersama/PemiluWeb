@@ -62,6 +62,12 @@ const vote = (id, className = 'Question') => {
     .catch(error => error)
 }
 
+export const postQuestion = (body) => httpClient
+  .post(`${PREFIX}/v1/questions`, {
+    body
+  })
+  .then(resp => resp.data.data)
+
 const services = {
   fetchQuestions,
   postReport,
