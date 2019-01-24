@@ -8,24 +8,36 @@ const state = {
 const getters = {}
 
 const actions = {
-  fetchQuestions({ commit, state }, payload) {
+  fetchQuestions({
+    commit,
+    state
+  }, payload) {
     const savedQuestions = [...state.questions]
     servicePendidikanPolitik
       .fetchQuestions(payload)
       .then(response => commit(types.SUCCESS_QUESTIONS, response.questions))
-      .catch(() => commit(types.ERROR_QUESTIONS, { savedQuestions }))
+      .catch(() => commit(types.ERROR_QUESTIONS, {
+        savedQuestions
+      }))
   },
-  postReport({ commit }, payload) {
+  postReport({
+    commit
+  }, payload) {
     servicePendidikanPolitik
       .postReport(payload)
       .then(response => commit(types.SUCCESS_REPORT, response))
       .catch(() => commit(types.ERROR_REPORT))
   },
-  vote({ commit }, id) {
+  vote({
+    commit
+  }, id) {
     servicePendidikanPolitik
       .vote(id)
       .then(() => commit(types.SUCCESS_VOTE, id))
       .catch(() => commit(types.ERROR_VOTE))
+  },
+  addQuestion(ctx, question) {
+    ctx.commit(types.ADD_QUESTION, question)
   }
 }
 
@@ -33,7 +45,9 @@ const mutations = {
   [types.SUCCESS_QUESTIONS](state, payload) {
     state.questions = payload
   },
-  [types.ERROR_QUESTIONS](state, { savedQuestions }) {
+  [types.ERROR_QUESTIONS](state, {
+    savedQuestions
+  }) {
     state.questions = savedQuestions
   },
   [types.SUCCESS_REPORT](state, payload) {},
@@ -46,7 +60,13 @@ const mutations = {
 
     state.questions[index] = question
   },
-  [types.ERROR_VOTE](state) {}
+  [types.ERROR_VOTE](state) {},
+  [types.ADD_QUESTION](state, question) {
+    state.questions = [
+      question,
+      ...state.questions
+    ]
+  }
 }
 
 export default {

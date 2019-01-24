@@ -66,7 +66,19 @@ export const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
   storageType: 'localStorage',
   tokenName: 'access_token',
   providers: {
-    symbolic: defaultProviderConfig
+    symbolic: defaultProviderConfig,
+    twitter: {
+      name: 'twitter',
+      // url: '/auth/twitter',
+      url: '/oauth/token',
+      authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+      redirectUri: getRedirectUri(),
+      oauthType: '1.0',
+      popupOptions: {
+        width: 495,
+        height: 645
+      }
+    }
   }
 })
 window.vueAuth = vueAuth

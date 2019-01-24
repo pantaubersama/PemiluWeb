@@ -1,14 +1,22 @@
 <template>
   <ul class="question-list">
-    <!-- <li>
-      <button class="add-question">
+    <modal-create
+      :name="setName(user.full_name)"
+      :avatar="user.avatar.url"
+      :is-submitting="isSubmitting"
+      v-if="modal === 'ModalCreate'"
+      @close="() => modal = null"
+      @submit="submitQuestion($event)"
+    ></modal-create>
+    <li>
+      <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
         <div class="avatar-container">
           <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
           <span class="name">Budi Santoso</span>
         </div>
         <p class="trigger">Ada pertanyaan untuk Calon Presiden dan Calon Wakil Presiden 2019-2024?</p>
       </button>
-    </li>-->
+    </li>
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
       <ContentLoader/>
     </li>
@@ -29,12 +37,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { utils } from '@/mixins/utils'
+import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
+import ModalCreate from '@/components/pendidikan-politik/modal-create'
 
 export default {
   name: 'QuestionList',
-  components: { QuestionItem, ContentLoader },
+  components: { QuestionItem, ContentLoader, ModalCreate },
+  mixins: [utils],
   props: {
     questions: {
       type: Array,
@@ -46,7 +59,25 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      modal: null,
+      isSubmitting: false
+    }
+  },
+  computed: {
+    ...mapState({
+      user: s => s.profile.user
+    })
+  },
+  methods: {
+    async submitQuestion(data) {
+      this.isSubmitting = true
+      const resp = await PenpolAPI.postQuestion(data.title)
+      const question = resp.question
+      this.$store.dispatch('addQuestion', question)
+      this.isSubmitting = false
+      this.modal = null
+    }
   }
 }
 </script>
