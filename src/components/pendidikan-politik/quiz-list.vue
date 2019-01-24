@@ -7,7 +7,7 @@
       <div class="total-kecenderungan-content">
         <div class="content-text">
           <p class="title">Total Kecenderunganmu, 4 Dari 6 Kuis:</p>
-          <p class="total">70% (Jokowi-Makruf)</p>
+          <p class="total">70% (Jokowi-Ma'ruf)</p>
         </div>
         <button class="share-btn">
           <i class="icon icon-share"></i>

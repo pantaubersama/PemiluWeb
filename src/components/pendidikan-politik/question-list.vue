@@ -14,7 +14,7 @@
           <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
           <span class="name">Budi Santoso</span>
         </div>
-        <p class="trigger">Apa pertanyaan Anda untuk kedua calon Presiden?</p>
+        <p class="trigger">Ada pertanyaan untuk Calon Presiden dan Calon Wakil Presiden 2019-2024?</p>
       </button>
     </li>
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
@@ -120,10 +120,11 @@ export default {
         color: #212121
     .trigger
       font-family: Lato
-      font-size: 18px
+      font-size: 14px
       font-weight: bold
       line-height: 1.22
       color: #4f4f4f
+      padding: 5px 0
       @media (max-width: 575px)
         font-size: 14px
 </style>

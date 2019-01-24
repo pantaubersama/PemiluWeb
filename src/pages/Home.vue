@@ -7,7 +7,9 @@
     </template>
     <template slot="widget-wrapper">
       <div class="d-none d-lg-block">
-        <WidgetVerified></WidgetVerified>
+        <div v-if="isProtected()">
+          <WidgetVerified></WidgetVerified>
+        </div>
         <CardWordStadium></CardWordStadium>
         <WidgetCluster></WidgetCluster>
         <CardQuiz></CardQuiz>
@@ -27,7 +29,7 @@ import CardTanya from '@/components/CardTanya'
 import WidgetCluster from '@/components/WidgetCluster'
 import CardQuiz from '@/components/CardQuiz'
 import CardWordStadium from '@/components/CardWordStadium'
-
+import { authLink } from '@/mixins/link'
 export default {
   name: 'Home',
   components: {
@@ -41,6 +43,7 @@ export default {
     WidgetCluster,
     CardQuiz,
     CardWordStadium
-  }
+  },
+  mixins: [authLink]
 }
 </script>

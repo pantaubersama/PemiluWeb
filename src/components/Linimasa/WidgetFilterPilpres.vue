@@ -13,7 +13,7 @@
     </button>
 
     <div class="dropdown-content" @click.stop>
-      <div class="dropdown-title">Sumber dari</div>
+      <div class="dropdown-title">Sumber</div>
       <ul>
         <li v-for="input in inputFilters" :key="input.id">
           <input
@@ -53,12 +53,12 @@ export default {
         {
           id: 2,
           value: 'team_id_1',
-          name: 'Team Jokowi - Makruf'
+          name: "Tim Jokowi - Ma'ruf"
         },
         {
           id: 3,
           value: 'team_id_2',
-          name: 'Team Prabowo - Sandi'
+          name: 'Tim Prabowo - Sandi'
         }
       ]
     }

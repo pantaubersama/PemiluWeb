@@ -6,7 +6,7 @@
         <img src="@/assets/icon-group.png" alt="group-avatar" v-else>
       </div>
       <div class="group-name">
-        <p>Disematkan dari Team Pemenangan {{ team_name }}</p>
+        <p>Disematkan dari {{ team_name }}</p>
       </div>
     </div>
     <div class="group-content">

@@ -4,9 +4,10 @@
       <div class="close-icon" @click="$emit('close')">
         <close-icon/>
       </div>
-      <div
-        class="create-desc"
-      >Bagikan janji politik dari media Capres kepada user lain. Sertakan sumber bila memungkinkan seperti link, gambar, ucapan langsung dan lainnya. Gunakan tata Bahasa yang baik. Gunakan tata Bahasa yang sopan</div>
+      <div class="create-desc">
+        Bagikan Janji Politik dengan bahasa yang baik dan mudah dimengerti.
+        Sertakan ilustrasi, gambar, tautan sumber berita, atau referensi lain sebagai tambahan informasi.
+      </div>
       <div class="create-title">
         <div class="user-profile">
           <div class="thumb">
@@ -23,7 +24,7 @@
           @imageAdded="inputAvatarChanged($event)"
           :editorToolbar="customToolbar"
           v-model="body"
-          placeholder="Beri deskripsi detail lebih lanjut dari Judul "
+          placeholder="Berikan deskripsi atau detil lebih lanjut terkait Janji Politik yang akan disampaikan di kolom ini."
         ></vue-editor>
       </div>
       <div class="button-submit">

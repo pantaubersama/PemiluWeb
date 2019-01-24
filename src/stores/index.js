@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // modules
+import snackbar from '@/stores/modules/snackbar'
 import meLogout from '@/stores/modules/me/logout'
 import imagesUpload from '@/stores/modules/images/upload'
 import liniMasa from '@/stores/modules/lini-masa'
@@ -12,6 +13,7 @@ import homeJanjiPolitik from '@/stores/modules/home/janji-politik'
 import homeQuestions from '@/stores/modules/home/questions'
 import homeQuiz from '@/stores/modules/home/quiz'
 import homeCluster from '@/stores/modules/home/cluster'
+import homeKenalan from '@/stores/modules/home/kenalan'
 import dashboard from '@/stores/modules/dashboard'
 import loadingLottie from '@/stores/modules/loading-lottie'
 
@@ -40,7 +42,9 @@ export default new Vuex.Store({
     dashboard,
     homeQuestions,
     homeQuiz,
-    homeCluster
+    homeCluster,
+    snackbar,
+    homeKenalan
   },
   strict: debug,
   plugins: [beforeAction]

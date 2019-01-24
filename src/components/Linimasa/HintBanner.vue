@@ -8,7 +8,7 @@
       <div class="hint-content">
         <p v-html="object.body"></p>
         <img :src="object.image.large.url" alt="thumbnail">
-        Informasi lebih lengkap hubungi :
+        Informasi lebih lengkap kunjungi:
         <a
           href="https://pantaubersama.com"
           target="_blank"

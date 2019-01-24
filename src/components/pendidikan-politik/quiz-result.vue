@@ -5,7 +5,7 @@
         <h5 class="title">RESULT</h5>
         <p>
           Dari hasil pilihan Quiz minggu pertama,
-          <strong>Allan Wahyu</strong> lebih suka Paslon 03
+          <strong>Allan Wahyu</strong> lebih suka Paslon 01
         </p>
       </div>
       <div class="quiz-description--curve">&nbsp;</div>

@@ -4,11 +4,9 @@
     <div key="modal-confirm" class="modal-mask" v-if="hide == false">
       <div class="modal-wrapper">
         <div class="modal-container modal-confirm">
-          <h3>Apakah kamu yakin data yang
-            <br>dikirim sudah benar ?
-          </h3>
+          <h3>Apa data yang dikirim sudah benar?</h3>
           <div class="button-options">
-            <a href="#" class="cancel-modal" @click.prevent="$emit('close')">Tidak</a>
+            <a href="#" class="cancel-modal" @click.prevent="$emit('close')">Kembali</a>
             <a href="#" @click.prevent="$emit('confirm')">Ya</a>
           </div>
         </div>

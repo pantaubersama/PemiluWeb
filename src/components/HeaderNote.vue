@@ -1,10 +1,9 @@
 <template>
   <div class="header-note">
     <h2 class="title">Catatan Pilihanku</h2>
-    <p class="description">
-      Preferensi calon presiden hanya digunakan catatanmu dan tidak akan
-      ditampilkan pada profile kamu
-    </p>
+    <p
+      class="description"
+    >Halaman preferensi kandidat ini adalah catatan pribadi dan tidak akan ditampilkan pada profile kamu.</p>
     <div class="note-container">
       <div class="result-container">Pilih Note Calon Presidenmu saat ini:
         <div class="result">(Jokowi - Ma'ruf)</div>
@@ -37,7 +36,7 @@
       </div>
       <div class="desc-container">
         <span class="text1">
-          Total kecenderungan,
+          Total Kecenderungan,
           <b>4 dari 6 Kuis</b>
         </span>
         <div class="total">70% (Jokowi - Ma'ruf)</div>
