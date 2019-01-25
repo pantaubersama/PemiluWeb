@@ -33,7 +33,7 @@
 import { BottomArrow, IconDots } from '@/svg/icons'
 import { mapState, mapActions } from 'vuex'
 import LoadingLottie from '@/components/LoadingLottie'
-import TanyaItem from '@/components/CardTanyaItem'
+import TanyaItem from '@/components/Home/CardTanyaItem'
 import ContentLoader from '@/components/Loading/ContentLoader'
 export default {
   name: 'CardTanya',
