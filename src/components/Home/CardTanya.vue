@@ -46,12 +46,14 @@ export default {
   },
   computed: {
     ...mapState('homeQuestions', ['feedsQuestions', 'paginations']),
+
     ...mapState('loadingLottie', ['loadingAnimating'])
   },
   created() {
     this.$store.dispatch('homeQuestions/homeQuestions')
   },
   methods: {
+    ...mapActions(['vote']),
     loadMore() {
       if (this.paginations.isLast === false) {
         this.$store.dispatch('homeQuestions/nextPage')
