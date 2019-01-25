@@ -155,6 +155,13 @@ export const actions = {
       .then(data => {
         ctx.commit('setCluster', data.cluster)
       })
+  },
+  async selectCalon(ctx, payload) {
+    ctx.commit('selectCalon', payload.id)
+    const user = await ProfileAPI.votePreference(payload.id)
+    ctx.commit('setProfileData', {
+      user
+    })
   }
 }
 
@@ -191,6 +198,9 @@ export const mutations = {
   },
   setCluster(state, cluster) {
     Vue.set(state.user, 'cluster', cluster)
+  },
+  selectCalon(state, id) {
+    state.user.vote_preference = id
   }
 }
 

@@ -91,7 +91,7 @@ const verifySelfie = (selfieFile) => {
     .put('/v1/verifications/ktp_selfie', formData)
     .then(resp => resp.data.data)
 }
-const verifyKTPNumber = (ktpNumber) => axios
+const verifyKTPNumber = (ktpNumber) => api
   .put('/v1/verifications/ktp_number', {
     ktp_number: ktpNumber
   })
@@ -112,7 +112,7 @@ export const verify = (payload) => axios
     })
   }))
 
-export const updateInformant = (p) => axios
+export const updateInformant = (p) => api
   .put('/v1/informants', {
     identity_number: p.identity_number,
     pob: p.pob,
@@ -125,14 +125,20 @@ export const updateInformant = (p) => axios
   })
   .then(resp => resp.data.data.informant)
 
-export const inviteToCluster = (clusterId, ...emails) => axios
+export const inviteToCluster = (clusterId, ...emails) => api
   .post('/v1/clusters/invite', {
     cluster_id: clusterId,
     emails: emails.join(',')
   })
   .then(resp => resp.data.data)
-export const enableMagicLink = (clusterId, enable = true) => axios
+export const enableMagicLink = (clusterId, enable = true) => api
   .post(`/v1/clusters/${clusterId}/magic_link`, {
     enable
   })
   .then(resp => resp.data.data)
+
+export const votePreference = (id) => api
+  .put('/v1/me/vote_preference', {
+    vote_preference: id
+  })
+  .then(resp => resp.data.data.user)

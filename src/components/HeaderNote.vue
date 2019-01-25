@@ -9,7 +9,7 @@
         <div class="result">(Jokowi - Ma'ruf)</div>
       </div>
       <div class="column-container">
-        <div class="column-item selected">
+        <div class="column-item" :class="{selected: selectedId === 1}" @click.stop="selectCalon(1)">
           <img
             src="~@/assets/note-image/image1/image@1x.jpg"
             srcset="~@/assets/note-image/image1/image@2x.jpg 2x
@@ -18,7 +18,7 @@
           >
           <div class="candidate-name">Jokowi - Ma'ruf</div>
         </div>
-        <div class="column-item">
+        <div class="column-item" :class="{selected: selectedId === 2}" @click.stop="selectCalon(2)">
           <img
             src="~@/assets/note-image/image2/image@1x.jpg"
             srcset="~@/assets/note-image/image2/image@2x.jpg 2x
@@ -28,7 +28,12 @@
           <div class="candidate-name">Prabowo - Sandi</div>
         </div>
       </div>
-      <button class="choice">Belum menentukan pilihan</button>
+      <button
+        class="choice"
+        type="button"
+        :class="{ selected: selectedId === 3 }"
+        @click.stop="selectCalon(3)"
+      >Belum menentukan pilihan</button>
     </div>
     <div class="total-kecenderungan-container">
       <div class="image-container">
@@ -47,8 +52,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'HeaderNote'
+  name: 'HeaderNote',
+  computed: {
+    ...mapState({
+      selectedId: s => s.profile.user.vote_preference
+    })
+  },
+  methods: {
+    selectCalon(id) {
+      return this.$store.dispatch('profile/selectCalon', { id })
+    }
+  }
 }
 </script>
 
@@ -120,6 +136,10 @@ export default {
     letter-spacing: 0.5px
     color: #7c7c7c
     margin-top: 20px
+    &.selected
+      border-color: #f2771d
+      background-color: #f2771d
+      color: white
 
   .total-kecenderungan-container
     display: flex
