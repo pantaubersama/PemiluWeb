@@ -1,18 +1,18 @@
 <template>
   <LayoutTimeline>
     <template slot="main-content">
-      <CardPilpres></CardPilpres>
-      <CardJanjiPolitik></CardJanjiPolitik>
-      <CardTanya></CardTanya>
+      <CardPilpres/>
+      <CardJanjiPolitik/>
+      <CardTanya/>
     </template>
     <template slot="widget-wrapper">
       <div class="d-none d-lg-block">
         <div v-if="isProtected()">
-          <WidgetVerified></WidgetVerified>
+          <WidgetVerified/>
         </div>
-        <CardWordStadium></CardWordStadium>
-        <WidgetCluster></WidgetCluster>
-        <CardQuiz></CardQuiz>
+        <CardWordStadium/>
+        <WidgetCluster/>
+        <CardQuiz/>
       </div>
     </template>
   </LayoutTimeline>

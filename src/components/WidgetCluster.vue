@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card card-cluster">
     <h4 class="title">Cluster</h4>
     <div class="card-content">
       <ul>

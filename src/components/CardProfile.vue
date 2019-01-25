@@ -56,7 +56,7 @@
           <router-link class="badge-more" to="/profile/badge">Lihat lainnya</router-link>
         </h4>
         <template v-if="badges.length > 0">
-          <div v-for="badge in badges" :key="badge" class="item">
+          <div v-for="badge in badges" :key="badge.id" class="item">
             <img src="@/assets/flag-star-1.png">
             <span>
               <p :data-title="badge.title">KADET</p>
@@ -262,6 +262,7 @@ export default {
         if (this.$route.query.hasOwnProperty('edit-profile')) {
           this.$router.push('/profile/setting')
         }
+        this.modal = false
       })
     },
     removeDropdown(event) {

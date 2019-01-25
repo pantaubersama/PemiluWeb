@@ -41,10 +41,10 @@ const actions = {
       root: true
     })
     ApiHomeJanjiPolitik.homeJanjiPolitik(state.paginations.page, state.paginations.perPage, result => {
+      commit('updateJanjiPolitik', result.data.data)
       commit('loadingLottie/stopLoading', {}, {
         root: true
       })
-      commit('updateJanjiPolitik', result.data.data)
     })
   }
 }

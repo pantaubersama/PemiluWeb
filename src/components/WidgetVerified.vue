@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card card-kenalan">
     <h4 class="title">Kenalan Pantau Bersama</h4>
     <div class="card-content">
       <ul>
@@ -16,24 +16,20 @@
           </div>
         </li>
       </ul>
-      <loading-lottie v-if="loadingAnimating"/>
     </div>
   </div>
 </template>
 
 <script>
 import { CheckIcon } from '@/svg/icons'
-import LoadingLottie from '@/components/LoadingLottie'
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'WidgetVerified',
   components: {
-    CheckIcon,
-    LoadingLottie
+    CheckIcon
   },
   computed: {
-    ...mapState('homeKenalan', ['feedsKenalan']),
-    ...mapState('loadingLottie', ['loadingAnimating'])
+    ...mapState('homeKenalan', ['feedsKenalan'])
   },
   created() {
     this.$store.dispatch('homeKenalan/homeKenalan')
