@@ -20,10 +20,10 @@ const actions = {
       root: true
     })
     ApiHomePilpres.homePilpres(state.paginations.page, state.paginations.perPage, result => {
+      commit('getHomePilpres', result.data.data)
       commit('loadingLottie/stopLoading', {}, {
         root: true
       })
-      commit('getHomePilpres', result.data.data)
     })
   },
 
