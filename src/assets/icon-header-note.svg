@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon_kotak_kpu" width="28" height="28" data-name="icon kotak kpu" viewBox="0 0 28 28">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#212121}
+        </style>
+    </defs>
+    <g id="Layer_1-2">
+        <g id="Group_2407" data-name="Group 2407">
+            <path id="Rectangle_2462" d="M0 0h28v28H0z" class="cls-1" data-name="Rectangle 2462"/>
+        </g>
+        <g id="Group_2411" data-name="Group 2411" transform="translate(1 1)">
+            <g id="Group_2408" data-name="Group 2408" transform="translate(2.286 5.199)">
+                <path id="Path_2234" d="M61.956 101.1h-4.611l-.478 1.951h3.887l1.268 2.491v.108H43.957v-.108l1.279-2.491h3.651l.457-1.951h-5.31L42 105.075v2.532h.673v14.23H63.3v-14.23h.683v-2.532zm-.606 18.78H44.629v-12.273H61.35z" class="cls-2" data-name="Path 2234" transform="translate(-41.99 -101.085)"/>
+                <path id="Path_2235" d="M63.127 121.562H42.473v-14.23H41.8v-2.547l2.034-3.98h5.336l-.462 1.977h-3.657l-1.274 2.48v.092h18.041v-.092l-1.263-2.486h-3.9l.005-.015.483-1.962h4.627l.005.005 2.023 3.98v2.547h-.678v14.23zm-20.627-.025h20.6v-14.23h.678V104.8l-2.018-3.965h-4.595l-.472 1.926h3.877l.005.005 1.268 2.491v.123H43.751v-.128l1.284-2.5h3.651l.452-1.926h-5.289l-2.028 3.965v2.509h.673v14.235zm18.672-1.926H44.429v-12.3h16.742zm-16.716-.026h16.7v-12.248h-16.7z" class="cls-2" data-name="Path 2235" transform="translate(-41.8 -100.8)"/>
+            </g>
+            <g id="Group_2409" data-name="Group 2409" transform="translate(8.798 .377)">
+                <path id="Path_2236" d="M170.862 7.2l-1.135 4.822-.457 1.951-.37 1.592h7.96l.39-1.592.478-1.951 1.181-4.822zm4.853 4.822l-.39 1.592h-3.965l.38-1.592.673-2.871h4.006z" class="cls-2" data-name="Path 2236" transform="translate(-168.885 -7.185)"/>
+                <path id="Path_2237" d="M176.586 15.291H168.6l.375-1.607 1.592-6.784h8.073l-.005.015-1.181 4.822zm-7.955-.026h7.934l.868-3.533 1.176-4.807h-8.021L169 13.689zm6.419-1.926h-3.99l.385-1.607.678-2.881h4.031l-.005.015zm-3.959-.026h3.939l1.089-4.437h-3.98l-.673 2.86z" class="cls-2" data-name="Path 2237" transform="translate(-168.6 -6.9)"/>
+            </g>
+            <g id="Group_2410" data-name="Group 2410" transform="translate(9.527 13.853)">
+                <path id="Path_2238" d="M186.356 275.911l-3.256-3.256 1.037-1.032 2.218 2.219 4.245-4.242 1.037 1.037z" class="cls-2" data-name="Path 2238" transform="translate(-183.085 -269.585)"/>
+                <path id="Path_2239" d="M186.071 275.647l-3.271-3.271 1.053-1.053 2.218 2.218 4.242-4.242 1.053 1.053zm-3.235-3.276l3.235 3.235 5.259-5.259-1.017-1.012-4.242 4.242-2.218-2.218z" class="cls-2" data-name="Path 2239" transform="translate(-182.8 -269.3)"/>
+            </g>
+        </g>
+    </g>
+</svg>
