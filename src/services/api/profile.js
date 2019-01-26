@@ -45,6 +45,12 @@ export const getBadges = () => api
     }
   })
   .then(resp => resp.data.data)
+export const listBadges = () => api
+  .get('/v1/badges')
+  .then(resp => resp.data.data)
+export const getBadgeDetail = (id) => api
+  .get(`/v1/badge/${id}`)
+  .then(resp => resp.data.data)
 
 export const getCategories = (page = 1, per_page = 100) => api
   .get('/v1/categories', {

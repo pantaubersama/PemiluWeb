@@ -1,16 +1,16 @@
 <template>
   <modal-layout>
-    <div slot="modal-content" class="modal-share">
-      <div class="close-icon" @click="$emit('close')">
-        <close-icon/>
+    <div class="modal-share" slot="modal-content">
+      <div class="close-icon" @click.prevent="$emit('close')">
+        <close-icon></close-icon>
       </div>
       <div class="share-content">
-        <social-sharing :url="`${baseUrl}/linimasa/detail/${id}`" inline-template>
+        <social-sharing :url="absoluteURL" inline-template>
           <ul>
             <li>
               <network network="facebook">
                 <a href="javascript:void(0)">
-                  <img src="@/assets/icon-facebook.svg">Bagikan ke Facebook
+                  <img src="@/assets/icon-facebook.svg"> Bagikan ke Facebook
                 </a>
               </network>
             </li>
@@ -31,25 +31,22 @@
 <script>
 import ModalLayout from '@/layout/Modal'
 import { CloseIcon } from '@/svg/icons'
-
 export default {
   name: 'ModalShare',
-  props: {
-    url: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {
-      baseUrl: process.env.BASE_URL
-    }
-  },
+  props: ['url'],
   components: {
     ModalLayout,
     CloseIcon
-    // IconFacebook,
-    // IconTwitter
+  },
+  data() {
+    return {
+      baseURL: window.location.origin
+    }
+  },
+  computed: {
+    absoluteURL() {
+      return `${this.baseURL}${this.url}`
+    }
   },
   created() {
     document.documentElement.className = 'overflow-y-hidden'

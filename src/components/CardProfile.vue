@@ -56,11 +56,11 @@
           <router-link class="badge-more" to="/profile/badge">Lihat lainnya</router-link>
         </h4>
         <template v-if="badges.length > 0">
-          <div v-for="badge in badges" :key="badge" class="item">
-            <img src="@/assets/flag-star-1.png">
+          <div v-for="badge in sortedBadges" :key="badge.id" class="item">
+            <img :src="badge.image.url">
             <span>
-              <p :data-title="badge.title">KADET</p>
-              <p class="sub-text" :data-text="badge.description">Ikut Kuis Pendidikan Pertama Kali</p>
+              <p :data-title="badge.name">{{badge.name}}</p>
+              <p class="sub-text" :data-text="badge.description">{{badge.description || '-'}}</p>
             </span>
           </div>
         </template>
@@ -224,7 +224,10 @@ export default {
       badges: s => s.profile.badges,
       feedLinimasa: s => s.profile.historyLinimasa,
       feedPenpol: s => s.profile.historyPendidikanPolitik
-    })
+    }),
+    sortedBadges() {
+      return this.badges.slice().sort((a, b) => a.position - b.position)
+    }
   },
   created() {
     if (this.$route.query.hasOwnProperty('edit-profile')) {
@@ -236,6 +239,7 @@ export default {
     this.$store.dispatch('profile/getBadges')
     this.$store.dispatch('profile/getLinimasaHistory')
     this.$store.dispatch('profile/getQuestionList')
+    this.$store.dispatch('profile/listBadges')
     window.addEventListener('click', this.removeDropdown)
   },
   beforeDestroy() {

@@ -53,6 +53,7 @@ export const state = {
     }
   },
   badges: [],
+  listBadges: [],
   categories: [],
   cluster: [],
   historyLinimasa: [],
@@ -90,8 +91,15 @@ export const actions = {
   async getBadges(store) {
     const data = await ProfileAPI.getBadges()
     store.commit('setBadges', {
-      badges: data.achieved_badges
+      badges: data.achieved_badges.map(it => it.badge)
     })
+  },
+  async listBadges(ctx) {
+    const badges = (await ProfileAPI.listBadges())
+      .badges
+      .slice()
+      .sort((a, b) => a.position - b.position)
+    ctx.commit('setListBadges', badges)
   },
 
   async getClusterCategories(store) {
@@ -201,6 +209,9 @@ export const mutations = {
   },
   selectCalon(state, id) {
     state.user.vote_preference = id
+  },
+  setListBadges(state, badges) {
+    Vue.set(state, 'listBadges', badges)
   }
 }
 

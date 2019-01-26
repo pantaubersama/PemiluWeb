@@ -2,9 +2,28 @@
   <div class="profile-page">
     <LayoutTimeline>
       <template slot="main-content">
+        <modal-share v-if="isModalOpened" :url="modalShareURL" @close="isModalOpened = false"></modal-share>
         <div class="list-badge">
           <div class="title">List Badge</div>
           <div class="list-content">
+            <div class="list-item" v-for="badge in badges" :key="badge.id">
+              <img :src="badge.image.url">
+              <div class="list-content-desc">
+                <div class="list-desc">
+                  <p>{{badge.name}}</p>
+                  <div class="sub-text">{{badge.description || '-'}}</div>
+                </div>
+                <a
+                  href="javascript:void(0)"
+                  class="icon-share"
+                  @click="share(`/profile/badge-detail/${badge.id}`)"
+                >
+                  <icon-share/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="list-content" v-if="badges.length <= 0">
             <div class="list-item">
               <img src="@/assets/flag-star-1.png">
               <div class="list-content-desc">
@@ -79,13 +98,36 @@
 </template>
 
 <script>
-import LayoutTimeline from '@/layout/Timeline'
+import { mapState } from 'vuex'
 import { IconShare } from '@/svg/icons'
+import LayoutTimeline from '@/layout/Timeline'
+import ModalShare from '@/components/modal-share'
 export default {
   name: 'ProfileBadge',
   components: {
     LayoutTimeline,
-    IconShare
+    IconShare,
+    ModalShare
+  },
+  data() {
+    return {
+      isModalOpened: false,
+      modalShareURL: null
+    }
+  },
+  computed: {
+    ...mapState({
+      badges: s => s.profile.listBadges
+    })
+  },
+  mounted() {
+    this.$store.dispatch('profile/listBadges')
+  },
+  methods: {
+    share(url) {
+      this.modalShareURL = url
+      this.isModalOpened = true
+    }
   }
 }
 </script>
