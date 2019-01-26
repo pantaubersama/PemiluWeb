@@ -266,6 +266,7 @@ export default {
         if (this.$route.query.hasOwnProperty('edit-profile')) {
           this.$router.push('/profile/setting')
         }
+        this.modal = false
       })
     },
     removeDropdown(event) {

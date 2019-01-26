@@ -1,6 +1,5 @@
 <template>
   <div class="card card-pilpres">
-    <!-- <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/> -->
     <h4 class="title">Linimasa</h4>
     <div class="pilpres-content">
       <div v-if="feedsPilpres">
@@ -40,47 +39,39 @@
                   <span>.</span>
                   <span>{{ pilpres.created_at_in_word.id }}</span>
                 </h5>
-                <div class="content-action action-img">
-                  <a
-                    href
-                    class="icon-setting"
-                    :class="{'is-active': isActive == pilpres.id}"
-                    @click.prevent="toggleDropdown(pilpres.id, $event)"
-                  >
-                    <img class="icon-dots" src="@/assets/dots-icon.svg" alt>
-                  </a>
-                  <div class="dropdown-content">
-                    <ul>
-                      <!-- <li>
-                        <a href="javascript:void(0)" @click.stop="copyToClipboard(pilpres.id)">
-                          <link-icon/>Salin Tautan
-                        </a>
-                      </li>-->
-                      <!-- <li>
-                        <a href="javascript:void(0)" @click.stop="modalShare(pilpres.id)">
-                          <share-icon/>Bagikan
-                        </a>
-                      </li>-->
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          @click.stop="openTwitter('https://twitter.com/' + pilpres.account.username + '/status/' + pilpres.source.id )"
-                        >
-                          <sosmed-twitter-icon/>Buka di Web Twitter
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="desc-text">
                 <p v-html="pilpres.source.text"></p>
               </div>
             </div>
+            <div class="content-action action-img">
+              <a
+                href
+                class="icon-setting"
+                :class="{'is-active': isActive == pilpres.id}"
+                @click.prevent="toggleDropdown(pilpres.id, $event)"
+              >
+                <img class="icon-dots" src="@/assets/dots-icon.svg" alt>
+              </a>
+              <div class="dropdown-content">
+                <ul>
+                  <li>
+                    <a
+                      href="javascript:void(0)"
+                      @click.stop="openTwitter('https://twitter.com/' + pilpres.account.username + '/status/' + pilpres.source.id )"
+                    >
+                      <sosmed-twitter-icon/>Buka di Web Twitter
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <loading-lottie v-if="loadingAnimating"/>
+      <div v-if="loadingAnimating">
+        <ContentLoader/>
+      </div>
       <div class="load-more" @click="loadMore" v-if="!paginations.isLast">Tampilkan lebih banyak
         <div class="arrow-icon">
           <bottom-arrow/>
@@ -91,7 +82,7 @@
 </template>
 
 <script>
-// import ModalShare from '@/components/Linimasa/ModalShare'
+import ContentLoader from '@/components/Loading/ContentLoader'
 import {
   BottomArrow,
   IconDots,
@@ -109,13 +100,12 @@ export default {
     LoadingLottie,
     LinkIcon,
     SosmedTwitterIcon,
-    ShareIcon
-    // ModalShare
+    ShareIcon,
+    ContentLoader
   },
   data() {
     return {
       isActive: false,
-      // modal: false,
       shareId: ''
     }
   },
@@ -135,21 +125,10 @@ export default {
         this.$store.dispatch('homePilpres/updateHomePilpres')
       }
     },
-    // copyToClipboard(id) {
-    //   this.$clipboard(`${process.env.BASE_URL}linimasa/detail/${id}`)
-    //   this.isActive = 0
-    // },
-    // modalShare(id) {
-    //   this.shareId = id
-    //   this.modal = 'modalShare'
-    // },
     openTwitter(url) {
       window.open(url, '_blank')
       this.isActive = 0
     },
-    // closeModal() {
-    //   this.modal = false
-    // },
     toggleDropdown(el, event) {
       var toggleClick =
         event.target.classList.contains('icon-dots') &&

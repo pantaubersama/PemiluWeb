@@ -51,6 +51,7 @@ export default {
   methods: {
     copyToClipboard(id) {
       this.$clipboard(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.$toaster.info('Berhasil menyalin teks.')
     },
     modalShare(id) {
       this.shareId = id

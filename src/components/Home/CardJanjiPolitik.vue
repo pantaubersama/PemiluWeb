@@ -1,7 +1,7 @@
 <template>
   <div class="card card-jp">
     <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/>
-    <h4>Janji Politik</h4>
+    <h4 class="title">Janji Politik</h4>
     <div v-if="feedsJanjiPolitik">
       <div class="card-content" v-for="janjiPolitik in feedsJanjiPolitik" :key="janjiPolitik.id">
         <div class="top">
@@ -22,11 +22,11 @@
           <span class="right">{{janjiPolitik.created_at_in_word.id}}</span>
         </div>
         <router-link :to="{name: 'LinimasaDetail', params: {id: janjiPolitik.id}}">
-          <h4 class="title" v-html="trimCharacters(janjiPolitik.title, 150)"></h4>
+          <h4 class="title" v-html="trimCharacters(janjiPolitik.title, 100)"></h4>
         </router-link>
         <div class="main-content">
-          <p v-html="trimCharacters(janjiPolitik.body, 450)"></p>
-          <div class="content-thumb" v-if="janjiPolitik.image != null">
+          <p v-html="trimCharacters(janjiPolitik.body, 290)"></p>
+          <div class="content-thumb" v-if="janjiPolitik.image.url != null">
             <img :src="janjiPolitik.image.url">
           </div>
         </div>
@@ -70,7 +70,9 @@
         </span>
       </div>
     </div>
-    <loading-lottie v-if="loadingAnimating"/>
+    <div v-if="loadingAnimating">
+      <ContentLoader/>
+    </div>
     <div class="load-more" @click="loadMore" v-if="!paginations.isLast">Tampilkan lebih banyak
       <div class="arrow-icon">
         <bottom-arrow/>
@@ -85,6 +87,7 @@ import { mapState, mapActions } from 'vuex'
 import LoadingLottie from '@/components/LoadingLottie'
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
 import ModalShare from '@/components/Linimasa/ModalShare'
+import ContentLoader from '@/components/Loading/ContentLoader'
 export default {
   name: 'CardJP',
   components: {
@@ -95,7 +98,8 @@ export default {
     AlertIcon,
     ShareIcon,
     CloseIcon,
-    ModalShare
+    ModalShare,
+    ContentLoader
   },
   data() {
     return {

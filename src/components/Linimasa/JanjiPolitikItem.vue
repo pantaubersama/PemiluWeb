@@ -23,7 +23,7 @@
       </div>
     </div>
     <span class="icon-right">
-      <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
+      <a href="javascript:void(0)" @click.stop="share(id)">
         <img src="@/assets/icon_share.svg">
       </a>
       <a
@@ -43,12 +43,12 @@
               </a>
           </li>-->
           <li>
-            <a href="javascript:void(0)" @click.stop="$emit('onCopy', id)">
+            <a href="javascript:void(0)" @click.stop="copy(id)">
               <link-icon/>Salin Tautan
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
+            <a href="javascript:void(0)" @click.stop="share(id)">
               <share-icon/>Bagikan
             </a>
           </li>
@@ -65,9 +65,11 @@
 
 <script>
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
+import ShareOptions from '@/mixins/share-options'
 
 export default {
   name: 'JanjiPolitikItem',
+  mixins: [ShareOptions],
   components: {
     LinkIcon,
     AlertIcon,
@@ -83,33 +85,6 @@ export default {
     title: String,
     description: String,
     image: String
-  },
-  data() {
-    return {
-      isActive: false
-    }
-  },
-  created() {
-    window.addEventListener('click', this.removeDropdown)
-  },
-  methods: {
-    toggleDropdown(el, event) {
-      var toggleClick =
-        event.target.classList.contains('is-active') ||
-        event.target.parentNode.classList.contains('is-active')
-      this.isActive = el
-      if (toggleClick) {
-        this.isActive = 0
-      }
-    },
-    removeDropdown(event) {
-      var isClickOutside =
-        !event.target.classList.contains('icon-setting') &&
-        !event.target.parentNode.classList.contains('icon-setting')
-      if (isClickOutside) {
-        this.isActive = 0
-      }
-    }
   }
 }
 </script>

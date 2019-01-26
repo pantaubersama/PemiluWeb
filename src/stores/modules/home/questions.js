@@ -41,10 +41,10 @@ const actions = {
       root: true
     })
     ApiHomeQuestions.homeQuestions(state.paginations.page, state.paginations.perPage, result => {
+      commit('updateHomeQuestions', result.data.data)
       commit('loadingLottie/stopLoading', {}, {
         root: true
       })
-      commit('updateHomeQuestions', result.data.data)
     })
   }
 }

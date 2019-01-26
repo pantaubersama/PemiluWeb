@@ -15,7 +15,12 @@
       v-if="userAuth"
     />
     <div class="card-content" v-for="item in data" :key="item.id">
+      <div v-if="loading">
+        <!-- TODO: seharuusnya menggunakan loader yang berbeda, disesuaikan dengan stylenya :) -->
+        <ContentLoader/>
+      </div>
       <JanjiPolitikItem
+        v-else
         :id="item.id"
         :avatar="item.creator.avatar.thumbnail_square.url"
         :author_name="setName(item.creator.full_name)"
@@ -37,6 +42,7 @@ import { mapActions } from 'vuex'
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
 import { utils } from '@/mixins/utils.js'
 
+import ContentLoader from '@/components/Loading/ContentLoader'
 import ModalCreate from '@/components/Linimasa/ModalCreate'
 import ModalShare from '@/components/Linimasa/ModalShare'
 import JanjiPolitikItem from '@/components/Linimasa/JanjiPolitikItem'
@@ -45,6 +51,7 @@ import JanjiPolitikCreateItem from '@/components/Linimasa/JanjiPolitikCreateItem
 export default {
   name: 'JanjiPolitikList',
   components: {
+    ContentLoader,
     JanjiPolitikItem,
     JanjiPolitikCreateItem,
     ModalCreate,
@@ -63,6 +70,10 @@ export default {
     userAuth: {
       type: Boolean,
       required: true
+    },
+    loading: {
+      type: Boolean,
+      require: true
     },
     user: Object
   },
@@ -85,6 +96,7 @@ export default {
     },
     copyToClipboard(id) {
       this.$clipboard(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.$toaster.info('Berhasil menyalin teks.')
     },
     modalShare(id) {
       this.shareId = id
