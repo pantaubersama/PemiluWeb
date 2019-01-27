@@ -1,16 +1,17 @@
 <template>
   <div>
     <card-question-layout>
-      <meditation-illustration slot="background"></meditation-illustration>
+      <meditation-illustration v-if="quiz.image == null" slot="background"></meditation-illustration>
+      <img v-else :src="quiz.image.url" slot="background">
       <div slot="title" class="quiz-title">
         <div class="quiz-title">
-          <h3>Quiz Minggu ke-2</h3>
-          <p>7 Pertanyaan</p>
+          <h3>{{quiz.title}}</h3>
+          <p>{{quiz.quiz_questions_count}} Pertanyaan</p>
         </div>
       </div>
 
       <div slot="description" class="quiz-description">
-        <p>Pilihlah salah satu jawaban yang paling kamu sukai dari 2 pilihan yang ada. Ikuti kuis hingga selesai dan tunggu kejutan hasilnya</p>
+        <p>{{quiz.description}}</p>
         <button
           type="button"
           class="btn btn-block btn-primary"
@@ -21,8 +22,10 @@
 
     <question-modal
       v-if="showModal"
+      :quiz="quiz"
+      :questions="questions"
       @onClickChoicesButton="(choice) => $emit('onClickChoicesButton', choice)"
-      v-on:close="$emit('onClickNextButton', showModal)"
+      @close="$emit('onClickNextButton', showModal)"
       @click.stop="$emit('onClickNextButton', showModal)"
     />
   </div>
@@ -42,6 +45,30 @@ export default {
   },
   props: {
     showModal: Boolean
+  },
+  computed: {
+    quizId() {
+      return this.$route.params.id
+    },
+    quiz() {
+      return this.$store.getters.quizzes.find(it => it.id === this.quizId) || {}
+    },
+    questions() {
+      return this.$store.getters.questionsForQuizId(this.quizId)
+    }
+  },
+  mounted() {
+    // get quiz detail or start participating
+    this.$store
+      .dispatch('getQuizDetail', {
+        quizId: this.quizId
+      })
+      .then(quiz =>
+        this.$store.dispatch('getQuizQuestions', {
+          quiz,
+          quizId: this.quizId
+        })
+      )
   }
 }
 </script>

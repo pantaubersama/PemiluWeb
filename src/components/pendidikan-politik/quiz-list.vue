@@ -15,7 +15,36 @@
       </div>
     </div>
     <ul>
-      <li class="quiz-item">
+      <li class="quiz-item" v-for="quiz in quizzes" :key="quiz.id">
+        <div class="artwork-container">
+          <img :src="quiz.image.url">
+        </div>
+        <div class="info-container">
+          <h3 class="title">{{quiz.title}}</h3>
+          <span class="question-count">{{quiz.quiz_questions_count}} Pertanyaan</span>
+          <div class="container-action">
+            <a href="javascript:void(0)" class="share">
+              <i class="icon icon-share"></i> Bagikan
+            </a>
+            <router-link
+              v-if="quiz.participation_status === 'not_participating'"
+              class="btn btn-primary orange"
+              :to="{name: 'PendidikanPolitikQuizIkuti', params: { id: quiz.id }}"
+            >Ikuti >></router-link>
+            <router-link
+              v-if="quiz.participation_status === 'in_progress'"
+              class="btn btn-primary red"
+              :to="{name: 'PendidikanPolitikQuizLanjut', params: { id: quiz.id }}"
+            >Lanjut >></router-link>
+            <router-link
+              v-if="quiz.participation_status === 'finished'"
+              class="btn btn-primary torquoise"
+              :to="{name: 'PendidikanPolitikQuizHasil', params: { id: quiz.id }}"
+            >Hasil >></router-link>
+          </div>
+        </div>
+      </li>
+      <!-- <li class="quiz-item">
         <div class="artwork-container">
           <img src="@/assets/image-quiz-1.svg" class="quiz-artwork">
         </div>
@@ -72,13 +101,22 @@
             >Hasil >></router-link>
           </div>
         </div>
-      </li>
+      </li>-->
     </ul>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'QuizList'
+  name: 'QuizList',
+  computed: {
+    ...mapGetters({
+      quizzes: 'quizzes'
+    })
+  },
+  mounted() {
+    this.$store.dispatch('listAllQuiz')
+  }
 }
 </script>
