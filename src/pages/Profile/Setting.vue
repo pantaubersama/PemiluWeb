@@ -23,8 +23,8 @@
           <div class="card-column">
             <div class="connect">
               <p>Connected as:</p>
-              <button class="btn btn-facebook">
-                <icon-facebook/>John Doe
+              <button v-if="!isFbLoaded" class="btn btn-facebook">
+                <icon-facebook/>Loading facebook...
               </button>
               <div
                 onlogin="onClickFBLoginButton"

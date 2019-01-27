@@ -1,123 +1,122 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 import Meta from 'vue-meta'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
-  routes: [
-    {
-      path: '*',
-      component: () => import('@/components/NotFound')
+  routes: [{
+    path: '*',
+    component: () => import('@/components/NotFound')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/pages/Login')
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('@/pages/Home')
+  },
+  {
+    path: '/linimasa',
+    name: 'Linimasa',
+    component: () => import('@/pages/Linimasa'),
+    props: true,
+    children: [{
+      path: 'hint',
+      name: 'LinimasaHint',
+      component: () => import('@/pages/Linimasa')
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: () => import('@/pages/Login')
+      path: 'detail/:id',
+      name: 'LinimasaDetail',
+      component: () => import('@/pages/Linimasa')
     },
     {
-      path: '/',
-      name: 'Home',
-      component: () => import('@/pages/Home')
-    },
-    {
-      path: '/linimasa',
-      name: 'Linimasa',
-      component: () => import('@/pages/Linimasa'),
-      props: true,
-      children: [
-        {
-          path: 'hint',
-          name: 'LinimasaHint',
-          component: () => import('@/pages/Linimasa')
-        },
-        {
-          path: 'detail/:id',
-          name: 'LinimasaDetail',
-          component: () => import('@/pages/Linimasa')
-        },
-        {
-          path: 'create-post',
-          name: 'LinimasaCreatePost',
-          component: () => import('@/pages/Linimasa')
-        }
-      ]
-    },
-    {
-      path: '/pendidikan-politik',
-      name: 'PendidikanPolitik',
-      component: () => import('@/pages/pendidikan-politik'),
-      props: true,
-      children: [
-        {
-          path: 'quiz/ikuti',
-          name: 'PendidikanPolitikQuizIkuti',
-          component: () => import('@/pages/pendidikan-politik')
-        },
-        {
-          path: 'quiz/lanjut',
-          name: 'PendidikanPolitikQuizLanjut',
-          component: () => import('@/pages/pendidikan-politik')
-        },
-        {
-          path: 'quiz/hasil',
-          name: 'PendidikanPolitikQuizHasil',
-          component: () => import('@/pages/pendidikan-politik')
-        },
-        {
-          path: 'hint',
-          name: 'PendidikanPolitikHint',
-          component: () => import('@/pages/pendidikan-politik')
-        }
-      ]
-    },
-    {
-      path: '/profile',
-      name: 'Profile',
-      component: () => import('@/pages/Profile')
-    },
-    {
-      path: '/profile/verified-steps',
-      name: 'ProfileVerified',
-      component: () => import('@/pages/Profile/ProfileVerified')
-    },
-    {
-      path: '/profile/setting',
-      name: 'ProfileSetting',
-      component: () => import('@/pages/Profile/Setting')
-    },
-    {
-      path: '/profile/badge',
-      name: 'ProfileBadge',
-      component: () => import('@/pages/Profile/Badge')
-    },
-    {
-      path: '/profile/badge-detail/:badgeId',
-      name: 'ProfileBadgeDetail',
-      component: () => import('@/pages/Profile/BadgeDetail')
-    },
-    {
-      path: '/profile/data-lapor',
-      name: 'DataProfileLapor',
-      component: () => import('@/pages/Profile/DataProfileLapor')
-    },
-    {
-      path: '/wordstadium',
-      name: 'WordStadium',
-      component: () => import('@/pages/WordStadium')
-    },
-    {
-      path: '/lapor',
-      name: 'Lapor',
-      component: () => import('@/pages/Lapor')
-    },
-    {
-      path: '/perhitungan',
-      name: 'Perhitungan',
-      component: () => import('@/pages/Perhitungan')
+      path: 'create-post',
+      name: 'LinimasaCreatePost',
+      component: () => import('@/pages/Linimasa')
     }
+    ]
+  },
+  {
+    path: '/pendidikan-politik',
+    name: 'PendidikanPolitik',
+    component: () => import('@/pages/pendidikan-politik'),
+    props: true,
+    children: [{
+      path: 'quiz/ikuti/:id',
+      name: 'PendidikanPolitikQuizIkuti',
+      component: () => import('@/pages/pendidikan-politik')
+    },
+    {
+      path: 'quiz/lanjut/:id',
+      name: 'PendidikanPolitikQuizLanjut',
+      component: () => import('@/pages/pendidikan-politik')
+    },
+    {
+      path: 'quiz/hasil/:id',
+      name: 'PendidikanPolitikQuizHasil',
+      component: () => import('@/pages/pendidikan-politik')
+    },
+    {
+      path: 'hint',
+      name: 'PendidikanPolitikHint',
+      component: () => import('@/pages/pendidikan-politik')
+    }
+    ]
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('@/pages/Profile')
+  },
+  {
+    path: '/profile/verified-steps',
+    name: 'ProfileVerified',
+    component: () => import('@/pages/Profile/ProfileVerified')
+  },
+  {
+    path: '/profile/setting',
+    name: 'ProfileSetting',
+    component: () => import('@/pages/Profile/Setting')
+  },
+  {
+    path: '/profile/badge',
+    name: 'ProfileBadge',
+    component: () => import('@/pages/Profile/Badge')
+  },
+  {
+    path: '/profile/badge-detail/:badgeId',
+    name: 'ProfileBadgeDetail',
+    component: () => import('@/pages/Profile/BadgeDetail')
+  },
+  {
+    path: '/profile/data-lapor',
+    name: 'DataProfileLapor',
+    component: () => import('@/pages/Profile/DataProfileLapor')
+  },
+  {
+    path: '/wordstadium',
+    name: 'WordStadium',
+    component: () => import('@/pages/WordStadium')
+  },
+  {
+    path: '/lapor',
+    name: 'Lapor',
+    component: () => import('@/pages/Lapor')
+  },
+  {
+    path: '/perhitungan',
+    name: 'Perhitungan',
+    component: () => import('@/pages/Perhitungan')
+  }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {

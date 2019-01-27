@@ -1,25 +1,23 @@
 <template>
   <modal-question-layout>
     <template slot="header">
-      <h6 class="modal-title">Pertanyaan 2 dari 10</h6>
+      <h6 class="modal-title">Pertanyaan {{questionNumber}} dari {{totalQuestions}}</h6>
       <button class="close-icon" @click="$emit('close')">
         <close-icon></close-icon>
       </button>
     </template>
-    <template slot="title">Misi untuk Indonesia kedepannya?</template>
+    <template slot="title">{{currentQuestion.content}}</template>
     <template slot="content">
-      <h2>Misi untuk Indonesia kedepannya?</h2>
+      <h2>{{currentQuestion.content}}</h2>
       <div class="row row-question">
-        <div class="col">
+        <div class="col" v-for="(answer, index) in currentQuestion.answers" :key="answer.id">
           <div class="col-question">
-            <p>Peningkatan kualitas manusia Indonesia</p>
-            <button class="btn btn-primary" @click.stop="$emit('onClickChoicesButton', 'A')">A</button>
-          </div>
-        </div>
-        <div class="col">
-          <div class="col-question">
-            <p>Pertama membangun perekonomian nasional yang adil, makmur, berkualitas, dan berwawasan lingkungan dengan mengutamakan kepentingan rakyat Indonesia melalui jalan politik-ekonomi sesuai Pasal 33 dan 34 UUD Negara Republik Indonesia Tahun 1945</p>
-            <button class="btn btn-primary" @click.stop="$emit('onClickChoicesButton', 'B')">B</button>
+            <p>{{answer.content}}</p>
+            <button
+              class="btn btn-primary"
+              @_click.stop="$emit('onClickChoicesButton', answer.id)"
+              @click.prevent.stop="answerQuestion(answer.id)"
+            >{{index === 0 ? 'A' : 'B'}}</button>
           </div>
         </div>
       </div>
@@ -36,6 +34,33 @@ export default {
   components: {
     CloseIcon,
     ModalQuestionLayout
+  },
+  props: ['quiz', 'questions'],
+  computed: {
+    sortedQuestions() {
+      return this.questions.slice().sort((a, b) => b.answered - a.answered)
+    },
+    questionNumber() {
+      return this.sortedQuestions.filter(it => it.answered).length + 1
+    },
+    questionIndex() {
+      return this.sortedQuestions.findIndex(it => it.answered === false)
+    },
+    currentQuestion() {
+      return this.sortedQuestions[this.questionIndex]
+    },
+    totalQuestions() {
+      return this.quiz.quiz_questions_count
+    }
+  },
+  methods: {
+    answerQuestion(answerId) {
+      this.$store.dispatch('answerQuestion', {
+        quizId: this.quiz.id,
+        questionId: this.currentQuestion.id,
+        answerId
+      })
+    }
   }
 }
 </script>
