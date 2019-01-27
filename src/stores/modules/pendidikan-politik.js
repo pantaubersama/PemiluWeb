@@ -9,7 +9,13 @@ export const state = {
   quizzesNotParticipated: [],
   quizzesInProgress: [],
   quizzesFinised: [],
-  quizQuestions: {}
+  quizQuestions: {},
+  totalKecenderungan: {
+    totalQuiz: 0,
+    finishedQuiz: 0,
+    percentage: 0,
+    groupName: null
+  }
 }
 
 export const getters = {
@@ -112,6 +118,23 @@ export const actions = {
     answerId
   }) {
     return PenpolAPI.answerQuestion(quizId, questionId, answerId)
+  },
+  async getTotalKecenderungan(ctx) {
+    const resp = await PenpolAPI.getTotalKecenderungan()
+    const selectedData = resp.teams
+      .sort((a, b) => b.percentage - a.percentage) // sort from the high to the low percentage
+      .slice().pop() // get the first value
+    const percentage = selectedData.percentage
+    const totalQuiz = resp.meta.quizzes.total
+    const finishedQuiz = resp.meta.quizzes.finished
+    const groupName = selectedData.team.title
+    console.log(finishedQuiz, totalQuiz, groupName, percentage)
+    ctx.commit('setTotalKecenderungan', {
+      finishedQuiz,
+      totalQuiz,
+      groupName,
+      percentage
+    })
   }
 }
 
@@ -149,6 +172,9 @@ export const mutations = {
     const index = listQuiz.findIndex(it => it.id === quizId)
     if (index === -1) listQuiz.push(quiz)
     else Vue.set(listQuiz, index, quiz)
+  },
+  setTotalKecenderungan(state, payload) {
+    Vue.set(state, 'totalKecenderungan', payload)
   },
   [types.SUCCESS_QUESTIONS](state, payload) {
     state.questions = payload

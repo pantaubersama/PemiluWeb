@@ -135,4 +135,7 @@ export const answerQuestion = (quizId, questionId, answerId) => api
   })
   .then(resp => resp.data.data)
 
+export const getTotalKecenderungan = () => api
+  .get('/v1/me/quizzes')
+  .then(resp => resp.data.data)
 export default services
