@@ -21,9 +21,34 @@
         <button class="share">
           <img src="@/assets/icon_share.svg">
         </button>
-        <button class="menu">
+        <button class="menu" @click.stop="toggleDropdown(id, $event)">
           <img src="@/assets/dots-icon.svg">
         </button>
+        <div class="dropdown-content" :class="{'is-active': isActive === id}">
+          <ul>
+            <li>
+              <a href="javascript:void(0)" @click.stop="copy(id)">
+                <link-icon/>Salin Tautan
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" @click.stop="share(id)">
+                <share-icon/>Bagikan
+              </a>
+            </li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                @click.stop="() => {
+                $emit('onReport', id);
+                isActive = false
+                }"
+              >
+                <alert-icon/>Laporkan sebagai spam
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -32,8 +57,17 @@
 <script>
 import lottie from 'lottie-web'
 
+import { LinkIcon, AlertIcon, ShareIcon } from '@/svg/icons'
+import ShareOptions from '@/mixins/share-options'
+
 export default {
   name: 'QuestionItem',
+  mixins: [ShareOptions],
+  components: {
+    LinkIcon,
+    AlertIcon,
+    ShareIcon
+  },
   props: {
     id: String,
     name: String,
@@ -193,4 +227,26 @@ button.vote
       object-fit: contain
       width: 18px
       height: 18px
+
+  .dropdown-content
+    padding: 10px
+    border-radius: 2px
+    min-width: 175px
+    top: auto
+    bottom: auto
+    margin-top: 24px
+    margin-right: 20px
+
+    a
+      text-align: left
+      font-size: 12px
+
+    svg
+      width: 25px
+      height: 16px
+      padding-right: 5px
+      align-self: center
+
+    &.is-active
+      display: block
 </style>

@@ -1,7 +1,5 @@
 import axios from 'axios'
-import {
-  vueAuth
-} from '@/services/symbolic'
+import { vueAuth } from '@/services/symbolic'
 
 const PREFIX = 'pendidikan_politik'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
@@ -38,8 +36,8 @@ export const fetchQuestions = ({
         filter_by: filter
       }
     })
-    .then(response => response.data.data)
-    .catch(error => error)
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
 }
 
 const postReport = (id, className = 'Question') => {
@@ -48,8 +46,8 @@ const postReport = (id, className = 'Question') => {
       id,
       class_name: className
     })
-    .then(response => response.data.data)
-    .catch(error => error)
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
 }
 
 const vote = (id, className = 'Question') => {
@@ -58,15 +56,17 @@ const vote = (id, className = 'Question') => {
       id,
       class_name: className
     })
-    .then(response => response.data.data)
-    .catch(error => error)
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
 }
 
-export const postQuestion = (body) => httpClient
-  .post(`${PREFIX}/v1/questions`, {
-    body
-  })
-  .then(resp => resp.data.data)
+export const postQuestion = body =>
+  httpClient
+    .post(`${PREFIX}/v1/questions`, {
+      body
+    })
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
 
 const services = {
   fetchQuestions,

@@ -8,6 +8,7 @@
       @close="() => modal = null"
       @submit="submitQuestion($event)"
     ></modal-create>
+    <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="modal = false"/>
     <li>
       <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
         <div class="avatar-container">
@@ -31,22 +32,32 @@
         :is-voted="question.is_liked"
         :count="question.like_count"
         @upvoted="$emit('upvoted', $event)"
+        @onCopy="copyToClipboard($event)"
+        @onShare="modalShare($event)"
+        @onReport="handleReport($event)"
       ></question-item>
     </li>
   </ul>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import { utils } from '@/mixins/utils'
+
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
+import ModalShare from '@/components/Linimasa/ModalShare'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
 import ModalCreate from '@/components/pendidikan-politik/modal-create'
 
 export default {
   name: 'QuestionList',
-  components: { QuestionItem, ContentLoader, ModalCreate },
+  components: {
+    QuestionItem,
+    ContentLoader,
+    ModalCreate,
+    ModalShare
+  },
   mixins: [utils],
   props: {
     questions: {
@@ -61,6 +72,7 @@ export default {
   data() {
     return {
       modal: null,
+      shareId: '',
       isSubmitting: false
     }
   },
@@ -70,6 +82,7 @@ export default {
     })
   },
   methods: {
+    ...mapActions(['postReport']),
     async submitQuestion(data) {
       this.isSubmitting = true
       const resp = await PenpolAPI.postQuestion(data.title)
@@ -77,6 +90,26 @@ export default {
       this.$store.dispatch('addQuestion', question)
       this.isSubmitting = false
       this.modal = null
+    },
+    handleReport(id) {
+      this.postReport(id)
+        .then(response => {
+          const { vote } = response
+          if (vote && vote.status) {
+            this.$toaster.success('Berhasil laporkan sebagai spam.')
+          } else {
+            this.$toaster.warning(vote.text)
+          }
+        })
+        .catch(() => this.$toaster.error('Gagal laporkan sebagai spam.'))
+    },
+    copyToClipboard(id) {
+      this.$clipboard(`${process.env.BASE_URL}/pendidikan-politik/detail/${id}`)
+      this.$toaster.info('Berhasil menyalin teks.')
+    },
+    modalShare(id) {
+      this.shareId = id
+      this.modal = 'modalShare'
     }
   }
 }
