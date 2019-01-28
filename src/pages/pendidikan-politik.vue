@@ -22,7 +22,11 @@
             @upvoted="onUpvote($event)"
             :loading="isLoading"
           ></question-list>
-          <quiz-list v-if="activePage === 'quiz'"></quiz-list>
+          <quiz-list
+            v-if="activePage === 'quiz'"
+            :totalKecenderungan="totalKecenderungan"
+            :quizzes="isFilterQuiz ? quizzesFilter : quizzes"
+          ></quiz-list>
         </div>
       </div>
       <div v-if="$route.name === 'PendidikanPolitikQuizHasil'">
@@ -105,32 +109,23 @@
           <div slot="content">
             <div class="dropdown-title">Quiz</div>
             <ul>
-              <li>
-                <input type="radio" id="quiz1" name="quiz1" value="semua" v-model="filterQuiz">
-                <label for="quiz1">Semua</label>
-              </li>
-              <li>
+              <li v-for="input in listFilterQuiz" :key="input.id">
                 <input
                   type="radio"
-                  id="quiz2"
-                  name="quiz2"
-                  value="belum-diikuti"
+                  name="radio.quiz"
                   v-model="filterQuiz"
+                  :id="`quiz.${input.id}`"
+                  :value="input.value"
                 >
-                <label for="quiz2">Belum Diikuti</label>
-              </li>
-              <li>
-                <input type="radio" id="quiz3" name="quiz3" value="diikuti" v-model="filterQuiz">
-                <label for="quiz3">Diikuti</label>
-              </li>
-              <li>
-                <input type="radio" id="quiz4" name="quiz4" value="selesai" v-model="filterQuiz">
-                <label for="quiz4">Selesai</label>
+                <label
+                  :for="`quiz.${input.id}`"
+                  v-on:click.stop="filterQuiz = input.value"
+                >{{ input.name }}</label>
               </li>
             </ul>
             <div class="button-filter-group">
-              <button class="btn btn-primary">Terapkan</button>
-              <button class="btn btn-outline">Reset</button>
+              <button class="btn btn-primary" @click.stop="filterQuizApply()">Terapkan</button>
+              <button class="btn btn-outline" @click.stop="filterQuizReset()">Reset</button>
             </div>
           </div>
         </widget-filter>
@@ -159,6 +154,8 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 
+import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
+
 import TimelineLayout from '@/layout/Timeline'
 import QuestionList from '@/components/pendidikan-politik/question-list'
 import QuizList from '@/components/pendidikan-politik/quiz-list'
@@ -182,9 +179,11 @@ export default {
   },
   computed: {
     ...mapState({
-      questions: state => state.pendidikanPolitik.questions
+      questions: state => state.pendidikanPolitik.questions,
+      totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan,
+      quizzesFilter: state => state.pendidikanPolitik.quizzes
     }),
-    ...mapGetters(['bannerKuisData', 'bannerTanyaData']),
+    ...mapGetters(['bannerKuisData', 'bannerTanyaData', 'quizzes']),
     activePage() {
       if (this.$route.query.type == null) return 'tanya'
       return this.$route.query.type
@@ -192,11 +191,12 @@ export default {
   },
   data() {
     return {
+      isFilterQuiz: false,
       isLoading: true,
       isWidgetFilterExpanded: false,
       filterUser: 'user_verified_all',
       filterUrutan: 'created_at',
-      filterQuiz: 'semua',
+      filterQuiz: PenpolAPI.QuizType.ALL,
       showModal: false,
       listFilterUser: [
         {
@@ -226,6 +226,28 @@ export default {
           value: 'cached_votes_up',
           name: 'Paling banyak divoting'
         }
+      ],
+      listFilterQuiz: [
+        {
+          id: 1,
+          value: PenpolAPI.QuizType.ALL,
+          name: 'Semua'
+        },
+        {
+          id: 2,
+          value: PenpolAPI.QuizType.NOT_PARTICIPATED,
+          name: 'Belum Diikuti'
+        },
+        {
+          id: 3,
+          value: PenpolAPI.QuizType.IN_PROGRESS,
+          name: 'Diikuti'
+        },
+        {
+          id: 4,
+          value: PenpolAPI.QuizType.FINISHED,
+          name: 'Selesai'
+        }
       ]
     }
   },
@@ -240,8 +262,10 @@ export default {
     onClickNextButton(isShow) {
       this.showModal = !isShow
     },
-    onClickChoicesButton(choice) {
-      this.showModal = false
+    onClickChoicesButton(value) {
+      if (!value.next) {
+        this.showModal = false
+      }
     },
     onClickCloseButton() {
       this.showModal = false
@@ -257,6 +281,15 @@ export default {
       this.filterUrutan = 'created_at'
       await this.fetchDataQuestions()
     },
+    filterQuizApply() {
+      this.isFilterQuiz = this.filterQuiz !== PenpolAPI.QuizType.ALL
+      this.$store.dispatch('listFilterQuiz', { type: this.filterQuiz })
+    },
+    filterQuizReset() {
+      this.isFilterQuiz = false
+      this.filterQuiz = PenpolAPI.QuizType.ALL
+      this.fetchDataQuiz()
+    },
     fetchDataQuestions() {
       const payload = {
         page: 1,
@@ -270,6 +303,10 @@ export default {
       }
       this.fetchQuestions(payload)
     },
+    fetchDataQuiz() {
+      this.$store.dispatch('listAllQuiz')
+      this.$store.dispatch('getTotalKecenderungan')
+    },
     getObject(type) {
       switch (type) {
         case 'tanya':
@@ -282,6 +319,7 @@ export default {
   mounted() {
     this.fetchBannerInfo('tanya').then(async () => {
       await this.fetchDataQuestions()
+      await this.fetchDataQuiz()
       await setTimeout(() => (this.isLoading = false), 1000)
     })
   }

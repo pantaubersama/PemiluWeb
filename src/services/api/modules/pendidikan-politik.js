@@ -1,7 +1,5 @@
 import axios from 'axios'
-import {
-  vueAuth
-} from '@/services/symbolic'
+import { vueAuth } from '@/services/symbolic'
 
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? `${process.env.API_PEMILU_BASE_URL}/pendidikan_politik`
@@ -61,11 +59,12 @@ export const vote = (id, className = 'Question') => {
     .catch(error => Promise.reject(error))
 }
 
-export const postQuestion = (body) => api
-  .post(`/v1/questions`, {
-    body
-  })
-  .then(resp => resp.data.data)
+export const postQuestion = body =>
+  api
+    .post(`/v1/questions`, {
+      body
+    })
+    .then(resp => resp.data.data)
 
 const services = {
   fetchQuestions,
@@ -79,36 +78,47 @@ export const QuizType = {
   IN_PROGRESS: 'in_progress',
   FINISHED: 'finished'
 }
-const listNotParticipatedQuiz = (page = 1, perPage = 100) => api
-  .get(`${BASE_URL}/v1/quizzes`, {
-    params: {
-      per_page: perPage,
-      page
-    }
-  })
-  .then(resp => resp.data.data)
-const listParticipatedQuiz = (type = QuizType.IN_PROGRESS, page = 1, perPage = 100) => api
-  .get('/v1/quizzes/participated', {
-    params: {
-      per_page: perPage,
-      page,
-      filter_by: type
-    }
-  })
-  .then(resp => resp.data.data)
-const listAllQuiz = (type = QuizType.ALL, page = 1, perPage = 100) => axios
-  .all([
-    listNotParticipatedQuiz(page, perPage),
-    listParticipatedQuiz(QuizType.IN_PROGRESS, page, perPage),
-    listParticipatedQuiz(QuizType.FINISHED, page, perPage)
-  ])
-  .then(axios.spread((notParticipatedQuizzes, inProgressQuizzes, finishedQuizzes) => {
-    return Promise.resolve([
-      ...notParticipatedQuizzes.quizzes,
-      ...inProgressQuizzes.quizzes,
-      ...finishedQuizzes.quizzes
+const listNotParticipatedQuiz = (page = 1, perPage = 100) =>
+  api
+    .get(`${BASE_URL}/v1/quizzes`, {
+      params: {
+        per_page: perPage,
+        page
+      }
+    })
+    .then(resp => resp.data.data)
+const listParticipatedQuiz = (
+  type = QuizType.IN_PROGRESS,
+  page = 1,
+  perPage = 100
+) =>
+  api
+    .get('/v1/quizzes/participated', {
+      params: {
+        per_page: perPage,
+        page,
+        filter_by: type
+      }
+    })
+    .then(resp => resp.data.data)
+const listAllQuiz = (type = QuizType.ALL, page = 1, perPage = 100) =>
+  axios
+    .all([
+      listNotParticipatedQuiz(page, perPage),
+      listParticipatedQuiz(QuizType.IN_PROGRESS, page, perPage),
+      listParticipatedQuiz(QuizType.FINISHED, page, perPage)
     ])
-  }))
+    .then(
+      axios.spread(
+        (notParticipatedQuizzes, inProgressQuizzes, finishedQuizzes) => {
+          return Promise.resolve([
+            ...notParticipatedQuizzes.quizzes,
+            ...inProgressQuizzes.quizzes,
+            ...finishedQuizzes.quizzes
+          ])
+        }
+      )
+    )
 export const listQuizz = (type = QuizType.ALL, page = 1, perPage = 100) => {
   switch (type) {
     case QuizType.IN_PROGRESS:
@@ -122,20 +132,23 @@ export const listQuizz = (type = QuizType.ALL, page = 1, perPage = 100) => {
   }
 }
 
-export const getQuizQuestions = (quizId) => api
-  .get(`/v1/quizzes/${quizId}/questions`)
-  .then(resp => resp.data.data)
-export const getQuizDetail = (quizId) => api
-  .get(`/v1/quizzes/${quizId}`)
-  .then(resp => resp.data.data.quiz)
-export const answerQuestion = (quizId, questionId, answerId) => api
-  .post(`/v1/quizzes/${quizId}/questions`, {
-    question_id: questionId,
-    answer_id: answerId
-  })
-  .then(resp => resp.data.data)
+export const getQuizResult = quizId =>
+  api.get(`/v1/quizzes/${quizId}/result`).then(resp => resp.data.data)
+export const getQuizSummary = quizId =>
+  api.get(`/v1/quizzes/${quizId}/summary`).then(resp => resp.data.data)
+export const getQuizQuestions = quizId =>
+  api.get(`/v1/quizzes/${quizId}/questions`).then(resp => resp.data.data)
+export const getQuizDetail = quizId =>
+  api.get(`/v1/quizzes/${quizId}`).then(resp => resp.data.data.quiz)
+export const answerQuestion = (quizId, questionId, answerId) =>
+  api
+    .post(`/v1/quizzes/${quizId}/questions`, {
+      question_id: questionId,
+      answer_id: answerId
+    })
+    .then(resp => Promise.resolve(resp.data.data))
+    .catch(error => Promise.reject(error))
 
-export const getTotalKecenderungan = () => api
-  .get('/v1/me/quizzes')
-  .then(resp => resp.data.data)
+export const getTotalKecenderungan = () =>
+  api.get('/v1/me/quizzes').then(resp => resp.data.data)
 export default services

@@ -16,7 +16,7 @@
           type="button"
           class="btn btn-block btn-primary"
           @click.stop="$emit('onClickNextButton', showModal)"
-        >LANJUT</button>
+        >{{ ($route.name === 'PendidikanPolitikQuizIkuti') ? 'Mulai' : 'Lanjut' }}</button>
       </div>
     </card-question-layout>
 
@@ -24,7 +24,7 @@
       v-if="showModal"
       :quiz="quiz"
       :questions="questions"
-      @onClickChoicesButton="(choice) => $emit('onClickChoicesButton', choice)"
+      @onClickChoicesButton="$emit('onClickChoicesButton', $event)"
       @close="$emit('onClickNextButton', showModal)"
       @click.stop="$emit('onClickNextButton', showModal)"
     />

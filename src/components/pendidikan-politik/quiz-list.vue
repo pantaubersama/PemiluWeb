@@ -51,20 +51,17 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'QuizList',
-  computed: {
-    ...mapGetters({
-      quizzes: 'quizzes'
-    }),
-    ...mapState({
-      totalKecenderungan: s => s.pendidikanPolitik.totalKecenderungan
-    })
-  },
-  mounted() {
-    this.$store.dispatch('listAllQuiz')
-    this.$store.dispatch('getTotalKecenderungan')
+  props: {
+    quizzes: {
+      type: Array,
+      required: true
+    },
+    totalKecenderungan: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>
