@@ -6,16 +6,19 @@ const QuizType = PenpolAPI.QuizType
 
 export const state = {
   questions: [],
+  quizzes: [],
   quizzesNotParticipated: [],
   quizzesInProgress: [],
   quizzesFinised: [],
   quizQuestions: {},
+  quizzesResult: {},
   totalKecenderungan: {
     totalQuiz: 0,
     finishedQuiz: 0,
     percentage: 0,
     groupName: null
-  }
+  },
+  quizSummary: {}
 }
 
 export const getters = {
@@ -27,17 +30,14 @@ export const getters = {
     ]
   },
   questionsForQuizId: state => quizId => state.quizQuestions[quizId],
-  quizById: (state, getters) => quizId => getters.quizzes.find(it => it.id === this.quizId) || {}
+  quizById: (state, getters) => quizId =>
+    getters.quizzes.find(it => it.id === this.quizId) || {}
 }
 
 export const actions = {
-  fetchQuestions({
-    commit,
-    state
-  }, payload) {
+  fetchQuestions({ commit, state }, payload) {
     const savedQuestions = [...state.questions]
-    PenpolAPI
-      .fetchQuestions(payload)
+    PenpolAPI.fetchQuestions(payload)
       .then(response => commit(types.SUCCESS_QUESTIONS, response.questions))
       .catch(() =>
         commit(types.ERROR_QUESTIONS, {
@@ -45,43 +45,37 @@ export const actions = {
         })
       )
   },
-  postReport({
-    commit
-  }, payload) {
+  postReport({ commit }, payload) {
     return PenpolAPI.postReport(payload)
   },
-  vote({
-    commit
-  }, id) {
-    PenpolAPI
-      .vote(id)
+  vote({ commit }, id) {
+    PenpolAPI.vote(id)
       .then(() => commit(types.SUCCESS_VOTE, id))
       .catch(() => commit(types.ERROR_VOTE))
   },
   addQuestion(ctx, question) {
     ctx.commit(types.ADD_QUESTION, question)
   },
-  async listAllQuiz(ctx, {
-    page = 1,
-    perPage = 100
-  } = {}) {
+  async listAllQuiz(ctx, { page = 1, perPage = 100 } = {}) {
     const resp = await PenpolAPI.listQuizz(QuizType.ALL, page, perPage)
-    console.log(resp)
-    const notParticipated = resp.filter(it => it.participation_status === 'not_participating')
-    const inProgress = resp.filter(it => it.participation_status === 'in_progress')
+    const notParticipated = resp.filter(
+      it => it.participation_status === 'not_participating'
+    )
+    const inProgress = resp.filter(
+      it => it.participation_status === 'in_progress'
+    )
     const finished = resp.filter(it => it.participation_status === 'finished')
     ctx.commit('setNotParticipatedQuiz', notParticipated)
     ctx.commit('setInProgressQuiz', inProgress)
     ctx.commit('setFinishedQuiz', finished)
-    return Promise.resolve([
-      ...notParticipated,
-      ...inProgress,
-      ...finished
-    ])
+    return Promise.resolve([...notParticipated, ...inProgress, ...finished])
   },
-  async getQuizDetail(ctx, {
-    quizId
-  }) {
+  listFilterQuiz(ctx, { type = QuizType.ALL, page = 1, perPage = 100 } = {}) {
+    return PenpolAPI.listQuizz(type, page, perPage).then(response => {
+      ctx.commit('setQuizzes', response.quizzes)
+    })
+  },
+  async getQuizDetail(ctx, { quizId }) {
     const quiz = await PenpolAPI.getQuizDetail(quizId)
     ctx.commit('setQuizDetail', {
       quizId,
@@ -89,13 +83,10 @@ export const actions = {
     })
     return Promise.resolve(quiz)
   },
-  async getQuizQuestions(ctx, {
-    quiz,
-    quizId
-  }) {
+  async getQuizQuestions(ctx, { quiz, quizId }) {
     const detail = await PenpolAPI.getQuizQuestions(quizId)
     const questions = [
-      ...detail.answered_questions.map((it) => {
+      ...detail.answered_questions.map(it => {
         it.answered = true
         return it
       }),
@@ -112,29 +103,37 @@ export const actions = {
       questions
     })
   },
-  async answerQuestion(ctx, {
-    quizId,
-    questionId,
-    answerId
-  }) {
-    return PenpolAPI.answerQuestion(quizId, questionId, answerId)
+  async answerQuestion(ctx, { quizId, questionId, answerId }) {
+    return PenpolAPI.answerQuestion(quizId, questionId, answerId).then(() =>
+      ctx.commit('answeredQuestion', { quizId, questionId, answerId })
+    )
   },
   async getTotalKecenderungan(ctx) {
     const resp = await PenpolAPI.getTotalKecenderungan()
     const selectedData = resp.teams
       .sort((a, b) => b.percentage - a.percentage) // sort from the high to the low percentage
-      .slice().pop() // get the first value
+      .slice()
+      .pop() // get the first value
     const percentage = selectedData.percentage
     const totalQuiz = resp.meta.quizzes.total
     const finishedQuiz = resp.meta.quizzes.finished
     const groupName = selectedData.team.title
-    console.log(finishedQuiz, totalQuiz, groupName, percentage)
     ctx.commit('setTotalKecenderungan', {
       finishedQuiz,
       totalQuiz,
       groupName,
       percentage
     })
+  },
+  getQuizResult({ commit }, quizId) {
+    PenpolAPI.getQuizResult(quizId).then(response =>
+      commit('setQuizResult', response)
+    )
+  },
+  getQuizSummary({ commit }, quizId) {
+    PenpolAPI.getQuizSummary(quizId).then(response =>
+      commit('setQuizSummary', response)
+    )
   }
 }
 
@@ -148,16 +147,18 @@ export const mutations = {
   setFinishedQuiz(state, quiz) {
     state.quizzesFinised = quiz
   },
-  setQuizQuestions(state, {
-    quizId,
-    questions
-  }) {
+  answeredQuestion(state, { quizId, questionId, answerId }) {
+    const questions = state.quizQuestions[quizId]
+    const index = questions.findIndex(question => question.id === questionId)
+    let stateQuestions = questions.find(question => question.id === questionId)
+    stateQuestions.answered = true
+
+    state.quizQuestions[index] = stateQuestions
+  },
+  setQuizQuestions(state, { quizId, questions }) {
     Vue.set(state.quizQuestions, quizId, questions)
   },
-  setQuizDetail(state, {
-    quizId,
-    quiz
-  }) {
+  setQuizDetail(state, { quizId, quiz }) {
     const quizType = quiz.participation_status
     const listQuiz = (() => {
       switch (quizType) {
@@ -176,12 +177,19 @@ export const mutations = {
   setTotalKecenderungan(state, payload) {
     Vue.set(state, 'totalKecenderungan', payload)
   },
+  setQuizResult(state, result) {
+    state.quizzesResult = result
+  },
+  setQuizSummary(state, result) {
+    state.quizSummary = result
+  },
+  setQuizzes(state, result) {
+    state.quizzes = result
+  },
   [types.SUCCESS_QUESTIONS](state, payload) {
     state.questions = payload
   },
-  [types.ERROR_QUESTIONS](state, {
-    savedQuestions
-  }) {
+  [types.ERROR_QUESTIONS](state, { savedQuestions }) {
     state.questions = savedQuestions
   },
   [types.SUCCESS_REPORT](state, payload) {},
