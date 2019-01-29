@@ -1,15 +1,17 @@
 <template>
-  <div class="header-note">
-    <h2 class="title">Catatan Pilihanku</h2>
-    <p
-      class="description"
-    >Halaman preferensi kandidat ini adalah catatan pribadi dan tidak akan ditampilkan pada profile kamu.</p>
-    <div class="note-container">
-      <div class="result-container">Pilih Note Calon Presidenmu saat ini:
-        <div class="result">(Jokowi - Ma'ruf)</div>
-      </div>
+  <div class="card catatan-pilihan">
+    <div class="content-head">
+      <h4 class="title">Catatan Pilihanku</h4>
+      <p
+        class="description"
+      >Halaman preferensi kandidat ini adalah catatan pribadi dan tidak akan ditampilkan pada profile kamu.</p>
+    </div>
+    <div class="content-body">
+      <p class="question">Siapakah yang saat ini paling cocok dengan pilihan kamu?</p>
+      <p class="answer">(Nurhadi - Aldo)</p>
+
       <div class="column-container">
-        <div class="column-item" :class="{selected: selectedId === 1}" @click.stop="selectCalon(1)">
+        <div class="column-item selected">
           <img
             src="~@/assets/note-image/image1/image@1x.jpg"
             srcset="~@/assets/note-image/image1/image@2x.jpg 2x
@@ -18,7 +20,7 @@
           >
           <div class="candidate-name">Jokowi - Ma'ruf</div>
         </div>
-        <div class="column-item" :class="{selected: selectedId === 2}" @click.stop="selectCalon(2)">
+        <div class="column-item">
           <img
             src="~@/assets/note-image/image2/image@1x.jpg"
             srcset="~@/assets/note-image/image2/image@2x.jpg 2x
@@ -29,105 +31,124 @@
         </div>
       </div>
       <button
-        class="choice"
+        class="btn choice"
         type="button"
         :class="{ selected: selectedId === 3 }"
         @click.stop="selectCalon(3)"
       >Belum menentukan pilihan</button>
     </div>
-    <div class="total-kecenderungan-container">
-      <div class="image-container">
-        <img src="~@/assets/note-image/image1/image@1x.jpg">
-      </div>
-      <div class="desc-container">
-        <span class="text1">
-          Total Kecenderungan,
-          <b>4 dari 6 Kuis</b>
-        </span>
-        <div class="total">70% (Jokowi - Ma'ruf)</div>
+    <div class="content-footer">
+      <div class="total-kecenderungan-container">
+        <div class="image-container">
+          <img src="~@/assets/note-image/image1/image@1x.jpg">
+        </div>
+        <div class="desc-container">
+          <span class="text1">
+            Total Kecenderungan,
+            <b>4 dari 6 Kuis</b>
+          </span>
+          <div class="total">70% (Jokowi - Ma'ruf)</div>
+        </div>
       </div>
     </div>
-    <router-link class="more-notes" :to="{name: 'CatatanPilihan'}">Lihat Catatan Lainnya</router-link>
-    <!-- <a href="#" class="more-notes">Lihat Catatan Lainnya</a> -->
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  name: 'HeaderNote',
-  computed: {
-    ...mapState({
-      selectedId: s => s.profile.user.vote_preference
-    })
-  },
-  methods: {
-    selectCalon(id) {
-      return this.$store.dispatch('profile/selectCalon', { id })
-    }
-  }
+  name: 'CatatanResultComponent'
 }
 </script>
 
 <style lang="sass" scoped>
-.header-note
+.catatan-pilihan
+  margin: 0
+  padding: 0
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+
+.content-head
   background: white
   display: flex
   flex-direction: column
-  width: 358px
+  justify-content: center
+  align-items: center
+  width: 100%
+  padding: 0
+  margin: 0
 
   .title
+    font-family: Lato
     font-size: 22px
     font-weight: 900
-    font-style: normal
-    font-stretch: normal
-    line-height: 1.5
-    letter-spacing: normal
+    line-height: 33px
     color: #393939
     padding: 10px 20px 0
 
   .description
-    height: 53px
+    min-height: 41px
     background-color: #f4f4f4
     font-size: 10px
-    line-height: 1.2
+    line-height: 12px
     color: #707070
     padding: 15px 20px
     margin: 0
+    width: 100%
+    border-top: 2px solid #ececec
 
-  .note-container
+.content-body
+  display: flex
+  flex-direction: column
+  padding: 20px
+  width: 420px
+  align-items: center
+
+  .question, .answer
+    font-family: Lato
+    font-size: 14px
+    font-weight: 400
+    font-style: italic
+    line-height: 17px
+    color: #7c7c7c
+    padding: 8px 20px 0
+    margin: 0
+    text-align: center
+
+  .answer
+    color: #f2771d
+    font-style: normal
+    padding: 4px 0
+    margin-bottom: 8px
+
+  .column-container
     display: flex
-    flex-direction: column
-    padding: 20px
-    .result-container
-      flex: 0
-      margin-bottom: 20px
-      font-style: italic
-      font-size: 10px
-      font-style: italic
-      line-height: 1.2
-      color: #7c7c7c
-      .result
-        color: #f2771d
-        font-style: normal
-        display: inline-block
-    .column-container
-      display: flex
-      justify-content: space-between
-      .column-item
-        border: 1px solid #cbcbcb
-        flex-basis: 150px
-        width: 150px
+    justify-content: center
+
+    .column-item
+      border: 1px solid #cbcbcb
+      flex-basis: 150px
+      width: 150px
+      margin: 10px
+      cursor: pointer
+
+      .candidate-name
+        text-align: center
+        padding: 6px 4px
+        line-height: 19px
+        font-weight: 400
+        letter-spacing: 0.38px
+
+      &.selected
+        background: #f2771d
+        border: 1px solid #f2771d
         .candidate-name
-          text-align: center
-        &.selected
-          background: #f2771d
-          border: 1px solid #f2771d
-          .candidate-name
-            color: white
+          color: white
 
   button.choice
     border: 1px solid #cbcbcb
+    border-radius: 0
     background: none
     padding: 11px
     text-align: center
@@ -136,15 +157,26 @@ export default {
     line-height: 1.19
     letter-spacing: 0.5px
     color: #7c7c7c
-    margin-top: 20px
+    margin: 20px 0 0
+    width: 320px
+
     &.selected
       border-color: #f2771d
       background-color: #f2771d
       color: white
 
+.content-footer
+  background: #f9f9f9
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  width: 100%
+  padding: 0
+  margin: 0
+
   .total-kecenderungan-container
     display: flex
-    background: #f9f9f9
     padding: 20px 25px
     .image-container
       height: 48px
