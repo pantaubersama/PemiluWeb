@@ -18,7 +18,7 @@
           v-if="choice.team.avatar"
         >
         <img class="thumbnail rounded-circle" src="@/assets/dildo.jpg" alt="paslon" v-else>
-        <h6 class="percentage">{{ choice.percentage }}</h6>
+        <h6 class="percentage">{{ choice.percentage }}%</h6>
         <span class="subtitle">{{ choice.team.title }}</span>
         <a href="#" class="share">
           <share-icon></share-icon>BAGIKAN

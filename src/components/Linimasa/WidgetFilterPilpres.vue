@@ -59,6 +59,16 @@ export default {
           id: 3,
           value: 'team_id_2',
           name: 'Tim Prabowo - Sandi'
+        },
+        {
+          id: 4,
+          value: 'team_id_3',
+          name: 'KPU'
+        },
+        {
+          id: 5,
+          value: 'team_id_4',
+          name: 'Bawaslu'
         }
       ]
     }
