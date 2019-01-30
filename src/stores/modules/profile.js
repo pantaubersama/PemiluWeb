@@ -60,7 +60,8 @@ export const state = {
   historyPendidikanPolitik: [],
   historyWordStadium: [],
   historyLapor: [],
-  historyPerhitungan: []
+  historyPerhitungan: [],
+  politicalParties: []
 }
 
 export const actions = {
@@ -95,8 +96,7 @@ export const actions = {
     })
   },
   async listBadges(ctx) {
-    const badges = (await ProfileAPI.listBadges())
-      .badges
+    const badges = (await ProfileAPI.listBadges()).badges
       .slice()
       .sort((a, b) => a.position - b.position)
     ctx.commit('setListBadges', badges)
@@ -159,16 +159,40 @@ export const actions = {
     return ProfileAPI.inviteToCluster(payload.clusterId, payload.emails)
   },
   enableMagicLink(ctx, payload) {
-    return ProfileAPI.enableMagicLink(payload.clusterId, payload.enabled)
-      .then(data => {
+    return ProfileAPI.enableMagicLink(payload.clusterId, payload.enabled).then(
+      data => {
         ctx.commit('setCluster', data.cluster)
-      })
+      }
+    )
   },
   async selectCalon(ctx, payload) {
     ctx.commit('selectCalon', payload.id)
-    const user = await ProfileAPI.votePreference(payload.id)
+    const politicalPartyId =
+      ctx.rootState.profile.user.political_party &&
+      ctx.rootState.profile.user.political_party.id
+        ? ctx.rootState.profile.user.political_party.id
+        : null
+    const user = await ProfileAPI.votePreference({
+      politicalPartyId,
+      votePreference: payload.id
+    })
     ctx.commit('setProfileData', {
       user
+    })
+  },
+  async selectPartai(ctx, payload) {
+    const user = await ProfileAPI.votePreference({
+      votePreference: ctx.rootState.profile.user.vote_preference || null,
+      politicalPartyId: payload.id
+    })
+    ctx.commit('setProfileData', {
+      user
+    })
+  },
+  async getPoliticalParties(store) {
+    const data = await ProfileAPI.getPoliticalParties()
+    store.commit('setPoliticalParties', {
+      political_parties: data.political_parties
     })
   }
 }
@@ -187,16 +211,10 @@ export const mutations = {
     state.categories = payload.categories
   },
   addCategory(state, category) {
-    state.categories = [
-      category,
-      ...state.categories
-    ]
+    state.categories = [category, ...state.categories]
   },
   addCluster(state, cluster) {
-    state.cluster = [
-      cluster,
-      ...state.cluster
-    ]
+    state.cluster = [cluster, ...state.cluster]
   },
   setLinimasaHistory(state, feeds) {
     state.historyLinimasa = feeds
@@ -212,6 +230,9 @@ export const mutations = {
   },
   setListBadges(state, badges) {
     Vue.set(state, 'listBadges', badges)
+  },
+  setPoliticalParties(state, payload) {
+    state.politicalParties = payload.political_parties
   }
 }
 
