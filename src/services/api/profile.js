@@ -3,7 +3,7 @@ import {
   vueAuth
 } from '@/services/symbolic'
 
-const baseURL = 'https://staging-auth.pantaubersama.com'
+const baseURL = process.env.API_BASE_URL
 const api = axios.create({
   baseURL,
   headers: {
