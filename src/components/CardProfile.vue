@@ -267,7 +267,10 @@ export default {
           this.$router.push('/profile/setting')
         }
         this.modal = false
-      })
+      }),
+        this.$store.dispatch('homeKenalan/updateKenalan', {
+          id: '9bbc974c-dab4-4467-ac5f-84e8a8d56b1c'
+        })
     },
     removeDropdown(event) {
       const isInsideDropdown = event.target.parentNode.parentNode.classList.contains(

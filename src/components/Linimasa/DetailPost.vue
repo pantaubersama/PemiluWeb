@@ -1,5 +1,5 @@
 <template>
-  <div class="card-detail-wrapper">
+  <div class="card-detail-wrapper" v-if="data">
     <div class="card card-detail">
       <div class="detail-title">{{ data.title }}</div>
       <div class="content-wrapper">
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="card card-author">
+    <!-- <div class="card card-author">
       <div class="author-thumb">
         <img
           :src="data.creator.avatar.medium_square.url"
@@ -45,7 +45,7 @@
       <div class="author-name">{{ data.creator.full_name }}</div>
       <p>{{ data.creator.about }}</p>
       <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
-    </div>
+    </div>-->
   </div>
 </template>
 <script>
@@ -55,8 +55,7 @@ export default {
   name: 'DetailPost',
   props: {
     data: {
-      type: Object,
-      required: true
+      type: Object
     }
   },
   components: {

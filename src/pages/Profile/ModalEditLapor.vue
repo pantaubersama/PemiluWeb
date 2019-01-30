@@ -141,7 +141,12 @@ export default {
           nationality,
           address
         })
-        .then(() => this.$emit('close'))
+        .then(() => {
+          this.$emit('close')
+          this.$store.dispatch('homeKenalan/updateKenalan', {
+            id: 'c3fded37-5b4b-4a81-aee7-ee24d845b5e8'
+          })
+        })
     }
   }
 }

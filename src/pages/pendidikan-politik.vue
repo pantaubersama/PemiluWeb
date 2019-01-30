@@ -261,6 +261,9 @@ export default {
     },
     onClickNextButton(isShow) {
       this.showModal = !isShow
+      this.$store.dispatch('homeKenalan/updateKenalan', {
+        id: 'f2596bdb-90ba-41e9-8c39-11c891c68f1f'
+      })
     },
     onClickChoicesButton(value) {
       if (!value.next) {

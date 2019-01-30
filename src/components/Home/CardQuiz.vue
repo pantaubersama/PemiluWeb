@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-quiz">
+  <div class="card card-quiz" v-if="feedsQuiz != ''">
     <h4 class="title">Pendidikan Politik</h4>
     <div class="quiz-content" v-for="quiz in feedsQuiz" :key="quiz.id">
       <img :src="quiz.image.url">

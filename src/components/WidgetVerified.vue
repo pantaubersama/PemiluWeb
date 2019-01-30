@@ -5,10 +5,21 @@
       <ul>
         <li v-for="kenalan in feedsKenalan" :key="kenalan.id">
           <div v-if="kenalan.is_action == false">
-            <a href class="active">
+            <div v-if="kenalan.id == '6c5ffd3d-219a-43e0-8035-c71af1459658'">
+              <a
+                :href="kenalan.link"
+                target="_blank"
+                class="active"
+                @click="updateKenalan(kenalan.id)"
+              >
+                <check-icon/>
+                {{kenalan.text}}
+              </a>
+            </div>
+            <router-link v-else class="active" :to="{path: '/'+ kenalan.link}">
               <check-icon/>
               {{kenalan.text}}
-            </a>
+            </router-link>
           </div>
           <div class="content-past" v-else>
             <check-icon/>
@@ -33,6 +44,11 @@ export default {
   },
   created() {
     this.$store.dispatch('homeKenalan/homeKenalan')
+  },
+  methods: {
+    updateKenalan(id) {
+      this.$store.dispatch('homeKenalan/updateKenalan', { id: id })
+    }
   }
 }
 </script>
