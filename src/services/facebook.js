@@ -1,8 +1,7 @@
 /* globals FB */
 
 export const init = () => {
-  const APP_ID = '487265651802954'
-  // const FB_APP_SECRET = 'd46d657ba90e042956b16bffc9f5ab3b'
+  const APP_ID = process.env.FB_APP_ID
   FB.init({
     appId: APP_ID,
     cookie: true,
