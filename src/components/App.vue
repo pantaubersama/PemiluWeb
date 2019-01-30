@@ -10,6 +10,12 @@ import snackbar from '@/components/snackbar'
 import { vueAuth } from '@/services/symbolic'
 export default {
   name: 'App',
+  metaInfo: {
+    // all titles will be injected into this template
+    titleTemplate: titleChunk => {
+      return titleChunk ? `${titleChunk} - Pantau Bersama` : 'Pantau Bersama'
+    }
+  },
   components: {
     snackbar
   },
