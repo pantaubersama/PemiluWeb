@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log('close modal')
       this.isModalChangePasswordOpen = false
     },
     async onClickFBLoginButton(...args) {

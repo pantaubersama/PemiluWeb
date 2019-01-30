@@ -63,10 +63,6 @@ export default {
           answers: []
         }
       }
-      console.log('currentQuestion', {
-        questions: this.sortedQuestions,
-        index: this.questionIndex
-      })
       return this.sortedQuestions[this.questionIndex]
     },
     totalQuestions() {
@@ -76,11 +72,6 @@ export default {
   },
   methods: {
     isNextModal(answerId) {
-      console.log('isNextModal', {
-        answerId,
-        currentQuestion: this.currentQuestion,
-        questionNumber: this.questionNumber
-      })
       return this.questionNumber < this.totalQuestions
     },
     answerQuestion(answerId) {

@@ -6,7 +6,7 @@
     >Halaman preferensi kandidat ini adalah catatan pribadi dan tidak akan ditampilkan pada profile kamu.</p>
     <div class="note-container">
       <div class="result-container">Pilih Note Calon Presidenmu saat ini:
-        <div class="result">(Jokowi - Ma'ruf)</div>
+        <div class="result">({{ nameOfPaslon(selectedId) }})</div>
       </div>
       <div class="column-container">
         <div class="column-item" :class="{selected: selectedId === 1}" @click.stop="selectCalon(1)">
@@ -37,34 +37,50 @@
     </div>
     <div class="total-kecenderungan-container">
       <div class="image-container">
-        <img src="~@/assets/note-image/image1/image@1x.jpg">
+        <img
+          src="~@/assets/note-image/image1/image@1x.jpg"
+          alt="jokowi-ma'ruf"
+          v-if="idOfPaslon(totalKecenderungan.groupName) === 1"
+        >
+        <img
+          src="~@/assets/note-image/image2/image@1x.jpg"
+          alt="prabowo-sandi"
+          v-if="idOfPaslon(totalKecenderungan.groupName) === 2"
+        >
       </div>
       <div class="desc-container">
         <span class="text1">
           Total Kecenderungan,
-          <b>4 dari 6 Kuis</b>
+          <b>{{ totalKecenderungan.finishedQuiz }} dari {{ totalKecenderungan.totalQuiz }} Kuis</b>
         </span>
-        <div class="total">70% (Jokowi - Ma'ruf)</div>
+        <div class="total">{{totalKecenderungan.percentage}}% ({{totalKecenderungan.groupName}})</div>
       </div>
     </div>
     <router-link class="more-notes" :to="{name: 'CatatanPilihan'}">Lihat Catatan Lainnya</router-link>
-    <!-- <a href="#" class="more-notes">Lihat Catatan Lainnya</a> -->
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+
+import { catatan } from '@/mixins/catatan'
+
 export default {
   name: 'HeaderNote',
+  mixins: [catatan],
   computed: {
     ...mapState({
-      selectedId: s => s.profile.user.vote_preference
+      selectedId: s => s.profile.user.vote_preference,
+      totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan
     })
   },
   methods: {
     selectCalon(id) {
       return this.$store.dispatch('profile/selectCalon', { id })
     }
+  },
+  mounted() {
+    this.$store.dispatch('getTotalKecenderungan')
   }
 }
 </script>

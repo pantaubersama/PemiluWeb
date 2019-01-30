@@ -2,41 +2,51 @@
   <div class="card catatan-partai">
     <div class="content-head">
       <p class="question">Partai mana yang paling cocok dengan pilihan kamu?</p>
-      <p class="answer">(Partai Gerakan Indonesia Raya)</p>
+      <p class="answer">({{ selected.name || 'Belum menentukan pilihan' }})</p>
     </div>
     <div class="content-body">
       <ul>
-        <li>
-          <a href="#">
+        <li v-for="partai in politicalParties" :key="partai.id">
+          <a
+            href="javascript:void(0)"
+            @click.stop="$emit('onSelected', partai.id)"
+            :class="{ selected: selected.id === partai.id }"
+          >
             <div class="thumbnail">
-              <img src="~@/assets/dildo.jpg" alt="partai">
+              <img
+                :src="partai.image.medium_square.url"
+                :alt="`partai-${partai.number}`"
+                v-if="partai.image.medium_square.url"
+              >
+              <img src="~@/assets/user.svg" alt="partai" v-else>
             </div>
             <div class="info">
-              <h6>Partai Kebangkitan Bangsa</h6>
-              <p>No. Urut 1</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="selected">
-            <div class="thumbnail">
-              <img src="~@/assets/dildo.jpg" alt="partai">
-            </div>
-            <div class="info">
-              <h6>Partai Gerakan Indonesia Raya</h6>
-              <p>No. Urut 2</p>
+              <h6>{{ partai.name }}</h6>
+              <p>No. Urut {{ partai.number }}</p>
             </div>
           </a>
         </li>
       </ul>
-      <button class="btn choice" type="button">Belum menentukan pilihan</button>
+      <button
+        class="btn choice"
+        type="button"
+        @click.stop="$emit('onSelected', null)"
+        :class="{ selected: (!selected || !selected.id) }"
+      >Belum menentukan pilihan</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CatatanPartaiComponent'
+  name: 'CatatanPartaiComponent',
+  props: {
+    selected: Object,
+    politicalParties: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 
@@ -157,4 +167,10 @@ button.choice
   color: #7c7c7c
   margin: 4px 0 0
   width: 320px
+
+  &.selected
+      border-color: #f2771d
+      background-color: #f2771d
+      color: white
+
 </style>

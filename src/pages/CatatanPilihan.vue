@@ -1,14 +1,24 @@
 <template>
   <timeline-layout>
     <div slot="main-content" class="page">
-      <CatatanResult/>
-      <CatatanPartai/>
+      <CatatanResult
+        :selected="user.vote_preference"
+        :totalKecenderungan="totalKecenderungan"
+        @onSelected="selectCalon($event)"
+      />
+      <CatatanPartai
+        :selected="user.political_party || {}"
+        :politicalParties="politicalParties"
+        @onSelected="selectPartai($event)"
+      />
     </div>
     <div slot="widget-wrapper"></div>
   </timeline-layout>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import TimelineLayout from '@/layout/Timeline'
 
 import CatatanResult from '@/components/CatatanPilihan/CatatanResult'
@@ -21,11 +31,29 @@ export default {
     CatatanResult,
     CatatanPartai
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      user: state => state.profile.user,
+      totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan,
+      politicalParties: state => state.profile.politicalParties
+    })
+  },
   data() {
     return {}
   },
-  methods: {},
-  mounted() {}
+  methods: {
+    selectCalon(id) {
+      return this.$store.dispatch('profile/selectCalon', { id })
+    },
+    selectPartai(id) {
+      return this.$store.dispatch('profile/selectPartai', { id })
+    },
+    getPoliticalParties() {
+      return this.$store.dispatch('profile/getPoliticalParties')
+    }
+  },
+  mounted() {
+    this.getPoliticalParties()
+  }
 }
 </script>
