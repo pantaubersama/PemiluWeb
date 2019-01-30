@@ -25,7 +25,8 @@
           <h3 class="title">{{quiz.title}}</h3>
           <span class="question-count">{{quiz.quiz_questions_count}} Pertanyaan</span>
           <div class="container-action">
-            <a href="javascript:void(0)" class="share">
+            <a href="javascript:void(0)" class="share"
+              @click.prevent="share(quiz.id)">
               <i class="icon icon-share"></i> Bagikan
             </a>
             <router-link
@@ -47,10 +48,16 @@
         </div>
       </li>
     </ul>
+    <ModalShare
+      v-if="isSharing"
+      @close="isSharing = false"
+      :url="shareURL"
+    ></ModalShare>
   </div>
 </template>
 
 <script>
+import ModalShare from '@/components/modal-share'
 export default {
   name: 'QuizList',
   props: {
@@ -61,6 +68,19 @@ export default {
     totalKecenderungan: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      shareURL: null,
+      isSharing: false
+    }
+  },
+  methods: {
+    share(quizId) {
+      const url = `/share/kuis/${quizId}`
+      this.shareURL = url
+      this.isSharing = true
     }
   }
 }
