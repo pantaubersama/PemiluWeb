@@ -4,7 +4,7 @@ import {
 
 export default {
   homeQuiz(page, perPage, cb, errorCb) {
-    http.base_url = process.env.API_PEMILU_URL ? process.env.API_PEMILU_URL : 'https://staging-pemilu.pantaubersama.com/'
+    http.base_url = process.env.API_PEMILU_BASE_URL ? process.env.API_PEMILU_BASE_URL : 'https://staging-pemilu.pantaubersama.com/'
     http.api('get', http.base_url + 'pendidikan_politik/v1/quizzes', {
       page: page,
       per_page: perPage
