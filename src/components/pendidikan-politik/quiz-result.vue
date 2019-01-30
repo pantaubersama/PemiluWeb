@@ -4,9 +4,10 @@
       <div class="quiz-description">
         <h5 class="title">RESULT</h5>
         <p>
-          Dari hasil pilihan Quiz minggu pertama,
+          Dari hasil pilihan {{ quizzesResult.quiz.title }}
+          <br>
           <strong>{{quizzesResult.user.full_name}}</strong>
-          lebih suka Paslon {{ choice.team.id }}
+          lebih suka jawaban dari {{ choice.team.title }}
         </p>
       </div>
       <div class="quiz-description--curve">&nbsp;</div>
