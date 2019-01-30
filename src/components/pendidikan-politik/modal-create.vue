@@ -29,7 +29,7 @@
 
 <script>
 import { VueEditor } from 'vue2-editor'
-
+import { mapState, mapActions } from 'vuex'
 import { CloseIcon } from '@/svg/icons'
 import ModalLayout from '@/layout/Modal'
 import { customizedToolbar } from '@/mixins/customizedToolbar'
@@ -64,6 +64,9 @@ export default {
         title: this.title,
         body: this.body,
         image: this.image
+      })
+      this.$store.dispatch('homeKenalan/updateKenalan', {
+        id: '231cbadc-a856-4723-93a9-bb79915dd40d'
       })
     }
   },

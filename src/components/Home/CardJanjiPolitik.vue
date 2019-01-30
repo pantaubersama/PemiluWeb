@@ -114,6 +114,9 @@ export default {
   created() {
     this.$store.dispatch('homeJanjiPolitik/homeJanjiPolitik')
     window.addEventListener('click', this.removeDropdown)
+    this.$store.dispatch('homeKenalan/updateKenalan', {
+      id: 'e27b16e8-f585-448b-afbc-0219c48471d6'
+    })
   },
   methods: {
     ...mapActions(['postReport', 'postJanjiPolitik']),

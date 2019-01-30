@@ -20,11 +20,22 @@ const actions = {
       commit('getHomeKenalan', result.data.data)
     })
   },
+  updateKenalan({
+    commit,
+    state
+  }, payload) {
+    ApiHomeKenalan.updateKenalan(payload.id, result => {
+      commit('updateKenalan', result.data.data)
+    })
+  },
 }
 
 // mutations
 const mutations = {
   getHomeKenalan(state, data) {
+    state.feedsKenalan = data.kenalans
+  },
+  updateKenalan(state, data) {
     state.feedsKenalan = data.kenalans
   }
 }

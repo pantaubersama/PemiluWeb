@@ -177,6 +177,9 @@ export default {
           ktp_number: this.inputKTPNumber
         })
         .then(() => {
+          this.$store.dispatch('homeKenalan/updateKenalan', {
+            id: 'c46bae56-8c87-4f54-8328-b959d89c931f'
+          })
           showToast()
         })
     },
