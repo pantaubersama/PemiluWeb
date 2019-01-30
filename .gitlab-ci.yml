@@ -35,3 +35,33 @@ deploy_staging:
   stage: deploy
   script:
     - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
+
+build_production:
+  only: [master, manual]
+  stage: build
+  before_script:
+    - echo $CI_PROJECT_DIR
+    - touch config/env/prod.js
+    - echo "$PRODUCTION_JS" >> config/env/prod.js
+    - node -v
+    - npm -v
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist
+
+test_production:
+  only: [master, manual]
+  stage: test
+  script:
+    - echo "not yet ..."
+
+deploy_production:
+  only: [master, manual]
+  stage: deploy
+  script:
+    - rsync -rav --delete dist/ $PRODUCTION_SERVER_USERNAME@$PRODUCTION_SERVER_IP:$PRODUCTION_DEPLOY_PATH
+
