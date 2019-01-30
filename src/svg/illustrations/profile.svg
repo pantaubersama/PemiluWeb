@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="536" height="460" viewBox="0 0 536 460">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:url(#linear-gradient)}.cls-3{clip-path:url(#clip-path)}.cls-4{fill:url(#linear-gradient-2)}.cls-5{fill:url(#linear-gradient-3)}
+        </style>
+        <linearGradient id="linear-gradient" x1=".826" x2=".174" y1="1.445" y2="-.445" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fb3cab"/>
+            <stop offset="1" stop-color="#2d82c2"/>
+        </linearGradient>
+        <clipPath id="clip-path">
+            <path id="vectorMask" d="M0 0h536v460H0z" class="cls-1"/>
+        </clipPath>
+        <linearGradient id="linear-gradient-2" x1="1.189" x2="-.189" y1="1.41" y2="-.41" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fed791"/>
+            <stop offset="1" stop-color="#fc8c58"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-3" x1=".251" x2=".749" y1="1.185" y2="-.185" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff908f"/>
+            <stop offset="1" stop-color="#fe6a68"/>
+        </linearGradient>
+    </defs>
+    <g id="_20" data-name="20" transform="translate(-1870 -1134)">
+        <path id="Rectangle" d="M0 0h536v460H0z" class="cls-2" transform="translate(1870 1134)"/>
+        <g id="Mask_by_Rectangle" class="cls-3" data-name="Mask by Rectangle" transform="translate(1870 1134)">
+            <g id="Mask_by_Rectangle-2" data-name="Mask by Rectangle" transform="translate(-5.053 247.851)">
+                <path id="Rectangle-2" d="M1870 1651.928h546.621v-142.385c-38.146-23.375-42.515 18.406-84.651 0-33.512-14.638-70.984-94.587-164.366-62.885-40.589 13.78-115.018 120.657-186.762 120.657-69.087 0-63.957-24-110.843-23.118z" class="cls-4" data-name="Rectangle" transform="translate(-1870 -1439.289)"/>
+                <path id="Rectangle_Copy_2" d="M1870 1645.548h546.621v-78.989c-67.369 1.289-149.143-81.186-218.27-67.23-78.5 15.849-78.5 62.629-159.43 76.688-73.66 12.8-97.554-36.983-168.921-16.785z" class="cls-5" data-name="Rectangle Copy 2" transform="translate(-1870 -1432.909)"/>
+            </g>
+        </g>
+    </g>
+</svg>

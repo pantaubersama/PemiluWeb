@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="536" height="311.178" viewBox="0 0 536 311.178">
+    <defs>
+        <style>
+            .cls-1,.cls-7{fill:none}.cls-2{fill:url(#linear-gradient)}.cls-3{clip-path:url(#clip-path)}.cls-4,.cls-5{opacity:.302}.cls-4{fill:url(#linear-gradient-2)}.cls-5{fill:url(#linear-gradient-3)}.cls-6{fill:url(#linear-gradient-4)}.cls-7{stroke:#707070;stroke-width:23.69px}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y1=".015" y2=".985" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#2a18e2"/>
+            <stop offset="1" stop-color="#08d7fa"/>
+        </linearGradient>
+        <clipPath id="clip-path">
+            <path id="vectorMask" d="M0 0h536v311.178H0z" class="cls-1"/>
+        </clipPath>
+        <linearGradient id="linear-gradient-2" x1="-.1" x2="1.1" y1="1.36" y2="-.36" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#70c4ff"/>
+            <stop offset="1" stop-color="#1aa1ff"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-3" x1=".965" x2=".035" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#3d3093"/>
+            <stop offset="1" stop-color="#ff10ec"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-4" x1=".215" x2=".785" y1="1.5" y2="-.5" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#9f16ef"/>
+            <stop offset="1" stop-color="#12bdf2"/>
+        </linearGradient>
+    </defs>
+    <g id="_4" data-name="4" transform="translate(-1459 -370)">
+        <path id="Rectangle" d="M0 0h536v311.178H0z" class="cls-2" transform="translate(1459 370)"/>
+        <g id="Mask_by_Rectangle" class="cls-3" data-name="Mask by Rectangle" transform="translate(1459 370)">
+            <g id="Mask_by_Rectangle-2" data-name="Mask by Rectangle" transform="translate(-.342 -101.051)">
+                <path id="Rectangle_3" d="M1770.751 316.672l75 60.9L1564.8 725.429l-75-60.9z" class="cls-4" data-name="Rectangle 3" transform="translate(-1443.599 -295.021)"/>
+                <path id="Rectangle_3_Copy" d="M1888.44 321.512l75 60.9-280.95 347.861-75-60.9z" class="cls-5" data-name="Rectangle 3 Copy" transform="translate(-1386.063 -292.655)"/>
+                <path id="Rectangle_2" d="M1459.142 647.83h535.628V533.975c-87.935 22.577-71.789-43.991-142.462-43.991s-167.384 118.041-251.82 85.442c-91.239-35.225-104.15-36.716-141.718-36.716z" class="cls-6" data-name="Rectangle 2" transform="translate(-1458.77 -210.29)"/>
+                <ellipse id="Oval" cx="115.642" cy="115.329" class="cls-7" rx="115.642" ry="115.329" transform="translate(45.887)"/>
+            </g>
+        </g>
+    </g>
+</svg>

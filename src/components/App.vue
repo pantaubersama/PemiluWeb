@@ -1,18 +1,31 @@
 <template>
   <div id="app">
-    <div v-if="this.$route.name !== 'Login'">
-      <Header/>
-    </div>
     <router-view/>
+    <snackbar/>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header'
+import snackbar from '@/components/snackbar'
+import { vueAuth } from '@/services/symbolic'
 export default {
   name: 'App',
   components: {
-    Header
+    snackbar
+  },
+  computed: {
+    token() {
+      return vueAuth.getToken()
+    }
+  },
+  watch: {
+    token: {
+      immediate: true,
+      handler(val) {
+        if (val == null) return
+        this.$store.dispatch('profile/getMe')
+      }
+    }
   }
 }
 </script>

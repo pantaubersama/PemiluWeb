@@ -1,0 +1,87 @@
+.modal-quiz-question
+  padding: 0
+  margin: 0
+
+.modal-header
+  border-width: 0
+  margin: 0
+  padding: 0
+
+.modal-header--question
+  align-items: center
+  color: #ffffff
+
+  .modal-title
+    font-size: 12px
+
+  .close-icon
+    background-color: transparent
+    border-width: 0
+
+    svg
+      fill: #ffffff
+      width: 24px
+      height: 24px
+
+.modal-background--question
+  margin: 0
+  padding: 0
+  background-size: contain
+  position: fixed
+  top: 0
+  left: 0
+  min-width: 100%
+  min-height: 100%
+  z-index: -1
+
+  &.background-1
+    background: url(~@/assets/bg-01.svg) no-repeat top center;
+
+  &.background-2
+    background: url(~@/assets/bg-01.svg) no-repeat top center;
+
+.modal-body--question
+  margin: 0
+  padding: 0
+  color: #ffffff
+
+  h2
+    height: 120px
+    font-size: 18px
+    line-height: 24px
+    text-align: center
+    display: flex
+    justify-content: center
+    align-items: center
+
+.row-question
+  height: 100%
+  margin: 0
+  padding: 0
+  @media (max-width: 575px)
+    margin: 0 -15px
+
+  .col
+    margin: 0
+    padding-left: 4px
+    padding-right: 4px
+    min-height: 381px
+
+.col-question
+  margin: 0
+  padding: 0
+  height: 100%
+  color: #111111
+  background-color: #f4f4f4
+  text-align: center
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+  p
+    padding: 14px
+
+  .btn
+    border-radius: 0
+    border-width: 0
+    background-color: #54369f

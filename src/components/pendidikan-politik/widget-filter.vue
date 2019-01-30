@@ -27,6 +27,9 @@
     width: 18px
     height: 18px
     display: inline-block
-    background: #bfbfbf
+    background-image: url('~@/assets/icon-filter.svg')
+    background-repeat: no-repeat
+    background-position: center
+    background-size: contain
     margin-left: 10px
 </style>

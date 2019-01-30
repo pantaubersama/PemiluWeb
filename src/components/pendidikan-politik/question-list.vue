@@ -1,29 +1,115 @@
 <template>
-<ul class="question-list">
-  <li>
-    <button class="add-question">
-      <div class="avatar-container">
-        <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
-        <span class="name">Budi Santoso</span>
-      </div>
-      <p class="trigger">Apa pertanyaan Anda untuk kedua calon Presiden?</p>
-    </button>
-  </li>
-  <li v-for="index in Array.from(Array(20).keys())"
-    :key="index">
-    <question-item></question-item>
-  </li>
-</ul>
+  <ul class="question-list">
+    <modal-create
+      :name="setName(user.full_name)"
+      :avatar="user.avatar.url"
+      :is-submitting="isSubmitting"
+      v-if="modal === 'ModalCreate'"
+      @close="() => modal = null"
+      @submit="submitQuestion($event)"
+    ></modal-create>
+    <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="modal = false"/>
+    <li>
+      <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
+        <div class="avatar-container">
+          <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
+          <span class="name">Budi Santoso</span>
+        </div>
+        <p class="trigger">Ada pertanyaan untuk Calon Presiden dan Calon Wakil Presiden 2019-2024?</p>
+      </button>
+    </li>
+    <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
+      <ContentLoader/>
+    </li>
+    <li v-for="question in questions" :key="question.id" v-else>
+      <question-item
+        :id="question.id"
+        :title="question.user.about"
+        :question="question.body"
+        :time="question.created_at_in_word.id"
+        :name="question.user.full_name"
+        :avatar="question.user.avatar.thumbnail_square.url"
+        :is-voted="question.is_liked"
+        :count="question.like_count"
+        @upvoted="$emit('upvoted', $event)"
+        @onCopy="copyToClipboard($event)"
+        @onShare="modalShare($event)"
+        @onReport="handleReport($event)"
+      ></question-item>
+    </li>
+  </ul>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+import { utils } from '@/mixins/utils'
+
+import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
+import ModalShare from '@/components/Linimasa/ModalShare'
+import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
+import ModalCreate from '@/components/pendidikan-politik/modal-create'
 
 export default {
   name: 'QuestionList',
-  components: {QuestionItem},
-  data () {
+  components: {
+    QuestionItem,
+    ContentLoader,
+    ModalCreate,
+    ModalShare
+  },
+  mixins: [utils],
+  props: {
+    questions: {
+      type: Array,
+      required: true
+    },
+    loading: {
+      type: Boolean,
+      required: true
+    }
+  },
+  data() {
     return {
+      modal: null,
+      shareId: '',
+      isSubmitting: false
+    }
+  },
+  computed: {
+    ...mapState({
+      user: s => s.profile.user
+    })
+  },
+  methods: {
+    ...mapActions(['postReport']),
+    async submitQuestion(data) {
+      this.isSubmitting = true
+      const resp = await PenpolAPI.postQuestion(data.title)
+      const question = resp.question
+      this.$store.dispatch('addQuestion', question)
+      this.isSubmitting = false
+      this.modal = null
+    },
+    handleReport(id) {
+      this.postReport(id)
+        .then(response => {
+          const { vote } = response
+          if (vote && vote.status) {
+            this.$toaster.success('Berhasil laporkan sebagai spam.')
+          } else {
+            this.$toaster.warning(vote.text)
+          }
+        })
+        .catch(() => this.$toaster.error('Gagal laporkan sebagai spam.'))
+    },
+    copyToClipboard(id) {
+      this.$clipboard(`${process.env.BASE_URL}/pendidikan-politik/detail/${id}`)
+      this.$toaster.info('Berhasil menyalin teks.')
+    },
+    modalShare(id) {
+      this.shareId = id
+      this.modal = 'modalShare'
     }
   }
 }
@@ -67,8 +153,11 @@ export default {
         color: #212121
     .trigger
       font-family: Lato
-      font-size: 18px
+      font-size: 14px
       font-weight: bold
       line-height: 1.22
       color: #4f4f4f
+      padding: 5px 0
+      @media (max-width: 575px)
+        font-size: 14px
 </style>

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import TimelineLayout from '@/layout/timeline.vue'
+import TimelineLayout from '@/layout/Timeline.vue'
 
 export default {
   components: { TimelineLayout }

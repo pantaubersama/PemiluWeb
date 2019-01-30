@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ic_buat-baru" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}.cls-2{fill:none}
+        </style>
+    </defs>
+    <path id="Path_3" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z" class="cls-1" data-name="Path 3"/>
+    <path id="Path_4" d="M0 0h24v24H0z" class="cls-2" data-name="Path 4"/>
+</svg>

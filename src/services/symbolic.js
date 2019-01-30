@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import VueAxios from 'vue-axios'
-import { VueAuthenticate } from 'vue-authenticate'
+import {
+  VueAuthenticate
+} from 'vue-authenticate'
 import axios from 'axios'
 
-function isUndefined (value) {
+function isUndefined(value) {
   return typeof value === 'undefined'
 }
 
-function getRedirectUri (uri) {
+function getRedirectUri(uri) {
   try {
     return (!isUndefined(uri))
       ? ('' + (window.location.origin) + uri)
@@ -32,7 +34,10 @@ var defaultProviderConfig = {
   state: null,
   oauthType: '2.0',
   display: 'popup',
-  popupOptions: {width: 500, height: 500},
+  popupOptions: {
+    width: 500,
+    height: 500
+  },
   responseType: 'code',
   responseParams: {
     clientId: 'client_id',
@@ -49,7 +54,7 @@ export default {
 
   name: 'Symbolic',
 
-  data () {
+  data() {
     return {
       auth: vueAuth
     }
@@ -61,6 +66,19 @@ export const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
   storageType: 'localStorage',
   tokenName: 'access_token',
   providers: {
-    symbolic: defaultProviderConfig
+    symbolic: defaultProviderConfig,
+    twitter: {
+      name: 'twitter',
+      // url: '/auth/twitter',
+      url: '/oauth/token',
+      authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+      redirectUri: getRedirectUri(),
+      oauthType: '1.0',
+      popupOptions: {
+        width: 495,
+        height: 645
+      }
+    }
   }
 })
+window.vueAuth = vueAuth

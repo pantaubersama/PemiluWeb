@@ -1,15 +1,48 @@
-body 
-  background-color: #F7F7F7
+body
   font-family: 'Lato'
   font-size: 14px
 
-#app
+.wrapper
+  background-color: #F7F7F7
   padding-top: 100px
   padding-bottom: 45px
+  min-height: 100vh
+  @media (max-width: 991px)
+    .menu-bg
+      position: fixed
+      left: 0
+      right: 0
+      top: 0
+      bottom: 0
+      background-color: rgba(17, 17, 17, 0.5)
+      z-index: 2
+      opacity: 0
+      visibility: hidden
+      transition: 0.3s ease-in-out
 
-\:focus, 
-button:focus, 
-.btn:focus, 
+  @media (max-width: 575px)
+    background-color: #ffffff
+    padding-bottom: 0
+    padding-top: 64px
+
+.sidebar-open
+  .menu-bg
+    opacity: 1
+    visibility: visible
+  .sidebar
+    transform: translateX(0)
+  .x
+    transform: rotate(-135deg)
+    top: 17px
+  .z
+    transform: rotate(135deg)
+    top: 17px
+  .y
+    display: none
+
+\:focus,
+button:focus,
+.btn:focus,
 input:focus
   outline: none!important
   box-shadow: none!important
@@ -20,16 +53,30 @@ ul
 li
   list-style-type: none
 
-a, 
+a,
 a:hover
   text-decoration: none
 
-img 
+img
   max-width: 100%
 
 .main-wrapper
+  display: flex
+  @media (max-width: 991px)
+    flex-wrap: wrap-reverse
+    > div
+      padding: 0
+  @media (max-width: 575px)
+    padding: 0
   > div
     padding-left: 0
+.card
+  margin-bottom: 15px
+  @media (max-width: 575px)
+    border-radius: 0
+    border-right: 0
+    border-left: 0
+    margin-bottom: 30px
 
 [type="radio"]:checked,
 [type="radio"]:not(:checked)
@@ -91,16 +138,55 @@ img
   border-radius: 5px
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16)
   background-color: #ffffff
-  border: 1px solid #ececec 
+  border: 1px solid #ececec
   min-width: 200px
   padding: 15px 20px
-  a 
+  a
     color: #111111
     text-decoration: none
     font-weight: 500
-    display: block
+    display: flex
     padding: 5px 0
-  ul 
+  ul
     padding: 0
     margin: 0
     list-style: none
+
+.overflow-y-hidden
+  width: 100vw
+  height: 100vh
+  overflow-y: hidden
+
+.mobile-icons
+  align-items: center
+  display: flex
+  padding: 10px 15px
+  .input-search
+    position: relative
+    flex: 1
+    input
+      background-color: #f9f9f9
+      padding-right: 30px
+      height: 32px
+      border-radius: 50px
+      padding-right: 40px
+      font-family: 'Bw Modelica'
+      font-weight: 100
+      text-align: right
+      border-color: #ececec
+      &::placeholder
+        color: #7c7c7c
+        opacity: 1
+      &:-ms-input-placeholder
+        color: #7c7c7c
+
+      &::-ms-input-placeholder
+        color: #7c7c7c
+
+    svg
+      fill:#7C7C7C
+      width: 18px
+      height: 18px
+      position: absolute
+      right: 10px
+      top: 7px

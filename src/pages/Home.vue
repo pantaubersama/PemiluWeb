@@ -1,44 +1,45 @@
 <template>
   <LayoutTimeline>
     <template slot="main-content">
-      <CardPilpres></CardPilpres>
-      <CardJanjiPilpres></CardJanjiPilpres>
-      <CardTanya></CardTanya>
+      <CardPilpres/>
+      <CardJanjiPolitik/>
+      <CardTanya/>
     </template>
     <template slot="widget-wrapper">
-      <WidgetVerified></WidgetVerified>
-      <CardWordStadium></CardWordStadium>
-      <WidgetCluster></WidgetCluster>
-      <CardQuiz></CardQuiz>
+      <div class="d-none d-lg-block">
+        <div v-if="isProtected()">
+          <WidgetVerified/>
+        </div>
+        <CardWordStadium/>
+        <WidgetCluster/>
+        <CardQuiz/>
+      </div>
     </template>
   </LayoutTimeline>
 </template>
 
 <script>
-import LayoutTimeline from '@/layout/timeline'
-import NavSidebarTop from '@/components/NavSidebarTop'
-import NavSidebarBottom from '@/components/NavSidebarBottom'
-import CardJanjiPilpres from '@/components/CardJanjiPilpres'
+import LayoutTimeline from '@/layout/Timeline'
+import CardJanjiPolitik from '@/components/Home/CardJanjiPolitik'
 import WidgetVerified from '@/components/WidgetVerified'
-import CardPilpres from '@/components/CardPilpres'
-import CardTanya from '@/components/CardTanya'
-import WidgetCluster from '@/components/WidgetCluster'
-import CardQuiz from '@/components/CardQuiz'
-import CardWordStadium from '@/components/CardWordStadium'
-
+import CardPilpres from '@/components/Home/CardPilpres'
+import CardTanya from '@/components/Home/CardTanya'
+import WidgetCluster from '@/components/Home/WidgetCluster'
+import CardQuiz from '@/components/Home/CardQuiz'
+import CardWordStadium from '@/components/Home/CardWordStadium'
+import { authLink } from '@/mixins/link'
 export default {
   name: 'Home',
   components: {
     LayoutTimeline,
-    NavSidebarTop,
-    NavSidebarBottom,
-    CardJanjiPilpres,
+    CardJanjiPolitik,
     WidgetVerified,
     CardPilpres,
     CardTanya,
     WidgetCluster,
     CardQuiz,
     CardWordStadium
-  }
+  },
+  mixins: [authLink]
 }
 </script>

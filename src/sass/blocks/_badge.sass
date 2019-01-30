@@ -1,0 +1,132 @@
+.list-badge
+  border: 1px solid #f2f2f2
+  .title
+    background-color: #f2f2f2
+    color: #111111
+    font-weight: bold
+    padding: 15px 45px
+  .list-content
+    padding: 0 35px
+
+  .list-item
+    padding: 10px 0 0
+    display: flex
+    align-items: center
+    &:last-child
+      padding-bottom: 10px
+      .list-content-desc
+        border: none
+    img
+      width: 72px
+    .list-content-desc
+      flex: 1
+      display: flex
+      align-items: center
+      padding: 15px 10px
+      border-bottom: 1px solid #ececec
+      .list-desc
+        flex: 1
+      p
+        text-transform: uppercase
+        color: #111111
+        font-weight: bold
+        margin-bottom: 0
+      .sub-text
+        color: #7c7c7c
+        font-size: 12px
+    .icon-share
+      width: 16px
+      cursor: pointer
+      text-decoration: none
+      svg
+        fill: #7c7c7c
+
+  .disabled
+    img
+      filter: grayscale(100%)
+    p
+      color: #7c7c7c!important
+
+.detail-badge
+  border: 1px solid #ececec
+  background-color: #fff
+  text-align: center
+  position: relative
+  overflow: hidden
+  @media (max-width: 575px)
+    border: none
+
+  .profile-desc
+    padding-top: 50px
+    position: relative
+    z-index: 1
+    > p
+      margin-bottom: 0
+      color: #212121
+      font-weight: bold
+      line-height: 1
+    > span
+      color: #4f4f4f
+      font-size: 12px
+
+    .thumb
+      width: 32px
+      height: 32px
+      margin: 0 auto 10px
+      border-radius: 50%
+      overflow: hidden
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        object-position: center center
+
+  .profile-description--curve
+    height: 340%
+    background-color: #ffffff
+    border-radius: 50%
+    position: absolute
+    top: -165%
+    z-index: -1
+    left: -10%
+    right: -10%
+    @media (max-width: 1199px)
+      top: -190%
+      left: -30%
+      right: -30%
+    @media (max-width: 991px)
+      top: -150%
+      left: -15%
+      right: -15%
+    @media (max-width: 991px)
+      top: -170%
+    @media (max-width: 575px)
+      left: -40%
+      right: -40%
+  .profile-description--content
+    position: absolute
+    width: 100%
+    z-index: 3
+    top: 28%
+    .thumbnail
+      width: 120px
+      margin-bottom: 10px
+      @media (max-width: 1199px)
+        width: 100px
+    h4
+      text-transform: uppercase
+      color: #f4f4f4
+      font-weight: bold
+      font-size: 24px
+      margin-bottom: 0
+    .subtitle
+      color: #f4f4f4
+  .profile-background
+    margin-top: -20px
+    svg
+      object-fit: cover
+      width: 100%
+      height: 100%
+      @media (max-width: 575px)
+        width: auto
+        height: auto

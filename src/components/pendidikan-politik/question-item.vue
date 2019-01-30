@@ -1,39 +1,116 @@
 <template>
-<div class="question-item">
-  <button class="vote">
-    <img src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up">
-    <span class="vote-count">1k</span>
-  </button>
-  <div class="content">
-    <div class="meta">
-      <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
-      <div class="title">
-        <div class="name">Trump</div>
-        <small class="question-title">Apa apa apa apa apa apa apa?</small>
+  <div class="question-item">
+    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote()">
+      <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
+      <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
+      <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
+      <span class="vote-count">{{ count }}</span>
+    </button>
+    <div class="content">
+      <div class="meta">
+        <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+        <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+        <div class="title">
+          <div class="name">{{name}}</div>
+          <small class="question-title">{{title}}</small>
+        </div>
+        <small class="time">{{time}}</small>
       </div>
-      <small class="time">Ask 8 days ago</small>
-    </div>
-    <div class="question">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eum
-      voluptatibus quisquam necessitatibus asperiores ullam provident impedit
-      reprehenderit suscipit quibusdam assumenda, non soluta perferendis
-      quaerat accusamus adipisci consequuntur dolores nihil.
-    </div>
-    <div class="button-list">
-      <button class="share">
-        <img src="@/assets/icon_share.svg">
-      </button>
-      <button class="menu">
-        <img src="@/assets/dots-icon.svg">
-      </button>
+      <div class="question">{{question}}</div>
+      <div class="button-list">
+        <button class="share">
+          <img src="@/assets/icon_share.svg">
+        </button>
+        <button class="menu" @click.stop="toggleDropdown(id, $event)">
+          <img src="@/assets/dots-icon.svg">
+        </button>
+        <div class="dropdown-content" :class="{'is-active': isActive === id}">
+          <ul>
+            <li>
+              <a href="javascript:void(0)" @click.stop="copy(id)">
+                <link-icon/>Salin Tautan
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" @click.stop="share(id)">
+                <share-icon/>Bagikan
+              </a>
+            </li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                @click.stop="() => {
+                $emit('onReport', id);
+                isActive = false
+                }"
+              >
+                <alert-icon/>Laporkan sebagai spam
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import lottie from 'lottie-web'
+
+import { LinkIcon, AlertIcon, ShareIcon } from '@/svg/icons'
+import ShareOptions from '@/mixins/share-options'
+
 export default {
-  name: 'QuestionItem'
+  name: 'QuestionItem',
+  mixins: [ShareOptions],
+  components: {
+    LinkIcon,
+    AlertIcon,
+    ShareIcon
+  },
+  props: {
+    id: String,
+    name: String,
+    avatar: String,
+    title: String,
+    time: String,
+    question: String,
+    isVoted: Boolean,
+    count: Number
+  },
+  data() {
+    return {
+      upvoteLottie: null,
+      isAnimating: false
+    }
+  },
+  mounted() {
+    this.upvoteLottie = lottie.loadAnimation({
+      container: this.$refs.upvote,
+      path: '/lottie/upvote.json',
+      autoplay: false,
+      renderer: 'svg'
+    })
+    this.upvoteLottie.addEventListener('complete', (...args) => {
+      this.isAnimating = false
+    })
+  },
+  destroyed() {
+    this.upvoteLottie.destroy()
+  },
+  watch: {
+    isAnimating(value) {
+      if (value) return this.upvoteLottie.play()
+      return this.upvoteLottie.stop()
+    }
+  },
+  methods: {
+    onUpvote() {
+      if (this.isVoted) return
+      this.isAnimating = true
+      this.$emit('upvoted', this.id)
+    }
+  }
 }
 </script>
 <style lang="sass" scoped>
@@ -50,17 +127,36 @@ button.vote
   border-left: 0
   border-top: 0
   cursor: pointer
+  &.voted
+    cursor: default
+  @media (max-width: 991px)
+    height: auto
+    border-bottom: none
+    background-color: #f9f9f9
   .vote-count
     color: #727272
     font-size: 14px
+  .icon.voteup
+    background-color: #727272
+    height: 35px
+    width: 35px
+    display: block;
+    mask-image: url('~@/assets/icon-upvote.svg')
+    &.voted
+      background-color: #9b0012
+  .icon.vote-up.upvote-lottie
+    transform: scale(1.8) translateY(-7px)
 
 .content
   flex: 1
   margin: 20px
   margin-top: 16.5px
-
+  overflow: hidden
+  @media (max-width: 575px)
+    margin: 15px
   .meta
-    display: flex;
+    display: flex
+    align-items: center
     .avatar
       flex: 0
       flex-basis: 32px
@@ -69,6 +165,10 @@ button.vote
       border-radius: 50%
       overflow: hidden
       object-fit: cover
+      @media (max-width: 575px)
+        flex-basis: 28px
+        height: 28px
+        width: 28px
     .title
       flex: 2
       display: flex
@@ -91,6 +191,8 @@ button.vote
       font-size: 11px
       line-height: 1.18
       color: #7c7c7c
+      @media (max-width: 575px)
+        font-size: 10px
 
   .question
     font-family: BwModelicaSS01, Lato
@@ -100,6 +202,10 @@ button.vote
     line-height: 1.38
     text-align: left
     color: #393939
+    padding: 10px 0
+    @media (max-width: 575px)
+      font-size: 14px
+      line-height: 19px
 
 .button-list
   display: flex
@@ -121,4 +227,26 @@ button.vote
       object-fit: contain
       width: 18px
       height: 18px
+
+  .dropdown-content
+    padding: 10px
+    border-radius: 2px
+    min-width: 175px
+    top: auto
+    bottom: auto
+    margin-top: 24px
+    margin-right: 20px
+
+    a
+      text-align: left
+      font-size: 12px
+
+    svg
+      width: 25px
+      height: 16px
+      padding-right: 5px
+      align-self: center
+
+    &.is-active
+      display: block
 </style>

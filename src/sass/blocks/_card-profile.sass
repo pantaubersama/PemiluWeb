@@ -24,21 +24,29 @@
             h3
                 font-size: 18px
                 font-weight: 600
-            button
-                padding: 5px
-                border: 1px solid #1da1f2
+            a, .line-verified
+                padding: 5px 8px
+                border: 1px solid #cbcbcb
                 border-radius: 5px
                 font-size: 12px
-                color: #00a2f8
+                color: #cbcbcb
+                font-weight: 500
                 display: flex
                 align-items: center
-                width: 80%
+                // width: 80%
                 justify-content: center
+                text-decoration: none
                 background-color: transparent
-                img
-                    width: 18px
-                    height: 18px
-                    margin-right: 3px
+                svg
+                    width: 24px
+                    fill: #cbcbcb
+                    margin-right: 5px
+            .line-verified
+                border-color: #08bda8
+                color: #08bda8
+                float: left
+                svg
+                    fill: #08bda8
         p
             padding-top: 15px
             font-size: 12px
@@ -57,13 +65,18 @@
 
     &:last-child
         .item
+            padding: 5px 15px
             p
                 font-weight: bold
                 font-size: 10px
             .sub-text
                 font-weight: normal
             img
-                width: 34px
+                width: 50px
+    .badge-more
+      width: auto
+      color: #7c7c7c
+      font-weight: normal
     h4
         border: 0
         padding: 15px 25px 15px
@@ -91,6 +104,8 @@
             font-weight: normal
         .icon
             margin-left: auto
+            .request-cluster
+                margin-right: -10px
 .tabs
     .nav-tabs
         display: block;
