@@ -7,7 +7,9 @@
           Dari hasil pilihan {{ quizzesResult.quiz.title }}
           <br>
           <strong>{{quizzesResult.user.full_name}}</strong>
-          lebih suka jawaban dari {{ choice.team.title }}
+          lebih suka jawaban dari
+          <br>
+          {{ choice.team.title }}
         </p>
       </div>
       <div class="quiz-description--curve">&nbsp;</div>
