@@ -129,37 +129,37 @@ const router = new VueRouter({
       props: true,
       children: [{
           path: 'pilpres/:id',
-          name: 'Share',
+          name: 'SharePilpres',
           component: () => import('@/pages/Share')
         },
         {
           path: 'janjipolitik/:id',
-          name: 'Share',
+          name: 'ShareJanjiPolitik',
           component: () => import('@/pages/Share')
         },
         {
           path: 'tanya/:id',
-          name: 'Share',
+          name: 'ShareTanya',
           component: () => import('@/pages/Share')
         },
         {
           path: 'kuis/:id',
-          name: 'Share',
+          name: 'ShareKuis',
           component: () => import('@/pages/Share')
         },
         {
           path: 'hasilkuis/:id',
-          name: 'Share',
+          name: 'ShareHasilKuis',
           component: () => import('@/pages/Share')
         },
         {
           path: 'kecenderungan/:id',
-          name: 'Share',
+          name: 'ShareKecenderungan',
           component: () => import('@/pages/Share')
         },
         {
           path: 'badge/:id',
-          name: 'Share',
+          name: 'ShareBadge',
           component: () => import('@/pages/Share')
         }
       ]
