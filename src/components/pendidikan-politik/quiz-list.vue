@@ -2,7 +2,7 @@
   <div class="quiz-list">
     <div class="total-kecenderungan">
       <div class="total-kecenderungan-bg">
-        <img src="@/assets/image-banner-pendidikan-quiz-1.svg" alt>
+        <img src="@/assets/image-banner-pendidikan-quiz-1.svg" alt="thumbnail">
       </div>
       <div class="total-kecenderungan-content">
         <div class="content-text">
@@ -11,7 +11,7 @@
           >Total Kecenderunganmu, {{totalKecenderungan.finishedQuiz}} Dari {{totalKecenderungan.totalQuiz}} Kuis:</p>
           <p class="total">{{totalKecenderungan.percentage}}% ({{totalKecenderungan.groupName}})</p>
         </div>
-        <button class="share-btn">
+        <button class="share-btn" @click.stop="shareKecenderungan()">
           <i class="icon icon-share"></i>
         </button>
       </div>
@@ -25,8 +25,11 @@
           <h3 class="title">{{quiz.title}}</h3>
           <span class="question-count">{{quiz.quiz_questions_count}} Pertanyaan</span>
           <div class="container-action">
-            <a href="javascript:void(0)" class="share"
-              @click.prevent="share(quiz.id)">
+            <a
+              href="javascript:void(0)"
+              class="share"
+              @click.stop="shareQuiz(quiz.participation_status, quiz.id)"
+            >
               <i class="icon icon-share"></i> Bagikan
             </a>
             <router-link
@@ -48,18 +51,30 @@
         </div>
       </li>
     </ul>
+
     <ModalShare
-      v-if="isSharing"
+      v-if="isSharing === 'kuis'"
       @close="isSharing = false"
       :url="shareURL"
-    ></ModalShare>
+      title="Iseng-iseng serius main Quiz ini dulu. Kira-kira masih cocok apa ternyata malah nggak cocok, yaa 😶"
+      quote="Iseng-iseng serius main Quiz ini dulu. Kira-kira masih cocok apa ternyata malah nggak cocok, yaa 😶"
+    />
+    <ModalShare
+      v-if="isSharing === 'kecenderungan'"
+      @close="isSharing = false"
+      title="Hmm.. Ternyata begini kecenderunganku 👀"
+      quote="Hmm.. Ternyata begini kecenderunganku 👀"
+      :url="shareURL"
+    />
   </div>
 </template>
 
 <script>
 import ModalShare from '@/components/modal-share'
+
 export default {
   name: 'QuizList',
+  components: { ModalShare },
   props: {
     quizzes: {
       type: Array,
@@ -77,10 +92,15 @@ export default {
     }
   },
   methods: {
-    share(quizId) {
-      const url = `/share/kuis/${quizId}`
+    shareKecenderungan() {
+      const url = '/share/kecenderungan'
       this.shareURL = url
-      this.isSharing = true
+      this.isSharing = 'kecenderungan'
+    },
+    shareQuiz(type, quizId) {
+      const url = `/share/${type}/${quizId}`
+      this.shareURL = url
+      this.isSharing = 'kuis'
     }
   }
 }
