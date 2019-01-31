@@ -30,6 +30,10 @@ export const getters = {
     ]
   },
   questionsForQuizId: state => quizId => state.quizQuestions[quizId],
+  questionsValid: state => quizId => {
+    if (!state.quizQuestions || !state.quizQuestions[quizId]) return true
+    return state.quizQuestions[quizId].find(quiz => quiz.answered === false)
+  },
   quizById: (state, getters) => quizId =>
     getters.quizzes.find(it => it.id === this.quizId) || {}
 }
@@ -162,7 +166,7 @@ export const mutations = {
     const quizType = quiz.participation_status
     const listQuiz = (() => {
       switch (quizType) {
-        case 'not_participated':
+        case 'not_participating':
           return state.quizzesNotParticipated
         case 'in_progress':
           return state.quizzesInProgress

@@ -16,6 +16,7 @@
           type="button"
           class="btn btn-block btn-primary"
           @click.stop="$emit('onClickNextButton', showModal)"
+          :disabled="!questionsValid"
         >{{ ($route.name === 'PendidikanPolitikQuizIkuti') ? 'Mulai' : 'Lanjut' }}</button>
       </div>
     </card-question-layout>
@@ -55,6 +56,9 @@ export default {
     },
     questions() {
       return this.$store.getters.questionsForQuizId(this.quizId)
+    },
+    questionsValid() {
+      return this.$store.getters.questionsValid(this.quizId)
     }
   },
   mounted() {
