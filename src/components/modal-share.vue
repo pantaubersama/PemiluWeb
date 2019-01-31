@@ -9,6 +9,7 @@
           :url="absoluteURL"
           :title="title"
           :description="description"
+          :media="media"
           :quote="quote"
           :hashtags="hashtags"
           :twitter-user="twitterUser"
@@ -45,6 +46,7 @@ export default {
     url: String,
     title: String,
     description: String,
+    media: String,
     quote: String,
     hashtags: { type: String, default: 'PantauBersama' },
     twitterUser: { type: String, default: 'pantaubersama' }
@@ -55,7 +57,7 @@ export default {
   },
   data() {
     return {
-      baseURL: window.location.origin
+      baseURL: process.env.BASE_URL // window.location.origin
     }
   },
   computed: {

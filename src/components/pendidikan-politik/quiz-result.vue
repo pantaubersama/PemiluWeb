@@ -45,6 +45,7 @@
       :url="$route.path"
       :title="`Hasil Kuis ${this.title}`"
       :description="`Dari hasil pilihan ${this.title} ${this.fullName} lebih suka jawaban dari ${this.teamName}`"
+      :media="imageThumbnail"
       quote="Kamu sudah ikut? Aku sudah dapat hasilnya 😎"
     ></ModalShare>
   </div>
