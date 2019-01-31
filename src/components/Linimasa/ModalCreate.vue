@@ -18,14 +18,23 @@
         </div>
         <textarea v-model="title" placeholder="Judul Janji Politik"></textarea>
       </div>
+
       <div class="html-editor">
-        <vue-editor
-          useCustomImageHandler
-          @imageAdded="inputAvatarChanged($event)"
-          :editorToolbar="customToolbar"
+        <textarea
           v-model="body"
+          @focus="showUpload"
           placeholder="Berikan deskripsi atau detil lebih lanjut terkait Janji Politik yang akan disampaikan di kolom ini."
-        ></vue-editor>
+        ></textarea>
+        <div class="upload-img" v-if="image == null && upload">
+          <input type="file" @change="onFileChange">
+          <image-default/>
+        </div>
+        <div class="preview-img" v-if="image">
+          <img :src="image">
+          <div class="remove-img">
+            <close-icon @click="removeImage"/>
+          </div>
+        </div>
       </div>
       <div class="button-submit">
         <button class="btn btn-outline-primary" @click.prevent="submit()">publikasikan</button>
@@ -35,35 +44,38 @@
 </template>
 
 <script>
-import { VueEditor } from 'vue2-editor'
-
-import { CloseIcon } from '@/svg/icons'
 import ModalLayout from '@/layout/Modal'
 import { customizedToolbar } from '@/mixins/customizedToolbar'
-
+import { ImageDefault, CloseIcon } from '@/svg/icons'
 export default {
   name: 'ModalCreate',
   data() {
     return {
-      customToolbar: customizedToolbar.render,
       title: '',
       body: '',
-      image: ''
+      upload: false,
+      image: null
     }
   },
   props: {
     name: String,
-    avatar: URL
+    avatar: String
   },
   components: {
     ModalLayout,
-    VueEditor,
-    CloseIcon
+    CloseIcon,
+    ImageDefault
   },
   methods: {
-    inputAvatarChanged(event) {
-      if (!event) return
-      this.image = event
+    onFileChange(e) {
+      const file = e.target.files[0]
+      this.image = URL.createObjectURL(file)
+    },
+    showUpload() {
+      this.upload = true
+    },
+    removeImage() {
+      this.image = null
     },
     submit() {
       this.$emit('submit', {
