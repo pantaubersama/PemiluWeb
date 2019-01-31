@@ -39,7 +39,14 @@
       @click.stop="$emit('onClickNextButton', showModal)"
     />
 
-    <ModalShare v-if="isSharing" @close="isSharing = false" :url="$route.path"></ModalShare>
+    <ModalShare
+      v-if="isSharing"
+      @close="isSharing = false"
+      :url="$route.path"
+      :title="`Hasil Kuis ${this.title}`"
+      :description="`Dari hasil pilihan ${this.title} ${this.fullName} lebih suka jawaban dari ${this.teamName}`"
+      quote="Kamu sudah ikut? Aku sudah dapat hasilnya 😎"
+    ></ModalShare>
   </div>
 </template>
 
