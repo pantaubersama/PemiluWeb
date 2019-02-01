@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import { authLink } from '@/mixins/link'
 import lottie from 'lottie-web'
 import LayoutTimeline from '@/layout/Timeline'
 import ModalConfirm from '@/pages/Profile/ModalConfirm'
@@ -129,6 +130,7 @@ export default {
     VerifiedIconDefault,
     ImageDefault
   },
+  mixins: [authLink],
   data() {
     return {
       selfieLottie: null,
@@ -177,9 +179,11 @@ export default {
           ktp_number: this.inputKTPNumber
         })
         .then(() => {
-          this.$store.dispatch('homeKenalan/updateKenalan', {
-            id: 'c46bae56-8c87-4f54-8328-b959d89c931f'
-          })
+          if (this.isProtected()) {
+            this.$store.dispatch('homeKenalan/updateKenalan', {
+              id: 'c46bae56-8c87-4f54-8328-b959d89c931f'
+            })
+          }
           showToast()
         })
     },

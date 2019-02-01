@@ -10,7 +10,7 @@
         <div v-if="isProtected()">
           <WidgetVerified/>
         </div>
-        <CardWordStadium/>
+        <!-- <CardWordStadium/> -->
         <WidgetCluster/>
         <CardQuiz/>
       </div>

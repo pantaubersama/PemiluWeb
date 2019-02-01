@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import { authLink } from '@/mixins/link'
 import { BottomArrow, IconDots } from '@/svg/icons'
 import { mapState, mapActions } from 'vuex'
 import LoadingLottie from '@/components/LoadingLottie'
@@ -101,6 +102,7 @@ export default {
     ModalShare,
     ContentLoader
   },
+  mixins: [authLink],
   data() {
     return {
       isActive: false,
@@ -114,9 +116,11 @@ export default {
   created() {
     this.$store.dispatch('homeJanjiPolitik/homeJanjiPolitik')
     window.addEventListener('click', this.removeDropdown)
-    this.$store.dispatch('homeKenalan/updateKenalan', {
-      id: 'e27b16e8-f585-448b-afbc-0219c48471d6'
-    })
+    if (this.isProtected()) {
+      this.$store.dispatch('homeKenalan/updateKenalan', {
+        id: 'e27b16e8-f585-448b-afbc-0219c48471d6'
+      })
+    }
   },
   methods: {
     ...mapActions(['postReport', 'postJanjiPolitik']),
