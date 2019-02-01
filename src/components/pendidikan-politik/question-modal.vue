@@ -79,11 +79,13 @@ export default {
         .dispatch('answerQuestion', {
           quizId: this.quiz.id,
           questionId: this.currentQuestion.id,
-          answerId
+          answerId,
+          status: this.quiz.participation_status,
+          isLast: this.questionNumber === this.totalQuestions
         })
-        .then(response =>
+        .then(() => {
           this.$toaster.success('Berhasil menjawab pertanyaan.')
-        )
+        })
         .catch(() => this.$toaster.error('Gagal mengirim jawaban.'))
     }
   }

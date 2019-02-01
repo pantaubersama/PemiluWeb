@@ -107,10 +107,19 @@ export const actions = {
       questions
     })
   },
-  async answerQuestion(ctx, { quizId, questionId, answerId }) {
-    return PenpolAPI.answerQuestion(quizId, questionId, answerId).then(() =>
-      ctx.commit('answeredQuestion', { quizId, questionId, answerId })
-    )
+  async answerQuestion(
+    ctx,
+    { quizId, questionId, answerId, status = 'in_progress', isLast = false }
+  ) {
+    const quiz = await PenpolAPI.answerQuestion(quizId, questionId, answerId)
+    ctx.commit('answeredQuestion', { quizId, questionId, answerId })
+    if (isLast) {
+      ctx.commit('checkoutQuiz', {
+        id: quizId,
+        status: status,
+        currentStatus: quiz.quiz_participation.status
+      })
+    }
   },
   async getTotalKecenderungan(ctx) {
     const resp = await PenpolAPI.getTotalKecenderungan()
@@ -158,6 +167,29 @@ export const mutations = {
     stateQuestions.answered = true
 
     state.quizQuestions[index] = stateQuestions
+  },
+  checkoutQuiz(state, { id, status, currentStatus }) {
+    const listQuiz = (() => {
+      switch (status) {
+        case 'not_participating':
+          return state.quizzesNotParticipated
+        case 'in_progress':
+          return state.quizzesInProgress
+      }
+    })()
+    const listTargetQuiz = (() => {
+      switch (currentStatus) {
+        case 'in_progress':
+          return state.quizzesInProgress
+        case 'finished':
+          return state.quizzesFinised
+      }
+    })()
+    const index = listQuiz.findIndex(quiz => quiz.id === id)
+    let quiz = listQuiz.find(quiz => quiz.id === id)
+    quiz.participation_status = currentStatus
+    listTargetQuiz.unshift(quiz)
+    listQuiz.splice(index, 1)
   },
   setQuizQuestions(state, { quizId, questions }) {
     Vue.set(state.quizQuestions, quizId, questions)
