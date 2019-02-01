@@ -186,6 +186,7 @@
 </template>
 
 <script>
+import { authLink } from '@/mixins/link'
 import { mapState } from 'vuex'
 import ListCardJP from '@/components/ListCardJP'
 import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
@@ -211,6 +212,7 @@ export default {
     QuestionItem,
     CommingSoon
   },
+  mixins: [authLink],
   data() {
     return {
       isVerified: false,
@@ -262,15 +264,17 @@ export default {
       this.modal = 'ModalConfirmCluster'
     },
     onSubmitProfile(data) {
+      if (this.isProtected()) {
+        this.$store.dispatch('homeKenalan/updateKenalan', {
+          id: '9bbc974c-dab4-4467-ac5f-84e8a8d56b1c'
+        })
+      }
       this.$store.dispatch('profile/update', data).then(() => {
         if (this.$route.query.hasOwnProperty('edit-profile')) {
           this.$router.push('/profile/setting')
         }
         this.modal = false
-      }),
-        this.$store.dispatch('homeKenalan/updateKenalan', {
-          id: '9bbc974c-dab4-4467-ac5f-84e8a8d56b1c'
-        })
+      })
     },
     removeDropdown(event) {
       const isInsideDropdown = event.target.parentNode.parentNode.classList.contains(
