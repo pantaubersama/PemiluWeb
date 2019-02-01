@@ -154,6 +154,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 
+import { vueAuth } from '@/services/symbolic'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 
 import TimelineLayout from '@/layout/Timeline'

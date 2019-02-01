@@ -1,11 +1,15 @@
 import axios from 'axios'
 import { vueAuth } from '@/services/symbolic'
 
-const baseURL = process.env.API_BASE_URL
+const BASE_URL = process.env.API_BASE_URL
+  ? process.env.API_BASE_URL
+  : 'https://staging-auth.pantaubersama.com'
+const TOKEN = vueAuth.getToken()
+
 const api = axios.create({
-  baseURL,
+  baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${vueAuth.getToken()}`
+    headers: { Authorization: TOKEN ? `Bearer ${TOKEN}` : '' }
   }
 })
 

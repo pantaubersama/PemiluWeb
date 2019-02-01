@@ -4,11 +4,12 @@ import { vueAuth } from '@/services/symbolic'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? `${process.env.API_PEMILU_BASE_URL}/pendidikan_politik`
   : 'https://staging-pemilu.pantaubersama.com/pendidikan_politik'
+const TOKEN = vueAuth.getToken()
 
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${vueAuth.getToken()}`
+    Authorization: TOKEN ? `Bearer ${TOKEN}` : ''
   }
 })
 

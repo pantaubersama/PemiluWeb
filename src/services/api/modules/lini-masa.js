@@ -1,21 +1,20 @@
 import axios from 'axios'
-import {
-  vueAuth
-} from '@/services/symbolic'
+import { vueAuth } from '@/services/symbolic'
 
 const PREFIX = 'linimasa'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? process.env.API_PEMILU_BASE_URL
   : 'https://staging-pemilu.pantaubersama.com'
+const TOKEN = vueAuth.getToken()
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${vueAuth.getToken()}`
+    Authorization: TOKEN ? `Bearer ${TOKEN}` : ''
   }
 })
 
-export const setToken = (token) => {
+export const setToken = token => {
   httpClient.defaults.headers['Authorization'] = `Bearer ${token}`
 }
 
@@ -81,11 +80,7 @@ export const fetchFeedsPilpres = ({
     .catch(error => Promise.reject(error))
 }
 
-const postJanjiPolitik = ({
-  title,
-  body,
-  image
-}) => {
+const postJanjiPolitik = ({ title, body, image }) => {
   const formData = new FormData()
   formData.append('title', title)
   formData.append('body', body)

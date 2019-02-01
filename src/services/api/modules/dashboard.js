@@ -5,10 +5,13 @@ const PREFIX = 'dashboard'
 const BASE_URL = process.env.API_BASE_URL
   ? process.env.API_BASE_URL
   : 'https://staging-auth.pantaubersama.com'
+const TOKEN = vueAuth.getToken()
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${vueAuth.getToken()}` }
+  headers: {
+    Authorization: TOKEN ? `Bearer ${TOKEN}` : ''
+  }
 })
 
 const fetchClusters = ({
