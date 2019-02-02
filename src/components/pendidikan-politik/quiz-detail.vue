@@ -4,10 +4,8 @@
       <img v-if="quiz.image.url" :src="quiz.image.url" slot="background">
       <meditation-illustration v-else slot="background"></meditation-illustration>
       <div slot="title" class="quiz-title">
-        <div class="quiz-title">
-          <h3>{{quiz.title}}</h3>
-          <p>{{quiz.quiz_questions_count}} Pertanyaan</p>
-        </div>
+        <h3>{{quiz.title}}</h3>
+        <p>{{quiz.quiz_questions_count}} Pertanyaan</p>
       </div>
 
       <div slot="description" class="quiz-description">
