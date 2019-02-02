@@ -126,3 +126,41 @@ export const cleanURL = link => {
   if (!link) return link
   return link.replace(/([^:]\/)\/+/g, '$1')
 }
+
+/**
+ * Fungsi terbilang angka
+ * adopted from: https://elcicko.com/membuat-format-rupiah-dan-terbilang-dengan-php
+ *
+ * @param {number} angka
+ */
+export const pembilang = (angka, prefix = 'Ke') => {
+  const bilangan = [
+    '',
+    'satu',
+    'dua',
+    'tiga',
+    'empat',
+    'lima',
+    'enam',
+    'tujuh',
+    'delapan',
+    'sembilan',
+    'sepuluh',
+    'sebelas'
+  ]
+  if (angka === 1) {
+    return 'Pertama'
+  }
+  if (angka <= 11) {
+    return `${prefix}${bilangan[angka]}`
+  }
+  if (angka <= 19) {
+    return `${prefix}${bilangan[angka - 10]} belas`
+  }
+  if (angka <= 99) {
+    const hasilBagi = Math.floor(angka / 10)
+    const hasilMod = angka % 10
+    return `${prefix}${bilangan[hasilBagi]} puluh ${bilangan[hasilMod]}`
+  }
+  return `${prefix}${angka}`
+}
