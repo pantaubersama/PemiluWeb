@@ -12,7 +12,7 @@
       :avatar="user.avatar.medium_square.url"
       :author_name="setName(user.full_name)"
       @clicked="modalCreate()"
-      v-if="userAuth"
+      v-if="userAuth && isAllowCreated"
     />
     <div class="card-content" v-for="item in data" :key="item.id">
       <div v-if="loading">
@@ -21,6 +21,8 @@
       </div>
       <JanjiPolitikItem
         v-else
+        :userAuth="userAuth"
+        :user="user"
         :id="item.id"
         :avatar="item.creator.avatar.thumbnail_square.url"
         :author_name="setName(item.creator.full_name)"
@@ -29,9 +31,10 @@
         :title="item.title"
         :description="trimCharacters(item.body, 180)"
         :image="item.image.large.url"
+        :creator="item.creator"
+        @onDelete="deletePost($event)"
         @onCopy="copyToClipboard($event)"
         @onShare="modalShare($event)"
-        @onReport="handleReport($event)"
       />
     </div>
   </div>
@@ -39,8 +42,10 @@
 
 <script>
 import { mapActions } from 'vuex'
+
+import { utils } from '@/mixins/utils'
+import { cleanURL } from '@/utils'
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
-import { utils } from '@/mixins/utils.js'
 
 import ContentLoader from '@/components/Loading/ContentLoader'
 import ModalCreate from '@/components/Linimasa/ModalCreate'
@@ -83,19 +88,31 @@ export default {
       shareId: ''
     }
   },
+  computed: {
+    isAllowCreated() {
+      if (!this.user || !this.user.cluster) return false
+      return this.user.cluster.is_eligible
+    }
+  },
   methods: {
-    ...mapActions(['postReport', 'postJanjiPolitik']),
+    ...mapActions(['postJanjiPolitik', 'deleteJanjiPolitik']),
     modalCreate() {
       this.$router.replace({
         query: { type: 'janji-politik', post: 'create-post' }
       })
       this.modal = 'modalCreate'
     },
-    handleReport(id) {
-      this.postReport(id)
+    // handleReport(id) {
+    //   this.postReport(id)
+    // },
+    deletePost(id) {
+      this.deleteJanjiPolitik(id).then(() => {
+        this.$toaster.success('Berhasil menghapus janji politik.')
+      })
     },
     copyToClipboard(id) {
-      this.$clipboard(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
     },
     modalShare(id) {

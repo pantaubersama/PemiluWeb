@@ -82,11 +82,19 @@
 </template>
 
 <script>
-import { authLink } from '@/mixins/link'
-import { BottomArrow, IconDots } from '@/svg/icons'
 import { mapState, mapActions } from 'vuex'
+import { authLink } from '@/mixins/link'
+import { cleanURL } from '@/utils'
+
 import LoadingLottie from '@/components/LoadingLottie'
-import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
+import {
+  LinkIcon,
+  AlertIcon,
+  ShareIcon,
+  CloseIcon,
+  BottomArrow,
+  IconDots
+} from '@/svg/icons'
 import ModalShare from '@/components/Linimasa/ModalShare'
 import ContentLoader from '@/components/Loading/ContentLoader'
 export default {
@@ -164,7 +172,8 @@ export default {
       this.$store.commit('snackbar/setSnack', 'Laporan Berhasil')
     },
     copyToClipboard(id) {
-      this.$clipboard(`${process.env.BASE_URL}linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.$clipboard(url)
       this.isActive = false
       this.$store.commit('snackbar/setSnack', 'Tautan Tersalin')
     },

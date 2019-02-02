@@ -121,3 +121,8 @@ export const meta = ({ title, content, description, image, url }) => {
     ]
   }
 }
+
+export const cleanURL = link => {
+  if (!link) return link
+  return link.replace(/([^:]\/)\/+/g, '$1')
+}

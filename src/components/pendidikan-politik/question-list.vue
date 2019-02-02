@@ -43,6 +43,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { utils } from '@/mixins/utils'
+import { cleanURL } from '@/utils'
 
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import ModalShare from '@/components/Linimasa/ModalShare'
@@ -104,7 +105,10 @@ export default {
         .catch(() => this.$toaster.error('Gagal laporkan sebagai spam.'))
     },
     copyToClipboard(id) {
-      this.$clipboard(`${process.env.BASE_URL}/pendidikan-politik/detail/${id}`)
+      const url = cleanURL(
+        `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
+      )
+      this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
     },
     modalShare(id) {

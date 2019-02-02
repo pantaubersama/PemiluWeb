@@ -13,15 +13,15 @@
       </h5>
       <span class="right">{{ created_at_in_word }}</span>
     </div>
-    <router-link :to="{name: 'LinimasaDetail', params: {id: id}}">
+    <router-link :to="{name: 'LinimasaDetail', params: {id: id}}" class="link-content">
       <h4 class="title">{{ title }}</h4>
-    </router-link>
-    <div class="main-content">
-      <p v-html="description"></p>
-      <div class="content-thumb" v-if="image != null">
-        <img :src="image" alt="image">
+      <div class="main-content">
+        <p v-html="description"></p>
+        <div class="content-thumb" v-if="image != null">
+          <img :src="image" alt="image">
+        </div>
       </div>
-    </div>
+    </router-link>
     <span class="icon-right">
       <a href="javascript:void(0)" @click.stop="share(id)">
         <img src="@/assets/icon_share.svg">
@@ -36,12 +36,11 @@
       </a>
       <div class="dropdown-content">
         <ul>
-          <!-- TODO: tampilkan button hapus jika user sdh login, dan ini adalah postingannya -->
-          <!-- <li v-if="userAuth">
-              <a href="javascript:void(0)">
-                <close-icon/>Hapus
-              </a>
-          </li>-->
+          <li v-if="userAuth && isMine" @click.stop="$emit('onDelete', id)">
+            <a href="javascript:void(0)">
+              <close-icon/>Hapus
+            </a>
+          </li>
           <li>
             <a href="javascript:void(0)" @click.stop="copy(id)">
               <link-icon/>Salin Tautan
@@ -52,11 +51,11 @@
               <share-icon/>Bagikan
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="javascript:void(0)" @click.stop="$emit('onReport', id)">
               <alert-icon/>Laporkan sebagai spam
             </a>
-          </li>
+          </li>-->
         </ul>
       </div>
     </span>
@@ -84,7 +83,39 @@ export default {
     created_at_in_word: String,
     title: String,
     description: String,
-    image: String
+    image: String,
+    creator: Object,
+    userAuth: Boolean,
+    user: Object
+  },
+  computed: {
+    isMine() {
+      if (
+        !this.creator ||
+        !this.user ||
+        !this.creator.cluster ||
+        !this.user.cluster
+      ) {
+        return false
+      }
+
+      return (
+        this.creator.cluster.id === this.user.cluster.id &&
+        this.creator.id === this.user.id &&
+        this.user.cluster.is_eligible
+      )
+    }
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.link-content
+  text-decoration: none
+  color: #111111
+
+  &:hover, &:focus, &:active
+    text-decoration: none
+    color: #111111
+
+</style>
