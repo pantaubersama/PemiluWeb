@@ -61,6 +61,13 @@ const fetchJanjiPolitik = ({
     .catch(error => Promise.reject(error))
 }
 
+const deleteJanjiPolitik = id => {
+  return httpClient
+    .delete(`${PREFIX}/v1/janji_politiks`, { id })
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
+}
+
 export const fetchFeedsPilpres = ({
   filterBy = 'team_all',
   query = '',
@@ -97,7 +104,8 @@ const services = {
   fetchBannerInfoShow,
   fetchJanjiPolitik,
   fetchFeedsPilpres,
-  postJanjiPolitik
+  postJanjiPolitik,
+  deleteJanjiPolitik
 }
 
 export default services

@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { cleanURL } from '@/utils'
+
 import ContentLoader from '@/components/Loading/ContentLoader'
 import PilpresItem from '@/components/Linimasa/PilpresItem'
 import ModalShare from '@/components/Linimasa/ModalShare'
@@ -50,7 +52,8 @@ export default {
   },
   methods: {
     copyToClipboard(id) {
-      this.$clipboard(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
     },
     modalShare(id) {

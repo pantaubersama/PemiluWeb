@@ -80,6 +80,11 @@ const actions = {
         commit(types.SUCCESS_POST_JANJI_POLITIK, response.janji_politik)
       )
       .catch(() => commit(types.ERROR_POST_JANJI_POLITIK, {}))
+  },
+  deleteJanjiPolitik({ commit }, { id }) {
+    return serviceLiniMasa
+      .deleteJanjiPolitik(id)
+      .then(() => commit(types.DELETE_JANJI_POLITIK, id))
   }
 }
 
@@ -112,7 +117,11 @@ const mutations = {
     state.feedsPilpres = savedFeedsPilpres
   },
   [types.SUCCESS_POST_JANJI_POLITIK](state, payload) {},
-  [types.ERROR_POST_JANJI_POLITIK](state, error) {}
+  [types.ERROR_POST_JANJI_POLITIK](state, error) {},
+  [types.DELETE_JANJI_POLITIK](state, id) {
+    const index = state.janjiPolitiks.findIndex(janji => janji.id === id)
+    state.janjiPolitiks.splice(index, 1)
+  }
 }
 
 export default {
