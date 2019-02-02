@@ -1,8 +1,8 @@
 <template>
   <div>
     <card-question-layout>
-      <meditation-illustration v-if="quiz.image == null" slot="background"></meditation-illustration>
-      <img v-else :src="quiz.image.url" slot="background">
+      <img v-if="quiz.image.url" :src="quiz.image.url" slot="background">
+      <meditation-illustration v-else slot="background"></meditation-illustration>
       <div slot="title" class="quiz-title">
         <div class="quiz-title">
           <h3>{{quiz.title}}</h3>
@@ -47,6 +47,19 @@ export default {
   props: {
     showModal: Boolean
   },
+  created() {
+    // get quiz detail or start participating
+    this.$store
+      .dispatch('getQuizDetail', {
+        quizId: this.quizId
+      })
+      .then(quiz =>
+        this.$store.dispatch('getQuizQuestions', {
+          quiz,
+          quizId: this.quizId
+        })
+      )
+  },
   computed: {
     quizId() {
       return this.$route.params.id
@@ -60,19 +73,6 @@ export default {
     questionsValid() {
       return this.$store.getters.questionsValid(this.quizId)
     }
-  },
-  mounted() {
-    // get quiz detail or start participating
-    this.$store
-      .dispatch('getQuizDetail', {
-        quizId: this.quizId
-      })
-      .then(quiz =>
-        this.$store.dispatch('getQuizQuestions', {
-          quiz,
-          quizId: this.quizId
-        })
-      )
   }
 }
 </script>

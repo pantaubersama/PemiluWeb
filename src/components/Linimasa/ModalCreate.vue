@@ -25,11 +25,11 @@
           @focus="showUpload"
           placeholder="Berikan deskripsi atau detil lebih lanjut terkait Janji Politik yang akan disampaikan di kolom ini."
         ></textarea>
-        <div class="upload-img" v-if="image == null && upload">
+        <div class="upload-img" v-if="!image || upload">
           <input type="file" @change="onFileChange">
           <image-default/>
         </div>
-        <div class="preview-img" v-if="image">
+        <div class="preview-img" v-else>
           <img :src="image">
           <div class="remove-img">
             <close-icon @click="removeImage"/>
@@ -44,11 +44,16 @@
 </template>
 
 <script>
+// import { VueEditor } from 'vue2-editor'
+
 import ModalLayout from '@/layout/Modal'
-import { customizedToolbar } from '@/mixins/customizedToolbar'
+
+// import { customizedToolbar } from '@/mixins/customizedToolbar'
 import { ImageDefault, CloseIcon } from '@/svg/icons'
+
 export default {
   name: 'ModalCreate',
+  // mixins: [customizedToolbar],
   data() {
     return {
       title: '',
@@ -62,6 +67,7 @@ export default {
     avatar: String
   },
   components: {
+    // VueEditor,
     ModalLayout,
     CloseIcon,
     ImageDefault

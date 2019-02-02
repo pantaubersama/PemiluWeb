@@ -28,17 +28,18 @@
 </template>
 
 <script>
-import { VueEditor } from 'vue2-editor'
-import { mapState, mapActions } from 'vuex'
-import { CloseIcon } from '@/svg/icons'
+// import { VueEditor } from 'vue2-editor'
+// import { customizedToolbar } from '@/mixins/customizedToolbar'
+
 import ModalLayout from '@/layout/Modal'
-import { customizedToolbar } from '@/mixins/customizedToolbar'
+
+import { CloseIcon } from '@/svg/icons'
 
 export default {
   name: 'ModalCreateQuiz',
   data() {
     return {
-      customToolbar: customizedToolbar.render,
+      // customToolbar: customizedToolbar.render,
       title: '',
       body: '',
       image: ''
@@ -50,8 +51,8 @@ export default {
     isSubmitting: Boolean
   },
   components: {
+    // VueEditor,
     ModalLayout,
-    VueEditor,
     CloseIcon
   },
   methods: {
