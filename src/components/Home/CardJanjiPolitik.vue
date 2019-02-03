@@ -73,11 +73,15 @@
     <div v-if="loadingAnimating">
       <ContentLoader/>
     </div>
-    <div class="load-more" @click="loadMore" v-if="!paginations.isLast">Tampilkan lebih banyak
+    <router-link
+      to="/linimasa?type=janji-politik"
+      class="load-more"
+      v-if="!paginations.isLast"
+    >Tampilkan lebih banyak
       <div class="arrow-icon">
         <bottom-arrow/>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 

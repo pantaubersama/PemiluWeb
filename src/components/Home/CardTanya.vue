@@ -19,11 +19,15 @@
         <li v-if="loadingAnimating">
           <ContentLoader/>
         </li>
-        <li class="load-more" @click="loadMore" v-if="!paginations.isLast">Tampilkan lebih banyak
+        <router-link
+          to="/pendidikan-politik?type=tanya"
+          class="load-more"
+          v-if="!paginations.isLast"
+        >Tampilkan lebih banyak
           <div class="arrow-icon">
             <bottom-arrow/>
           </div>
-        </li>
+        </router-link>
       </ul>
     </div>
   </div>
