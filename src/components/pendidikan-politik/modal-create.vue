@@ -35,7 +35,7 @@ import ModalLayout from '@/layout/Modal'
 import { customizedToolbar } from '@/mixins/customizedToolbar'
 
 export default {
-  name: 'ModalCreateQuiz',
+  name: 'ModalCreateQuestion',
   data() {
     return {
       customToolbar: customizedToolbar.render,
