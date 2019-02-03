@@ -8,6 +8,7 @@
 <script>
 import snackbar from '@/components/snackbar'
 import { vueAuth } from '@/services/symbolic'
+import * as ProfileAPI from '@/services/api/profile'
 export default {
   name: 'App',
   components: {
@@ -15,7 +16,7 @@ export default {
   },
   computed: {
     token() {
-      return vueAuth.getToken()
+      return this.$store.getters['profile/token']
     }
   },
   watch: {
@@ -23,6 +24,7 @@ export default {
       immediate: true,
       handler(val) {
         if (val == null) return
+        ProfileAPI.setToken(val)
         this.$store.dispatch('profile/getMe')
       }
     }
