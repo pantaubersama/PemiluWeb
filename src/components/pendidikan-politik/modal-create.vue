@@ -36,7 +36,7 @@ import ModalLayout from '@/layout/Modal'
 import { CloseIcon } from '@/svg/icons'
 
 export default {
-  name: 'ModalCreateQuiz',
+  name: 'ModalCreateQuestion',
   data() {
     return {
       // customToolbar: customizedToolbar.render,

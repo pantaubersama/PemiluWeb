@@ -40,9 +40,10 @@
             id="toggle-button"
             class="user-thumb"
             :class="{'is-active': isActive}"
-            @click="toggleDropdown($event)"
+            @click.stop="toggleDropdown($event)"
           >
-            <user-icon></user-icon>
+            <img v-if="avatarURL != null" :src="avatarURL">
+            <user-icon v-else></user-icon>
           </div>
           <div class="dropdown-content">
             <ul>
@@ -129,7 +130,10 @@ export default {
     window.removeEventListener('click', this.removeDropdown)
   },
   computed: {
-    ...mapState('meLogout', ['userLogin'])
+    ...mapState('meLogout', ['userLogin']),
+    ...mapState({
+      avatarURL: s => s.profile.user.avatar.medium.url
+    })
   },
   methods: {
     logout() {

@@ -1,4 +1,7 @@
 import Vue from 'vue'
+import {
+  vueAuth
+} from '@/services/symbolic'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
@@ -246,5 +249,6 @@ export const getters = {
       default:
         return ''
     }
-  }
+  },
+  token: () => vueAuth.getToken()
 }

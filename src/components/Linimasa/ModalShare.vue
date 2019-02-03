@@ -5,7 +5,12 @@
         <close-icon/>
       </div>
       <div class="share-content">
-        <social-sharing :url="`${baseUrl}/linimasa/detail/${id}`" inline-template>
+        <social-sharing
+          :url="`${baseUrl}/linimasa/detail/${id}`"
+          :title="title"
+          hashtags="PantauBersama"
+          inline-template
+        >
           <ul>
             <li>
               <network network="facebook">
@@ -38,6 +43,10 @@ export default {
     url: {
       type: String,
       required: true
+    },
+    title: {
+      type: String,
+      require: true
     }
   },
   data() {

@@ -18,7 +18,11 @@
         <img class="thumbnail rounded-circle" src="@/assets/user.svg" alt="paslon" v-else>
         <h6 class="percentage">{{ choice.percentage }}%</h6>
         <span class="subtitle">{{ teamName }}</span>
-        <a href="javascript:void(0)" class="share" @click="isSharing = true">
+        <a
+          href="javascript:void(0)"
+          class="share"
+          @click.prevent="share(`/share/hasilkuis/${quizzesResult.quiz_participation.id}`, 'Kamu sudah ikut? Aku sudah dapat hasilnya 😎')"
+        >
           <share-icon></share-icon>BAGIKAN
         </a>
         <div class="block-bottom">
@@ -38,16 +42,7 @@
       @close="$emit('onClickNextButton', showModal)"
       @click.stop="$emit('onClickNextButton', showModal)"
     />
-
-    <ModalShare
-      v-if="isSharing"
-      @close="isSharing = false"
-      :url="$route.path"
-      :title="`Hasil Kuis ${this.title}`"
-      :description="`Dari hasil pilihan ${this.title} ${this.fullName} lebih suka jawaban dari ${this.teamName}`"
-      :media="imageThumbnail"
-      quote="Kamu sudah ikut? Aku sudah dapat hasilnya 😎"
-    ></ModalShare>
+    <ModalShare v-if="isSharing" :url="shareURL" :title="shareTitle" @close="isSharing = false"></ModalShare>
   </div>
 </template>
 
@@ -55,7 +50,7 @@
 import { mapState } from 'vuex'
 
 import { meta } from '@/utils'
-
+import ModalShare from '@/components/modal-share'
 import { ShareIcon } from '@/svg/icons'
 import { PurpleWaveBackground } from '@/svg/backgrounds'
 import QuizModalJawaban from '@/components/pendidikan-politik/quiz-modal-jawaban'
@@ -63,14 +58,25 @@ import ModalShare from '@/components/modal-share'
 
 export default {
   name: 'QuizResult',
-  beforeCreate() {
-    const id = this.$route.params.id
-    this.$store.dispatch('getQuizResult', id)
+  components: {
+    PurpleWaveBackground,
+    ShareIcon,
+    QuizModalJawaban,
+    ModalShare
+  },
+  props: {
+    showModal: Boolean
   },
   data() {
     return {
-      isSharing: false
+      isSharing: false,
+      shareURL: null,
+      shareTitle: null
     }
+  },
+  beforeCreate() {
+    const id = this.$route.params.id
+    this.$store.dispatch('getQuizResult', id)
   },
   computed: {
     ...mapState({
@@ -112,15 +118,6 @@ export default {
       return `${baseURL}${this.$route.path}`
     }
   },
-  components: {
-    PurpleWaveBackground,
-    ShareIcon,
-    QuizModalJawaban,
-    ModalShare
-  },
-  props: {
-    showModal: Boolean
-  },
   metaInfo() {
     return {
       ...meta({
@@ -131,6 +128,13 @@ export default {
         image: this.imageThumbnail,
         url: this.fullURL
       })
+    }
+  },
+  methods: {
+    share(url, title) {
+      this.shareURL = url
+      this.shareTitle = title
+      this.isSharing = true
     }
   }
 }

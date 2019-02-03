@@ -11,7 +11,10 @@
           >Total Kecenderunganmu, {{totalKecenderungan.finishedQuiz}} Dari {{totalKecenderungan.totalQuiz}} Kuis:</p>
           <p class="total">{{totalKecenderungan.percentage}}% ({{totalKecenderungan.groupName}})</p>
         </div>
-        <button class="share-btn" @click.stop="shareKecenderungan()">
+        <button
+          class="share-btn"
+          @click.prevent="share(`/share/kecenderungan/${userId}`, 'Hmm.. Ternyata begini kecenderunganku 👀')"
+        >
           <i class="icon icon-share"></i>
         </button>
       </div>
@@ -28,7 +31,7 @@
             <a
               href="javascript:void(0)"
               class="share"
-              @click.stop="shareQuiz(quiz.participation_status, quiz.id)"
+              @click.prevent="share(`/share/kuis/${quiz.id}`, 'Iseng-iseng serius main Quiz ini dulu. Kira-kira masih cocok apa ternyata malah nggak cocok, yaa 😶')"
             >
               <i class="icon icon-share"></i> Bagikan
             </a>
@@ -51,27 +54,13 @@
         </div>
       </li>
     </ul>
-
-    <ModalShare
-      v-if="isSharing === 'kuis'"
-      @close="isSharing = false"
-      :url="shareURL"
-      title="Iseng-iseng serius main Quiz ini dulu. Kira-kira masih cocok apa ternyata malah nggak cocok, yaa 😶"
-      quote="Iseng-iseng serius main Quiz ini dulu. Kira-kira masih cocok apa ternyata malah nggak cocok, yaa 😶"
-    />
-    <ModalShare
-      v-if="isSharing === 'kecenderungan'"
-      @close="isSharing = false"
-      title="Hmm.. Ternyata begini kecenderunganku 👀"
-      quote="Hmm.. Ternyata begini kecenderunganku 👀"
-      :url="shareURL"
-    />
+    <ModalShare v-if="isSharing" @close="isSharing = false" :url="shareURL" :title="shareTitle"></ModalShare>
   </div>
 </template>
 
 <script>
 import ModalShare from '@/components/modal-share'
-
+import { mapState } from 'vuex'
 export default {
   name: 'QuizList',
   components: { ModalShare },
@@ -85,22 +74,24 @@ export default {
       required: true
     }
   },
+  components: { ModalShare },
   data() {
     return {
       shareURL: null,
+      shareTitle: null,
       isSharing: false
     }
   },
+  computed: {
+    ...mapState({
+      userId: s => s.profile.user.id
+    })
+  },
   methods: {
-    shareKecenderungan() {
-      const url = '/share/kecenderungan'
+    share(url, title) {
       this.shareURL = url
-      this.isSharing = 'kecenderungan'
-    },
-    shareQuiz(type, quizId) {
-      const url = `/share/${type}/${quizId}`
-      this.shareURL = url
-      this.isSharing = 'kuis'
+      this.shareTitle = title
+      this.isSharing = true
     }
   }
 }
