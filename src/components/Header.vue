@@ -40,7 +40,7 @@
             id="toggle-button"
             class="user-thumb"
             :class="{'is-active': isActive}"
-            @click="toggleDropdown($event)"
+            @click.stop="toggleDropdown($event)"
           >
             <img v-if="avatarURL != null" :src="avatarURL">
             <user-icon v-else></user-icon>
