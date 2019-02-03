@@ -7,7 +7,12 @@
       v-on:close="closeModal()"
       v-on:submit="submitPublikasi($event)"
     />
-    <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/>
+    <ModalShare
+      v-if="modal === 'modalShare'"
+      :id="shareId"
+      title="Sudah tahu Janji yang ini, belum? Siap-siap catatan, ya! ✔"
+      v-on:close="closeModal()"
+    />
     <JanjiPolitikCreateItem
       :avatar="user.avatar.medium_square.url"
       :author_name="setName(user.full_name)"

@@ -8,7 +8,12 @@
       @close="() => modal = null"
       @submit="submitQuestion($event)"
     ></modal-create>
-    <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="modal = false"/>
+    <ModalShare
+      v-if="modal === 'modalShare'"
+      :id="shareId"
+      title="Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆"
+      v-on:close="modal = false"
+    />
     <li>
       <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
         <div class="avatar-container">

@@ -2,7 +2,12 @@
   <div class="profile-page">
     <LayoutTimeline>
       <template slot="main-content">
-        <modal-share v-if="isModalOpened" :url="modalShareURL" @close="isModalOpened = false"></modal-share>
+        <modal-share
+          v-if="isModalOpened"
+          :url="modalShareURL"
+          title="Yeay! I got the badge 🤘"
+          @close="isModalOpened = false"
+        ></modal-share>
         <div class="list-badge">
           <div class="title">List Badge</div>
           <div class="list-content">
