@@ -25,8 +25,7 @@
           <h3 class="title">{{quiz.title}}</h3>
           <span class="question-count">{{quiz.quiz_questions_count}} Pertanyaan</span>
           <div class="container-action">
-            <a href="javascript:void(0)" class="share"
-              @click.prevent="share(quiz.id)">
+            <a href="javascript:void(0)" class="share" @click.prevent="share(quiz.id)">
               <i class="icon icon-share"></i> Bagikan
             </a>
             <router-link
@@ -48,11 +47,7 @@
         </div>
       </li>
     </ul>
-    <ModalShare
-      v-if="isSharing"
-      @close="isSharing = false"
-      :url="shareURL"
-    ></ModalShare>
+    <ModalShare v-if="isSharing" @close="isSharing = false" :url="shareURL"></ModalShare>
   </div>
 </template>
 
@@ -70,6 +65,7 @@ export default {
       required: true
     }
   },
+  components: { ModalShare },
   data() {
     return {
       shareURL: null,
