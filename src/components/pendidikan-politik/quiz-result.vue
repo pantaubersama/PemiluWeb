@@ -50,7 +50,6 @@
 import { mapState } from 'vuex'
 
 import { meta } from '@/utils'
-import ModalShare from '@/components/modal-share'
 import { ShareIcon } from '@/svg/icons'
 import { PurpleWaveBackground } from '@/svg/backgrounds'
 import QuizModalJawaban from '@/components/pendidikan-politik/quiz-modal-jawaban'
