@@ -1,5 +1,11 @@
 <template>
   <div class="card card-quiz-result">
+    <Headful
+      type="hasil_kuis"
+      :title="`Hasil Kuis ${title}`"
+      :image="imageThumbnail"
+      :url="fullURL"
+    />
     <div class="quiz-content">
       <div class="quiz-description">
         <h5 class="title">RESULT</h5>
@@ -49,7 +55,8 @@
 <script>
 import { mapState } from 'vuex'
 
-import { meta } from '@/utils'
+import Headful from '@/components/Wrapper/Headful'
+
 import { ShareIcon } from '@/svg/icons'
 import { PurpleWaveBackground } from '@/svg/backgrounds'
 import QuizModalJawaban from '@/components/pendidikan-politik/quiz-modal-jawaban'
@@ -58,6 +65,7 @@ import ModalShare from '@/components/modal-share'
 export default {
   name: 'QuizResult',
   components: {
+    Headful,
     PurpleWaveBackground,
     ShareIcon,
     QuizModalJawaban,
@@ -115,18 +123,6 @@ export default {
       const baseURL = process.env.BASE_URL
       if (!this.$route.path) return baseURL
       return `${baseURL}${this.$route.path}`
-    }
-  },
-  metaInfo() {
-    return {
-      ...meta({
-        title: `Hasil Kuis ${this.title}`,
-        content: 'Kamu sudah ikut? Aku sudah dapat hasilnya 😎',
-        description: `Dari hasil pilihan ${this.title} ${this.fullName}
-          lebih suka jawaban dari ${this.teamName}`,
-        image: this.imageThumbnail,
-        url: this.fullURL
-      })
     }
   },
   methods: {
