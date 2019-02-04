@@ -63,7 +63,7 @@ const fetchJanjiPolitik = ({
 
 const deleteJanjiPolitik = id => {
   return httpClient
-    .delete(`${PREFIX}/v1/janji_politiks`, { id })
+    .delete(`${PREFIX}/v1/janji_politiks`, { data: { id } })
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }
