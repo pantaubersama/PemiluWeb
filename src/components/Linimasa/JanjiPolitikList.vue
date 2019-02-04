@@ -129,10 +129,7 @@ export default {
       this.modal = false
     },
     submitPublikasi(data) {
-      this.postJanjiPolitik(data).then(async () => {
-        await this.closeModal()
-        await this.$emit('successSubmitPublikasi')
-      })
+      this.postJanjiPolitik(data).then(() => this.closeModal())
     }
   }
 }

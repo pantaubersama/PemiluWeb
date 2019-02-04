@@ -13,7 +13,6 @@
             :userAuth="userAuth"
             :user="user"
             :loading="isLoading"
-            @successSubmitPublikasi="filterJanjiPolitik"
           />
           <PilpresList v-else :data="feedsPilpres" :loading="isLoading"/>
         </div>

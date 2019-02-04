@@ -91,10 +91,22 @@ const postJanjiPolitik = ({ title, body, image }) => {
   const formData = new FormData()
   formData.append('title', title)
   formData.append('body', body)
-  formData.append('image', image)
+
+  if (image) {
+    formData.append('image', image)
+  }
+
+  const contentType = (() => {
+    if (!image) return {}
+    return {
+      headers: {
+        'Content-Type': image.type
+      }
+    }
+  })()
 
   return httpClient
-    .post(`${PREFIX}/v1/janji_politiks`, formData)
+    .post(`${PREFIX}/v1/janji_politiks`, formData, contentType)
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }

@@ -116,7 +116,9 @@ const mutations = {
     // rollback to the data saved before sending the request
     state.feedsPilpres = savedFeedsPilpres
   },
-  [types.SUCCESS_POST_JANJI_POLITIK](state, payload) {},
+  [types.SUCCESS_POST_JANJI_POLITIK](state, payload) {
+    state.janjiPolitiks.unshift(payload)
+  },
   [types.ERROR_POST_JANJI_POLITIK](state, error) {},
   [types.DELETE_JANJI_POLITIK](state, id) {
     const index = state.janjiPolitiks.findIndex(janji => janji.id === id)

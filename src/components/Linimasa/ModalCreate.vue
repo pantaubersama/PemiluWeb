@@ -25,15 +25,15 @@
           @focus="showUpload"
           placeholder="Berikan deskripsi atau detil lebih lanjut terkait Janji Politik yang akan disampaikan di kolom ini."
         ></textarea>
-        <div class="upload-img" v-if="!image || upload">
-          <input type="file" @change="onFileChange">
-          <image-default/>
-        </div>
-        <div class="preview-img" v-else>
+        <div class="preview-img" v-if="image">
           <img :src="image">
           <div class="remove-img">
             <close-icon @click="removeImage"/>
           </div>
+        </div>
+        <div class="upload-img" v-else>
+          <input type="file" accept="image/*" @change="onFileChange">
+          <image-default/>
         </div>
       </div>
       <div class="button-submit">
@@ -44,22 +44,18 @@
 </template>
 
 <script>
-// import { VueEditor } from 'vue2-editor'
-
 import ModalLayout from '@/layout/Modal'
-
-// import { customizedToolbar } from '@/mixins/customizedToolbar'
 import { ImageDefault, CloseIcon } from '@/svg/icons'
 
 export default {
   name: 'ModalCreate',
-  // mixins: [customizedToolbar],
   data() {
     return {
       title: '',
       body: '',
       upload: false,
-      image: null
+      image: null,
+      fileImage: null
     }
   },
   props: {
@@ -67,27 +63,30 @@ export default {
     avatar: String
   },
   components: {
-    // VueEditor,
     ModalLayout,
     CloseIcon,
     ImageDefault
   },
   methods: {
     onFileChange(e) {
-      const file = e.target.files[0]
-      this.image = URL.createObjectURL(file)
+      const file = Array.from(event.target.files).pop()
+      const url = URL.createObjectURL(file)
+
+      this.fileImage = file
+      this.image = url
     },
     showUpload() {
       this.upload = true
     },
     removeImage() {
+      this.fileImage = null
       this.image = null
     },
     submit() {
       this.$emit('submit', {
         title: this.title,
         body: this.body,
-        image: this.image
+        image: this.fileImage
       })
     }
   },
