@@ -14,6 +14,7 @@
             :is-voted="question.is_liked"
             :count="question.like_count"
             @upvoted="onUpvote($event)"
+            @removeVoted="onRemoveVote($event)"
           ></tanya-item>
         </li>
         <li v-if="loadingAnimating">
@@ -39,6 +40,7 @@ import { mapState, mapActions } from 'vuex'
 import LoadingLottie from '@/components/LoadingLottie'
 import TanyaItem from '@/components/Home/CardTanyaItem'
 import ContentLoader from '@/components/Loading/ContentLoader'
+
 export default {
   name: 'CardTanya',
   components: {
@@ -57,7 +59,7 @@ export default {
     this.$store.dispatch('homeQuestions/homeQuestions')
   },
   methods: {
-    ...mapActions(['vote']),
+    ...mapActions(['vote', 'unVote']),
     loadMore() {
       if (this.paginations.isLast === false) {
         this.$store.dispatch('homeQuestions/nextPage')
@@ -65,7 +67,12 @@ export default {
       }
     },
     onUpvote(id) {
-      this.vote(id)
+      this.vote(id).then(() => this.$store.commit('homeQuestions/setVoted', id))
+    },
+    onRemoveVote(id) {
+      this.unVote(id).then(() =>
+        this.$store.commit('homeQuestions/removeVoted', id)
+      )
     }
   }
 }

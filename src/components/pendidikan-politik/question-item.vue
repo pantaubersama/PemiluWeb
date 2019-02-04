@@ -1,6 +1,6 @@
 <template>
   <div class="question-item">
-    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote()">
+    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote(isVoted)">
       <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
       <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
       <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
@@ -42,8 +42,8 @@
               <a
                 href="javascript:void(0)"
                 @click.stop="() => {
-                $emit('onReport', id);
-                isActive = false
+                  $emit('onReport', id);
+                  isActive = false
                 }"
               >
                 <alert-icon/>Laporkan sebagai spam
@@ -106,10 +106,13 @@ export default {
     }
   },
   methods: {
-    onUpvote() {
-      if (this.isVoted) return
-      this.isAnimating = true
-      this.$emit('upvoted', this.id)
+    onUpvote(vote) {
+      this.isAnimating = !vote
+      if (vote) {
+        this.$emit('removeVoted', this.id)
+      } else {
+        this.$emit('upvoted', this.id)
+      }
     }
   }
 }
@@ -128,8 +131,8 @@ button.vote
   border-left: 0
   border-top: 0
   cursor: pointer
-  &.voted
-    cursor: default
+  // &.voted
+  //   cursor: default
   @media (max-width: 991px)
     height: auto
     border-bottom: none

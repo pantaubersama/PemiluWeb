@@ -18,7 +18,7 @@
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
-        <DetailPost :data="detailJanjiPolitik($route.params.id)"/>
+        <DetailPost :data="detailJanjiPolitik($route.params.id)" :userAuth="userAuth" :user="user"/>
       </div>
       <div v-else>
         <HintBanner :object="getObject($route.query.type)"/>
