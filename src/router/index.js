@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 import Meta from 'vue-meta'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '*',
       component: () => import('@/components/NotFound')
     },
@@ -27,8 +28,7 @@ const router = new VueRouter({
       name: 'Linimasa',
       component: () => import('@/pages/Linimasa'),
       props: true,
-      children: [
-        {
+      children: [{
           path: 'hint',
           name: 'LinimasaHint',
           component: () => import('@/pages/Linimasa')
@@ -42,7 +42,9 @@ const router = new VueRouter({
           path: 'create-post',
           name: 'LinimasaCreatePost',
           component: () => import('@/pages/Linimasa'),
-          meta: { AuthenticationRequired: true }
+          meta: {
+            AuthenticationRequired: true
+          }
         }
       ]
     },
@@ -51,44 +53,60 @@ const router = new VueRouter({
       name: 'PendidikanPolitik',
       component: () => import('@/pages/pendidikan-politik'),
       props: true,
-      children: [
-        {
+      children: [{
           path: 'quiz/ikuti/:id',
           name: 'PendidikanPolitikQuizIkuti',
           component: () => import('@/pages/pendidikan-politik'),
-          meta: { AuthenticationRequired: true }
+          meta: {
+            AuthenticationRequired: true
+          }
         },
         {
           path: 'quiz/lanjut/:id',
           name: 'PendidikanPolitikQuizLanjut',
           component: () => import('@/pages/pendidikan-politik'),
-          meta: { AuthenticationRequired: true }
+          meta: {
+            AuthenticationRequired: true
+          }
         },
         {
           path: 'quiz/hasil/:id',
           name: 'PendidikanPolitikQuizHasil',
           component: () => import('@/pages/pendidikan-politik'),
-          meta: { AuthenticationRequired: true }
+          meta: {
+            AuthenticationRequired: true
+          }
         },
         {
           path: 'hint',
           name: 'PendidikanPolitikHint',
           component: () => import('@/pages/pendidikan-politik'),
-          meta: { AuthenticationRequired: true }
-        }
+          meta: {
+            AuthenticationRequired: true
+          }
+        },
+        {
+          path: 'detail/:id',
+          name: 'PendidikanPolitikDetail',
+          component: () => import('@/pages/pendidikan-politik')
+        },
       ]
     },
     {
       path: '/catatan-pilihan',
       name: 'CatatanPilihan',
       component: () => import('@/pages/CatatanPilihan'),
-      meta: { AuthenticationRequired: true }
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/profile',
       name: 'Profile',
       component: () => import('@/pages/Profile'),
-      meta: { AuthenticationRequired: true }
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/profile/verified-steps',
@@ -99,19 +117,25 @@ const router = new VueRouter({
       path: '/profile/setting',
       name: 'ProfileSetting',
       component: () => import('@/pages/Profile/Setting'),
-      meta: { AuthenticationRequired: true }
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/profile/badge',
       name: 'ProfileBadge',
       component: () => import('@/pages/Profile/Badge'),
-      meta: { AuthenticationRequired: true }
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/profile/badge-detail/:badgeId',
       name: 'ProfileBadgeDetail',
       component: () => import('@/pages/Profile/BadgeDetail'),
-      meta: { AuthenticationRequired: true }
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/profile/data-lapor',
@@ -138,8 +162,7 @@ const router = new VueRouter({
       name: 'Share',
       component: () => import('@/pages/Share'),
       props: true,
-      children: [
-        {
+      children: [{
           path: 'pilpres/:id',
           name: 'SharePilpres',
           component: () => import('@/pages/Share')
@@ -189,7 +212,7 @@ const router = new VueRouter({
   }
 })
 
-router.beforeEach(function(to, from, next) {
+router.beforeEach(function (to, from, next) {
   if (
     to.matched.some(record => record.meta.AuthenticationRequired) &&
     !vueAuth.isAuthenticated()

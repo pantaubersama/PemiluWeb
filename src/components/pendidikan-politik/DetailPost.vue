@@ -1,115 +1,129 @@
 <template>
-  <div class="question-item">
-    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote()">
-      <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
-      <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
-      <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
-      <span class="vote-count">{{ count }}</span>
-    </button>
-    <div class="content">
-      <div class="meta">
-        <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
-        <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
-        <div class="title">
-          <div class="name">{{name}}</div>
-          <small class="question-title">{{title}}</small>
-        </div>
-        <small class="time">{{time}}</small>
-      </div>
-      <router-link :to="{name: 'PendidikanPolitikDetail', params: {id: id}}">
-        <div class="question">{{question}}</div>
-      </router-link>
-      <div class="button-list">
-        <button class="share">
-          <img src="@/assets/icon_share.svg">
+  <div v-if="data">
+    <div class="page card pendidikan-politik">
+      <div class="question-item">
+        <button class="vote" :class="{ voted: data.is_liked }" @click="onUpvote()">
+          <i v-show="!isAnimating" class="icon voteup" :class="{ voted: data.is_liked }"></i>
+          <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
+          <span class="vote-count">{{ data.like_count }}</span>
         </button>
-        <button class="menu" @click.stop="toggleDropdown(id, $event)">
-          <img src="@/assets/dots-icon.svg">
-        </button>
-        <div class="dropdown-content" :class="{'is-active': isActive === id}">
-          <ul>
-            <li>
-              <a href="javascript:void(0)" @click.stop="copy(id)">
-                <link-icon/>Salin Tautan
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" @click.stop="share(id)">
-                <share-icon/>Bagikan
-              </a>
-            </li>
-            <li>
-              <a
-                href="javascript:void(0)"
-                @click.stop="() => {
-                $emit('onReport', id);
+
+        <div class="content">
+          <div class="meta">
+            <img
+              :src="data.user.avatar.thumbnail_square.url"
+              alt="avatar"
+              class="avatar"
+              v-if="data.user.avatar.thumbnail_square.url"
+            >
+            <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+            <div class="title">
+              <div class="name">{{data.user.username}}</div>
+              <small class="question-title">{{data.user.about}}</small>
+            </div>
+            <small class="time">{{data.created_at_in_word.id}}</small>
+          </div>
+          <div class="question">{{data.body}}</div>
+          <div class="button-list">
+            <button class="share">
+              <img src="@/assets/icon_share.svg">
+            </button>
+            <button class="menu" @click.stop="toggleDropdown(data.id, $event)">
+              <img src="@/assets/dots-icon.svg">
+            </button>
+            <div class="dropdown-content" :class="{'is-active': isActive === data.id}">
+              <ul>
+                <li>
+                  <a href="javascript:void(0)" @click.stop="copy(data.id)">
+                    <link-icon/>Salin Tautan
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" @click.stop="share(data.id)">
+                    <share-icon/>Bagikan
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    @click.stop="() => {
+                $emit('onReport', data.id);
                 isActive = false
                 }"
-              >
-                <alert-icon/>Laporkan sebagai spam
-              </a>
-            </li>
-          </ul>
+                  >
+                    <alert-icon/>Laporkan sebagai spam
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="card card-author">
+      <div class="author-thumb">
+        <img
+          :src="data.user.avatar.medium_square.url"
+          v-if="data.user.avatar.medium_square.url"
+          alt
+        >
+        <img src="@/assets/user.svg" alt v-else>
+      </div>
+      <div class="author-name">{{ data.user.full_name }}</div>
+      <p>{{ data.user.about }}</p>
+      <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
+    </div>
   </div>
 </template>
-
 <script>
 import lottie from 'lottie-web'
 import { LinkIcon, AlertIcon, ShareIcon } from '@/svg/icons'
 import ShareOptions from '@/mixins/share-options'
-
 export default {
-  name: 'QuestionItem',
+  name: 'DetailPost',
+  props: {
+    data: {
+      type: Object
+    }
+  },
   mixins: [ShareOptions],
   components: {
     LinkIcon,
     AlertIcon,
-    ShareIcon
-  },
-  props: {
-    id: String,
-    name: String,
-    avatar: String,
-    title: String,
-    time: String,
-    question: String,
-    isVoted: Boolean,
-    count: Number
+    ShareIcon,
+    lottie
   },
   data() {
     return {
-      upvoteLottie: null,
+      DetailDetail: null,
       isAnimating: false
     }
   },
+
   mounted() {
-    this.upvoteLottie = lottie.loadAnimation({
+    this.upvoteDetail = lottie.loadAnimation({
       container: this.$refs.upvote,
       path: '/lottie/upvote.json',
       autoplay: false,
       renderer: 'svg'
     })
-    this.upvoteLottie.addEventListener('complete', (...args) => {
+
+    this.upvoteDetail.addEventListener('complete', (...args) => {
       this.isAnimating = false
     })
   },
-  destroyed() {
-    this.upvoteLottie.destroy()
-  },
+
   watch: {
     isAnimating(value) {
-      if (value) return this.upvoteLottie.play()
-      return this.upvoteLottie.stop()
+      if (value) return this.upvoteDetail.play()
+      return this.upvoteDetail.stop()
     }
   },
   methods: {
     onUpvote() {
-      if (this.isVoted) return
+      if (this.data.is_voted) return
       this.isAnimating = true
-      this.$emit('upvoted', this.id)
+      this.$emit('upvoted', this.data.id)
     }
   }
 }

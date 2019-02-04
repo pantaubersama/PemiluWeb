@@ -23,13 +23,13 @@
         </div>
         <router-link :to="{name: 'LinimasaDetail', params: {id: janjiPolitik.id}}">
           <h4 class="title" v-html="trimCharacters(janjiPolitik.title, 100)"></h4>
-        </router-link>
-        <div class="main-content">
-          <p v-html="trimCharacters(janjiPolitik.body, 290)"></p>
-          <div class="content-thumb" v-if="janjiPolitik.image.url != null">
-            <img :src="janjiPolitik.image.url">
+          <div class="main-content">
+            <p v-html="trimCharacters(janjiPolitik.body, 290)"></p>
+            <div class="content-thumb" v-if="janjiPolitik.image.url != null">
+              <img :src="janjiPolitik.image.url">
+            </div>
           </div>
-        </div>
+        </router-link>
         <span class="icon-right">
           <a href class="icon-share" @click.prevent="modalShare(janjiPolitik.id)">
             <img src="@/assets/icon_share.svg">

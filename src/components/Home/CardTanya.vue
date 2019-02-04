@@ -1,6 +1,6 @@
 <template>
   <div class="card card-tanya">
-    <h4 class="title">Tanya</h4>
+    <h4 class="title">Tanya Kandidat</h4>
     <div class="tanya-content">
       <ul class="question-list">
         <li class="card-list" v-for="question in feedsQuestions" :key="question.id">

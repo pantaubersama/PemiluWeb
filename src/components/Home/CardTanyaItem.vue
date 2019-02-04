@@ -15,7 +15,9 @@
         </div>
         <small class="time">{{time}}</small>
       </div>
-      <div class="question" v-html="trimCharacters(question, 150)"></div>
+      <router-link :to="{name: 'PendidikanPolitikDetail', params: {id:id}}">
+        <div class="question" v-html="trimCharacters(question, 150)"></div>
+      </router-link>
       <div class="icon-right">
         <a href class="icon-share" @click.prevent="modalShare(id)">
           <img src="@/assets/icon_share.svg">

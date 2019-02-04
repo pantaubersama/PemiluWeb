@@ -1,60 +1,70 @@
 <template>
   <timeline-layout>
-    <div slot="main-content" class="page card pendidikan-politik">
-      <div v-if="$route.name === 'PendidikanPolitik'">
-        <div class="nav-tab--list">
-          <router-link
-            class="nav-tab--item"
-            :class="{ active: activePage === 'tanya' }"
-            :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
-          >Tanya</router-link>
-          <router-link
-            class="nav-tab--item"
-            :class="{ active: activePage === 'quiz' }"
-            :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
-          >Quiz</router-link>
-        </div>
-
-        <div class="content">
-          <question-list
-            v-if="activePage === 'tanya'"
-            :questions="questions"
-            @upvoted="onUpvote($event)"
-            :loading="isLoading"
-          ></question-list>
-          <quiz-list
-            v-if="activePage === 'quiz'"
-            :totalKecenderungan="totalKecenderungan"
-            :quizzes="isFilterQuiz ? quizzesFilter : quizzes"
-          ></quiz-list>
-        </div>
-      </div>
-      <div v-if="$route.name === 'PendidikanPolitikQuizHasil'">
-        <quiz-result
-          :showModal="showModal"
-          @onClickAnswerButton="onClickAnswerButton"
-          @close="onClickCloseButton"
-          @onClickNextButton="onClickNextButton"
-          @onClickChoicesButton="onClickChoicesButton"
-        />
-      </div>
+    <div slot="main-content">
       <div
-        v-if="$route.name === 'PendidikanPolitikQuizIkuti' ||
-        $route.name === 'PendidikanPolitikQuizLanjut'"
+        class="page card pendidikan-politik"
+        v-if="$route.name != 'PendidikanPolitikHint' && $route.name != 'PendidikanPolitikDetail'"
       >
-        <quiz-detail
-          :showModal="showModal"
-          @close="onClickCloseButton"
-          @onClickNextButton="onClickNextButton"
-          @onClickChoicesButton="onClickChoicesButton"
-        />
+        <div v-if="$route.name === 'PendidikanPolitik'">
+          <div class="nav-tab--list">
+            <router-link
+              class="nav-tab--item"
+              :class="{ active: activePage === 'tanya' }"
+              :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
+            >Tanya Kandidat</router-link>
+            <router-link
+              class="nav-tab--item"
+              :class="{ active: activePage === 'quiz' }"
+              :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
+            >Quiz</router-link>
+          </div>
+
+          <div class="content">
+            <question-list
+              v-if="activePage === 'tanya'"
+              :questions="questions"
+              @upvoted="onUpvote($event)"
+              :loading="isLoading"
+            ></question-list>
+            <quiz-list
+              v-if="activePage === 'quiz'"
+              :totalKecenderungan="totalKecenderungan"
+              :quizzes="isFilterQuiz ? quizzesFilter : quizzes"
+            ></quiz-list>
+          </div>
+        </div>
+        <div v-if="$route.name === 'PendidikanPolitikQuizHasil'">
+          <quiz-result
+            :showModal="showModal"
+            @onClickAnswerButton="onClickAnswerButton"
+            @close="onClickCloseButton"
+            @onClickNextButton="onClickNextButton"
+            @onClickChoicesButton="onClickChoicesButton"
+          />
+        </div>
+        <div
+          v-if="$route.name === 'PendidikanPolitikQuizIkuti' ||
+        $route.name === 'PendidikanPolitikQuizLanjut'"
+        >
+          <quiz-detail
+            :showModal="showModal"
+            @close="onClickCloseButton"
+            @onClickNextButton="onClickNextButton"
+            @onClickChoicesButton="onClickChoicesButton"
+          />
+        </div>
       </div>
       <div v-if="$route.name === 'PendidikanPolitikHint'">
         <HintBanner :object="getObject($route.query.type)"/>
       </div>
+      <div v-if="$route.name === 'PendidikanPolitikDetail'">
+        <DetailPost :data="detailPendidikanPolitik($route.params.id)" @upvoted="onUpvote($event)"/>
+      </div>
     </div>
     <template slot="widget-wrapper">
-      <div v-if="$route.name !== 'PendidikanPolitikHint'">
+      <div
+        v-if="$route.name != 'PendidikanPolitikHint' && $route.name != 'PendidikanPolitikDetail'"
+      >
         <widget-filter
           v-if="activePage === 'tanya'"
           :is-active="isWidgetFilterExpanded"
@@ -164,7 +174,7 @@ import QuizResult from '@/components/pendidikan-politik/quiz-result'
 import WidgetFilter from '@/components/WidgetFilter'
 import WidgetBanner from '@/components/Linimasa/WidgetBanner'
 import HintBanner from '@/components/Linimasa/HintBanner'
-
+import DetailPost from '@/components/pendidikan-politik/DetailPost'
 export default {
   name: 'PendidikanPolitik',
   components: {
@@ -175,7 +185,8 @@ export default {
     QuizResult,
     WidgetFilter,
     WidgetBanner,
-    HintBanner
+    HintBanner,
+    DetailPost
   },
   computed: {
     ...mapState({
@@ -183,7 +194,12 @@ export default {
       totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan,
       quizzesFilter: state => state.pendidikanPolitik.quizzes
     }),
-    ...mapGetters(['bannerKuisData', 'bannerTanyaData', 'quizzes']),
+    ...mapGetters([
+      'bannerKuisData',
+      'bannerTanyaData',
+      'quizzes',
+      'detailPendidikanPolitik'
+    ]),
     activePage() {
       if (this.$route.query.type == null) return 'tanya'
       return this.$route.query.type
