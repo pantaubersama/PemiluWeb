@@ -16,7 +16,9 @@
         </div>
         <small class="time">{{time}}</small>
       </div>
-      <div class="question">{{question}}</div>
+      <router-link :to="{name: 'PendidikanPolitikDetail', params: {id: id}}">
+        <div class="question">{{question}}</div>
+      </router-link>
       <div class="button-list">
         <button class="share">
           <img src="@/assets/icon_share.svg">
@@ -56,7 +58,6 @@
 
 <script>
 import lottie from 'lottie-web'
-
 import { LinkIcon, AlertIcon, ShareIcon } from '@/svg/icons'
 import ShareOptions from '@/mixins/share-options'
 

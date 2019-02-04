@@ -125,6 +125,7 @@ export default {
       this.$store.commit('meLogout/userLogin')
     }
     window.addEventListener('click', this.removeDropdown)
+    window.addEventListener('click', this.removeDropdownNote)
   },
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
@@ -141,9 +142,16 @@ export default {
     },
     toggleDropdownNote() {
       this.isDropdownNoteActive = !this.isDropdownNoteActive
+      this.isActive = false
+    },
+    removeDropdownNote() {
+      if (!event.target.parentNode.parentNode.classList.contains('icon-pins')) {
+        this.isDropdownNoteActive = false
+      }
     },
     toggleDropdown(event) {
       this.isActive = !this.isActive
+      this.isDropdownNoteActive = false
     },
     removeDropdown(event) {
       if (

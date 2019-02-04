@@ -52,6 +52,9 @@
       <div v-if="$route.name === 'PendidikanPolitikHint'">
         <HintBanner :object="getObject($route.query.type)"/>
       </div>
+      <div v-if="$route.name === 'PendidikanPolitikDetail'">
+        <DetailPost :data="detailPendidikanPolitik($route.params.id)"/>
+      </div>
     </div>
     <template slot="widget-wrapper">
       <div v-if="$route.name !== 'PendidikanPolitikHint'">
@@ -164,7 +167,7 @@ import QuizResult from '@/components/pendidikan-politik/quiz-result'
 import WidgetFilter from '@/components/WidgetFilter'
 import WidgetBanner from '@/components/Linimasa/WidgetBanner'
 import HintBanner from '@/components/Linimasa/HintBanner'
-
+import DetailPost from '@/components/pendidikan-politik/DetailPost'
 export default {
   name: 'PendidikanPolitik',
   components: {
@@ -175,7 +178,8 @@ export default {
     QuizResult,
     WidgetFilter,
     WidgetBanner,
-    HintBanner
+    HintBanner,
+    DetailPost
   },
   computed: {
     ...mapState({
@@ -183,7 +187,12 @@ export default {
       totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan,
       quizzesFilter: state => state.pendidikanPolitik.quizzes
     }),
-    ...mapGetters(['bannerKuisData', 'bannerTanyaData', 'quizzes']),
+    ...mapGetters([
+      'bannerKuisData',
+      'bannerTanyaData',
+      'quizzes',
+      'detailPendidikanPolitik'
+    ]),
     activePage() {
       if (this.$route.query.type == null) return 'tanya'
       return this.$route.query.type
