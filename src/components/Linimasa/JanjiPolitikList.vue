@@ -111,7 +111,7 @@ export default {
     //   this.postReport(id)
     // },
     deletePost(id) {
-      this.deleteJanjiPolitik(id).then(() => {
+      this.deleteJanjiPolitik({ id }).then(() => {
         this.$toaster.success('Berhasil menghapus janji politik.')
       })
     },
