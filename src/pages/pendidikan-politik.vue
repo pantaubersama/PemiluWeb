@@ -24,6 +24,7 @@
               v-if="activePage === 'tanya'"
               :questions="questions"
               @upvoted="onUpvote($event)"
+              @removeVoted="onRemoveVote($event)"
               :loading="isLoading"
             ></question-list>
             <quiz-list
@@ -58,7 +59,11 @@
         <HintBanner :object="getObject($route.query.type)"/>
       </div>
       <div v-if="$route.name === 'PendidikanPolitikDetail'">
-        <DetailPost :data="detailPendidikanPolitik($route.params.id)" @upvoted="onUpvote($event)"/>
+        <DetailPost
+          :data="detailPendidikanPolitik($route.params.id)"
+          @upvoted="onUpvote($event)"
+          @removeVoted="onRemoveVote($event)"
+        />
       </div>
     </div>
     <template slot="widget-wrapper">
@@ -268,12 +273,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchQuestions', 'vote', 'fetchBannerInfo']),
+    ...mapActions(['fetchQuestions', 'vote', 'unVote', 'fetchBannerInfo']),
     onOpenWidgetFilter(open) {
       this.isWidgetFilterExpanded = open
     },
     onUpvote(id) {
       this.vote(id)
+    },
+    onRemoveVote(id) {
+      this.unVote(id)
     },
     onClickNextButton(isShow) {
       this.showModal = !isShow

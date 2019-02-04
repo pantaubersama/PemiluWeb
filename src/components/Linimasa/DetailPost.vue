@@ -17,22 +17,50 @@
             <h5>{{ data.creator.cluster.name }}</h5>
             <p>{{ `${data.creator.cluster.members_count} anggota` }}</p>
           </div>
-          <a href class="icon-setting">
-            <icon-dots/>
-          </a>
+          <span class="icon-right">
+            <a
+              href
+              class="icon-setting"
+              :class="{'is-active': isActive === data.id}"
+              @click.prevent="toggleDropdown(data.id, $event)"
+            >
+              <img class="icon-dots" src="@/assets/dots-icon.svg" alt>
+            </a>
+            <div class="dropdown-content">
+              <ul>
+                <li v-if="userAuth && isMine">
+                  <a href="javascript:void(0)" @click.stop="deletePost(data.id)">
+                    <close-icon/>Hapus
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" @click.stop="copyToClipboard(data.id)">
+                    <link-icon/>Salin Tautan
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" @click.stop="onShare(data.id)">
+                    <share-icon/>Bagikan
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </span>
         </div>
         <div class="detail-content">
           <p v-html="data.body"></p>
           <img :src="data.image.large.url" alt="thumbnail" v-if="data.image.large.url">
         </div>
         <div class="detail-share">
-          <button class="btn" id="button-share">
+          <button class="btn" id="button-share" @click.prevent="onShare(data.id)">
             BAGIKAN
             <img src="@/assets/icon_share.svg" alt>
           </button>
         </div>
       </div>
     </div>
+
+    <ModalShare v-if="isSharing" @close="isSharing = false" :url="shareURL" :title="shareTitle"></ModalShare>
     <!-- <div class="card card-author">
       <div class="author-thumb">
         <img
@@ -48,18 +76,118 @@
     </div>-->
   </div>
 </template>
+
 <script>
-import { IconDots } from '@/svg/icons'
+import ShareOptions from '@/mixins/share-options'
+import { cleanURL } from '@/utils'
+
+import ModalShare from '@/components/modal-share'
+
+import {
+  LinkIcon,
+  AlertIcon,
+  ShareIcon,
+  IconDots,
+  CloseIcon
+} from '@/svg/icons'
 
 export default {
   name: 'DetailPost',
+  mixins: [ShareOptions],
   props: {
-    data: {
-      type: Object
-    }
+    data: Object,
+    userAuth: Boolean,
+    user: Object
   },
   components: {
-    IconDots
+    ModalShare,
+    LinkIcon,
+    AlertIcon,
+    ShareIcon,
+    IconDots,
+    CloseIcon
+  },
+  data() {
+    return {
+      shareTitle: 'Sudah tahu Janji yang ini, belum? Siap-siap catatan, ya! ✔',
+      isSharing: false
+    }
+  },
+  computed: {
+    isMine() {
+      if (
+        !this.data.creator ||
+        !this.user ||
+        !this.data.creator.cluster ||
+        !this.user.cluster
+      ) {
+        return false
+      }
+
+      return (
+        this.data.creator.cluster.id === this.user.cluster.id &&
+        this.data.creator.id === this.user.id &&
+        this.user.cluster.is_eligible
+      )
+    },
+    shareURL() {
+      return `/linimasa/detail/${this.data.id}`
+    }
+  },
+  methods: {
+    copyToClipboard(id) {
+      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.$clipboard(url)
+      this.isActive = false
+      this.$store.commit('snackbar/setSnack', 'Tautan Tersalin')
+    },
+    onShare() {
+      this.isSharing = true
+    },
+    deletePost(id) {
+      this.$store.dispatch('deleteJanjiPolitik', { id }).then(async () => {
+        await this.$toaster.success('Berhasil menghapus janji politik.')
+        await window.history.back()
+      })
+    }
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  .icon-right
+    text-align: right
+    display: flex
+    justify-content: flex-end
+    position: relative
+    .icon-setting
+      width: 24px
+      margin-left: 10px
+    img
+      width: 24px
+
+  .dropdown-content
+    padding: 10px
+    border-radius: 2px
+    min-width: 175px
+    top: 20px
+    bottom: auto
+    a
+      text-align: left
+      font-size: 12px
+    svg
+      width: 25px
+      height: 16px
+      padding-right: 5px
+      align-self: center
+
+  .icon-setting
+    width: 20px
+    img
+      margin-left: 0
+
+    &.is-active
+      + .dropdown-content
+        display: block
+
+</style>

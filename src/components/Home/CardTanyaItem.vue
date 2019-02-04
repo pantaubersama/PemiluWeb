@@ -1,6 +1,6 @@
 <template>
   <div class="question-item">
-    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote()">
+    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote(isVoted)">
       <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
       <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
       <div class="total-count">{{count}}</div>
@@ -119,10 +119,13 @@ export default {
     }
   },
   methods: {
-    onUpvote() {
-      if (this.isVoted) return
-      this.isAnimating = true
-      this.$emit('upvoted', this.id)
+    onUpvote(vote) {
+      this.isAnimating = !vote
+      if (vote) {
+        this.$emit('removeVoted', this.id)
+      } else {
+        this.$emit('upvoted', this.id)
+      }
     },
     trimCharacters(text, maxLength) {
       const dots = text.length > maxLength

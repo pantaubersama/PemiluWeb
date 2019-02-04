@@ -47,9 +47,9 @@
                   <a
                     href="javascript:void(0)"
                     @click.stop="() => {
-                $emit('onReport', data.id);
-                isActive = false
-                }"
+                      $emit('onReport', data.id);
+                      isActive = false
+                    }"
                   >
                     <alert-icon/>Laporkan sebagai spam
                   </a>
@@ -79,13 +79,9 @@
 import lottie from 'lottie-web'
 import { LinkIcon, AlertIcon, ShareIcon } from '@/svg/icons'
 import ShareOptions from '@/mixins/share-options'
+
 export default {
   name: 'DetailPost',
-  props: {
-    data: {
-      type: Object
-    }
-  },
   mixins: [ShareOptions],
   components: {
     LinkIcon,
@@ -93,13 +89,17 @@ export default {
     ShareIcon,
     lottie
   },
+  props: {
+    data: {
+      type: Object
+    }
+  },
   data() {
     return {
-      DetailDetail: null,
+      upvoteDetail: null,
       isAnimating: false
     }
   },
-
   mounted() {
     this.upvoteDetail = lottie.loadAnimation({
       container: this.$refs.upvote,
@@ -112,18 +112,23 @@ export default {
       this.isAnimating = false
     })
   },
+  methods: {
+    onUpvote() {
+      const id = this.data.id
+      const vote = this.data.is_liked
 
+      this.isAnimating = !vote
+      if (vote) {
+        this.$emit('removeVoted', id)
+      } else {
+        this.$emit('upvoted', id)
+      }
+    }
+  },
   watch: {
     isAnimating(value) {
       if (value) return this.upvoteDetail.play()
       return this.upvoteDetail.stop()
-    }
-  },
-  methods: {
-    onUpvote() {
-      if (this.data.is_voted) return
-      this.isAnimating = true
-      this.$emit('upvoted', this.data.id)
     }
   }
 }
@@ -142,8 +147,8 @@ button.vote
   border-left: 0
   border-top: 0
   cursor: pointer
-  &.voted
-    cursor: default
+  // &.voted
+  //   cursor: default
   @media (max-width: 991px)
     height: auto
     border-bottom: none

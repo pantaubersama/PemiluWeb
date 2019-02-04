@@ -60,6 +60,13 @@ export const vote = (id, className = 'Question') => {
     .catch(error => Promise.reject(error))
 }
 
+export const unVote = (id, className = 'Question') => {
+  return api
+    .delete(`/v1/votes`, { data: { id, class_name: className } })
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
+}
+
 export const postQuestion = body =>
   api
     .post(`/v1/questions`, {
