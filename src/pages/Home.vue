@@ -7,9 +7,7 @@
     </template>
     <template slot="widget-wrapper">
       <div class="d-none d-lg-block">
-        <div v-if="isProtected()">
-          <WidgetVerified/>
-        </div>
+        <WidgetVerified v-if="isLoggedIn"/>
         <!-- <CardWordStadium/> -->
         <WidgetCluster v-if="hasCluster"/>
         <CardQuiz v-if="isLoggedIn"/>
