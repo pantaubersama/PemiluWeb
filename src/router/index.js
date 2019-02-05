@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {
-  vueAuth
-} from '@/services/symbolic'
+import { vueAuth } from '@/services/symbolic'
 import Meta from 'vue-meta'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
-  routes: [{
+  routes: [
+    {
       path: '*',
       component: () => import('@/components/NotFound')
     },
@@ -28,7 +27,8 @@ const router = new VueRouter({
       name: 'Linimasa',
       component: () => import('@/pages/Linimasa'),
       props: true,
-      children: [{
+      children: [
+        {
           path: 'hint',
           name: 'LinimasaHint',
           component: () => import('@/pages/Linimasa')
@@ -53,7 +53,8 @@ const router = new VueRouter({
       name: 'PendidikanPolitik',
       component: () => import('@/pages/pendidikan-politik'),
       props: true,
-      children: [{
+      children: [
+        {
           path: 'quiz/ikuti/:id',
           name: 'PendidikanPolitikQuizIkuti',
           component: () => import('@/pages/pendidikan-politik'),
@@ -78,6 +79,14 @@ const router = new VueRouter({
           }
         },
         {
+          path: 'quiz/kecenderungan',
+          name: 'PendidikanPolitikQuizKecenderungan',
+          component: () => import('@/pages/pendidikan-politik'),
+          meta: {
+            AuthenticationRequired: true
+          }
+        },
+        {
           path: 'hint',
           name: 'PendidikanPolitikHint',
           component: () => import('@/pages/pendidikan-politik'),
@@ -89,7 +98,7 @@ const router = new VueRouter({
           path: 'detail/:id',
           name: 'PendidikanPolitikDetail',
           component: () => import('@/pages/pendidikan-politik')
-        },
+        }
       ]
     },
     {
@@ -162,7 +171,8 @@ const router = new VueRouter({
       name: 'Share',
       component: () => import('@/pages/Share'),
       props: true,
-      children: [{
+      children: [
+        {
           path: 'pilpres/:id',
           name: 'SharePilpres',
           component: () => import('@/pages/Share')
@@ -212,7 +222,7 @@ const router = new VueRouter({
   }
 })
 
-router.beforeEach(function (to, from, next) {
+router.beforeEach(function(to, from, next) {
   if (
     to.matched.some(record => record.meta.AuthenticationRequired) &&
     !vueAuth.isAuthenticated()

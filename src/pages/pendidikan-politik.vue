@@ -32,6 +32,7 @@
               v-if="activePage === 'quiz'"
               :totalKecenderungan="totalKecenderungan"
               :quizzes="isFilterQuiz ? quizzesFilter : quizzes"
+              @onClickKecenderungan="openPageKecenderungan"
             ></quiz-list>
           </div>
         </div>
@@ -42,6 +43,12 @@
             @close="onClickCloseButton"
             @onClickNextButton="onClickNextButton"
             @onClickChoicesButton="onClickChoicesButton"
+          />
+        </div>
+        <div v-if="$route.name === 'PendidikanPolitikQuizKecenderungan'">
+          <kecenderungan-result
+            :totalKecenderungan="totalKecenderungan"
+            @close="onClickCloseButton"
           />
         </div>
         <div
@@ -167,6 +174,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import router from '@/router'
 
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 
@@ -179,6 +187,8 @@ import WidgetFilter from '@/components/WidgetFilter'
 import WidgetBanner from '@/components/Linimasa/WidgetBanner'
 import HintBanner from '@/components/Linimasa/HintBanner'
 import DetailPost from '@/components/pendidikan-politik/DetailPost'
+import KecenderunganResult from '@/components/pendidikan-politik/kecenderungan-result'
+
 export default {
   name: 'PendidikanPolitik',
   components: {
@@ -190,7 +200,8 @@ export default {
     WidgetFilter,
     WidgetBanner,
     HintBanner,
-    DetailPost
+    DetailPost,
+    KecenderunganResult
   },
   computed: {
     ...mapState({
@@ -216,7 +227,8 @@ export default {
         'PendidikanPolitikDetail',
         'PendidikanPolitikQuizIkuti',
         'PendidikanPolitikQuizLanjut',
-        'PendidikanPolitikQuizHasil'
+        'PendidikanPolitikQuizHasil',
+        'PendidikanPolitikQuizKecenderungan'
       ]
       return !routes.includes(name)
     }
@@ -303,13 +315,8 @@ export default {
     onClickChoicesButton(value) {
       if (!value.next) {
         this.showModal = false
-
-        setTimeout(() => {
-          const baseURL = window.location.origin
-          const { id } = this.$route.params
-          const targetURL = `${baseURL}/pendidikan-politik/quiz/hasil/${id}`
-          window.location.replace(targetURL)
-        }, 700)
+        const { id } = this.$route.params
+        router.push({ name: 'PendidikanPolitikQuizHasil', params: { id } })
       }
     },
     onClickCloseButton() {
@@ -359,6 +366,9 @@ export default {
         case 'kuis':
           return this.bannerKuisData
       }
+    },
+    openPageKecenderungan() {
+      router.push({ name: 'PendidikanPolitikQuizKecenderungan' })
     }
   },
   mounted() {

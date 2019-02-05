@@ -144,19 +144,24 @@ export const actions = {
   },
   async getTotalKecenderungan(ctx) {
     const resp = await PenpolAPI.getTotalKecenderungan()
-    const selectedData = resp.teams
-      .sort((a, b) => b.percentage - a.percentage) // sort from the high to the low percentage
-      .slice()
-      .pop() // get the first value
-    const percentage = selectedData.percentage
+    const selectedData = resp.teams.find(team => Math.max(team.percentage))
+    const id = resp.quiz_preference.id
+    const percentage = Math.ceil(selectedData.percentage)
     const totalQuiz = resp.meta.quizzes.total
     const finishedQuiz = resp.meta.quizzes.finished
     const groupName = selectedData.team.title
+    const fullName = resp.user.full_name
+    const groupAvatar = selectedData.team.avatar
+    const image = resp.quiz_preference.image_result.url
     ctx.commit('setTotalKecenderungan', {
+      id,
       finishedQuiz,
       totalQuiz,
       groupName,
-      percentage
+      percentage,
+      fullName,
+      groupAvatar,
+      image
     })
   },
   getQuizResult({ commit }, quizId) {

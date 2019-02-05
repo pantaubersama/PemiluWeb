@@ -5,7 +5,7 @@
         <img src="@/assets/image-banner-pendidikan-quiz-1.svg" alt="thumbnail">
       </div>
       <div class="total-kecenderungan-content">
-        <div class="content-text">
+        <div class="content-text" @click.stop="$emit('onClickKecenderungan')">
           <p
             class="title"
           >Total Kecenderunganmu, {{totalKecenderungan.finishedQuiz}} Dari {{totalKecenderungan.totalQuiz}} Kuis:</p>
@@ -74,7 +74,6 @@ export default {
       required: true
     }
   },
-  components: { ModalShare },
   data() {
     return {
       shareURL: null,
