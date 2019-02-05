@@ -18,21 +18,18 @@ const shareOptions = {
       }
     },
     removeDropdown(event) {
-      var isClickOutside =
-        !event.target.classList.contains('icon-setting') &&
+      var isClickOutside = !event.target.classList.contains('icon-setting') &&
         !event.target.parentNode.classList.contains('icon-setting')
       if (isClickOutside) {
-        this.isActive = 0
+        this.isActive = false
       }
     },
-    copy(id) {
-      this.$emit('onCopy', id)
-      this.isActive = false
-    },
-    share(id) {
-      this.$emit('onShare', id)
-      this.isActive = false
-    }
+    // copy(id) {
+    //   this.$emit('onCopy', id)
+    // },
+    // share(id) {
+    //   this.$emit('onShare', id)
+    // }
   }
 }
 

@@ -1,10 +1,21 @@
 <template>
   <div v-if="data">
+    <ModalShare
+      v-if="isSharing"
+      @close="isSharing = false"
+      :url="shareURL"
+      :title="shareTitle"
+      :id="data.id"
+    ></ModalShare>
     <div class="page card pendidikan-politik">
       <div class="question-item">
         <button class="vote" :class="{ voted: data.is_liked }" @click="onUpvote()">
           <i v-show="!isAnimating" class="icon voteup" :class="{ voted: data.is_liked }"></i>
-          <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
+          <button-upvote
+            v-show="isAnimating"
+            :isAnimating="isAnimating"
+            @animated="isAnimating == false"
+          />
           <span class="vote-count">{{ data.like_count }}</span>
         </button>
 
@@ -25,32 +36,30 @@
           </div>
           <div class="question">{{data.body}}</div>
           <div class="button-list">
-            <button class="share">
+            <button class="share" @click.stop="onShare(data.id)">
               <img src="@/assets/icon_share.svg">
             </button>
-            <button class="menu" @click.stop="toggleDropdown(data.id, $event)">
+            <button
+              class="icon-setting"
+              :class="{'is-active': isActive == data.id}"
+              @click.stop="toggleDropdown(data.id, $event)"
+            >
               <img src="@/assets/dots-icon.svg">
             </button>
-            <div class="dropdown-content" :class="{'is-active': isActive === data.id}">
+            <div class="dropdown-content">
               <ul>
                 <li>
-                  <a href="javascript:void(0)" @click.stop="copy(data.id)">
+                  <a href="javascript:void(0)" @click.stop="copyToClipboard(data.id)">
                     <link-icon/>Salin Tautan
                   </a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" @click.stop="share(data.id)">
+                  <a href="javascript:void(0)" @click.stop="onShare(data.id)">
                     <share-icon/>Bagikan
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="javascript:void(0)"
-                    @click.stop="() => {
-                      $emit('onReport', data.id);
-                      isActive = false
-                    }"
-                  >
+                  <a href="javascript:void(0)" @click.stop="handleReport(data.id)">
                     <alert-icon/>Laporkan sebagai spam
                   </a>
                 </li>
@@ -76,10 +85,13 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 import lottie from 'lottie-web'
 import { LinkIcon, AlertIcon, ShareIcon } from '@/svg/icons'
 import ShareOptions from '@/mixins/share-options'
-
+import { cleanURL } from '@/utils'
+import ModalShare from '@/components/modal-share'
+import ButtonUpvote from '@/components/pendidikan-politik/button-upvote'
 export default {
   name: 'DetailPost',
   mixins: [ShareOptions],
@@ -87,7 +99,9 @@ export default {
     LinkIcon,
     AlertIcon,
     ShareIcon,
-    lottie
+    lottie,
+    ModalShare,
+    ButtonUpvote
   },
   props: {
     data: {
@@ -97,22 +111,31 @@ export default {
   data() {
     return {
       upvoteDetail: null,
-      isAnimating: false
+      isAnimating: false,
+      shareTitle: 'Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆',
+      isSharing: false,
+      shareId: ''
     }
   },
-  mounted() {
-    this.upvoteDetail = lottie.loadAnimation({
-      container: this.$refs.upvote,
-      path: '/lottie/upvote.json',
-      autoplay: false,
-      renderer: 'svg'
-    })
+  // mounted() {
+  //   this.upvoteDetail = lottie.loadAnimation({
+  //     container: this.$refs.upvote,
+  //     path: '/lottie/upvote.json',
+  //     autoplay: false,
+  //     renderer: 'svg'
+  //   })
 
-    this.upvoteDetail.addEventListener('complete', (...args) => {
-      this.isAnimating = false
-    })
+  //   this.upvoteDetail.addEventListener('complete', (...args) => {
+  //     this.isAnimating = false
+  //   })
+  // },
+  computed: {
+    shareURL() {
+      return `/pendidikan-politik/detail/`
+    }
   },
   methods: {
+    ...mapActions(['postReport']),
     onUpvote() {
       const id = this.data.id
       const vote = this.data.is_liked
@@ -123,14 +146,40 @@ export default {
       } else {
         this.$emit('upvoted', id)
       }
-    }
-  },
-  watch: {
-    isAnimating(value) {
-      if (value) return this.upvoteDetail.play()
-      return this.upvoteDetail.stop()
+    },
+    copyToClipboard(id) {
+      const url = cleanURL(
+        `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
+      )
+      this.$clipboard(url)
+      this.isActive = false
+      this.$toaster.info('Berhasil menyalin teks.')
+    },
+    handleReport(id) {
+      this.postReport(id)
+        .then(response => {
+          const { vote } = response
+          if (vote && vote.status) {
+            this.$toaster.success('Berhasil laporkan sebagai spam.')
+          } else {
+            this.$toaster.warning(vote.text)
+          }
+        })
+        .catch(() => this.$toaster.error('Gagal laporkan sebagai spam.'))
+      this.isActive = false
+    },
+    onShare(id) {
+      this.isActive = false
+      this.shareId = id
+      this.isSharing = true
     }
   }
+  // watch: {
+  //   isAnimating(value) {
+  //     if (value) return this.upvoteDetail.play()
+  //     return this.upvoteDetail.stop()
+  //   }
+  // }
 }
 </script>
 <style lang="sass" scoped>
@@ -247,7 +296,9 @@ button.vote
       object-fit: contain
       width: 18px
       height: 18px
-
+    &.is-active
+      + .dropdown-content
+        display: block
   .dropdown-content
     padding: 10px
     border-radius: 2px

@@ -9,10 +9,11 @@
       @submit="submitQuestion($event)"
     ></modal-create>
     <ModalShare
-      v-if="modal === 'modalShare'"
       :id="shareId"
-      title="Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆"
-      v-on:close="modal = false"
+      v-if="isSharing"
+      @close="isSharing = false"
+      :url="shareURL"
+      :title="shareTitle"
     />
     <li>
       <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
@@ -38,9 +39,11 @@
         :count="question.like_count"
         @upvoted="$emit('upvoted', $event)"
         @removeVoted="$emit('removeVoted', $event)"
-        @onCopy="copyToClipboard($event)"
-        @onShare="modalShare($event)"
-        @onReport="handleReport($event)"
+        @onCopy="copyToClipboard(question.id, $event)"
+        @onShare="modalShare(question.id, $event)"
+        :isActive="isActive"
+        @toggleDropdown="toggleDropdown(question.id, $event)"
+        @onReport="handleReport(question.id, $event)"
       ></question-item>
     </li>
   </ul>
@@ -52,11 +55,11 @@ import { utils } from '@/mixins/utils'
 import { cleanURL } from '@/utils'
 
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
-import ModalShare from '@/components/Linimasa/ModalShare'
+import ModalShare from '@/components/modal-share'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
 import ModalCreate from '@/components/pendidikan-politik/modal-create'
-
+import ShareOptions from '@/mixins/share-options'
 export default {
   name: 'QuestionList',
   components: {
@@ -65,7 +68,7 @@ export default {
     ModalCreate,
     ModalShare
   },
-  mixins: [utils],
+  mixins: [utils, ShareOptions],
   props: {
     questions: {
       type: Array,
@@ -79,14 +82,19 @@ export default {
   data() {
     return {
       modal: null,
-      shareId: '',
-      isSubmitting: false
+      isSubmitting: false,
+      shareTitle: 'Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆',
+      isSharing: false,
+      shareId: ''
     }
   },
   computed: {
     ...mapState({
       user: s => s.profile.user
-    })
+    }),
+    shareURL() {
+      return `/pendidikan-politik/detail/`
+    }
   },
   methods: {
     ...mapActions(['postReport']),
@@ -109,8 +117,10 @@ export default {
           }
         })
         .catch(() => this.$toaster.error('Gagal laporkan sebagai spam.'))
+      this.isActive = false
     },
     copyToClipboard(id) {
+      this.isActive = false
       const url = cleanURL(
         `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
       )
@@ -118,8 +128,9 @@ export default {
       this.$toaster.info('Berhasil menyalin teks.')
     },
     modalShare(id) {
+      this.isActive = false
       this.shareId = id
-      this.modal = 'modalShare'
+      this.isSharing = true
     }
   }
 }
@@ -130,7 +141,7 @@ export default {
   display: flex
   flex-direction: column
   li
-    border: 1px solid #ececec
+    border-bottom: 1px solid #ececec
     border-left: 0
     border-right: 0
     &:not(:first-child)
