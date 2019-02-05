@@ -23,14 +23,14 @@
       </div>
     </router-link>
     <span class="icon-right">
-      <a href="javascript:void(0)" @click.stop="share(id)">
+      <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
         <img src="@/assets/icon_share.svg">
       </a>
       <a
         href
         class="icon-setting"
-        :class="{'is-active': isActive === id}"
-        @click.prevent="toggleDropdown(id, $event)"
+        :class="{'is-active': isActive == id}"
+        @click.prevent="$emit('toggleDropdown', $event)"
       >
         <img src="@/assets/dots-icon.svg" alt>
       </a>
@@ -42,12 +42,12 @@
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)" @click.stop="copy(id)">
+            <a href="javascript:void(0)" @click.stop="$emit('onCopy', id)">
               <link-icon/>Salin Tautan
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)" @click.stop="share(id)">
+            <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
               <share-icon/>Bagikan
             </a>
           </li>
@@ -64,11 +64,10 @@
 
 <script>
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
-import ShareOptions from '@/mixins/share-options'
 
 export default {
   name: 'JanjiPolitikItem',
-  mixins: [ShareOptions],
+
   components: {
     LinkIcon,
     AlertIcon,
@@ -86,7 +85,8 @@ export default {
     image: String,
     creator: Object,
     userAuth: Boolean,
-    user: Object
+    user: Object,
+    isActive: [Boolean, String]
   },
   computed: {
     isMine() {

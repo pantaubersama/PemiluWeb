@@ -1,6 +1,5 @@
 <template>
   <div class="pilpres-content">
-    <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/>
     <div class="card-list" v-for="item in data" :key="item.id">
       <div v-if="loading">
         <ContentLoader/>
@@ -16,9 +15,9 @@
         :created_at_in_word="item.created_at_in_word.id"
         :description="item.source.text"
         :source_id="item.source.id"
-        @onCopy="copyToClipboard($event)"
-        @onShare="modalShare($event)"
         @onOpenTwitter="openTwitter($event)"
+        :isActive="isActive"
+        @toggleDropdown="toggleDropdown(item.id,$event)"
       />
     </div>
   </div>
@@ -30,7 +29,7 @@ import { cleanURL } from '@/utils'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import PilpresItem from '@/components/Linimasa/PilpresItem'
 import ModalShare from '@/components/Linimasa/ModalShare'
-
+import ShareOptions from '@/mixins/share-options'
 export default {
   name: 'PilpressList',
   components: { ContentLoader, PilpresItem, ModalShare },
@@ -50,21 +49,16 @@ export default {
       shareId: ''
     }
   },
+  mixins: [ShareOptions],
   methods: {
     copyToClipboard(id) {
       const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
       this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
     },
-    modalShare(id) {
-      this.shareId = id
-      this.modal = 'modalShare'
-    },
     openTwitter(url) {
+      this.isActive = false
       window.open(url, '_blank')
-    },
-    closeModal() {
-      this.modal = false
     }
   }
 }

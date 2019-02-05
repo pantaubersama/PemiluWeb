@@ -1,6 +1,12 @@
 <template>
   <div class="card card-jp">
-    <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/>
+    <ModalShare
+      :id="shareId"
+      v-if="isSharing"
+      @close="isSharing = false"
+      :url="shareURL"
+      :title="shareTitle"
+    />
     <h4 class="title">Janji Politik</h4>
     <div v-if="feedsJanjiPolitik">
       <div class="card-content" v-for="janjiPolitik in feedsJanjiPolitik" :key="janjiPolitik.id">
@@ -56,13 +62,8 @@
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" @click.stop="modalShare(janjiPolitik.id)">
+                <a href="javascript:void(0)" @click.stop="modalShare(janjiPolitik.id, $event)">
                   <share-icon/>Bagikan
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" @click.stop="handleReport(janjiPolitik.id)">
-                  <alert-icon/>Laporkan sebagai spam
                 </a>
               </li>
             </ul>
@@ -99,7 +100,7 @@ import {
   BottomArrow,
   IconDots
 } from '@/svg/icons'
-import ModalShare from '@/components/Linimasa/ModalShare'
+import ModalShare from '@/components/modal-share'
 import ContentLoader from '@/components/Loading/ContentLoader'
 export default {
   name: 'CardJP',
@@ -118,12 +119,18 @@ export default {
   data() {
     return {
       isActive: false,
-      modal: false
+      modal: false,
+      shareTitle: 'Sudah tahu Janji yang ini, belum? Siap-siap catatan, ya! ✔',
+      isSharing: false,
+      shareId: ''
     }
   },
   computed: {
     ...mapState('homeJanjiPolitik', ['feedsJanjiPolitik', 'paginations']),
-    ...mapState('loadingLottie', ['loadingAnimating'])
+    ...mapState('loadingLottie', ['loadingAnimating']),
+    shareURL() {
+      return `/linimasa/detail/`
+    }
   },
   created() {
     this.$store.dispatch('homeJanjiPolitik/homeJanjiPolitik')
@@ -167,23 +174,18 @@ export default {
         this.isActive = 0
       }
     },
-    closeModal() {
-      this.modal = false
-    },
-    handleReport(id) {
-      this.postReport(id)
-      this.modal = false
-      this.$store.commit('snackbar/setSnack', 'Laporan Berhasil')
-    },
+
     copyToClipboard(id) {
       const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
       this.$clipboard(url)
       this.isActive = false
-      this.$store.commit('snackbar/setSnack', 'Tautan Tersalin')
+      this.$toaster.info('Berhasil menyalin teks.')
     },
+
     modalShare(id) {
+      this.isActive = false
       this.shareId = id
-      this.modal = 'modalShare'
+      this.isSharing = true
     }
   }
 }

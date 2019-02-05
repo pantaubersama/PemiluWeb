@@ -2,12 +2,13 @@
   <timeline-layout>
     <div slot="main-content">
       <div
-        class="page card pendidikan-politik"
+        class="page card pendidikan-politik card-tabs"
         v-if="$route.name != 'PendidikanPolitikHint' && $route.name != 'PendidikanPolitikDetail'"
       >
         <div v-if="$route.name === 'PendidikanPolitik'">
-          <div class="nav-tab--list">
+          <div class="title-tabs">
             <router-link
+              exact
               class="nav-tab--item"
               :class="{ active: activePage === 'tanya' }"
               :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
@@ -362,24 +363,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.card.page.pendidikan-politik
-  .nav-tab
-    &--list
-      padding: 10px 25px
-      border-bottom: 1px solid #ececec
-      font-size: 14px
-      font-weight: 600
-      margin-bottom: 0
-      text-transform: uppercase
-    &--item
-      margin-left: 20px
-      color: inherit
-      &:hover
-        text-decoration: underline
-      &:first-child
-        margin-left: 0
-      &.active
-        color: #9B0012
-</style>

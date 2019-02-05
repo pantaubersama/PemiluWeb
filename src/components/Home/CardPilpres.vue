@@ -131,7 +131,7 @@ export default {
     },
     openTwitter(url) {
       window.open(url, '_blank')
-      this.isActive = 0
+      this.isActive = false
     },
     toggleDropdown(el, event) {
       var toggleClick =
@@ -139,7 +139,7 @@ export default {
         event.target.parentNode.classList.contains('is-active')
       this.isActive = el
       if (toggleClick) {
-        this.isActive = 0
+        this.isActive = false
       }
     },
     removeDropdown(event) {

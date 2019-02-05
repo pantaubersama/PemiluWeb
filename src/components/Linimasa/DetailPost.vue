@@ -60,27 +60,19 @@
       </div>
     </div>
 
-    <ModalShare v-if="isSharing" @close="isSharing = false" :url="shareURL" :title="shareTitle"></ModalShare>
-    <!-- <div class="card card-author">
-      <div class="author-thumb">
-        <img
-          :src="data.creator.avatar.medium_square.url"
-          v-if="data.creator.avatar.medium_square.url"
-          alt
-        >
-        <img src="@/assets/user.svg" alt v-else>
-      </div>
-      <div class="author-name">{{ data.creator.full_name }}</div>
-      <p>{{ data.creator.about }}</p>
-      <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
-    </div>-->
+    <ModalShare
+      v-if="isSharing"
+      @close="isSharing = false"
+      :url="shareURL"
+      :title="shareTitle"
+      :id="data.id"
+    ></ModalShare>
   </div>
 </template>
 
 <script>
 import ShareOptions from '@/mixins/share-options'
 import { cleanURL } from '@/utils'
-
 import ModalShare from '@/components/modal-share'
 
 import {
@@ -131,7 +123,7 @@ export default {
       )
     },
     shareURL() {
-      return `/linimasa/detail/${this.data.id}`
+      return `/linimasa/detail/`
     }
   },
   methods: {
@@ -139,7 +131,7 @@ export default {
       const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
       this.$clipboard(url)
       this.isActive = false
-      this.$store.commit('snackbar/setSnack', 'Tautan Tersalin')
+      this.$toaster.info('Berhasil menyalin teks.')
     },
     onShare() {
       this.isSharing = true

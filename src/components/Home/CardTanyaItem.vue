@@ -19,14 +19,14 @@
         <div class="question" v-html="trimCharacters(question, 150)"></div>
       </router-link>
       <div class="icon-right">
-        <a href class="icon-share" @click.prevent="modalShare(id)">
+        <a href class="icon-share" @click.prevent="$emit('onShare', id)">
           <img src="@/assets/icon_share.svg">
         </a>
         <a
           href
           class="icon-setting"
           :class="{'is-active': isActive == id}"
-          @click.prevent="toggleDropdown(id, $event)"
+          @click.prevent="$emit('toggleDropdown', $event)"
         >
           <img class="icon-dots" src="@/assets/dots-icon.svg" alt>
         </a>
@@ -39,17 +39,17 @@
               </a>
             </li>-->
             <li>
-              <a href="javascript:void(0)" @click.stop="copyToClipboard(id)">
+              <a href="javascript:void(0)" @click.stop="$emit('onCopy', id)">
                 <link-icon/>Salin Tautan
               </a>
             </li>
             <li>
-              <a href="javascript:void(0)" @click.stop="modalShare(id)">
+              <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
                 <share-icon/>Bagikan
               </a>
             </li>
             <li>
-              <a href="javascript:void(0)" @click.stop="handleReport(id)">
+              <a href="javascript:void(0)" @click.stop="$emit('onReport', id)">
                 <alert-icon/>Laporkan sebagai spam
               </a>
             </li>
@@ -86,13 +86,14 @@ export default {
     time: String,
     question: String,
     isVoted: Boolean,
-    count: Number
+    count: Number,
+    isActive: [Boolean, String]
   },
   data() {
     return {
       upvoteLottie: null,
-      isAnimating: false,
-      isActive: false
+      isAnimating: false
+      // isActive: false
     }
   },
   created() {
@@ -134,23 +135,6 @@ export default {
         text = text.substr(0, Math.min(text.length, text.lastIndexOf(' ')))
       }
       return dots ? `${text}...` : text
-    },
-    toggleDropdown(el, event) {
-      var toggleClick =
-        event.target.classList.contains('icon-dots') &&
-        event.target.parentNode.classList.contains('is-active')
-      this.isActive = el
-      if (toggleClick) {
-        this.isActive = 0
-      }
-    },
-    removeDropdown(event) {
-      var isClickOutside =
-        !event.target.classList.contains('icon-setting') &&
-        !event.target.parentNode.classList.contains('icon-setting')
-      if (isClickOutside) {
-        this.isActive = 0
-      }
     }
   }
 }
