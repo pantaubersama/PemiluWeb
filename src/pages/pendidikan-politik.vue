@@ -67,9 +67,7 @@
       </div>
     </div>
     <template slot="widget-wrapper">
-      <div
-        v-if="$route.name != 'PendidikanPolitikHint' && $route.name != 'PendidikanPolitikDetail'"
-      >
+      <div v-if="showFilter">
         <widget-filter
           v-if="activePage === 'tanya'"
           :is-active="isWidgetFilterExpanded"
@@ -208,6 +206,18 @@ export default {
     activePage() {
       if (this.$route.query.type == null) return 'tanya'
       return this.$route.query.type
+    },
+    showFilter() {
+      const { name } = this.$route
+      if (!this.$route || !name) return false
+      const routes = [
+        'PendidikanPolitikHint',
+        'PendidikanPolitikDetail',
+        'PendidikanPolitikQuizIkuti',
+        'PendidikanPolitikQuizLanjut',
+        'PendidikanPolitikQuizHasil'
+      ]
+      return !routes.includes(name)
     }
   },
   data() {
