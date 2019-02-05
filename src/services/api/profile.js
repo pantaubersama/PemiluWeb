@@ -189,6 +189,18 @@ export const votePreference = ({
     .then(resp => resp.data.data.user)
 }
 
+export const connectAccount = (type, accessToken, accessTokenSecret = null) => api
+  .post('/v1/accounts/connect', {
+    account_type: type,
+    oauth_access_token: accessToken,
+    oauth_access_token_secret: accessTokenSecret
+  })
+export const disconnectAccount = (type) => api
+  .delete('/v1/accounts/disconnect', {
+    params: {
+      account_type: type
+    }
+  })
 export const getPoliticalParties = (page = 1, per_page = 100) =>
   api
     .get('/v1/political_parties', {

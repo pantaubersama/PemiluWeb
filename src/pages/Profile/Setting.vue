@@ -24,18 +24,19 @@
             <div class="connect">
               <p>Connected as:</p>
               <button v-if="!isFbLoaded" class="btn btn-facebook">
-                <icon-facebook/>Loading facebook...
+                <i class="icon icon-facebook"></i> Loading facebook
               </button>
-              <div
-                onlogin="onClickFBLoginButton"
-                class="fb-login-button"
-                data-max-rows="1"
-                data-size="medium"
-                data-button-type="continue_with"
-                data-show-faces="true"
-                data-auto-logout-link="true"
-                data-use-continue-as="true"
-              ></div>
+              <button
+                v-if="isFbLoaded && fbStatus === 'connected'"
+                class="btn btn-facebook"
+                @click.prevent="logout()"
+              >
+                <i class="icon icon-facebook"></i>
+                {{fbName}}
+              </button>
+              <button v-else-if="isFbLoaded" class="btn btn-facebook" @click.prevent="login()">
+                <i class="icon icon-facebook"></i> Connect to facebook
+              </button>
             </div>
           </div>
         </div>
@@ -56,6 +57,7 @@ import TimelineLayout from '@/layout/Timeline'
 import ModalChangePassword from '@/pages/Profile/ModalChangePassword'
 import { IconTwitter, IconFacebook } from '@/svg/icons'
 import * as FBService from '@/services/facebook'
+import * as ProfileAPI from '@/services/api/profile'
 export default {
   name: 'ProfileSetting',
   components: {
@@ -70,35 +72,71 @@ export default {
       // Facebook
       isFbLoaded: false,
       fbName: null,
-      fbStatus: null
+      fbStatus: null,
+      fbAccessToken: -1
     }
   },
   async mounted() {
     window.fb = FBService
-    window.onClickFBLoginButton = this.onClickFBLoginButton
-    window.init = this.init
 
     FBService.init()
-    FB.XFBML.parse()
-    FB.Event.subscribe('xfbml.render', () => {
+    FB.Event.subscribe('auth.statusChange', async resp => {
       this.isFbLoaded = true
+      this.fbStatus = resp.status
+      if (resp.status === 'connected') {
+        this.fbName = await FBService.getEmail()
+        this.fbAccessToken = await FBService.getAccessToken()
+      } else if (resp.status === 'unknown') {
+        this.fbAccessToken = -1
+      } else {
+        this.fbAccessToken = null
+      }
     })
     this.fbStatus = await FBService.getLoginStatus()
     if (this.fbStatus === 'connected') {
       this.fbName = await FBService.getEmail()
-      this.fbAccessToken = FBService.getAccessToken()
+      this.fbAccessToken = await FBService.getAccessToken()
+    }
+  },
+  watch: {
+    fbAccessToken: {
+      immediate: true,
+      handler(token) {
+        if (token == -1) return
+        if (token == null) return ProfileAPI.disconnectAccount('facebook')
+        return ProfileAPI.connectAccount('facebook', token)
+      }
     }
   },
   methods: {
     closeModal() {
       this.isModalChangePasswordOpen = false
     },
-    async onClickFBLoginButton(...args) {
-      console.log('fb.clicked', ...args)
-      const status = await FBService.getLoginStatus()
-      if (status === this.fbStatus) return
-      this.status = status
+    login() {
+      FBService.login()
+    },
+    logout() {
+      FBService.logout()
     }
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.icon.icon-facebook
+  background-color: white
+  -webkit-mask: url(~@/assets/facebook-square.svg)
+  -webkit-mask-position: center
+  -webkit-mask-repeat: no-repeat
+  -webkit-mask-size: 23px
+  height: 30px
+
+.btn.btn-facebook
+  background: #465894
+  color: white
+  padding: 5px 10px
+  font-family: Lato
+  text-indent: 15px
+
+
+</style>

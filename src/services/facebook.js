@@ -5,7 +5,7 @@ export const init = () => {
   FB.init({
     appId: APP_ID,
     cookie: true,
-    xfbml: true,
+    xfbml: false,
     version: 'v2.12'
   })
 }
@@ -25,9 +25,11 @@ export const login = () => {
   return new Promise(resolve => FB.login(resolve, scope))
 }
 
+export const logout = () => new Promise(resolve => FB.logout(resp => resolve(resp)))
+
 export const getEmail = () => new Promise(resolve => FB.api('/me', (res) => {
   const username = res.email || res.name
   return resolve(username)
 }))
 
-export const getAccessToken = () => FB.getAccessToken()
+export const getAccessToken = () => Promise.resolve(FB.getAccessToken())
