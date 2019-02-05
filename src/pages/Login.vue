@@ -67,8 +67,7 @@ export default {
               const token = resp.data.data.access_token
 
               this.$store.commit('meLogout/userLogin')
-              LinimasaAPI.setToken(token)
-              ProfileAPI.setToken(token)
+              this.$store.dispatch('profile/setToken', token)
               const user = await ProfileAPI.getMe()
               const shouldUpdateProfile =
                 user.location == null ||

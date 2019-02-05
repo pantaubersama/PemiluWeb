@@ -1,27 +1,19 @@
 import axios from 'axios'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
+import Api from '@/services/api/base'
 
 const BASE_URL = process.env.API_BASE_URL
   ? process.env.API_BASE_URL
   : 'https://staging-auth.pantaubersama.com'
-const TOKEN = vueAuth.getToken()
 
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    headers: { Authorization: TOKEN ? `Bearer ${TOKEN}` : '' }
-  }
-})
+const api = Api(BASE_URL, () => vueAuth.getToken())
 
-export const setToken = token => {
-  api.defaults.headers['Authorization'] = `Bearer ${token}`
-}
-
-export const getMe = () =>
-  api
-    .get('/v1/me')
-    .then(resp => resp.data)
-    .then(data => data.data.user)
+export const getMe = () => api
+  .get('/v1/me')
+  .then(resp => resp.data)
+  .then(data => data.data.user)
 
 export const updateAvatar = avatar => {
   const formData = new FormData()

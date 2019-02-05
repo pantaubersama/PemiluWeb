@@ -1,17 +1,14 @@
 import axios from 'axios'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
+import Api from '@/services/api/base'
 
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? `${process.env.API_PEMILU_BASE_URL}/pendidikan_politik`
   : 'https://staging-pemilu.pantaubersama.com/pendidikan_politik'
-const TOKEN = vueAuth.getToken()
 
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    Authorization: TOKEN ? `Bearer ${TOKEN}` : ''
-  }
-})
+const api = Api(BASE_URL, () => vueAuth.getToken())
 
 export const fetchQuestions = ({
   page = 1,

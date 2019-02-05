@@ -19,7 +19,7 @@
         <a href="#" class="word-stadium">
           <word-stadium-icon></word-stadium-icon>
         </a>
-        <div class="dropdown-note-container">
+        <div class="dropdown-note-container" v-if="isLoggedIn">
           <button
             class="note"
             :class="{'is-active': isDropdownNoteActive}"
@@ -133,7 +133,8 @@ export default {
   computed: {
     ...mapState('meLogout', ['userLogin']),
     ...mapState({
-      avatarURL: s => s.profile.user.avatar.medium.url
+      avatarURL: s => s.profile.user.avatar.medium.url,
+      isLoggedIn: s => s.profile.token != null
     })
   },
   methods: {
