@@ -91,7 +91,7 @@ export default {
       feedsPilpres: state => state.liniMasa.feedsPilpres,
       user: state => state.profile.user,
       userAuth: state => state.meLogout.userLogin,
-      clusters: state => state.dashboard.clusters
+      clusters: state => state.profile.clusters
     }),
     ...mapGetters([
       'bannerPilpresData',
@@ -113,8 +113,7 @@ export default {
     ...mapActions([
       'fetchBannerInfo',
       'fetchJanjiPolitik',
-      'fetchFeedsPilpres',
-      'fetchClusters'
+      'fetchFeedsPilpres'
     ]),
     getObject(type) {
       switch (type) {
@@ -172,9 +171,12 @@ export default {
     filterSourceChange(value) {
       this.source = value
     },
+    fetchClusters(payload) {
+      return this.$store.dispatch('profile/getClusterList', payload)
+    },
     async searchClusters(value) {
       const payload = {
-        query: value
+        q: value
       }
       await this.fetchClusters(payload)
     }
@@ -193,7 +195,8 @@ export default {
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
       await this.fetchFeedsPilpres(payloadFeeds)
-      await this.fetchClusters({})
+      // await this.fetchClusters({})
+      await this.$store.dispatch('profile/getClusterList')
       await setTimeout(() => (this.isLoading = false), 1000)
     })
   }

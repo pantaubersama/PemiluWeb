@@ -83,6 +83,21 @@ export const createCluster = (
     .post('/v1/clusters', formData)
     .then(resp => resp.data.data.cluster)
 }
+/* eslint-disable camelcase */
+export const getClusterList = ({
+  page = 1,
+  per_page = 50,
+  q = null
+} = {}) => api
+  .get('/v1/clusters', {
+    params: {
+      page,
+      per_page,
+      q
+    }
+  })
+  .then(resp => resp.data.data.clusters)
+/* eslint-enable */
 
 const verifySignature = signature => {
   const formData = new FormData()

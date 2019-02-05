@@ -14,6 +14,7 @@
               :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
             >Tanya Kandidat</router-link>
             <router-link
+              v-if="isLoggedIn"
               class="nav-tab--item"
               :class="{ active: activePage === 'quiz' }"
               :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
@@ -29,7 +30,7 @@
               :loading="isLoading"
             ></question-list>
             <quiz-list
-              v-if="activePage === 'quiz'"
+              v-if="activePage === 'quiz' && isLoggedIn"
               :totalKecenderungan="totalKecenderungan"
               :quizzes="isFilterQuiz ? quizzesFilter : quizzes"
               @onClickKecenderungan="openPageKecenderungan"
@@ -52,8 +53,7 @@
           />
         </div>
         <div
-          v-if="$route.name === 'PendidikanPolitikQuizIkuti' ||
-        $route.name === 'PendidikanPolitikQuizLanjut'"
+          v-if="$route.name === 'PendidikanPolitikQuizIkuti' || $route.name === 'PendidikanPolitikQuizLanjut'"
         >
           <quiz-detail
             :showModal="showModal"
@@ -122,7 +122,7 @@
           </div>
         </widget-filter>
         <widget-filter
-          v-if="activePage === 'quiz'"
+          v-if="activePage === 'quiz' && isLoggedIn"
           :is-active="isWidgetFilterExpanded"
           @open="onOpenWidgetFilter(true)"
           @close="onOpenWidgetFilter(false)"
@@ -207,7 +207,8 @@ export default {
     ...mapState({
       questions: state => state.pendidikanPolitik.questions,
       totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan,
-      quizzesFilter: state => state.pendidikanPolitik.quizzes
+      quizzesFilter: state => state.pendidikanPolitik.quizzes,
+      isLoggedIn: s => s.profile.token != null
     }),
     ...mapGetters([
       'bannerKuisData',
@@ -374,7 +375,9 @@ export default {
   mounted() {
     this.fetchBannerInfo('tanya').then(async () => {
       await this.fetchDataQuestions()
-      await this.fetchDataQuiz()
+      if (this.isLoggedIn) {
+        await this.fetchDataQuiz()
+      }
       await setTimeout(() => (this.isLoading = false), 1000)
     })
   }

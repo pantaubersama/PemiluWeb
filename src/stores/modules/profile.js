@@ -59,7 +59,8 @@ export const state = {
   badges: [],
   listBadges: [],
   categories: [],
-  cluster: [],
+  cluster: {},
+  clusters: [],
   historyLinimasa: [],
   historyPendidikanPolitik: [],
   historyWordStadium: [],
@@ -109,6 +110,11 @@ export const actions = {
     ctx.commit('setListBadges', badges)
   },
 
+  async getClusterList(ctx, payload) {
+    const clusters = await ProfileAPI.getClusterList(payload)
+    ctx.commit('setClusterList', clusters)
+    return Promise.resolve(clusters)
+  },
   async getClusterCategories(store) {
     const data = await ProfileAPI.getCategories()
     store.commit('setCategories', {
@@ -174,10 +180,9 @@ export const actions = {
   },
   async selectCalon(ctx, payload) {
     ctx.commit('selectCalon', payload.id)
-    const politicalPartyId =
-      ctx.rootState.profile.user.political_party &&
-      ctx.rootState.profile.user.political_party.id
-      ? ctx.rootState.profile.user.political_party.id
+    const politicalParty = ctx.rootState.profile.user.political_party
+    const politicalPartyId = politicalParty && politicalParty.id
+      ? politicalParty.id
       : null
     const user = await ProfileAPI.votePreference({
       politicalPartyId,
@@ -243,6 +248,9 @@ export const mutations = {
   },
   setPoliticalParties(state, payload) {
     state.politicalParties = payload.political_parties
+  },
+  setClusterList(state, clusters) {
+    state.clusters = clusters
   }
 }
 

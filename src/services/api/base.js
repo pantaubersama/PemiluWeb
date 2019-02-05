@@ -6,7 +6,10 @@ export default function Api(baseURL, getToken) {
     baseURL
   })
   instance.interceptors.request.use((config) => {
-    config.headers['Authorization'] = `Bearer ${getToken()}`
+    const token = getToken()
+    if (token != null) {
+      config.headers['Authorization'] = `Bearer ${getToken()}`
+    }
     return config
   })
   instance.interceptors.response.use(resp => resp, (error) => {
