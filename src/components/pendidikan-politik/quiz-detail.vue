@@ -1,7 +1,7 @@
 <template>
   <div>
     <card-question-layout>
-      <img v-if="quiz.image.url" :src="quiz.image.url" slot="background">
+      <img v-if="avatarURL" :src="avatarURL" slot="background">
       <meditation-illustration v-else slot="background"></meditation-illustration>
       <div slot="title" class="quiz-title">
         <h3>{{quiz.title}}</h3>
@@ -70,6 +70,12 @@ export default {
     },
     questionsValid() {
       return this.$store.getters.questionsValid(this.quizId)
+    },
+    avatarURL() {
+      if (!this.quiz || !this.quiz.image || !this.quiz.image.url) {
+        return null
+      }
+      return this.quiz.image.url
     }
   }
 }

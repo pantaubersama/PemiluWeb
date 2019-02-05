@@ -94,6 +94,14 @@ export const actions = {
       quizId,
       quiz
     })
+    const quizType = quiz.participation_status
+    if (quizType === 'not_participating') {
+      ctx.commit('checkoutQuiz', {
+        id: quizId,
+        status: quiz.participation_status,
+        currentStatus: 'in_progress'
+      })
+    }
     return Promise.resolve(quiz)
   },
   async getQuizQuestions(ctx, { quiz, quizId }) {
