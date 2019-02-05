@@ -1,7 +1,9 @@
 // import Vue from 'vue'
 import ApiV2MeLogout from '@/services/api/me/logout'
 import router from '@/router'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 
 // initial state
 const state = {
@@ -10,10 +12,13 @@ const state = {
 
 // actions
 const actions = {
-  logout ({ commit }) {
+  logout(ctx) {
     ApiV2MeLogout.logout(result => {
       vueAuth.storage.removeItem(vueAuth.tokenName)
-      commit('userLogout')
+      ctx.commit('userLogout')
+      ctx.dispatch('profile/setToken', null, {
+        root: true
+      })
       router.replace('/')
     })
   }
@@ -21,10 +26,10 @@ const actions = {
 
 // mutations
 const mutations = {
-  userLogin (state) {
+  userLogin(state) {
     state.userLogin = true
   },
-  userLogout (state) {
+  userLogout(state) {
     state.userLogin = false
   }
 }

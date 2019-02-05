@@ -8,6 +8,7 @@ import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 
 export const namespaced = true
 export const state = {
+  token: null,
   user: {
     id: null,
     email: null,
@@ -68,6 +69,9 @@ export const state = {
 }
 
 export const actions = {
+  setToken(ctx, token) {
+    ctx.commit('setToken', token)
+  },
   async getMe(ctx) {
     const user = await ProfileAPI.getMe()
     ctx.commit('setProfileData', {
@@ -173,8 +177,8 @@ export const actions = {
     const politicalPartyId =
       ctx.rootState.profile.user.political_party &&
       ctx.rootState.profile.user.political_party.id
-        ? ctx.rootState.profile.user.political_party.id
-        : null
+      ? ctx.rootState.profile.user.political_party.id
+      : null
     const user = await ProfileAPI.votePreference({
       politicalPartyId,
       votePreference: payload.id
@@ -201,6 +205,9 @@ export const actions = {
 }
 
 export const mutations = {
+  setToken(state, token) {
+    state.token = token
+  },
   setProfileData(state, payload) {
     state.user = {
       ...state.user,

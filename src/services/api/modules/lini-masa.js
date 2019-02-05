@@ -1,22 +1,14 @@
-import axios from 'axios'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
+import Api from '@/services/api/base'
 
 const PREFIX = 'linimasa'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? process.env.API_PEMILU_BASE_URL
   : 'https://staging-pemilu.pantaubersama.com'
-const TOKEN = vueAuth.getToken()
 
-const httpClient = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    Authorization: TOKEN ? `Bearer ${TOKEN}` : ''
-  }
-})
-
-export const setToken = token => {
-  httpClient.defaults.headers['Authorization'] = `Bearer ${token}`
-}
+const httpClient = Api(BASE_URL, () => vueAuth.getToken())
 
 const fetchBannerInfo = (page_name = 'pilpres') => {
   return httpClient
@@ -63,7 +55,9 @@ const fetchJanjiPolitik = ({
 
 const deleteJanjiPolitik = id => {
   return httpClient
-    .delete(`${PREFIX}/v1/janji_politiks`, { id })
+    .delete(`${PREFIX}/v1/janji_politiks`, {
+      id
+    })
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }
@@ -87,7 +81,11 @@ export const fetchFeedsPilpres = ({
     .catch(error => Promise.reject(error))
 }
 
-const postJanjiPolitik = ({ title, body, image }) => {
+const postJanjiPolitik = ({
+  title,
+  body,
+  image
+}) => {
   const formData = new FormData()
   formData.append('title', title)
   formData.append('body', body)
