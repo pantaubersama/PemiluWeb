@@ -11,8 +11,8 @@
           <WidgetVerified/>
         </div>
         <!-- <CardWordStadium/> -->
-        <WidgetCluster/>
-        <CardQuiz/>
+        <WidgetCluster v-if="hasCluster"/>
+        <CardQuiz v-if="isLoggedIn"/>
       </div>
     </template>
   </LayoutTimeline>
@@ -28,6 +28,7 @@ import WidgetCluster from '@/components/Home/WidgetCluster'
 import CardQuiz from '@/components/Home/CardQuiz'
 import CardWordStadium from '@/components/Home/CardWordStadium'
 import { authLink } from '@/mixins/link'
+import { mapState } from 'vuex'
 export default {
   name: 'Home',
   components: {
@@ -40,6 +41,15 @@ export default {
     CardQuiz,
     CardWordStadium
   },
-  mixins: [authLink]
+  mixins: [authLink],
+  computed: {
+    ...mapState({
+      cluster: s => s.profile.user.cluster,
+      isLoggedIn: s => s.profile.token != null
+    }),
+    hasCluster() {
+      return this.isLoggedIn && this.cluster != null
+    }
+  }
 }
 </script>
