@@ -303,6 +303,13 @@ export default {
     onClickChoicesButton(value) {
       if (!value.next) {
         this.showModal = false
+
+        setTimeout(() => {
+          const baseURL = window.location.origin
+          const { id } = this.$route.params
+          const targetURL = `${baseURL}/pendidikan-politik/quiz/hasil/${id}`
+          window.location.replace(targetURL)
+        }, 700)
       }
     },
     onClickCloseButton() {
