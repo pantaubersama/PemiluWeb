@@ -12,11 +12,11 @@
           <img src="@/assets/icon_info.svg">Pusat Bantuan
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a href="javascript:void(0)">
           <img src="@/assets/icon_message.svg">Kirim Masukan
         </a>
-      </li>
+      </li>-->
       <li>
         <router-link to="/profile/setting">
           <img src="@/assets/icon_setting.svg">Pengaturan
