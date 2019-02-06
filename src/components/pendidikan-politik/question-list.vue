@@ -164,6 +164,8 @@ export default {
     border-bottom: 1px solid #ececec
     border-left: 0
     border-right: 0
+    &:first-child
+      border-bottom: none
     &:not(:first-child)
       border-top: 0
     *
