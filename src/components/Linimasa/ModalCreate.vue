@@ -16,25 +16,37 @@
           </div>
           {{ name }}
         </div>
-        <textarea v-model="title" placeholder="Judul Janji Politik"></textarea>
+        <textarea
+          v-validate="'required'"
+          data-vv-validate-on="blur|input"
+          name="title"
+          v-model="title"
+          placeholder="Judul Janji Politik"
+          :class="{'input': true, 'is-danger': errors.has('title') }"
+        ></textarea>
+        <span v-show="errors.has('title')" class="help is-danger">{{ errors.first('title') }}</span>
       </div>
 
       <div class="html-editor">
         <textarea
+          v-validate="'required'"
+          data-vv-validate-on="blur|input"
+          name="body"
           v-model="body"
-          @focus="showUpload"
           placeholder="Berikan deskripsi atau detil lebih lanjut terkait Janji Politik yang akan disampaikan di kolom ini."
+          :class="{'input': true, 'is-danger': errors.has('body') }"
         ></textarea>
+        <span v-show="errors.has('body')" class="help is-danger">{{ errors.first('body') }}</span>
         <div class="preview-img" v-if="image">
           <img :src="image">
           <div class="remove-img">
             <close-icon @click="removeImage"/>
           </div>
         </div>
-        <div class="upload-img" v-else>
-          <input type="file" accept="image/*" @change="onFileChange">
-          <image-default/>
-        </div>
+      </div>
+      <div class="upload-img" v-if="!image">
+        <input type="file" accept="image/*" @change="onFileChange">
+        <image-default/>
       </div>
       <div class="button-submit">
         <button class="btn btn-outline-primary" @click.prevent="submit()">publikasikan</button>
@@ -83,10 +95,14 @@ export default {
       this.image = null
     },
     submit() {
-      this.$emit('submit', {
-        title: this.title,
-        body: this.body,
-        image: this.fileImage
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.$emit('submit', {
+            title: this.title,
+            body: this.body,
+            image: this.fileImage
+          })
+        }
       })
     }
   },

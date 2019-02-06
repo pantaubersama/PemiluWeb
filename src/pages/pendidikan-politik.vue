@@ -28,6 +28,7 @@
               @upvoted="onUpvote($event)"
               @removeVoted="onRemoveVote($event)"
               :loading="isLoading"
+              :userAuth="userAuth"
             ></question-list>
             <quiz-list
               v-if="activePage === 'quiz' && isLoggedIn"
@@ -208,7 +209,9 @@ export default {
       questions: state => state.pendidikanPolitik.questions,
       totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan,
       quizzesFilter: state => state.pendidikanPolitik.quizzes,
-      isLoggedIn: s => s.profile.token != null
+      isLoggedIn: s => s.profile.token != null,
+      user: state => state.profile.user,
+      userAuth: state => state.meLogout.userLogin
     }),
     ...mapGetters([
       'bannerKuisData',

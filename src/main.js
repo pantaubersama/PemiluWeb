@@ -10,9 +10,11 @@ import VueTagsInput from '@voerro/vue-tagsinput'
 
 import App from './components/App'
 import router from './router'
-import { http } from './services/http'
+import {
+  http
+} from './services/http'
 import store from '@/stores'
-
+import VeeValidate from 'vee-validate'
 Vue.config.productionTip = false
 
 Vue.use(SocialSharing)
@@ -21,6 +23,16 @@ Vue.use(Autocomplete)
 Vue.use(Toaster)
 Vue.component('vue-headful', VueHeadful)
 Vue.component('tags-input', VueTagsInput)
+
+Vue.use(VeeValidate, {
+  dictionary: {
+    en: {
+      messages: {
+        required: (field) => `* Wajib Diisi.`
+      }
+    }
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

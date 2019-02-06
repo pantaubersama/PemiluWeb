@@ -8,17 +8,19 @@
     margin-top: 5px
 
   .create-title
-    border: 1px solid #ececec
-    padding: 20px
     margin-top: 12px
+    position: relative
     .user-profile
       display: flex
       align-items: center
       color: #212121
       font-weight: bold
       font-size: 10px
-      margin-bottom: 10px
-      cursor: pointer
+      padding: 15px 20px
+      position: absolute
+      left: 0
+      right: 0
+      top: 0
       .thumb
         width: 16px
         height: 16px
@@ -32,13 +34,15 @@
           object-position: center center
 
     textarea
-      border: none
+      border: 1px solid #ececec
       font-weight: bold
       color: #393939
       font-family: 'Bw Modelica'
-      min-height: 30px
+      min-height: 100px
       width: 100%
       resize: none
+      padding: 40px 20px 20px
+
       &::placeholder
         color: #393939
         opacity: 1
@@ -56,3 +60,12 @@
       letter-spacing: 1.2px
       padding: 14px 30px
 
+.help.is-danger
+  position: absolute
+  font-size: 11px
+  color: #bd081c
+  font-style: italic
+  top: 80px
+  left: 20px
+.input.is-danger
+  border-color: #bd081c!important
