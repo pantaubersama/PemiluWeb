@@ -145,7 +145,7 @@ export default {
       this.isDropdownNoteActive = !this.isDropdownNoteActive
       this.isActive = false
     },
-    removeDropdownNote() {
+    removeDropdownNote(event) {
       if (!event.target.parentNode.parentNode.classList.contains('icon-pins')) {
         this.isDropdownNoteActive = false
       }

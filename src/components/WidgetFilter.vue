@@ -4,7 +4,8 @@
       class="button-filter"
       id="button-filter"
       :class="{'is-active': isActive}"
-      @click="toggleDropdown($event)">
+      @click="toggleDropdown($event)"
+    >
       Filter
       <i class="icon icon-filter">
         <img src="@/assets/icon-filter.svg" alt>
@@ -24,10 +25,10 @@ export default {
     isActive: Boolean
   },
   mounted() {
-    window.addEventListener("click", this.removeDropdown)
+    window.addEventListener('click', this.removeDropdown)
   },
   destroyed() {
-    window.removeEventListener("click", this.removeDropdown)
+    window.removeEventListener('click', this.removeDropdown)
   },
   methods: {
     toggleDropdown(event) {
@@ -39,14 +40,14 @@ export default {
       // this.isActive = false
       this.$emit('close')
     },
-    removeDropdown() {
+    removeDropdown(event) {
       const isClickOutside =
-        !event.target.parentNode.classList.contains("widget-filter") &&
-        !event.target.parentNode.classList.contains("icon-filter")
+        !event.target.parentNode.classList.contains('widget-filter') &&
+        !event.target.parentNode.classList.contains('icon-filter')
       if (isClickOutside) {
         this.close()
       }
     }
   }
-};
+}
 </script>

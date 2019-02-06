@@ -68,7 +68,7 @@ export default {
     ImageDefault
   },
   methods: {
-    onFileChange(e) {
+    onFileChange(event) {
       const file = Array.from(event.target.files).pop()
       const url = URL.createObjectURL(file)
 
