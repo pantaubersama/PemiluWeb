@@ -316,8 +316,11 @@ export default {
     onClickChoicesButton(value) {
       if (!value.next) {
         this.showModal = false
-        const { id } = this.$route.params
-        router.push({ name: 'PendidikanPolitikQuizHasil', params: { id } })
+
+        setTimeout(() => {
+          const { id } = this.$route.params
+          router.push({ name: 'PendidikanPolitikQuizHasil', params: { id } })
+        }, 700)
       }
     },
     onClickCloseButton() {

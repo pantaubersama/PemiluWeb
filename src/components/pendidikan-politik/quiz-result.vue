@@ -22,7 +22,7 @@
       <div class="quiz-description--content">
         <img class="thumbnail rounded-circle" :src="teamAvatar" :alt="teamName" v-if="teamAvatar">
         <img class="thumbnail rounded-circle" src="@/assets/user.svg" alt="paslon" v-else>
-        <h6 class="percentage">{{ choice.percentage }}%</h6>
+        <h6 class="percentage">{{ Math.ceil(choice.percentage) }}%</h6>
         <span class="subtitle">{{ teamName }}</span>
         <a
           href="javascript:void(0)"
