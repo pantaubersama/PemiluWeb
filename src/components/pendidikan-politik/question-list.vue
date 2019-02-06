@@ -15,7 +15,7 @@
       :url="shareURL"
       :title="shareTitle"
     />
-    <li>
+    <li v-if="isLoggedIn">
       <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
         <div class="avatar-container">
           <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
@@ -90,7 +90,8 @@ export default {
   },
   computed: {
     ...mapState({
-      user: s => s.profile.user
+      user: s => s.profile.user,
+      isLoggedIn: s => s.profile.token != null
     }),
     shareURL() {
       return `/pendidikan-politik/detail/`
