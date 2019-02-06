@@ -19,7 +19,7 @@
         </router-link>
       </li>
 
-      <li>
+      <!-- <li>
         <router-link to="/wordstadium">
           <record-icon/>Menguji
         </router-link>
@@ -35,7 +35,7 @@
         <router-link to="/perhitungan">
           <date-icon/>Merayakan
         </router-link>
-      </li>
+      </li>-->
     </ul>
   </div>
 </template>

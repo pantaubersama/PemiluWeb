@@ -10,15 +10,15 @@
         </div>
       </router-link>
       <div class="ml-auto navbar-right align-item-center d-flex">
-        <div class="d-none d-lg-flex">
+        <!-- <div class="d-none d-lg-flex">
           <div class="input-search">
             <input type="text" class="form-control" placeholder="CARI">
             <search-icon></search-icon>
           </div>
-        </div>
-        <a href="#" class="word-stadium">
+        </div>-->
+        <!-- <a href="#" class="word-stadium">
           <word-stadium-icon></word-stadium-icon>
-        </a>
+        </a>-->
         <div class="dropdown-note-container" v-if="isLoggedIn">
           <button
             class="note"
