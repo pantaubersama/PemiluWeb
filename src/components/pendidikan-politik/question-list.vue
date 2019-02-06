@@ -18,8 +18,11 @@
     <li v-if="isLoggedIn">
       <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
         <div class="avatar-container">
-          <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
-          <span class="name">Budi Santoso</span>
+          <img v-if="user.avatar.thumbnail.url != null"
+            :src="user.avatar.thumbnail.url" alt="avatar" class="avatar">
+          <img v-else src="@/assets/trump.jpg" alt="avatar" class="avatar">
+          <span v-if="user.full_name != null" class="name">{{user.full_name}}</span>
+          <span v-else class="name">Budi Santoso</span>
         </div>
         <p class="trigger">Ada pertanyaan untuk Calon Presiden dan Calon Wakil Presiden 2019-2024?</p>
       </button>
