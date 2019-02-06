@@ -4,8 +4,8 @@
       :name="setName(user.full_name)"
       :avatar="user.avatar.url"
       :is-submitting="isSubmitting"
-      v-if="modal === 'ModalCreate'"
-      @close="() => modal = null"
+      v-if="modal === 'ModalCreate' || this.$route.query.post == 'create-post'"
+      @close="closeModal()"
       @submit="submitQuestion($event)"
     ></modal-create>
     <ModalShare
@@ -16,16 +16,12 @@
       :title="shareTitle"
     />
     <li v-if="isLoggedIn">
-      <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
-        <div class="avatar-container">
-          <img v-if="user.avatar.thumbnail.url != null"
-            :src="user.avatar.thumbnail.url" alt="avatar" class="avatar">
-          <img v-else src="@/assets/trump.jpg" alt="avatar" class="avatar">
-          <span v-if="user.full_name != null" class="name">{{user.full_name}}</span>
-          <span v-else class="name">Budi Santoso</span>
-        </div>
-        <p class="trigger">Ada pertanyaan untuk Calon Presiden dan Calon Wakil Presiden 2019-2024?</p>
-      </button>
+      <PendidikanPolitikCreateItem
+        :avatar="user.avatar.medium_square.url"
+        :author_name="setName(user.full_name)"
+        @clicked="modalCreate()"
+        v-if="userAuth"
+      />
     </li>
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
       <ContentLoader/>
@@ -62,6 +58,7 @@ import ModalShare from '@/components/modal-share'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
 import ModalCreate from '@/components/pendidikan-politik/modal-create'
+import PendidikanPolitikCreateItem from '@/components/pendidikan-politik/penpol-create-item'
 import ShareOptions from '@/mixins/share-options'
 export default {
   name: 'QuestionList',
@@ -69,7 +66,8 @@ export default {
     QuestionItem,
     ContentLoader,
     ModalCreate,
-    ModalShare
+    ModalShare,
+    PendidikanPolitikCreateItem
   },
   mixins: [utils, ShareOptions],
   props: {
@@ -78,6 +76,10 @@ export default {
       required: true
     },
     loading: {
+      type: Boolean,
+      required: true
+    },
+    userAuth: {
       type: Boolean,
       required: true
     }
@@ -108,7 +110,11 @@ export default {
       const question = resp.question
       this.$store.dispatch('addQuestion', question)
       this.isSubmitting = false
-      this.modal = null
+      this.$router.replace({})
+      this.modal = false
+      this.$store.dispatch('homeKenalan/updateKenalan', {
+        id: '231cbadc-a856-4723-93a9-bb79915dd40d'
+      })
     },
     handleReport(id) {
       this.postReport(id)
@@ -135,6 +141,16 @@ export default {
       this.isActive = false
       this.shareId = id
       this.isSharing = true
+    },
+    modalCreate() {
+      this.$router.replace({
+        query: { post: 'create-post' }
+      })
+      this.modal = 'modalCreate'
+    },
+    closeModal() {
+      this.$router.replace({})
+      this.modal = false
     }
   }
 }
