@@ -10,7 +10,7 @@
       </p>
       <div class="button-group">
         <div class="btn btn-primary" @click="auth('symbolic')">Mulai</div>
-        <div class="btn" @click="$router.go(-1)">Lewati</div>
+        <div class="btn" @click="$router.push('/')">Lewati</div>
       </div>
     </div>
   </div>
