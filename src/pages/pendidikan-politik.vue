@@ -10,8 +10,7 @@
             <router-link
               exact
               class="nav-tab--item"
-              :class="{ active: activePage === 'tanya' }"
-              :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
+              :to="{ path: '/pendidikan-politik'}"
             >Tanya Kandidat</router-link>
             <router-link
               v-if="isLoggedIn"

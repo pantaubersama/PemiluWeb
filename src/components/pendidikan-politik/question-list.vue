@@ -4,7 +4,7 @@
       :name="setName(user.full_name)"
       :avatar="user.avatar.url"
       :is-submitting="isSubmitting"
-      v-if="modal === 'ModalCreate' || this.$route.query.post == 'create-post'"
+      v-if="modal === 'modalCreate'"
       @close="closeModal()"
       @submit="submitQuestion($event)"
     ></modal-create>
@@ -15,7 +15,7 @@
       :url="shareURL"
       :title="shareTitle"
     />
-    <li v-if="isLoggedIn">
+    <li>
       <PendidikanPolitikCreateItem
         :avatar="user.avatar.medium_square.url"
         :author_name="setName(user.full_name)"
@@ -23,6 +23,7 @@
         v-if="userAuth"
       />
     </li>
+
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
       <ContentLoader/>
     </li>
@@ -86,7 +87,7 @@ export default {
   },
   data() {
     return {
-      modal: null,
+      modal: false,
       isSubmitting: false,
       shareTitle: 'Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆',
       isSharing: false,
@@ -110,7 +111,6 @@ export default {
       const question = resp.question
       this.$store.dispatch('addQuestion', question)
       this.isSubmitting = false
-      this.$router.replace({})
       this.modal = false
       this.$store.dispatch('homeKenalan/updateKenalan', {
         id: '231cbadc-a856-4723-93a9-bb79915dd40d'
@@ -143,13 +143,9 @@ export default {
       this.isSharing = true
     },
     modalCreate() {
-      this.$router.replace({
-        query: { post: 'create-post' }
-      })
       this.modal = 'modalCreate'
     },
     closeModal() {
-      this.$router.replace({})
       this.modal = false
     }
   }

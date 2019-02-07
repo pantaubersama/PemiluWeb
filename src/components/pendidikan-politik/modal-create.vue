@@ -17,7 +17,6 @@
           </div>
           {{ name }}
         </div>
-        <!-- <textarea v-model="title" placeholder="Ayo tanya sekarang"></textarea> -->
         <textarea
           v-validate="'required'"
           data-vv-validate-on="blur|input"
