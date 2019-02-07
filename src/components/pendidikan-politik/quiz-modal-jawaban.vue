@@ -4,6 +4,9 @@
       <button class="close-icon" @click="$emit('close')">
         <close-icon></close-icon>
       </button>
+      <div class="quiz-modal-background">
+        <meditation-illustration></meditation-illustration>
+      </div>
       <div class="quiz-container">
         <div
           class="quiz-container--row"
@@ -42,12 +45,14 @@ import { pembilang } from '@/utils'
 
 import { CloseIcon } from '@/svg/icons'
 import ModalLayout from '@/layout/Modal'
+import { MeditationIllustration } from '@/svg/illustrations'
 
 export default {
   name: 'QuizModalJawaban',
   components: {
     CloseIcon,
-    ModalLayout
+    ModalLayout,
+    MeditationIllustration
   },
   computed: {
     ...mapState({
