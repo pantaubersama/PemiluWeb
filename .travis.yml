@@ -26,6 +26,7 @@ notifications:
   slack:
     rooms:
       - $SLACK_TOKEN#any-notif
+      - $SLACK_TOKEN#web
     on_success: always
     on_failure: always
 
