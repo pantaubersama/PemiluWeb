@@ -3,13 +3,12 @@ language: node_js
 node_js:
   - 11.5.0
 
-addons:
-  ssh_known_hosts: '$STAGING_SERVER_IP'
-
 before_install:
   - openssl aes-256-cbc -K $encrypted_231f8858f615_key -iv $encrypted_231f8858f615_iv -in travis_pantau_rsa.enc -out ~/.ssh/travis_pantau_rsa -d
+  - ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H \$STAGING_SERVER_IP 2>&1 | tee -a ${TRAVIS_HOME}/.ssh/known_hosts
   - eval "$(ssh-agent -s)"
   - chmod 600 ~/.ssh/travis_pantau_rsa
+  - ssh-add ~/.ssh/travis_pantau_rsa
   - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
   - node -v
   - npm -v
@@ -47,4 +46,4 @@ jobs:
             }
           EOF
         - npm run build
-        - rsync -rav -e "~/.ssh/travis_pantau_rsa" --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
+        - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
