@@ -6,6 +6,9 @@ node_js:
 before_install:
   - node -v
   - npm -v
+  - ssh-add <(echo "$STAGING_TRAVIS_PANTAU_RSA")
+  - mkdir -p ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
 install:
   - npm install
@@ -40,3 +43,4 @@ jobs:
             }
           EOF
         - npm run build
+        - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
