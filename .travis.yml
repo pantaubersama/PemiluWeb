@@ -24,11 +24,10 @@ stages:
 
 notifications:
   slack:
-    on_success: always
-    on_failure: always
-    notifications:
     rooms:
       - $SLACK_TOKEN#any-notif
+    on_success: always
+    on_failure: always
 
 jobs:
   include:
