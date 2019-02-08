@@ -5,7 +5,6 @@ node_js:
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_231f8858f615_key -iv $encrypted_231f8858f615_iv -in travis_pantau_rsa.enc -out ~/.ssh/travis_pantau_rsa -d
-  - ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES $STAGING_SERVER_IP 2>&1 | tee -a ${TRAVIS_HOME}/.ssh/known_hosts
   - eval "$(ssh-agent -s)"
   - chmod 600 ~/.ssh/travis_pantau_rsa
   - ssh-add ~/.ssh/travis_pantau_rsa
@@ -16,34 +15,38 @@ before_install:
 install:
   - npm install
 
-stages:
-  - name: build_staging
-    if: branch = staging
+before_deploy:
+  - ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H $STAGING_SERVER_IP 2>&1 | tee -a ${TRAVIS_HOME}/.ssh/known_hosts
 
-jobs:
-  include:
-    - stage: build_staging
-      script:
-        - touch config/env/prod.js
-        - |
-          cat > config/env/prod.js <<EOF
-            module.exports = {
-              NODE_ENV: '"$NODE_ENV_STAGING"',
-              BASE_URL: '"$BASE_URL_STAGING"',
-              API_PEMILU_BASE_URL: '"$API_PEMILU_BASE_URL_STAGING"',
-              API_BASE_URL: '"$API_BASE_URL_STAGING"',
-              API_WORD_STADIUM_URL: '"$API_WORD_STADIUM_URL_STAGING"',
-              API_OPINIUM_URL: '"$API_OPINIUM_URL_STAGING"',
-              OAUTH_TOKEN_URL: '"$OAUTH_TOKEN_URL_STAGING"',
-              OAUTH_BASE_URL: '"$OAUTH_BASE_URL_STAGING"',
-              OAUTH_CLIENT_ID: '"$OAUTH_CLIENT_ID_STAGING"',
-              OAUTH_REDIRECT_URI: '"$OAUTH_REDIRECT_URI_STAGING"',
-              OAUTH_AUTHORIZATION_URL: '"$OAUTH_AUTHORIZATION_URL_STAGING"',
-              TW_CONSUMER_KEY: '"$TW_CONSUMER_KEY_STAGING"',
-              TW_CONSUMER_SECRET: '"$TW_CONSUMER_SECRET_STAGING"',
-              FB_APP_ID: '"$FB_APP_ID_STAGING"',
-              FB_APP_SECRET: '"$FB_APP_SECRET_STAGING"'
-            }
-          EOF
-        - npm run build
-        - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
+build_staging:
+  stage: build_staging
+  before_script:
+    - touch config/env/prod.js
+    - |
+      cat > config/env/prod.js <<EOF
+        module.exports = {
+          NODE_ENV: '"$NODE_ENV_STAGING"',
+          BASE_URL: '"$BASE_URL_STAGING"',
+          API_PEMILU_BASE_URL: '"$API_PEMILU_BASE_URL_STAGING"',
+          API_BASE_URL: '"$API_BASE_URL_STAGING"',
+          API_WORD_STADIUM_URL: '"$API_WORD_STADIUM_URL_STAGING"',
+          API_OPINIUM_URL: '"$API_OPINIUM_URL_STAGING"',
+          OAUTH_TOKEN_URL: '"$OAUTH_TOKEN_URL_STAGING"',
+          OAUTH_BASE_URL: '"$OAUTH_BASE_URL_STAGING"',
+          OAUTH_CLIENT_ID: '"$OAUTH_CLIENT_ID_STAGING"',
+          OAUTH_REDIRECT_URI: '"$OAUTH_REDIRECT_URI_STAGING"',
+          OAUTH_AUTHORIZATION_URL: '"$OAUTH_AUTHORIZATION_URL_STAGING"',
+          TW_CONSUMER_KEY: '"$TW_CONSUMER_KEY_STAGING"',
+          TW_CONSUMER_SECRET: '"$TW_CONSUMER_SECRET_STAGING"',
+          FB_APP_ID: '"$FB_APP_ID_STAGING"',
+          FB_APP_SECRET: '"$FB_APP_SECRET_STAGING"'
+        }
+      EOF
+  script:
+    - npm run build
+
+deploy_staging:
+  only: [staging, manual]
+  stage: deploy
+  script:
+    - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
