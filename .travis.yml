@@ -22,6 +22,14 @@ stages:
   - name: release_staging
     if: branch = staging
 
+notifications:
+  slack:
+    on_success: always
+    on_failure: always
+    notifications:
+    rooms:
+      - $SLACK_TOKEN#any-notif
+
 jobs:
   include:
     - stage: release_staging
