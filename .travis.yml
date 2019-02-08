@@ -4,7 +4,8 @@ node_js:
   - 11.5.0
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_231f8858f615_key -iv $encrypted_231f8858f615_iv -in travis_secret.tar.enc -out travis_secret.tar -d
+  - openssl aes-256-cbc -K $encrypted_231f8858f615_key -iv $encrypted_231f8858f615_iv
+    -in travis_secret.tar.enc -out travis_secret.tar -d
   - tar xvf travis_secret.tar
   - cp .travis/travis_pantau_rsa ~/.ssh/
   - eval "$(ssh-agent -s)"
@@ -24,11 +25,7 @@ stages:
 
 notifications:
   slack:
-    rooms:
-      - $SLACK_TOKEN#any-notif
-      - $SLACK_TOKEN#web
-    on_success: always
-    on_failure: always
+    secure: vtRdxS/5fSyryPh0TP1B3abg1k+hmAsoL7U6GbgTs3YCsV2Kro+77XdCynTb11gb9fu77t6a0zggYwP6XwsacH7uQhMTqsjVufil0KgqpBCrmTQWa7tqFctx8I34agJncLkOSctC5YJcKrWOkIg+hfXxfqENxDcCpTDY8pp5CFT5PBgOWhkU3oUbxj5U66fXFfyLzC8C/ky6jRUXh4hHzzjF9RQPIkTMLKqr2qOkIJERuw6/W5dqkDQrIg5w8YGgHppGmzHYPC9jsG8pxkeZ+j+3QkV4TCJyCUFNAW5fYxlxV9HyI2w/fpHYBDajPxVU/yLwOOUrerg8Pilgc8CKJfNRdd5R/Wbby4yb2KCveRc5yrTo8o8YT6j5f8avts8tAdqpI9mcEAmtmfUw2ZiWkZd/BC8mLODzE0vs21QwI4RKoMxBn26oWajteEuB9FliVwpdOOgxk2U4sZNaeeo/nQmmYRXL0aZA93Qg4uquubAvfqVCs3XgJZ/+XD3ibia+Dq88ZjNbpAhlE1Sv03BZ1nQq6VCaeSivD7dSBJg5KN2rMljM08JoJgMF15x/DY3rshN1GLtK48+sd6fcFCJEEPN7sALuZkJtf4R7qdApu8pXQMU9tJtIdTmAJ0D6+OgTPvfk8qQV9aWBcu45YZPLuRufcPBeitzCR7YIQfjmaxs=
 
 jobs:
   include:
