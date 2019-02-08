@@ -13,3 +13,5 @@ note.txt
 *.sln
 
 config/env/*.js
+.travis/*
+travis_secret.tar

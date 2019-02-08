@@ -8,7 +8,7 @@ export const utils = {
         0,
         Math.min(string.length, string.lastIndexOf(' '))
       )
-      return dots ? `${result}...` : result
+      return dots ? `${result}...` : text
     },
     setName(name) {
       if (!name || !name.length) return 'Unknown'

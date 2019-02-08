@@ -17,7 +17,15 @@
           </div>
           {{ name }}
         </div>
-        <textarea v-model="title" placeholder="Ayo tanya sekarang"></textarea>
+        <textarea
+          v-validate="'required'"
+          data-vv-validate-on="blur|input"
+          name="title"
+          v-model="title"
+          placeholder="Ayo tanya sekarang"
+          :class="{'input': true, 'is-danger': errors.has('title') }"
+        ></textarea>
+        <span v-show="errors.has('title')" class="help is-danger">{{ errors.first('title') }}</span>
       </div>
       <div class="button-submit">
         <button v-if="isSubmitting" class="btn btn-outline-primary" disabled>Mengirim</button>
@@ -28,21 +36,15 @@
 </template>
 
 <script>
-// import { VueEditor } from 'vue2-editor'
-// import { customizedToolbar } from '@/mixins/customizedToolbar'
-
 import ModalLayout from '@/layout/Modal'
-
 import { CloseIcon } from '@/svg/icons'
 
 export default {
   name: 'ModalCreateQuestion',
   data() {
     return {
-      // customToolbar: customizedToolbar.render,
       title: '',
-      body: '',
-      image: ''
+      body: ''
     }
   },
   props: {
@@ -51,23 +53,18 @@ export default {
     isSubmitting: Boolean
   },
   components: {
-    // VueEditor,
     ModalLayout,
     CloseIcon
   },
   methods: {
-    inputAvatarChanged(event) {
-      if (!event) return
-      this.image = event
-    },
     submit() {
-      this.$emit('submit', {
-        title: this.title,
-        body: this.body,
-        image: this.image
-      })
-      this.$store.dispatch('homeKenalan/updateKenalan', {
-        id: '231cbadc-a856-4723-93a9-bb79915dd40d'
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.$emit('submit', {
+            title: this.title,
+            body: this.body
+          })
+        }
       })
     }
   },

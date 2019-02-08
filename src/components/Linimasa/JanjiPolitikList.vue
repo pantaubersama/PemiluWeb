@@ -3,7 +3,7 @@
     <ModalCreate
       :name="setName(user.full_name)"
       :avatar="user.avatar.medium_square.url"
-      v-if="modal === 'modalCreate' || this.$route.query.post == 'create-post'"
+      v-if="modal === 'modalCreate'"
       v-on:close="closeModal()"
       v-on:submit="submitPublikasi($event)"
     />
@@ -110,9 +110,6 @@ export default {
   methods: {
     ...mapActions(['postJanjiPolitik', 'deleteJanjiPolitik']),
     modalCreate() {
-      this.$router.replace({
-        query: { type: 'janji-politik', post: 'create-post' }
-      })
       this.modal = 'modalCreate'
     },
 
@@ -133,7 +130,6 @@ export default {
       this.isSharing = true
     },
     closeModal() {
-      this.$router.replace({ query: { type: 'janji-politik' } })
       this.modal = false
     },
     submitPublikasi(data) {

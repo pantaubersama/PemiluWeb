@@ -4,8 +4,8 @@
       :name="setName(user.full_name)"
       :avatar="user.avatar.url"
       :is-submitting="isSubmitting"
-      v-if="modal === 'ModalCreate'"
-      @close="() => modal = null"
+      v-if="modal === 'modalCreate'"
+      @close="closeModal()"
       @submit="submitQuestion($event)"
     ></modal-create>
     <ModalShare
@@ -16,14 +16,14 @@
       :title="shareTitle"
     />
     <li>
-      <button class="add-question" type="button" @click.prevent="() => modal = 'ModalCreate'">
-        <div class="avatar-container">
-          <img src="@/assets/trump.jpg" alt="avatar" class="avatar">
-          <span class="name">Budi Santoso</span>
-        </div>
-        <p class="trigger">Ada pertanyaan untuk Calon Presiden dan Calon Wakil Presiden 2019-2024?</p>
-      </button>
+      <PendidikanPolitikCreateItem
+        :avatar="user.avatar.medium_square.url"
+        :author_name="setName(user.full_name)"
+        @clicked="modalCreate()"
+        v-if="userAuth"
+      />
     </li>
+
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
       <ContentLoader/>
     </li>
@@ -59,6 +59,7 @@ import ModalShare from '@/components/modal-share'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
 import ModalCreate from '@/components/pendidikan-politik/modal-create'
+import PendidikanPolitikCreateItem from '@/components/pendidikan-politik/penpol-create-item'
 import ShareOptions from '@/mixins/share-options'
 export default {
   name: 'QuestionList',
@@ -66,7 +67,8 @@ export default {
     QuestionItem,
     ContentLoader,
     ModalCreate,
-    ModalShare
+    ModalShare,
+    PendidikanPolitikCreateItem
   },
   mixins: [utils, ShareOptions],
   props: {
@@ -77,11 +79,15 @@ export default {
     loading: {
       type: Boolean,
       required: true
+    },
+    userAuth: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
     return {
-      modal: null,
+      modal: false,
       isSubmitting: false,
       shareTitle: 'Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆',
       isSharing: false,
@@ -90,7 +96,8 @@ export default {
   },
   computed: {
     ...mapState({
-      user: s => s.profile.user
+      user: s => s.profile.user,
+      isLoggedIn: s => s.profile.token != null
     }),
     shareURL() {
       return `/pendidikan-politik/detail/`
@@ -104,7 +111,10 @@ export default {
       const question = resp.question
       this.$store.dispatch('addQuestion', question)
       this.isSubmitting = false
-      this.modal = null
+      this.modal = false
+      this.$store.dispatch('homeKenalan/updateKenalan', {
+        id: '231cbadc-a856-4723-93a9-bb79915dd40d'
+      })
     },
     handleReport(id) {
       this.postReport(id)
@@ -131,6 +141,12 @@ export default {
       this.isActive = false
       this.shareId = id
       this.isSharing = true
+    },
+    modalCreate() {
+      this.modal = 'modalCreate'
+    },
+    closeModal() {
+      this.modal = false
     }
   }
 }
@@ -144,6 +160,8 @@ export default {
     border-bottom: 1px solid #ececec
     border-left: 0
     border-right: 0
+    &:first-child
+      border-bottom: none
     &:not(:first-child)
       border-top: 0
     *
