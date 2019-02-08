@@ -13,5 +13,5 @@ note.txt
 *.sln
 
 config/env/*.js
-travis_pantau_rsa
-travis_pantau_rsa.pub
+.travis/*
+travis_secret.tar
