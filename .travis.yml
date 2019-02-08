@@ -1,0 +1,26 @@
+language: node_js
+
+node_js:
+  - 11.5.0
+
+before_install:
+  - touch config/env/prod.js
+  - echo "$STAGING_JS" >> config/env/prod.js
+  - node -v
+  - npm -v
+
+install:
+  - npm install
+
+stages:
+  - name: test_staging
+    if: branch = staging
+  - name: build_staging
+    if: branch = staging
+
+jobs:
+  include:
+    - stage: test_staging
+      script: "echo 'not yet ...'"
+    - stage: build_staging
+      script: npm run build
