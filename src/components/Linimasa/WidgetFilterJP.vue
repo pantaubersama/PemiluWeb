@@ -33,10 +33,9 @@
       <div class="cluster-search">
         <TextAutocomplete
           :items="clusters"
-          :cleared="isCleared"
+          :cleared="cleared"
           @onUpdateItems="$emit('onUpdateItems', $event)"
           @onSelectedItem="$emit('onSelectedItem', $event)"
-          @alreadyCleared="clearedAutocomplete()"
         />
       </div>
       <div class="button-filter-group">
@@ -57,13 +56,16 @@ export default {
     clusters: {
       type: Array,
       required: true
+    },
+    cleared: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       isActive: false,
       selectedStatus: 'user_verified_all',
-      isCleared: false,
       inputFilters: [
         {
           id: 1,
@@ -106,11 +108,7 @@ export default {
     },
     handleResetButton() {
       this.selectedStatus = 'user_verified_all'
-      this.isCleared = true
       this.$emit('onClickResetButton')
-    },
-    clearedAutocomplete() {
-      this.isCleared = false
     }
   }
 }
