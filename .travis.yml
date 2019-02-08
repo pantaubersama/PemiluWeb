@@ -4,8 +4,6 @@ node_js:
   - 11.5.0
 
 before_install:
-  - touch config/env/prod.js
-  - echo "$STAGING_JS" >> config/env/prod.js
   - node -v
   - npm -v
 
@@ -13,14 +11,32 @@ install:
   - npm install
 
 stages:
-  - name: test_staging
-    if: branch = staging
   - name: build_staging
     if: branch = staging
 
 jobs:
   include:
-    - stage: test_staging
-      script: "echo 'not yet ...'"
     - stage: build_staging
-      script: npm run build
+      script:
+        - touch config/env/prod.js
+        - |
+          cat > config/env/prod.js <<EOF
+            module.exports = {
+              NODE_ENV: '"$NODE_ENV_STAGING"',
+              BASE_URL: '"$BASE_URL_STAGING"',
+              API_PEMILU_BASE_URL: '"$API_PEMILU_BASE_URL_STAGING"',
+              API_BASE_URL: '"$API_BASE_URL_STAGING"',
+              API_WORD_STADIUM_URL: '"$API_WORD_STADIUM_URL_STAGING"',
+              API_OPINIUM_URL: '"$API_OPINIUM_URL_STAGING"',
+              OAUTH_TOKEN_URL: '"$OAUTH_TOKEN_URL_STAGING"',
+              OAUTH_BASE_URL: '"$OAUTH_BASE_URL_STAGING"',
+              OAUTH_CLIENT_ID: '"$OAUTH_CLIENT_ID_STAGING"',
+              OAUTH_REDIRECT_URI: '"$OAUTH_REDIRECT_URI_STAGING"',
+              OAUTH_AUTHORIZATION_URL: '"$OAUTH_AUTHORIZATION_URL_STAGING"',
+              TW_CONSUMER_KEY: '"$TW_CONSUMER_KEY_STAGING"',
+              TW_CONSUMER_SECRET: '"$TW_CONSUMER_SECRET_STAGING"',
+              FB_APP_ID: '"$FB_APP_ID_STAGING"',
+              FB_APP_SECRET: '"$FB_APP_SECRET_STAGING"'
+            }
+          EOF
+        - npm run build
