@@ -15,38 +15,36 @@ before_install:
 install:
   - npm install
 
-before_deploy:
-  - ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H $STAGING_SERVER_IP 2>&1 | tee -a ${TRAVIS_HOME}/.ssh/known_hosts
+stages:
+  - name: release_staging
+    if: branch = staging
 
-build_staging:
-  stage: build_staging
-  before_script:
-    - touch config/env/prod.js
-    - |
-      cat > config/env/prod.js <<EOF
-        module.exports = {
-          NODE_ENV: '"$NODE_ENV_STAGING"',
-          BASE_URL: '"$BASE_URL_STAGING"',
-          API_PEMILU_BASE_URL: '"$API_PEMILU_BASE_URL_STAGING"',
-          API_BASE_URL: '"$API_BASE_URL_STAGING"',
-          API_WORD_STADIUM_URL: '"$API_WORD_STADIUM_URL_STAGING"',
-          API_OPINIUM_URL: '"$API_OPINIUM_URL_STAGING"',
-          OAUTH_TOKEN_URL: '"$OAUTH_TOKEN_URL_STAGING"',
-          OAUTH_BASE_URL: '"$OAUTH_BASE_URL_STAGING"',
-          OAUTH_CLIENT_ID: '"$OAUTH_CLIENT_ID_STAGING"',
-          OAUTH_REDIRECT_URI: '"$OAUTH_REDIRECT_URI_STAGING"',
-          OAUTH_AUTHORIZATION_URL: '"$OAUTH_AUTHORIZATION_URL_STAGING"',
-          TW_CONSUMER_KEY: '"$TW_CONSUMER_KEY_STAGING"',
-          TW_CONSUMER_SECRET: '"$TW_CONSUMER_SECRET_STAGING"',
-          FB_APP_ID: '"$FB_APP_ID_STAGING"',
-          FB_APP_SECRET: '"$FB_APP_SECRET_STAGING"'
-        }
-      EOF
-  script:
-    - npm run build
-
-deploy_staging:
-  only: [staging, manual]
-  stage: deploy
-  script:
-    - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
+jobs:
+  include:
+    - stage: release_staging
+      install:
+        - ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H $STAGING_SERVER_IP 2>&1 | tee -a ${TRAVIS_HOME}/.ssh/known_hosts
+      script:
+        - touch config/env/prod.js
+        - |
+          cat > config/env/prod.js <<EOF
+            module.exports = {
+              NODE_ENV: '"$NODE_ENV_STAGING"',
+              BASE_URL: '"$BASE_URL_STAGING"',
+              API_PEMILU_BASE_URL: '"$API_PEMILU_BASE_URL_STAGING"',
+              API_BASE_URL: '"$API_BASE_URL_STAGING"',
+              API_WORD_STADIUM_URL: '"$API_WORD_STADIUM_URL_STAGING"',
+              API_OPINIUM_URL: '"$API_OPINIUM_URL_STAGING"',
+              OAUTH_TOKEN_URL: '"$OAUTH_TOKEN_URL_STAGING"',
+              OAUTH_BASE_URL: '"$OAUTH_BASE_URL_STAGING"',
+              OAUTH_CLIENT_ID: '"$OAUTH_CLIENT_ID_STAGING"',
+              OAUTH_REDIRECT_URI: '"$OAUTH_REDIRECT_URI_STAGING"',
+              OAUTH_AUTHORIZATION_URL: '"$OAUTH_AUTHORIZATION_URL_STAGING"',
+              TW_CONSUMER_KEY: '"$TW_CONSUMER_KEY_STAGING"',
+              TW_CONSUMER_SECRET: '"$TW_CONSUMER_SECRET_STAGING"',
+              FB_APP_ID: '"$FB_APP_ID_STAGING"',
+              FB_APP_SECRET: '"$FB_APP_SECRET_STAGING"'
+            }
+          EOF
+        - npm run build
+        - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
