@@ -1,7 +1,5 @@
 import Vue from 'vue'
-import {
-  vueAuth
-} from '@/services/symbolic'
+import { vueAuth } from '@/services/symbolic'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
@@ -61,6 +59,24 @@ export const state = {
   categories: [],
   cluster: {},
   clusters: [],
+  filterClusters: [
+    {
+      category: {},
+      category_id: null,
+      created_at: null,
+      description: null,
+      id: null,
+      image: null,
+      is_displayed: true,
+      is_eligible: false,
+      is_link_active: false,
+      magic_link: null,
+      members_count: 0,
+      name: 'Semua Cluster',
+      requester: {},
+      status: 'approved'
+    }
+  ],
   historyLinimasa: [],
   historyPendidikanPolitik: [],
   historyWordStadium: [],
@@ -113,7 +129,14 @@ export const actions = {
   async getClusterList(ctx, payload) {
     const clusters = await ProfileAPI.getClusterList(payload)
     ctx.commit('setClusterList', clusters)
+    ctx.commit('setFilterClusterList', clusters)
     return Promise.resolve(clusters)
+  },
+  searchClusters(ctx, name) {
+    const clusters = ctx.state.clusters.filter(cluster => {
+      return cluster.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
+    })
+    ctx.commit('setFilterClusterList', clusters)
   },
   async getClusterCategories(store) {
     const data = await ProfileAPI.getCategories()
@@ -181,9 +204,8 @@ export const actions = {
   async selectCalon(ctx, payload) {
     ctx.commit('selectCalon', payload.id)
     const politicalParty = ctx.rootState.profile.user.political_party
-    const politicalPartyId = politicalParty && politicalParty.id
-      ? politicalParty.id
-      : null
+    const politicalPartyId =
+      politicalParty && politicalParty.id ? politicalParty.id : null
     const user = await ProfileAPI.votePreference({
       politicalPartyId,
       votePreference: payload.id
@@ -251,6 +273,10 @@ export const mutations = {
   },
   setClusterList(state, clusters) {
     state.clusters = clusters
+  },
+  setFilterClusterList(state, clusters) {
+    const allClusters = [state.filterClusters[0], ...clusters]
+    state.filterClusters = allClusters
   }
 }
 

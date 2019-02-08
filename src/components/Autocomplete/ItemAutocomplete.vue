@@ -1,17 +1,25 @@
 <template>
-  <div class="autocomplete">
-    <div class="thumbnail">
-      <img
-        class="image"
-        :src="item.image.thumbnail_square.url"
-        alt="avatar"
-        v-if="item.image && item.image.thumbnail_square && item.image.thumbnail_square.url && item.image.thumbnail_square.url.length > 0"
-      >
-      <img class="image" src="@/assets/user.svg" alt="avatar" v-else>
-    </div>
-    <div class="content">
+  <div>
+    <div
+      class="autocomplete label"
+      v-if="item && item.name === 'Semua Cluster' && !item.id && !item.created_at"
+    >
       <h6 class="title">{{ item.name }}</h6>
-      <span class="count">{{ `${item.members_count || 0} Anggota` }}</span>
+    </div>
+    <div class="autocomplete" v-else>
+      <div class="thumbnail">
+        <img
+          class="image"
+          :src="item.image.thumbnail_square.url"
+          alt="avatar"
+          v-if="item.image && item.image.thumbnail_square && item.image.thumbnail_square.url && item.image.thumbnail_square.url.length > 0"
+        >
+        <img class="image" src="@/assets/user.svg" alt="avatar" v-else>
+      </div>
+      <div class="content">
+        <h6 class="title">{{ item.name }}</h6>
+        <span class="count">{{ `${item.members_count || 0} Anggota` }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +50,17 @@ export default {
     flex-direction: row
     cursor: pointer
     box-shadow: -7px 10px 30px -8px rgba(232,227,232,0.75)
+
+    &.label
+      padding: 6px
+
+      .title
+        color: #111111
+        height: 28px
+        line-height: 28px
+        width: 100%
+        text-align: left
+        padding-left: 8px
 
     .thumbnail
       display: flex

@@ -6,7 +6,7 @@
     :component-item="template"
     :auto-select-one-item="false"
     :keep-open="false"
-    @update-items="$emit('onUpdateItems', $event)"
+    @change="$emit('onUpdateItems', $event)"
     @item-selected="$emit('onSelectedItem', $event)"
   ></v-autocomplete>
 </template>
@@ -21,7 +21,10 @@ export default {
       type: Array,
       required: true
     },
-    cleared: Boolean
+    cleared: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -38,10 +41,10 @@ export default {
     }
   },
   watch: {
+    // clearing current item selected
     cleared(value) {
-      if (value) {
+      if (value && this.item) {
         this.item = {}
-        this.$emit('alreadyCleared')
       }
     }
   }
