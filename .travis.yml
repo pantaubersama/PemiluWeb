@@ -13,6 +13,7 @@ before_install:
   - chmod 600 ~/.ssh/travis_pantau_rsa
   - ssh-add ~/.ssh/travis_pantau_rsa
   - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  - rm -f config/env/prod.js
   - node -v
   - npm -v
 
@@ -21,7 +22,9 @@ install:
 
 stages:
   - name: release_staging
-    if: branch = staging
+    if: branch = staging AND type = push
+  - name: release_production
+    if: branch = master AND type = push
 
 notifications:
   slack:
@@ -35,3 +38,9 @@ jobs:
         - cat .travis/staging.js  >> config/env/prod.js
         - npm run build
         - rsync -rav --delete dist/ $STAGING_SERVER_USERNAME@$STAGING_SERVER_IP:$STAGING_DEPLOY_PATH
+    - stage: release_production
+      script:
+        - touch config/env/prod.js
+        - cat .travis/prood.js  >> config/env/prod.js
+        - npm run build
+        - rsync -rav --delete dist/ $PRODUCTION_SERVER_USERNAME@$PRODUCTION_SERVER_IP:$PRODUCTION_DEPLOY_PATH
