@@ -13,7 +13,7 @@ before_install:
   - chmod 600 ~/.ssh/travis_pantau_rsa
   - ssh-add ~/.ssh/travis_pantau_rsa
   - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-  - rm config/env/prod.js
+  - rm -f config/env/prod.js
   - node -v
   - npm -v
 
