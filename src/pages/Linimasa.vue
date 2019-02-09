@@ -13,13 +13,12 @@
             :userAuth="userAuth"
             :user="user"
             :loading="isLoading"
-            @successSubmitPublikasi="filterJanjiPolitik"
           />
           <PilpresList v-else :data="feedsPilpres" :loading="isLoading"/>
         </div>
       </div>
       <div v-else-if="$route.name == 'LinimasaDetail'">
-        <DetailPost :data="detailJanjiPolitik($route.params.id)"/>
+        <DetailPost :data="detailJanjiPolitik($route.params.id)" :userAuth="userAuth" :user="user"/>
       </div>
       <div v-else>
         <HintBanner :object="getObject($route.query.type)"/>
@@ -30,6 +29,7 @@
         <div v-if="$route.query.type == 'janji-politik'">
           <WidgetFilterJP
             :clusters="clusters"
+            :cleared="cleared"
             @onClickApplyButton="filterJanjiPolitik()"
             @onClickResetButton="resetJanjiPolitik()"
             @onChangeUserStatus="filterStatusChange($event)"
@@ -92,7 +92,7 @@ export default {
       feedsPilpres: state => state.liniMasa.feedsPilpres,
       user: state => state.profile.user,
       userAuth: state => state.meLogout.userLogin,
-      clusters: state => state.dashboard.clusters
+      clusters: state => state.profile.filterClusters
     }),
     ...mapGetters([
       'bannerPilpresData',
@@ -107,15 +107,15 @@ export default {
       clusterId: '',
       userStatus: 'user_verified_all', // user_verified_all, user_verified_true, user_verified_false
       source: 'team_all',
-      isLoading: true
+      isLoading: true,
+      cleared: false
     }
   },
   methods: {
     ...mapActions([
       'fetchBannerInfo',
       'fetchJanjiPolitik',
-      'fetchFeedsPilpres',
-      'fetchClusters'
+      'fetchFeedsPilpres'
     ]),
     getObject(type) {
       switch (type) {
@@ -126,6 +126,7 @@ export default {
       }
     },
     filterJanjiPolitik() {
+      this.isLoading = true
       const payload = {
         page: 1,
         perPage: 100,
@@ -133,10 +134,14 @@ export default {
         clusterId: this.clusterId,
         filterBy: this.userStatus
       }
-      this.fetchJanjiPolitik(payload, true)
+      this.fetchJanjiPolitik(payload, true).finally(() => {
+        this.isLoading = false
+      })
     },
     async resetJanjiPolitik() {
+      await (this.isLoading = true)
       await (this.clusterId = '')
+      await (this.cleared = true)
       const payload = {
         page: 1,
         perPage: 100,
@@ -144,7 +149,11 @@ export default {
         clusterId: '',
         filterBy: 'user_verified_all'
       }
-      await this.fetchJanjiPolitik(payload)
+      await this.fetchJanjiPolitik(payload).finally(() => {
+        this.cleared = false
+        this.$store.dispatch('profile/searchClusters', '')
+        this.isLoading = false
+      })
     },
     filterStatusChange(value) {
       this.userStatus = value
@@ -153,13 +162,16 @@ export default {
       this.clusterId = item.id
     },
     filterFeeds() {
+      this.isLoading = true
       const payload = {
         page: 1,
         perPage: 100,
         query: '',
         filterBy: this.source
       }
-      this.fetchFeedsPilpres(payload, true)
+      this.fetchFeedsPilpres(payload, true).finally(() => {
+        this.isLoading = false
+      })
     },
     resetFeeds() {
       const payload = {
@@ -173,11 +185,8 @@ export default {
     filterSourceChange(value) {
       this.source = value
     },
-    async searchClusters(value) {
-      const payload = {
-        query: value
-      }
-      await this.fetchClusters(payload)
+    searchClusters(value) {
+      this.$store.dispatch('profile/searchClusters', value)
     }
   },
   mounted() {
@@ -194,7 +203,7 @@ export default {
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
       await this.fetchFeedsPilpres(payloadFeeds)
-      await this.fetchClusters({})
+      await this.$store.dispatch('profile/getClusterList')
       await setTimeout(() => (this.isLoading = false), 1000)
     })
   }

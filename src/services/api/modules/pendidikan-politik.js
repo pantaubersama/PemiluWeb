@@ -1,16 +1,14 @@
 import axios from 'axios'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
+import Api from '@/services/api/base'
 
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? `${process.env.API_PEMILU_BASE_URL}/pendidikan_politik`
   : 'https://staging-pemilu.pantaubersama.com/pendidikan_politik'
 
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    Authorization: `Bearer ${vueAuth.getToken()}`
-  }
-})
+const api = Api(BASE_URL, () => vueAuth.getToken())
 
 export const fetchQuestions = ({
   page = 1,
@@ -55,6 +53,13 @@ export const vote = (id, className = 'Question') => {
       id,
       class_name: className
     })
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
+}
+
+export const unVote = (id, className = 'Question') => {
+  return api
+    .delete(`/v1/votes`, { data: { id, class_name: className } })
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }

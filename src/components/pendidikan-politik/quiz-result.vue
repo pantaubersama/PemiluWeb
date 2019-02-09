@@ -1,26 +1,34 @@
 <template>
   <div class="card card-quiz-result">
+    <Headful
+      type="hasil_kuis"
+      :title="`Hasil Kuis ${title}`"
+      :image="imageThumbnail"
+      :url="fullURL"
+    />
     <div class="quiz-content">
       <div class="quiz-description">
         <h5 class="title">RESULT</h5>
         <p>
-          Dari hasil pilihan Quiz minggu pertama,
-          <strong>{{quizzesResult.user.full_name}}</strong>
-          lebih suka Paslon {{ choice.team.id }}
+          Dari hasil pilihan {{ title }}
+          <br>
+          <strong>{{ fullName }}</strong>
+          lebih suka jawaban dari
+          <br>
+          {{ teamName }}
         </p>
       </div>
       <div class="quiz-description--curve">&nbsp;</div>
       <div class="quiz-description--content">
-        <img
-          class="thumbnail rounded-circle"
-          :src="choice.team.avatar"
-          :alt="choice.team.title"
-          v-if="choice.team.avatar"
+        <img class="thumbnail rounded-circle" :src="teamAvatar" :alt="teamName" v-if="teamAvatar">
+        <img class="thumbnail rounded-circle" src="@/assets/user.svg" alt="paslon" v-else>
+        <h6 class="percentage">{{ Math.ceil(choice.percentage) }}%</h6>
+        <span class="subtitle">{{ teamName }}</span>
+        <a
+          href="javascript:void(0)"
+          class="share"
+          @click.prevent="share(`/share/hasilkuis/${quizzesResult.quiz_participation.id}`, 'Kamu sudah ikut? Aku sudah dapat hasilnya 😎')"
         >
-        <img class="thumbnail rounded-circle" src="@/assets/dildo.jpg" alt="paslon" v-else>
-        <h6 class="percentage">{{ choice.percentage }}%</h6>
-        <span class="subtitle">{{ choice.team.title }}</span>
-        <a href="#" class="share">
           <share-icon></share-icon>BAGIKAN
         </a>
         <div class="block-bottom">
@@ -40,37 +48,89 @@
       @close="$emit('onClickNextButton', showModal)"
       @click.stop="$emit('onClickNextButton', showModal)"
     />
+    <ModalShare v-if="isSharing" :url="shareURL" :title="shareTitle" @close="isSharing = false"></ModalShare>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
+import Headful from '@/components/Wrapper/Headful'
+
 import { ShareIcon } from '@/svg/icons'
 import { PurpleWaveBackground } from '@/svg/backgrounds'
 import QuizModalJawaban from '@/components/pendidikan-politik/quiz-modal-jawaban'
+import ModalShare from '@/components/modal-share'
 
 export default {
   name: 'QuizResult',
+  components: {
+    Headful,
+    PurpleWaveBackground,
+    ShareIcon,
+    QuizModalJawaban,
+    ModalShare
+  },
+  props: {
+    showModal: Boolean
+  },
+  data() {
+    return {
+      isSharing: false,
+      shareURL: null,
+      shareTitle: null
+    }
+  },
+  beforeCreate() {
+    const id = this.$route.params.id
+    this.$store.dispatch('getQuizResult', id)
+  },
   computed: {
     ...mapState({
       quizzesResult: state => state.pendidikanPolitik.quizzesResult
     }),
     choice() {
+      if (!this.quizzesResult || !this.quizzesResult.teams) return {}
       return this.quizzesResult.teams.find(t => Math.max(t.percentage))
+    },
+    title() {
+      if (!this.quizzesResult || !this.quizzesResult.quiz) return ''
+      return this.quizzesResult.quiz.title
+    },
+    fullName() {
+      if (!this.quizzesResult || !this.quizzesResult.user) return ''
+      return this.quizzesResult.user.full_name
+    },
+    teamName() {
+      if (!this.choice || !this.choice.team) return ''
+      return this.choice.team.title
+    },
+    teamAvatar() {
+      if (!this.choice || !this.choice.team) return null
+      return this.choice.team.avatar
+    },
+    imageThumbnail() {
+      if (
+        !this.quizzesResult ||
+        !this.quizzesResult.quiz_participation ||
+        !this.quizzesResult.quiz_participation.image_result
+      ) {
+        return null
+      }
+      return this.quizzesResult.quiz_participation.image_result.url
+    },
+    fullURL() {
+      const baseURL = process.env.BASE_URL
+      if (!this.$route.path) return baseURL
+      return `${baseURL}${this.$route.path}`
     }
   },
-  components: {
-    PurpleWaveBackground,
-    ShareIcon,
-    QuizModalJawaban
-  },
-  props: {
-    showModal: Boolean
-  },
-  created() {
-    const id = this.$route.params.id
-    this.$store.dispatch('getQuizResult', id)
+  methods: {
+    share(url, title) {
+      this.shareURL = url
+      this.shareTitle = title
+      this.isSharing = true
+    }
   }
 }
 </script>

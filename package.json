@@ -18,6 +18,7 @@
     "v-toaster": "^1.0.3",
     "vue": "^2.5.2",
     "vue-content-loader": "^0.2.1",
+    "vue-headful": "^2.0.1",
     "vue-meta": "^1.5.5",
     "vue-router": "^3.0.1",
     "vue-social-sharing": "^2.3.3"
@@ -69,6 +70,7 @@
     "svg-to-vue-component": "^0.2.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vee-validate": "^2.1.7",
     "vue-authenticate": "git+https://github.com/yunanhelmy/vue-authenticate.git",
     "vue-axios": "^2.1.1",
     "vue-loader": "^13.3.0",

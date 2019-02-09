@@ -5,7 +5,13 @@
         <close-icon></close-icon>
       </div>
       <div class="share-content">
-        <social-sharing :url="absoluteURL" inline-template>
+        <social-sharing
+          :url="absoluteURL"
+          :title="title"
+          hashtags="PantauBersama"
+          inline-template
+          @close="$emit('close')"
+        >
           <ul>
             <li>
               <network network="facebook">
@@ -33,19 +39,19 @@ import ModalLayout from '@/layout/Modal'
 import { CloseIcon } from '@/svg/icons'
 export default {
   name: 'ModalShare',
-  props: ['url'],
+  props: ['url', 'title', 'id'],
   components: {
     ModalLayout,
     CloseIcon
   },
   data() {
     return {
-      baseURL: window.location.origin
+      baseURL: process.env.BASE_URL // window.location.origin
     }
   },
   computed: {
     absoluteURL() {
-      return `${this.baseURL}${this.url}`
+      return `${this.baseURL}${this.url}${this.id}`
     }
   },
   created() {

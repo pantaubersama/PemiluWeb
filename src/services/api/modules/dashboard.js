@@ -1,15 +1,14 @@
-import axios from 'axios'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
+import Api from '@/services/api/base'
 
 const PREFIX = 'dashboard'
 const BASE_URL = process.env.API_BASE_URL
   ? process.env.API_BASE_URL
   : 'https://staging-auth.pantaubersama.com'
 
-const httpClient = axios.create({
-  baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${vueAuth.getToken()}` }
-})
+const httpClient = Api(BASE_URL, () => vueAuth.getToken())
 
 const fetchClusters = ({
   query,

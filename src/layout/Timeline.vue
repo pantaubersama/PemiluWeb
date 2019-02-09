@@ -5,14 +5,14 @@
     <div class="container main-wrapper">
       <div class="col-lg-3 sidebar">
         <slot name="sidebar">
-          <div class="d-block d-lg-none">
+          <!-- <div class="d-block d-lg-none">
             <div class="mobile-icons">
               <div class="input-search">
                 <input type="text" class="form-control" placeholder="CARI">
                 <search-icon></search-icon>
               </div>
             </div>
-          </div>
+          </div>-->
           <nav-sidebar-top></nav-sidebar-top>
           <nav-sidebar-bottom></nav-sidebar-bottom>
         </slot>

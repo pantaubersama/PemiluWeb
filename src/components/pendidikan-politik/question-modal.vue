@@ -63,10 +63,6 @@ export default {
           answers: []
         }
       }
-      console.log('currentQuestion', {
-        questions: this.sortedQuestions,
-        index: this.questionIndex
-      })
       return this.sortedQuestions[this.questionIndex]
     },
     totalQuestions() {
@@ -76,11 +72,6 @@ export default {
   },
   methods: {
     isNextModal(answerId) {
-      console.log('isNextModal', {
-        answerId,
-        currentQuestion: this.currentQuestion,
-        questionNumber: this.questionNumber
-      })
       return this.questionNumber < this.totalQuestions
     },
     answerQuestion(answerId) {
@@ -88,11 +79,13 @@ export default {
         .dispatch('answerQuestion', {
           quizId: this.quiz.id,
           questionId: this.currentQuestion.id,
-          answerId
+          answerId,
+          status: this.quiz.participation_status,
+          isLast: this.questionNumber === this.totalQuestions
         })
-        .then(response =>
+        .then(() => {
           this.$toaster.success('Berhasil menjawab pertanyaan.')
-        )
+        })
         .catch(() => this.$toaster.error('Gagal mengirim jawaban.'))
     }
   }

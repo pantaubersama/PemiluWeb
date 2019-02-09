@@ -4,6 +4,9 @@
       <button class="close-icon" @click="$emit('close')">
         <close-icon></close-icon>
       </button>
+      <div class="quiz-modal-background">
+        <meditation-illustration></meditation-illustration>
+      </div>
       <div class="quiz-container">
         <div
           class="quiz-container--row"
@@ -11,7 +14,7 @@
           :key="question.id"
         >
           <div class="quiz-info">
-            <h6 class="quiz-number">Pertanyaan {{ alias(index) }}</h6>
+            <h6 class="quiz-number">Pertanyaan {{ pembilang(index + 1, 'Ke') }}</h6>
             <p class="quiz-section" v-html="question.content"></p>
           </div>
           <div class="quiz-content answer">
@@ -38,37 +41,23 @@
 
 <script>
 import { mapState } from 'vuex'
+import { pembilang } from '@/utils'
 
 import { CloseIcon } from '@/svg/icons'
 import ModalLayout from '@/layout/Modal'
+import { MeditationIllustration } from '@/svg/illustrations'
 
 export default {
   name: 'QuizModalJawaban',
   components: {
     CloseIcon,
-    ModalLayout
+    ModalLayout,
+    MeditationIllustration
   },
   computed: {
     ...mapState({
       quiz: state => state.pendidikanPolitik.quizSummary
     })
-  },
-  methods: {
-    alias(index) {
-      const aliases = [
-        'Pertama',
-        'Kedua',
-        'Ketiga',
-        'Keempat',
-        'Kelima',
-        'Keenam',
-        'Ketujuh',
-        'Kedelepan',
-        'Kesembilan',
-        'Kesepuluh'
-      ]
-      return aliases[index]
-    }
   },
   created() {
     const id = this.$route.params.id
@@ -77,6 +66,9 @@ export default {
   },
   destroyed() {
     document.documentElement.className = ''
+  },
+  methods: {
+    pembilang
   }
 }
 </script>

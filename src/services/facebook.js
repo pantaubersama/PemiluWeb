@@ -1,12 +1,11 @@
 /* globals FB */
 
 export const init = () => {
-  const APP_ID = '487265651802954'
-  // const FB_APP_SECRET = 'd46d657ba90e042956b16bffc9f5ab3b'
+  const APP_ID = process.env.FB_APP_ID
   FB.init({
     appId: APP_ID,
     cookie: true,
-    xfbml: true,
+    xfbml: false,
     version: 'v2.12'
   })
 }
@@ -26,9 +25,11 @@ export const login = () => {
   return new Promise(resolve => FB.login(resolve, scope))
 }
 
+export const logout = () => new Promise(resolve => FB.logout(resp => resolve(resp)))
+
 export const getEmail = () => new Promise(resolve => FB.api('/me', (res) => {
   const username = res.email || res.name
   return resolve(username)
 }))
 
-export const getAccessToken = () => FB.getAccessToken()
+export const getAccessToken = () => Promise.resolve(FB.getAccessToken())

@@ -1,60 +1,81 @@
 <template>
   <timeline-layout>
-    <div slot="main-content" class="page card pendidikan-politik">
-      <div v-if="$route.name === 'PendidikanPolitik'">
-        <div class="nav-tab--list">
-          <router-link
-            class="nav-tab--item"
-            :class="{ active: activePage === 'tanya' }"
-            :to="{ path: '/pendidikan-politik', query: { type: 'tanya' } }"
-          >Tanya</router-link>
-          <router-link
-            class="nav-tab--item"
-            :class="{ active: activePage === 'quiz' }"
-            :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
-          >Quiz</router-link>
-        </div>
-
-        <div class="content">
-          <question-list
-            v-if="activePage === 'tanya'"
-            :questions="questions"
-            @upvoted="onUpvote($event)"
-            :loading="isLoading"
-          ></question-list>
-          <quiz-list
-            v-if="activePage === 'quiz'"
-            :totalKecenderungan="totalKecenderungan"
-            :quizzes="isFilterQuiz ? quizzesFilter : quizzes"
-          ></quiz-list>
-        </div>
-      </div>
-      <div v-if="$route.name === 'PendidikanPolitikQuizHasil'">
-        <quiz-result
-          :showModal="showModal"
-          @onClickAnswerButton="onClickAnswerButton"
-          @close="onClickCloseButton"
-          @onClickNextButton="onClickNextButton"
-          @onClickChoicesButton="onClickChoicesButton"
-        />
-      </div>
+    <div slot="main-content">
       <div
-        v-if="$route.name === 'PendidikanPolitikQuizIkuti' ||
-        $route.name === 'PendidikanPolitikQuizLanjut'"
+        class="page card pendidikan-politik card-tabs"
+        v-if="$route.name != 'PendidikanPolitikHint' && $route.name != 'PendidikanPolitikDetail'"
       >
-        <quiz-detail
-          :showModal="showModal"
-          @close="onClickCloseButton"
-          @onClickNextButton="onClickNextButton"
-          @onClickChoicesButton="onClickChoicesButton"
-        />
+        <div v-if="$route.name === 'PendidikanPolitik'">
+          <div class="title-tabs">
+            <router-link
+              exact
+              class="nav-tab--item"
+              :to="{ path: '/pendidikan-politik'}"
+            >Tanya Kandidat</router-link>
+            <router-link
+              v-if="isLoggedIn"
+              class="nav-tab--item"
+              :class="{ active: activePage === 'quiz' }"
+              :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
+            >Quiz</router-link>
+          </div>
+
+          <div class="content">
+            <question-list
+              v-if="activePage === 'tanya'"
+              :questions="questions"
+              @upvoted="onUpvote($event)"
+              @removeVoted="onRemoveVote($event)"
+              :loading="isLoading"
+              :userAuth="userAuth"
+            ></question-list>
+            <quiz-list
+              v-if="activePage === 'quiz' && isLoggedIn"
+              :totalKecenderungan="totalKecenderungan"
+              :quizzes="isFilterQuiz ? quizzesFilter : quizzes"
+              @onClickKecenderungan="openPageKecenderungan"
+            ></quiz-list>
+          </div>
+        </div>
+        <div v-if="$route.name === 'PendidikanPolitikQuizHasil'">
+          <quiz-result
+            :showModal="showModal"
+            @onClickAnswerButton="onClickAnswerButton"
+            @close="onClickCloseButton"
+            @onClickNextButton="onClickNextButton"
+            @onClickChoicesButton="onClickChoicesButton"
+          />
+        </div>
+        <div v-if="$route.name === 'PendidikanPolitikQuizKecenderungan'">
+          <kecenderungan-result
+            :totalKecenderungan="totalKecenderungan"
+            @close="onClickCloseButton"
+          />
+        </div>
+        <div
+          v-if="$route.name === 'PendidikanPolitikQuizIkuti' || $route.name === 'PendidikanPolitikQuizLanjut'"
+        >
+          <quiz-detail
+            :showModal="showModal"
+            @close="onClickCloseButton"
+            @onClickNextButton="onClickNextButton"
+            @onClickChoicesButton="onClickChoicesButton"
+          />
+        </div>
       </div>
       <div v-if="$route.name === 'PendidikanPolitikHint'">
         <HintBanner :object="getObject($route.query.type)"/>
       </div>
+      <div v-if="$route.name === 'PendidikanPolitikDetail'">
+        <DetailPost
+          :data="detailPendidikanPolitik($route.params.id)"
+          @upvoted="onUpvote($event)"
+          @removeVoted="onRemoveVote($event)"
+        />
+      </div>
     </div>
     <template slot="widget-wrapper">
-      <div v-if="$route.name !== 'PendidikanPolitikHint'">
+      <div v-if="showFilter">
         <widget-filter
           v-if="activePage === 'tanya'"
           :is-active="isWidgetFilterExpanded"
@@ -101,7 +122,7 @@
           </div>
         </widget-filter>
         <widget-filter
-          v-if="activePage === 'quiz'"
+          v-if="activePage === 'quiz' && isLoggedIn"
           :is-active="isWidgetFilterExpanded"
           @open="onOpenWidgetFilter(true)"
           @close="onOpenWidgetFilter(false)"
@@ -153,6 +174,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import router from '@/router'
 
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 
@@ -164,6 +186,8 @@ import QuizResult from '@/components/pendidikan-politik/quiz-result'
 import WidgetFilter from '@/components/WidgetFilter'
 import WidgetBanner from '@/components/Linimasa/WidgetBanner'
 import HintBanner from '@/components/Linimasa/HintBanner'
+import DetailPost from '@/components/pendidikan-politik/DetailPost'
+import KecenderunganResult from '@/components/pendidikan-politik/kecenderungan-result'
 
 export default {
   name: 'PendidikanPolitik',
@@ -175,18 +199,41 @@ export default {
     QuizResult,
     WidgetFilter,
     WidgetBanner,
-    HintBanner
+    HintBanner,
+    DetailPost,
+    KecenderunganResult
   },
   computed: {
     ...mapState({
       questions: state => state.pendidikanPolitik.questions,
       totalKecenderungan: state => state.pendidikanPolitik.totalKecenderungan,
-      quizzesFilter: state => state.pendidikanPolitik.quizzes
+      quizzesFilter: state => state.pendidikanPolitik.quizzes,
+      isLoggedIn: s => s.profile.token != null,
+      user: state => state.profile.user,
+      userAuth: state => state.meLogout.userLogin
     }),
-    ...mapGetters(['bannerKuisData', 'bannerTanyaData', 'quizzes']),
+    ...mapGetters([
+      'bannerKuisData',
+      'bannerTanyaData',
+      'quizzes',
+      'detailPendidikanPolitik'
+    ]),
     activePage() {
       if (this.$route.query.type == null) return 'tanya'
       return this.$route.query.type
+    },
+    showFilter() {
+      const { name } = this.$route
+      if (!this.$route || !name) return false
+      const routes = [
+        'PendidikanPolitikHint',
+        'PendidikanPolitikDetail',
+        'PendidikanPolitikQuizIkuti',
+        'PendidikanPolitikQuizLanjut',
+        'PendidikanPolitikQuizHasil',
+        'PendidikanPolitikQuizKecenderungan'
+      ]
+      return !routes.includes(name)
     }
   },
   data() {
@@ -252,12 +299,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchQuestions', 'vote', 'fetchBannerInfo']),
+    ...mapActions(['fetchQuestions', 'vote', 'unVote', 'fetchBannerInfo']),
     onOpenWidgetFilter(open) {
       this.isWidgetFilterExpanded = open
     },
     onUpvote(id) {
       this.vote(id)
+    },
+    onRemoveVote(id) {
+      this.unVote(id)
     },
     onClickNextButton(isShow) {
       this.showModal = !isShow
@@ -268,6 +318,11 @@ export default {
     onClickChoicesButton(value) {
       if (!value.next) {
         this.showModal = false
+
+        setTimeout(() => {
+          const { id } = this.$route.params
+          router.push({ name: 'PendidikanPolitikQuizHasil', params: { id } })
+        }, 700)
       }
     },
     onClickCloseButton() {
@@ -317,35 +372,19 @@ export default {
         case 'kuis':
           return this.bannerKuisData
       }
+    },
+    openPageKecenderungan() {
+      router.push({ name: 'PendidikanPolitikQuizKecenderungan' })
     }
   },
   mounted() {
     this.fetchBannerInfo('tanya').then(async () => {
       await this.fetchDataQuestions()
-      await this.fetchDataQuiz()
+      if (this.isLoggedIn) {
+        await this.fetchDataQuiz()
+      }
       await setTimeout(() => (this.isLoading = false), 1000)
     })
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.card.page.pendidikan-politik
-  .nav-tab
-    &--list
-      padding: 10px 25px
-      border-bottom: 1px solid #ececec
-      font-size: 14px
-      font-weight: 600
-      margin-bottom: 0
-      text-transform: uppercase
-    &--item
-      margin-left: 20px
-      color: inherit
-      &:hover
-        text-decoration: underline
-      &:first-child
-        margin-left: 0
-      &.active
-        color: #9B0012
-</style>

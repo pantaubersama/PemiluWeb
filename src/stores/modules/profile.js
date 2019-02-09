@@ -1,10 +1,12 @@
 import Vue from 'vue'
+import { vueAuth } from '@/services/symbolic'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 
 export const namespaced = true
 export const state = {
+  token: null,
   user: {
     id: null,
     email: null,
@@ -55,15 +57,38 @@ export const state = {
   badges: [],
   listBadges: [],
   categories: [],
-  cluster: [],
+  cluster: {},
+  clusters: [],
+  filterClusters: [
+    {
+      category: {},
+      category_id: null,
+      created_at: null,
+      description: null,
+      id: null,
+      image: null,
+      is_displayed: true,
+      is_eligible: false,
+      is_link_active: false,
+      magic_link: null,
+      members_count: 0,
+      name: 'Semua Cluster',
+      requester: {},
+      status: 'approved'
+    }
+  ],
   historyLinimasa: [],
   historyPendidikanPolitik: [],
   historyWordStadium: [],
   historyLapor: [],
-  historyPerhitungan: []
+  historyPerhitungan: [],
+  politicalParties: []
 }
 
 export const actions = {
+  setToken(ctx, token) {
+    ctx.commit('setToken', token)
+  },
   async getMe(ctx) {
     const user = await ProfileAPI.getMe()
     ctx.commit('setProfileData', {
@@ -95,13 +120,24 @@ export const actions = {
     })
   },
   async listBadges(ctx) {
-    const badges = (await ProfileAPI.listBadges())
-      .badges
+    const badges = (await ProfileAPI.listBadges()).badges
       .slice()
       .sort((a, b) => a.position - b.position)
     ctx.commit('setListBadges', badges)
   },
 
+  async getClusterList(ctx, payload) {
+    const clusters = await ProfileAPI.getClusterList(payload)
+    ctx.commit('setClusterList', clusters)
+    ctx.commit('setFilterClusterList', clusters)
+    return Promise.resolve(clusters)
+  },
+  searchClusters(ctx, name) {
+    const clusters = ctx.state.clusters.filter(cluster => {
+      return cluster.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
+    })
+    ctx.commit('setFilterClusterList', clusters)
+  },
   async getClusterCategories(store) {
     const data = await ProfileAPI.getCategories()
     store.commit('setCategories', {
@@ -159,21 +195,46 @@ export const actions = {
     return ProfileAPI.inviteToCluster(payload.clusterId, payload.emails)
   },
   enableMagicLink(ctx, payload) {
-    return ProfileAPI.enableMagicLink(payload.clusterId, payload.enabled)
-      .then(data => {
+    return ProfileAPI.enableMagicLink(payload.clusterId, payload.enabled).then(
+      data => {
         ctx.commit('setCluster', data.cluster)
-      })
+      }
+    )
   },
   async selectCalon(ctx, payload) {
     ctx.commit('selectCalon', payload.id)
-    const user = await ProfileAPI.votePreference(payload.id)
+    const politicalParty = ctx.rootState.profile.user.political_party
+    const politicalPartyId =
+      politicalParty && politicalParty.id ? politicalParty.id : null
+    const user = await ProfileAPI.votePreference({
+      politicalPartyId,
+      votePreference: payload.id
+    })
     ctx.commit('setProfileData', {
       user
+    })
+  },
+  async selectPartai(ctx, payload) {
+    const user = await ProfileAPI.votePreference({
+      votePreference: ctx.rootState.profile.user.vote_preference || null,
+      politicalPartyId: payload.id
+    })
+    ctx.commit('setProfileData', {
+      user
+    })
+  },
+  async getPoliticalParties(store) {
+    const data = await ProfileAPI.getPoliticalParties()
+    store.commit('setPoliticalParties', {
+      political_parties: data.political_parties
     })
   }
 }
 
 export const mutations = {
+  setToken(state, token) {
+    state.token = token
+  },
   setProfileData(state, payload) {
     state.user = {
       ...state.user,
@@ -187,16 +248,10 @@ export const mutations = {
     state.categories = payload.categories
   },
   addCategory(state, category) {
-    state.categories = [
-      category,
-      ...state.categories
-    ]
+    state.categories = [category, ...state.categories]
   },
   addCluster(state, cluster) {
-    state.cluster = [
-      cluster,
-      ...state.cluster
-    ]
+    state.cluster = [cluster, ...state.cluster]
   },
   setLinimasaHistory(state, feeds) {
     state.historyLinimasa = feeds
@@ -212,6 +267,16 @@ export const mutations = {
   },
   setListBadges(state, badges) {
     Vue.set(state, 'listBadges', badges)
+  },
+  setPoliticalParties(state, payload) {
+    state.politicalParties = payload.political_parties
+  },
+  setClusterList(state, clusters) {
+    state.clusters = clusters
+  },
+  setFilterClusterList(state, clusters) {
+    const allClusters = [state.filterClusters[0], ...clusters]
+    state.filterClusters = allClusters
   }
 }
 
@@ -225,5 +290,6 @@ export const getters = {
       default:
         return ''
     }
-  }
+  },
+  token: () => vueAuth.getToken()
 }

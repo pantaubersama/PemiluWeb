@@ -1,23 +1,14 @@
-import axios from 'axios'
 import {
   vueAuth
 } from '@/services/symbolic'
+import Api from '@/services/api/base'
 
 const PREFIX = 'linimasa'
 const BASE_URL = process.env.API_PEMILU_BASE_URL
   ? process.env.API_PEMILU_BASE_URL
   : 'https://staging-pemilu.pantaubersama.com'
 
-const httpClient = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    Authorization: `Bearer ${vueAuth.getToken()}`
-  }
-})
-
-export const setToken = (token) => {
-  httpClient.defaults.headers['Authorization'] = `Bearer ${token}`
-}
+const httpClient = Api(BASE_URL, () => vueAuth.getToken())
 
 const fetchBannerInfo = (page_name = 'pilpres') => {
   return httpClient
@@ -62,6 +53,17 @@ const fetchJanjiPolitik = ({
     .catch(error => Promise.reject(error))
 }
 
+const deleteJanjiPolitik = id => {
+  return httpClient
+    .delete(`${PREFIX}/v1/janji_politiks`, {
+      data: {
+        id
+      }
+    })
+    .then(response => Promise.resolve(response.data.data))
+    .catch(error => Promise.reject(error))
+}
+
 export const fetchFeedsPilpres = ({
   filterBy = 'team_all',
   query = '',
@@ -89,10 +91,22 @@ const postJanjiPolitik = ({
   const formData = new FormData()
   formData.append('title', title)
   formData.append('body', body)
-  formData.append('image', image)
+
+  if (image) {
+    formData.append('image', image)
+  }
+
+  const contentType = (() => {
+    if (!image) return {}
+    return {
+      headers: {
+        'Content-Type': image.type
+      }
+    }
+  })()
 
   return httpClient
-    .post(`${PREFIX}/v1/janji_politiks`, formData)
+    .post(`${PREFIX}/v1/janji_politiks`, formData, contentType)
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }
@@ -102,7 +116,8 @@ const services = {
   fetchBannerInfoShow,
   fetchJanjiPolitik,
   fetchFeedsPilpres,
-  postJanjiPolitik
+  postJanjiPolitik,
+  deleteJanjiPolitik
 }
 
 export default services

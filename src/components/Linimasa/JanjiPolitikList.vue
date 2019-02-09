@@ -3,16 +3,22 @@
     <ModalCreate
       :name="setName(user.full_name)"
       :avatar="user.avatar.medium_square.url"
-      v-if="modal === 'modalCreate' || this.$route.query.post == 'create-post'"
+      v-if="modal === 'modalCreate'"
       v-on:close="closeModal()"
       v-on:submit="submitPublikasi($event)"
     />
-    <ModalShare v-if="modal === 'modalShare'" :id="shareId" v-on:close="closeModal()"/>
+    <ModalShare
+      :id="shareId"
+      v-if="isSharing"
+      @close="isSharing = false"
+      :url="shareURL"
+      :title="shareTitle"
+    />
     <JanjiPolitikCreateItem
       :avatar="user.avatar.medium_square.url"
       :author_name="setName(user.full_name)"
       @clicked="modalCreate()"
-      v-if="userAuth"
+      v-if="userAuth && isAllowCreated"
     />
     <div class="card-content" v-for="item in data" :key="item.id">
       <div v-if="loading">
@@ -21,6 +27,8 @@
       </div>
       <JanjiPolitikItem
         v-else
+        :userAuth="userAuth"
+        :user="user"
         :id="item.id"
         :avatar="item.creator.avatar.thumbnail_square.url"
         :author_name="setName(item.creator.full_name)"
@@ -29,9 +37,12 @@
         :title="item.title"
         :description="trimCharacters(item.body, 180)"
         :image="item.image.large.url"
-        @onCopy="copyToClipboard($event)"
-        @onShare="modalShare($event)"
-        @onReport="handleReport($event)"
+        :creator="item.creator"
+        @onDelete="deletePost(item.id, $event)"
+        @onCopy="copyToClipboard(item.id, $event)"
+        @onShare="modalShare(item.id, $event)"
+        :isActive="isActive"
+        @toggleDropdown="toggleDropdown(item.id, $event)"
       />
     </div>
   </div>
@@ -39,15 +50,17 @@
 
 <script>
 import { mapActions } from 'vuex'
+
+import { utils } from '@/mixins/utils'
+import { cleanURL } from '@/utils'
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
-import { utils } from '@/mixins/utils.js'
 
 import ContentLoader from '@/components/Loading/ContentLoader'
 import ModalCreate from '@/components/Linimasa/ModalCreate'
-import ModalShare from '@/components/Linimasa/ModalShare'
+import ModalShare from '@/components/modal-share'
 import JanjiPolitikItem from '@/components/Linimasa/JanjiPolitikItem'
 import JanjiPolitikCreateItem from '@/components/Linimasa/JanjiPolitikCreateItem'
-
+import ShareOptions from '@/mixins/share-options'
 export default {
   name: 'JanjiPolitikList',
   components: {
@@ -61,7 +74,7 @@ export default {
     ShareIcon,
     CloseIcon
   },
-  mixins: [utils],
+  mixins: [utils, ShareOptions],
   props: {
     data: {
       type: Array,
@@ -80,37 +93,47 @@ export default {
   data() {
     return {
       modal: false,
+      shareTitle: 'Sudah tahu Janji yang ini, belum? Siap-siap catatan, ya! ✔',
+      isSharing: false,
       shareId: ''
     }
   },
+  computed: {
+    isAllowCreated() {
+      if (!this.user || !this.user.cluster) return false
+      return this.user.cluster.is_eligible
+    },
+    shareURL() {
+      return `/linimasa/detail/`
+    }
+  },
   methods: {
-    ...mapActions(['postReport', 'postJanjiPolitik']),
+    ...mapActions(['postJanjiPolitik', 'deleteJanjiPolitik']),
     modalCreate() {
-      this.$router.replace({
-        query: { type: 'janji-politik', post: 'create-post' }
-      })
       this.modal = 'modalCreate'
     },
-    handleReport(id) {
-      this.postReport(id)
+
+    deletePost(id) {
+      this.deleteJanjiPolitik({ id }).then(() => {
+        this.$toaster.success('Berhasil menghapus janji politik.')
+      })
     },
     copyToClipboard(id) {
-      this.$clipboard(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.isActive = false
+      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
     },
     modalShare(id) {
+      this.isActive = false
       this.shareId = id
-      this.modal = 'modalShare'
+      this.isSharing = true
     },
     closeModal() {
-      this.$router.replace({ query: { type: 'janji-politik' } })
       this.modal = false
     },
     submitPublikasi(data) {
-      this.postJanjiPolitik(data).then(async () => {
-        await this.closeModal()
-        await this.$emit('successSubmitPublikasi')
-      })
+      this.postJanjiPolitik(data).then(() => this.closeModal())
     }
   }
 }

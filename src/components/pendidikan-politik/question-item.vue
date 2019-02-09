@@ -1,7 +1,6 @@
 <template>
   <div class="question-item">
-    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote()">
-      <!-- <img v-show="!isAnimating" src="@/assets/icon-upvote.svg" alt="vote" class="icon vote-up"> -->
+    <button class="vote" :class="{ voted: isVoted }" @click="onUpvote(isVoted)">
       <i v-show="!isAnimating" class="icon voteup" :class="{ voted: isVoted }"></i>
       <div v-show="isAnimating" class="upvote-lottie icon vote-up" ref="upvote"></div>
       <span class="vote-count">{{ count }}</span>
@@ -16,23 +15,29 @@
         </div>
         <small class="time">{{time}}</small>
       </div>
-      <div class="question">{{question}}</div>
+      <router-link :to="{name: 'PendidikanPolitikDetail', params: {id: id}}">
+        <div class="question">{{question}}</div>
+      </router-link>
       <div class="button-list">
-        <button class="share">
+        <button class="share" @click.stop="$emit('onShare', id)">
           <img src="@/assets/icon_share.svg">
         </button>
-        <button class="menu" @click.stop="toggleDropdown(id, $event)">
+        <button
+          class="icon-setting"
+          :class="{'is-active': isActive == id}"
+          @click.prevent="$emit('toggleDropdown', $event)"
+        >
           <img src="@/assets/dots-icon.svg">
         </button>
-        <div class="dropdown-content" :class="{'is-active': isActive === id}">
+        <div class="dropdown-content">
           <ul>
             <li>
-              <a href="javascript:void(0)" @click.stop="copy(id)">
+              <a href="javascript:void(0)" @click.stop="$emit('onCopy', id)">
                 <link-icon/>Salin Tautan
               </a>
             </li>
             <li>
-              <a href="javascript:void(0)" @click.stop="share(id)">
+              <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
                 <share-icon/>Bagikan
               </a>
             </li>
@@ -40,8 +45,7 @@
               <a
                 href="javascript:void(0)"
                 @click.stop="() => {
-                $emit('onReport', id);
-                isActive = false
+                  $emit('onReport', id);
                 }"
               >
                 <alert-icon/>Laporkan sebagai spam
@@ -56,13 +60,10 @@
 
 <script>
 import lottie from 'lottie-web'
-
 import { LinkIcon, AlertIcon, ShareIcon } from '@/svg/icons'
-import ShareOptions from '@/mixins/share-options'
 
 export default {
   name: 'QuestionItem',
-  mixins: [ShareOptions],
   components: {
     LinkIcon,
     AlertIcon,
@@ -76,7 +77,8 @@ export default {
     time: String,
     question: String,
     isVoted: Boolean,
-    count: Number
+    count: Number,
+    isActive: [Boolean, String]
   },
   data() {
     return {
@@ -105,10 +107,13 @@ export default {
     }
   },
   methods: {
-    onUpvote() {
-      if (this.isVoted) return
-      this.isAnimating = true
-      this.$emit('upvoted', this.id)
+    onUpvote(vote) {
+      this.isAnimating = !vote
+      if (vote) {
+        this.$emit('removeVoted', this.id)
+      } else {
+        this.$emit('upvoted', this.id)
+      }
     }
   }
 }
@@ -127,8 +132,8 @@ button.vote
   border-left: 0
   border-top: 0
   cursor: pointer
-  &.voted
-    cursor: default
+  // &.voted
+  //   cursor: default
   @media (max-width: 991px)
     height: auto
     border-bottom: none
@@ -227,6 +232,9 @@ button.vote
       object-fit: contain
       width: 18px
       height: 18px
+    &.is-active
+      + .dropdown-content
+        display: block
 
   .dropdown-content
     padding: 10px
@@ -247,6 +255,4 @@ button.vote
       padding-right: 5px
       align-self: center
 
-    &.is-active
-      display: block
 </style>

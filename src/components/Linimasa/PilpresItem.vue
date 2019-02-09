@@ -36,28 +36,18 @@
           href
           class="icon-setting"
           :class="{'is-active': isActive == id}"
-          @click.prevent="toggleDropdown(id, $event)"
+          @click.prevent="$emit('toggleDropdown', $event)"
         >
-          <more-horizontal-icon/>
+          <img class="icon-dots" src="@/assets/dots-icon.svg" alt>
         </a>
         <div class="dropdown-content">
           <ul>
-            <li>
-              <a href="javascript:void(0)" @click.stop="copy(id)">
-                <link-icon/>Salin Tautan
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" @click.stop="share(id)">
-                <share-icon/>Bagikan
-              </a>
-            </li>
             <li>
               <a
                 href="javascript:void(0)"
                 @click.stop="$emit('onOpenTwitter', `https://twitter.com/${user_name}/status/${source_id}`)"
               >
-                <sosmed-twitter-icon/>Buka di Aplikasi Twitter
+                <sosmed-twitter-icon/>Buka di Web Twitter
               </a>
             </li>
           </ul>
@@ -69,7 +59,6 @@
 
 <script>
 import ContentLoader from '@/components/Loading/ContentLoader'
-import ShareOptions from '@/mixins/share-options'
 
 import {
   LinkIcon,
@@ -89,9 +78,10 @@ export default {
     user_name: String,
     created_at_in_word: String,
     description: String,
-    source_id: String
+    source_id: String,
+    isActive: [Boolean, String]
   },
-  mixins: [ShareOptions],
+
   components: {
     LinkIcon,
     SosmedTwitterIcon,

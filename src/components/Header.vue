@@ -10,16 +10,16 @@
         </div>
       </router-link>
       <div class="ml-auto navbar-right align-item-center d-flex">
-        <div class="d-none d-lg-flex">
+        <!-- <div class="d-none d-lg-flex">
           <div class="input-search">
             <input type="text" class="form-control" placeholder="CARI">
             <search-icon></search-icon>
           </div>
-        </div>
-        <a href="#" class="word-stadium">
+        </div>-->
+        <!-- <a href="#" class="word-stadium">
           <word-stadium-icon></word-stadium-icon>
-        </a>
-        <div class="dropdown-note-container">
+        </a>-->
+        <div class="dropdown-note-container" v-if="isLoggedIn">
           <button
             class="note"
             :class="{'is-active': isDropdownNoteActive}"
@@ -40,9 +40,10 @@
             id="toggle-button"
             class="user-thumb"
             :class="{'is-active': isActive}"
-            @click="toggleDropdown($event)"
+            @click.stop="toggleDropdown($event)"
           >
-            <user-icon></user-icon>
+            <img v-if="avatarURL != null" :src="avatarURL">
+            <user-icon v-else></user-icon>
           </div>
           <div class="dropdown-content">
             <ul>
@@ -124,12 +125,17 @@ export default {
       this.$store.commit('meLogout/userLogin')
     }
     window.addEventListener('click', this.removeDropdown)
+    window.addEventListener('click', this.removeDropdownNote)
   },
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
   },
   computed: {
-    ...mapState('meLogout', ['userLogin'])
+    ...mapState('meLogout', ['userLogin']),
+    ...mapState({
+      avatarURL: s => s.profile.user.avatar.medium.url,
+      isLoggedIn: s => s.profile.token != null
+    })
   },
   methods: {
     logout() {
@@ -137,9 +143,16 @@ export default {
     },
     toggleDropdownNote() {
       this.isDropdownNoteActive = !this.isDropdownNoteActive
+      this.isActive = false
+    },
+    removeDropdownNote(event) {
+      if (!event.target.parentNode.parentNode.classList.contains('icon-pins')) {
+        this.isDropdownNoteActive = false
+      }
     },
     toggleDropdown(event) {
       this.isActive = !this.isActive
+      this.isDropdownNoteActive = false
     },
     removeDropdown(event) {
       if (

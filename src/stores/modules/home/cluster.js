@@ -3,7 +3,7 @@ import ApiHomeCluster from '@/services/api/home/cluster'
 const state = {
   paginations: {
     page: 1,
-    perPage: 2,
+    perPage: 2
   },
   feedsCluster: []
 }
@@ -17,7 +17,7 @@ const actions = {
     ApiHomeCluster.homeCluster(state.paginations.page, state.paginations.perPage, result => {
       commit('getHomeCluster', result.data.data)
     })
-  },
+  }
 }
 
 // mutations

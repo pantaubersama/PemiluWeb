@@ -14,11 +14,10 @@ export const http = {
         url,
         data: data instanceof FormData ? data : qs.stringify(data),
         params: method === 'get' ? data : {},
-        headers: Object.assign({}, {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        headers
-        )
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          ...headers
+        }
       })
       .then(successCb)
       .catch(errorCb)
@@ -66,15 +65,15 @@ export const http = {
       },
       error => {
         // Also, if we receive / Unauthorized error
-        // if (error.response.status === 401) {
-        //   router.replace({
-        //     path: '/login',
-        //     query: {
-        //       redirect: window.location.pathname
-        //     }
-        //   })
-        // }
-        // return Promise.reject(error)
+        if (error.response.status === 401) {
+          router.replace({
+            path: '/login',
+            query: {
+              redirect: window.location.pathname
+            }
+          })
+        }
+        return Promise.reject(error)
       }
     )
   }

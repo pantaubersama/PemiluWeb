@@ -8,10 +8,14 @@
     </div>
     <div class="content-body">
       <p class="question">Siapakah yang saat ini paling cocok dengan pilihan kamu?</p>
-      <p class="answer">(Nurhadi - Aldo)</p>
+      <p class="answer">({{ nameOfPaslon(selected) }})</p>
 
       <div class="column-container">
-        <div class="column-item selected">
+        <div
+          class="column-item"
+          :class="{'selected': selected === 1}"
+          @click.stop="$emit('onSelected', 1)"
+        >
           <img
             src="~@/assets/note-image/image1/image@1x.jpg"
             srcset="~@/assets/note-image/image1/image@2x.jpg 2x
@@ -20,7 +24,11 @@
           >
           <div class="candidate-name">Jokowi - Ma'ruf</div>
         </div>
-        <div class="column-item">
+        <div
+          class="column-item"
+          :class="{'selected': selected === 2}"
+          @click.stop="$emit('onSelected', 2)"
+        >
           <img
             src="~@/assets/note-image/image2/image@1x.jpg"
             srcset="~@/assets/note-image/image2/image@2x.jpg 2x
@@ -33,21 +41,30 @@
       <button
         class="btn choice"
         type="button"
-        :class="{ selected: selectedId === 3 }"
-        @click.stop="selectCalon(3)"
+        :class="{ selected: selected === 3 }"
+        @click.stop="$emit('onSelected', 3)"
       >Belum menentukan pilihan</button>
     </div>
     <div class="content-footer">
       <div class="total-kecenderungan-container">
         <div class="image-container">
-          <img src="~@/assets/note-image/image1/image@1x.jpg">
+          <img
+            src="~@/assets/note-image/image1/image@1x.jpg"
+            alt="jokowi-ma'ruf"
+            v-if="idOfPaslon(totalKecenderungan.groupName) === 1"
+          >
+          <img
+            src="~@/assets/note-image/image2/image@1x.jpg"
+            alt="prabowo-sandi"
+            v-if="idOfPaslon(totalKecenderungan.groupName) === 2"
+          >
         </div>
         <div class="desc-container">
           <span class="text1">
             Total Kecenderungan,
-            <b>4 dari 6 Kuis</b>
+            <b>{{ totalKecenderungan.finishedQuiz }} dari {{ totalKecenderungan.totalQuiz }} Kuis</b>
           </span>
-          <div class="total">70% (Jokowi - Ma'ruf)</div>
+          <div class="total">{{totalKecenderungan.percentage}}% ({{totalKecenderungan.groupName}})</div>
         </div>
       </div>
     </div>
@@ -55,8 +72,18 @@
 </template>
 
 <script>
+import { catatan } from '@/mixins/catatan'
+
 export default {
-  name: 'CatatanResultComponent'
+  name: 'CatatanResultComponent',
+  mixins: [catatan],
+  props: {
+    selected: [Number, String],
+    totalKecenderungan: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 
@@ -70,7 +97,7 @@ export default {
   align-items: center
 
 .content-head
-  background: white
+  background-color: transparent
   display: flex
   flex-direction: column
   justify-content: center
@@ -132,6 +159,7 @@ export default {
       width: 150px
       margin: 10px
       cursor: pointer
+      overflow: hidden
 
       .candidate-name
         text-align: center
@@ -174,6 +202,8 @@ export default {
   width: 100%
   padding: 0
   margin: 0
+  border-bottom-left-radius: 0.25rem
+  border-bottom-right-radius: 0.25rem
 
   .total-kecenderungan-container
     display: flex

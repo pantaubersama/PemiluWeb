@@ -16,16 +16,37 @@
           </div>
           {{ name }}
         </div>
-        <textarea v-model="title" placeholder="Judul Janji Politik"></textarea>
+        <textarea
+          v-validate="'required'"
+          data-vv-validate-on="blur|input"
+          name="title"
+          v-model="title"
+          placeholder="Judul Janji Politik"
+          :class="{'input': true, 'is-danger': errors.has('title') }"
+        ></textarea>
+        <span v-show="errors.has('title')" class="help is-danger">{{ errors.first('title') }}</span>
       </div>
+
       <div class="html-editor">
-        <vue-editor
-          useCustomImageHandler
-          @imageAdded="inputAvatarChanged($event)"
-          :editorToolbar="customToolbar"
+        <textarea
+          v-validate="'required'"
+          data-vv-validate-on="blur|input"
+          name="body"
           v-model="body"
           placeholder="Berikan deskripsi atau detil lebih lanjut terkait Janji Politik yang akan disampaikan di kolom ini."
-        ></vue-editor>
+          :class="{'input': true, 'is-danger': errors.has('body') }"
+        ></textarea>
+        <span v-show="errors.has('body')" class="help is-danger">{{ errors.first('body') }}</span>
+        <div class="preview-img" v-if="image">
+          <img :src="image">
+          <div class="remove-img">
+            <close-icon @click="removeImage"/>
+          </div>
+        </div>
+      </div>
+      <div class="upload-img" v-if="!image">
+        <input type="file" accept="image/*" @change="onFileChange">
+        <image-default/>
       </div>
       <div class="button-submit">
         <button class="btn btn-outline-primary" @click.prevent="submit()">publikasikan</button>
@@ -35,41 +56,53 @@
 </template>
 
 <script>
-import { VueEditor } from 'vue2-editor'
-
-import { CloseIcon } from '@/svg/icons'
 import ModalLayout from '@/layout/Modal'
-import { customizedToolbar } from '@/mixins/customizedToolbar'
+import { ImageDefault, CloseIcon } from '@/svg/icons'
 
 export default {
   name: 'ModalCreate',
   data() {
     return {
-      customToolbar: customizedToolbar.render,
       title: '',
       body: '',
-      image: ''
+      upload: false,
+      image: null,
+      fileImage: null
     }
   },
   props: {
     name: String,
-    avatar: URL
+    avatar: String
   },
   components: {
     ModalLayout,
-    VueEditor,
-    CloseIcon
+    CloseIcon,
+    ImageDefault
   },
   methods: {
-    inputAvatarChanged(event) {
-      if (!event) return
-      this.image = event
+    onFileChange(event) {
+      const file = Array.from(event.target.files).pop()
+      const url = URL.createObjectURL(file)
+
+      this.fileImage = file
+      this.image = url
+    },
+    showUpload() {
+      this.upload = true
+    },
+    removeImage() {
+      this.fileImage = null
+      this.image = null
     },
     submit() {
-      this.$emit('submit', {
-        title: this.title,
-        body: this.body,
-        image: this.image
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.$emit('submit', {
+            title: this.title,
+            body: this.body,
+            image: this.fileImage
+          })
+        }
       })
     }
   },

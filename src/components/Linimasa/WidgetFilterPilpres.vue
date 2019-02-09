@@ -83,7 +83,7 @@ export default {
     close() {
       this.isActive = false
     },
-    removeDropdown() {
+    removeDropdown(event) {
       var isClickOutside =
         !event.target.parentNode.classList.contains('widget-filter') &&
         !event.target.parentNode.classList.contains('icon-filter')

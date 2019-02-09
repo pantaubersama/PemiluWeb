@@ -4,7 +4,8 @@ import serviceLiniMasa from '@/services/api/modules/lini-masa'
 const state = {
   bannerData: [],
   janjiPolitiks: [],
-  feedsPilpres: []
+  feedsPilpres: [],
+  clusters: []
 }
 
 const getters = {
@@ -37,25 +38,38 @@ const getters = {
 }
 
 const actions = {
-  fetchBannerInfo({ commit, state }, name = 'pilpres') {
+  fetchBannerInfo({
+    commit,
+    state
+  }, name = 'pilpres') {
     const savedBannerData = [...state.bannerData]
     return serviceLiniMasa
       .fetchBannerInfo(name)
       .then(response =>
         commit(types.SUCCESS_BANNER_INFO, response.banner_infos)
       )
-      .catch(() => commit(types.ERROR_BANNER_INFO, { savedBannerData }))
+      .catch(() => commit(types.ERROR_BANNER_INFO, {
+        savedBannerData
+      }))
   },
-  fetchBannerInfoShow({ commit, state }, name = 'pilpres') {
+  fetchBannerInfoShow({
+    commit,
+    state
+  }, name = 'pilpres') {
     const savedBannerData = [...state.bannerData]
     return serviceLiniMasa
       .fetchBannerInfo(name)
       .then(response =>
         commit(types.SUCCESS_BANNER_INFO, response.banner_infos)
       )
-      .catch(() => commit(types.ERROR_BANNER_INFO, { savedBannerData }))
+      .catch(() => commit(types.ERROR_BANNER_INFO, {
+        savedBannerData
+      }))
   },
-  fetchJanjiPolitik({ commit, state }, payload, isFilter = false) {
+  fetchJanjiPolitik({
+    commit,
+    state
+  }, payload, isFilter = false) {
     if (isFilter) commit(types.CLEAR_JANJI_POLITIK)
     const savedJanjiPolitiks = [...state.janjiPolitiks]
     return serviceLiniMasa
@@ -63,23 +77,44 @@ const actions = {
       .then(response =>
         commit(types.SUCCESS_JANJI_POLITIK, response.janji_politiks)
       )
-      .catch(() => commit(types.ERROR_JANJI_POLITIK, { savedJanjiPolitiks }))
+      .catch(() => commit(types.ERROR_JANJI_POLITIK, {
+        savedJanjiPolitiks
+      }))
   },
-  fetchFeedsPilpres({ commit, state }, payload, isFilter = false) {
+  fetchFeedsPilpres({
+    commit,
+    state
+  }, payload, isFilter = false) {
     if (isFilter) commit(types.CLEAR_FEEDS_PILPRES)
     const savedFeedsPilpres = [...state.feedsPilpres]
     return serviceLiniMasa
       .fetchFeedsPilpres(payload)
       .then(response => commit(types.SUCCESS_FEEDS_PILPRES, response.feeds))
-      .catch(() => commit(types.ERROR_FEEDS_PILPRES, { savedFeedsPilpres }))
+      .catch(() => commit(types.ERROR_FEEDS_PILPRES, {
+        savedFeedsPilpres
+      }))
   },
-  postJanjiPolitik({ commit }, payload) {
+  postJanjiPolitik({
+    commit
+  }, payload) {
     return serviceLiniMasa
       .postJanjiPolitik(payload)
       .then(response =>
         commit(types.SUCCESS_POST_JANJI_POLITIK, response.janji_politik)
       )
       .catch(() => commit(types.ERROR_POST_JANJI_POLITIK, {}))
+  },
+  deleteJanjiPolitik({
+    commit
+  }, {
+    id
+  }) {
+    return serviceLiniMasa
+      .deleteJanjiPolitik(id)
+      .then(() => commit(types.DELETE_JANJI_POLITIK, id))
+  },
+  fetchClusters(ctx, page = 1, perPage = 50) {
+
   }
 }
 
@@ -87,7 +122,9 @@ const mutations = {
   [types.SUCCESS_BANNER_INFO](state, payload) {
     state.bannerData = payload
   },
-  [types.ERROR_BANNER_INFO](state, { savedBannerData }) {
+  [types.ERROR_BANNER_INFO](state, {
+    savedBannerData
+  }) {
     // rollback to the data saved before sending the request
     state.bannerData = savedBannerData
   },
@@ -97,7 +134,9 @@ const mutations = {
   [types.CLEAR_JANJI_POLITIK](state) {
     state.janjiPolitiks.removeAll()
   },
-  [types.ERROR_JANJI_POLITIK](state, { savedJanjiPolitiks }) {
+  [types.ERROR_JANJI_POLITIK](state, {
+    savedJanjiPolitiks
+  }) {
     // rollback to the data saved before sending the request
     state.janjiPolitiks = savedJanjiPolitiks
   },
@@ -107,12 +146,20 @@ const mutations = {
   [types.CLEAR_FEEDS_PILPRES](state) {
     state.feedsPilpres.removeAll()
   },
-  [types.ERROR_FEEDS_PILPRES](state, { savedFeedsPilpres }) {
+  [types.ERROR_FEEDS_PILPRES](state, {
+    savedFeedsPilpres
+  }) {
     // rollback to the data saved before sending the request
     state.feedsPilpres = savedFeedsPilpres
   },
-  [types.SUCCESS_POST_JANJI_POLITIK](state, payload) {},
-  [types.ERROR_POST_JANJI_POLITIK](state, error) {}
+  [types.SUCCESS_POST_JANJI_POLITIK](state, payload) {
+    state.janjiPolitiks.unshift(payload)
+  },
+  [types.ERROR_POST_JANJI_POLITIK](state, error) {},
+  [types.DELETE_JANJI_POLITIK](state, id) {
+    const index = state.janjiPolitiks.findIndex(janji => janji.id === id)
+    state.janjiPolitiks.splice(index, 1)
+  }
 }
 
 export default {
