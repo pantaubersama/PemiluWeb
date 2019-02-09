@@ -41,6 +41,6 @@ jobs:
     - stage: release_production
       script:
         - touch config/env/prod.js
-        - cat .travis/prood.js  >> config/env/prod.js
+        - cat .travis/prod.js  >> config/env/prod.js
         - npm run build
         - rsync -rav --delete dist/ $PRODUCTION_SERVER_USERNAME@$PRODUCTION_SERVER_IP:$PRODUCTION_DEPLOY_PATH
