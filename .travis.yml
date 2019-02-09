@@ -21,6 +21,8 @@ install:
   - npm install
 
 stages:
+  - name: test_staging
+  - name: test_production
   - name: release_staging
     if: branch = staging AND type = push
   - name: release_production
@@ -32,6 +34,14 @@ notifications:
 
 jobs:
   include:
+    - stage: test_staging
+      script:
+        - npm run test
+        - echo "test me please :( ..."
+    - stage: test_production
+      script:
+        - npm run test
+        - echo "test me please :( ..."
     - stage: release_staging
       script:
         - touch config/env/prod.js
