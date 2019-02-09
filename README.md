@@ -1,10 +1,18 @@
+[![Build Status Staging](https://travis-ci.com/pantaubersama/PemiluWeb.svg?branch=staging)](https://travis-ci.com/pantaubersama/PemiluWeb)
+[![Build Status Production](https://travis-ci.com/pantaubersama/PemiluWeb.svg?branch=master)](https://travis-ci.com/pantaubersama/PemiluWeb)
+
 # pantau-bersama
 
 > pantau-bersama
 
+## Setup
+
+- Copy `env.example` to dev.js
+- Run all commands below
+
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
