@@ -27,7 +27,7 @@
         <a
           href="javascript:void(0)"
           class="share"
-          @click.prevent="share(`/share/hasilkuis/${quizzesResult.quiz_participation.id}`, 'Kamu sudah ikut? Aku sudah dapat hasilnya 😎')"
+          @click.prevent="share('/share/hasilkuis/',quizzesResult.quiz_participation.id, 'Kamu sudah ikut? Aku sudah dapat hasilnya 😎')"
         >
           <share-icon></share-icon>BAGIKAN
         </a>
@@ -48,7 +48,13 @@
       @close="$emit('onClickNextButton', showModal)"
       @click.stop="$emit('onClickNextButton', showModal)"
     />
-    <ModalShare v-if="isSharing" :url="shareURL" :title="shareTitle" @close="isSharing = false"></ModalShare>
+    <ModalShare
+      v-if="isSharing"
+      :url="shareURL"
+      :title="shareTitle"
+      :id="shareId"
+      @close="isSharing = false"
+    ></ModalShare>
   </div>
 </template>
 
@@ -126,9 +132,10 @@ export default {
     }
   },
   methods: {
-    share(url, title) {
+    share(url, id, title) {
       this.shareURL = url
       this.shareTitle = title
+      this.shareId = id
       this.isSharing = true
     }
   }

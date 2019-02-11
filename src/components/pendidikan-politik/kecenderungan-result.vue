@@ -32,7 +32,7 @@
         <a
           href="javascript:void(0)"
           class="share"
-          @click.prevent="share(`/share/kecenderungan/${totalKecenderungan.id}`)"
+          @click.prevent="share('/share/kecenderungan/', totalKecenderungan.id)"
         >
           <share-icon></share-icon>BAGIKAN
         </a>
@@ -45,6 +45,7 @@
     <ModalShare
       v-if="isSharing"
       :url="shareURL"
+      :id="shareId"
       :title="'Hmm.. Ternyata begini kecenderunganku 👀'"
       @close="isSharing = false"
     />
@@ -75,7 +76,8 @@ export default {
   data() {
     return {
       isSharing: false,
-      shareURL: null
+      shareURL: null,
+      shareId: null
     }
   },
   computed: {
@@ -86,8 +88,9 @@ export default {
     }
   },
   methods: {
-    share(url) {
+    share(url, id) {
       this.shareURL = url
+      this.shareId = id
       this.isSharing = true
     }
   }
