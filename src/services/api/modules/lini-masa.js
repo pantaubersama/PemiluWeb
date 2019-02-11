@@ -4,9 +4,9 @@ import {
 import Api from '@/services/api/base'
 
 const PREFIX = 'linimasa'
-const BASE_URL = process.env.API_PEMILU_BASE_URL
-  ? process.env.API_PEMILU_BASE_URL
-  : 'https://staging-pemilu.pantaubersama.com'
+const BASE_URL = process.env.API_PEMILU_BASE_URL ?
+  process.env.API_PEMILU_BASE_URL :
+  'https://staging-pemilu.pantaubersama.com'
 
 const httpClient = Api(BASE_URL, () => vueAuth.getToken())
 
@@ -81,6 +81,16 @@ export const fetchFeedsPilpres = ({
     })
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
+}
+
+export const getLinimasaHistory = id => {
+  return httpClient
+    .get(`${PREFIX}/v1/janji_politiks/user/${id}`, {
+      params: {
+        per_page: 5
+      }
+    })
+    .then(resp => resp.data.data)
 }
 
 const postJanjiPolitik = ({

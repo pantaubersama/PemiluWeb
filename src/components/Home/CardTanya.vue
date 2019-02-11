@@ -33,7 +33,7 @@
           <ContentLoader/>
         </li>
         <router-link
-          to="/pendidikan-politik?type=tanya"
+          to="/pendidikan-politik"
           class="load-more"
           v-if="!paginations.isLast"
         >Tampilkan lebih banyak

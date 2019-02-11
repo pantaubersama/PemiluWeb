@@ -49,7 +49,8 @@
         <image-default/>
       </div>
       <div class="button-submit">
-        <button class="btn btn-outline-primary" @click.prevent="submit()">publikasikan</button>
+        <button v-if="isSubmitting" class="btn btn-outline-primary" disabled>Mengirim</button>
+        <button v-else class="btn btn-outline-primary" @click.prevent="submit()">publikasikan</button>
       </div>
     </div>
   </modal-layout>
@@ -72,7 +73,8 @@ export default {
   },
   props: {
     name: String,
-    avatar: String
+    avatar: String,
+    isSubmitting: Boolean
   },
   components: {
     ModalLayout,

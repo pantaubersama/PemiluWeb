@@ -59,7 +59,19 @@
         </div>
       </div>
     </div>
-
+    <router-link class="card card-author" to="/profile">
+      <div class="author-thumb">
+        <img
+          :src="data.creator.avatar.medium_square.url"
+          v-if="data.creator.avatar.medium_square.url"
+          alt
+        >
+        <img src="@/assets/user.svg" alt v-else>
+      </div>
+      <div class="author-name">{{ data.creator.full_name }}</div>
+      <p>{{ data.creator.about }}</p>
+      <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
+    </router-link>
     <ModalShare
       v-if="isSharing"
       @close="isSharing = false"

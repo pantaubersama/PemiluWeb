@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic';
 import * as ProfileAPI from '@/services/api/profile'
 import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
-
 export const namespaced = true
 export const state = {
   token: null,
@@ -56,27 +57,26 @@ export const state = {
   },
   badges: [],
   listBadges: [],
+  badgeDetail: [],
   categories: [],
   cluster: {},
   clusters: [],
-  filterClusters: [
-    {
-      category: {},
-      category_id: null,
-      created_at: null,
-      description: null,
-      id: null,
-      image: null,
-      is_displayed: true,
-      is_eligible: false,
-      is_link_active: false,
-      magic_link: null,
-      members_count: 0,
-      name: 'Semua Cluster',
-      requester: {},
-      status: 'approved'
-    }
-  ],
+  filterClusters: [{
+    category: {},
+    category_id: null,
+    created_at: null,
+    description: null,
+    id: null,
+    image: null,
+    is_displayed: true,
+    is_eligible: false,
+    is_link_active: false,
+    magic_link: null,
+    members_count: 0,
+    name: 'Semua Cluster',
+    requester: {},
+    status: 'approved'
+  }],
   historyLinimasa: [],
   historyPendidikanPolitik: [],
   historyWordStadium: [],
@@ -95,6 +95,7 @@ export const actions = {
       user
     })
   },
+
   async update(store, user) {
     store.commit('setProfileData', {
       user
@@ -113,12 +114,13 @@ export const actions = {
     })
   },
 
-  async getBadges(store) {
-    const data = await ProfileAPI.getBadges()
+  async getBadges(store, payload) {
+    const data = await ProfileAPI.getBadges(payload.id)
     store.commit('setBadges', {
-      badges: data.achieved_badges.map(it => it.badge)
+      badges: data.achieved_badges
     })
   },
+
   async listBadges(ctx) {
     const badges = (await ProfileAPI.listBadges()).badges
       .slice()
@@ -126,6 +128,10 @@ export const actions = {
     ctx.commit('setListBadges', badges)
   },
 
+  async getBadgeDetail(ctx, payload) {
+    const data = await ProfileAPI.getBadgeDetail(payload.id)
+    ctx.commit('setBadgeDetail', data.achieved_badge)
+  },
   async getClusterList(ctx, payload) {
     const clusters = await ProfileAPI.getClusterList(payload)
     ctx.commit('setClusterList', clusters)
@@ -144,11 +150,13 @@ export const actions = {
       categories: data.categories
     })
   },
+
   async createCategories(store, name) {
     const data = await ProfileAPI.createCategories(name)
     store.commit('addCategory', data)
     return Promise.resolve(data)
   },
+
   async createCluster(store, payload) {
     const data = await ProfileAPI.createCluster(
       payload.name,
@@ -158,6 +166,7 @@ export const actions = {
     )
     return Promise.resolve(data)
   },
+
   async verify(store, payload) {
     return ProfileAPI.verify(payload)
   },
@@ -178,22 +187,20 @@ export const actions = {
     })
   },
 
-  async getLinimasaHistory(ctx) {
-    const feeds = (await LiniMasaAPI.fetchFeedsPilpres({
-      perPage: 5
-    })).feeds
-    ctx.commit('setLinimasaHistory', feeds)
+  async getLinimasaHistory(ctx, payload) {
+    const data = await LiniMasaAPI.getLinimasaHistory(payload.id)
+    ctx.commit('setLinimasaHistory', data.janji_politiks)
   },
-  async getQuestionList(ctx) {
-    const data = await PenpolAPI.fetchQuestions({
-      perPage: 5
-    })
+
+  async getQuestionHistory(ctx, payload) {
+    const data = await PenpolAPI.getQuestionHistory(payload.id)
     ctx.commit('setPenpolHistory', data.questions)
   },
 
   inviteToCluster(ctx, payload) {
     return ProfileAPI.inviteToCluster(payload.clusterId, payload.emails)
   },
+
   enableMagicLink(ctx, payload) {
     return ProfileAPI.enableMagicLink(payload.clusterId, payload.enabled).then(
       data => {
@@ -201,6 +208,7 @@ export const actions = {
       }
     )
   },
+
   async selectCalon(ctx, payload) {
     ctx.commit('selectCalon', payload.id)
     const politicalParty = ctx.rootState.profile.user.political_party
@@ -214,6 +222,7 @@ export const actions = {
       user
     })
   },
+
   async selectPartai(ctx, payload) {
     const user = await ProfileAPI.votePreference({
       votePreference: ctx.rootState.profile.user.vote_preference || null,
@@ -223,12 +232,13 @@ export const actions = {
       user
     })
   },
+
   async getPoliticalParties(store) {
     const data = await ProfileAPI.getPoliticalParties()
     store.commit('setPoliticalParties', {
       political_parties: data.political_parties
     })
-  }
+  },
 }
 
 export const mutations = {
@@ -243,6 +253,15 @@ export const mutations = {
   },
   setBadges(state, payload) {
     state.badges = payload.badges
+  },
+  setBadgeDetail(state, payload) {
+    state.badgeDetail = payload
+  },
+  emptyBadgeDetail(state) {
+    state.badgeDetail = []
+  },
+  UserQuestion(state, payload) {
+    state.userQuestion = payload.questions
   },
   setCategories(state, payload) {
     state.categories = payload.categories
@@ -277,6 +296,22 @@ export const mutations = {
   setFilterClusterList(state, clusters) {
     const allClusters = [state.filterClusters[0], ...clusters]
     state.filterClusters = allClusters
+  },
+  setVoted(state, id) {
+    const index = state.historyPendidikanPolitik.findIndex(question => question.id === id)
+    let question = state.historyPendidikanPolitik.find(question => question.id === id)
+    question.is_liked = true
+    question.like_count += 1
+
+    state.historyPendidikanPolitik[index] = question
+  },
+  removeVoted(state, id) {
+    const index = state.historyPendidikanPolitik.findIndex(question => question.id === id)
+    let question = state.historyPendidikanPolitik.find(question => question.id === id)
+    question.is_liked = false
+    question.like_count -= 1
+
+    state.historyPendidikanPolitik[index] = question
   }
 }
 
