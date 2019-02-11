@@ -126,9 +126,12 @@ export default {
     }
     window.addEventListener('click', this.removeDropdown)
     window.addEventListener('click', this.removeDropdownNote)
+    window.addEventListener('click', this.removeSidebar)
   },
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
+    window.removeEventListener('click', this.removeDropdownNote)
+    window.removeEventListener('click', this.removeSidebar)
   },
   computed: {
     ...mapState('meLogout', ['userLogin']),
@@ -144,6 +147,7 @@ export default {
     toggleDropdownNote() {
       this.isDropdownNoteActive = !this.isDropdownNoteActive
       this.isActive = false
+      this.$emit('removeSidebar')
     },
     removeDropdownNote(event) {
       if (!event.target.parentNode.parentNode.classList.contains('icon-pins')) {
@@ -153,6 +157,7 @@ export default {
     toggleDropdown(event) {
       this.isActive = !this.isActive
       this.isDropdownNoteActive = false
+      this.$emit('removeSidebar')
     },
     removeDropdown(event) {
       if (
@@ -164,6 +169,16 @@ export default {
     },
     toggleSidebar(event) {
       this.$emit('toggleSidebar')
+    },
+    removeSidebar(event) {
+      if (
+        !event.target.classList.contains('burger-wrapper', 'z', 'y', 'x') &&
+        !event.target.classList.contains('navbar-toggle') &&
+        (!event.target.classList.contains('burger-wrapper') &&
+          !event.target.parentNode.classList.contains('burger-wrapper'))
+      ) {
+        this.$emit('removeSidebar')
+      }
     }
   }
 }

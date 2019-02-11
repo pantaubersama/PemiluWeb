@@ -1,13 +1,5 @@
 <template>
   <ul class="question-list">
-    <modal-create
-      :name="setName(user.full_name)"
-      :avatar="user.avatar.url"
-      :is-submitting="isSubmitting"
-      v-if="modal === 'modalCreate'"
-      @close="closeModal()"
-      @submit="submitQuestion($event)"
-    ></modal-create>
     <ModalShare
       :id="shareId"
       v-if="isSharing"
@@ -15,14 +7,6 @@
       :url="shareURL"
       :title="shareTitle"
     />
-    <li>
-      <PendidikanPolitikCreateItem
-        :avatar="user.avatar.medium_square.url"
-        :author_name="setName(user.full_name)"
-        @clicked="modalCreate()"
-        v-if="userAuth"
-      />
-    </li>
 
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
       <ContentLoader/>
@@ -37,8 +21,8 @@
         :avatar="question.user.avatar.thumbnail_square.url"
         :is-voted="question.is_liked"
         :count="question.like_count"
-        @upvoted="$emit('upvoted', $event)"
-        @removeVoted="$emit('removeVoted', $event)"
+        @upvoted="onUpvote($event)"
+        @removeVoted="onRemoveVote($event)"
         @onCopy="copyToClipboard(question.id, $event)"
         @onShare="modalShare(question.id, $event)"
         :isActive="isActive"
@@ -58,17 +42,13 @@ import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import ModalShare from '@/components/modal-share'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
-import ModalCreate from '@/components/pendidikan-politik/modal-create'
-import PendidikanPolitikCreateItem from '@/components/pendidikan-politik/penpol-create-item'
 import ShareOptions from '@/mixins/share-options'
 export default {
-  name: 'QuestionList',
+  name: 'TanyaKandidatCard',
   components: {
     QuestionItem,
     ContentLoader,
-    ModalCreate,
-    ModalShare,
-    PendidikanPolitikCreateItem
+    ModalShare
   },
   mixins: [utils, ShareOptions],
   props: {
@@ -79,19 +59,15 @@ export default {
     loading: {
       type: Boolean,
       required: true
-    },
-    userAuth: {
-      type: Boolean,
-      required: true
     }
   },
   data() {
     return {
       modal: false,
-      isActive: false,
       isSubmitting: false,
       shareTitle: 'Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆',
       isSharing: false,
+      isActive: false,
       shareId: ''
     }
   },
@@ -105,17 +81,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['postReport']),
-    async submitQuestion(data) {
-      this.isSubmitting = true
-      const resp = await PenpolAPI.postQuestion(data.title)
-      const question = resp.question
-      this.$store.dispatch('addQuestion', question)
-      this.isSubmitting = false
-      this.modal = false
-      this.$store.dispatch('homeKenalan/updateKenalan', {
-        id: '231cbadc-a856-4723-93a9-bb79915dd40d'
-      })
+    ...mapActions(['vote', 'unVote', 'postReport']),
+    onUpvote(id) {
+      this.vote(id).then(() => this.$store.commit('profile/setVoted', id))
+    },
+    onRemoveVote(id) {
+      this.unVote(id).then(() => this.$store.commit('profile/removeVoted', id))
     },
     handleReport(id) {
       this.postReport(id)
@@ -161,10 +132,8 @@ export default {
     border-bottom: 1px solid #ececec
     border-left: 0
     border-right: 0
-    &:first-child
+    &:last-child
       border-bottom: none
-    &:not(:first-child)
-      border-top: 0
     *
       width: 100%
 

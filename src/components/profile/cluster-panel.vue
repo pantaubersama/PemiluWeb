@@ -103,6 +103,7 @@ button.request-cluster
     background: none
     border: none
     padding: 5px
+    width: 100%
   .create-cluster
     color: #f2771d
 .fiexed

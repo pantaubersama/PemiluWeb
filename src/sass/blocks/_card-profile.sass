@@ -1,122 +1,144 @@
 .grey
-    background: #f2f2f2
-    padding: 10px 20px 20px 20px
-    border-color: #f2f2f2
-    .edit-icon
+  background: #f2f2f2
+  padding: 10px 20px 20px 20px
+  border-color: #f2f2f2
+  .edit-icon
+    display: flex
+    justify-content: flex-end
+    margin-bottom: 10px
+    img
+      width: 16px
+
+
+  .profile
+    img
+      width: 84px
+      height: 84px
+      border-radius: 100%
+      object-fit: cover
+      display: inline-block
+      margin-right: 20px
+    span
+      display: inline-block
+      vertical-align: middle
+      h3
+        font-size: 18px
+        font-weight: 600
+      a, .line-verified
+        padding: 5px 8px
+        border: 1px solid #cbcbcb
+        border-radius: 5px
+        font-size: 12px
+        color: #cbcbcb
+        font-weight: 500
         display: flex
-        justify-content: flex-end
-        margin-bottom: 10px
-        img
-            width: 16px;
-
-
-    .profile
-        img
-            width: 84px
-            height: 84px
-            border-radius: 100%
-            object-fit: cover
-            display: inline-block
-            margin-right: 20px
-        span
-            display: inline-block
-            vertical-align: middle
-            h3
-                font-size: 18px
-                font-weight: 600
-            a, .line-verified
-                padding: 5px 8px
-                border: 1px solid #cbcbcb
-                border-radius: 5px
-                font-size: 12px
-                color: #cbcbcb
-                font-weight: 500
-                display: flex
-                align-items: center
-                // width: 80%
-                justify-content: center
-                text-decoration: none
-                background-color: transparent
-                svg
-                    width: 24px
-                    fill: #cbcbcb
-                    margin-right: 5px
-            .line-verified
-                border-color: #08bda8
-                color: #08bda8
-                float: left
-                svg
-                    fill: #08bda8
-        p
-            padding-top: 15px
-            font-size: 12px
-            color: #111111
+        align-items: center
+        // width: 80%
+        justify-content: center
+        text-decoration: none
+        background-color: transparent
+        svg
+          width: 24px
+          fill: #cbcbcb
+          margin-right: 5px
+      .line-verified
+        border-color: #08bda8
+        color: #08bda8
+        float: left
+        svg
+          fill: #08bda8
+    p
+      padding-top: 15px
+      font-size: 12px
+      color: #111111
 
 .list-wrap
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 20px
-    &:first-child
-        .item
-            img
-                width: 24px
-            .icon
-                img
-                    margin-right: 0
-
-    &:last-child
-        .item
-            padding: 5px 15px
-            p
-                font-weight: bold
-                font-size: 10px
-            .sub-text
-                font-weight: normal
-            img
-                width: 50px
-    .badge-more
-      width: auto
-      color: #7c7c7c
-      font-weight: normal
-    h4
-        border: 0
-        padding: 15px 25px 15px
-        text-transform: capitalize
-        font-size: 12px
-        display: flex
-        align-items: center
-        a
-            margin-left: auto
-            width: 16px;
+  border-bottom: 1px solid #eaeaea
+  padding-bottom: 20px
+  &:first-child
     .item
-        display: flex
-        align-items: center
-        padding: 5px 25px
+      img
+        width: 24px
+      .icon
         img
-            width: 16px
-            margin-right: 10px
-        p
-            margin: 0
-            color: #000000
-        .sub-text
-            font-size: 12px
-            color: #7c7c7c
-            padding-top: 0
-            font-weight: normal
-        .icon
-            margin-left: auto
-            .request-cluster
-                margin-right: -10px
+          margin-right: 0
+
+  &:last-child
+    border-bottom: none
+    .item
+      padding: 5px 15px
+      p
+        font-weight: bold
+        font-size: 10px
+      .sub-text
+        font-weight: normal
+      &-thumb
+        width: 50px
+        height: 50px
+        overflow: hidden
+        border-radius: 50%
+        margin-right: 10px
+        img
+          width: 100%
+          height: 100%
+          object-fit: cover
+          object-position: center center
+          margin: 0
+  .badge-more
+    width: auto
+    color: #7c7c7c
+    font-weight: normal
+  h4
+    border: 0
+    padding: 15px 25px 15px
+    text-transform: capitalize
+    font-size: 12px
+    display: flex
+    align-items: center
+    a
+      margin-left: auto
+      width: 16px
+  .item
+    display: flex
+    align-items: center
+    padding: 5px 25px
+    img
+      width: 16px
+      margin-right: 10px
+    p
+      margin: 0
+      color: #000000
+    .sub-text
+      font-size: 12px
+      color: #7c7c7c
+      padding-top: 0
+      font-weight: normal
+    .icon
+      margin-left: auto
+      .request-cluster
+        margin-right: -10px
 .tabs
-    .nav-tabs
-        display: block;
-        background: #f9f9f9;
-        border-bottom: 0;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        li
-            display: table-cell;
-            width: 1%;
-            text-align: center;
-            padding: 20px;
-            img
-                width: 24px;
+  .nav-tabs
+    display: block
+    background: #f9f9f9
+    border-bottom: 0
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+    border-bottom: 1px solid #ececec
+    ul
+      display: flex
+      justify-content: space-around
+    li
+      text-align: center
+      padding: 20px 0
+      width: 20%
+      img
+        width: 24px
+.profil-list
+  .tabs
+    .card-content:last-child
+      border-bottom: none
+    .question-item
+      border-bottom: 1px solid #ececec
+      &:last-child
+        border-bottom: none

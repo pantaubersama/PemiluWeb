@@ -1,25 +1,11 @@
 <template>
   <div class="card-jp">
-    <ModalCreate
-      :name="setName(user.full_name)"
-      :avatar="user.avatar.medium_square.url"
-      :is-submitting="isSubmitting"
-      v-if="modal === 'modalCreate'"
-      v-on:close="closeModal()"
-      v-on:submit="submitPublikasi($event)"
-    />
     <ModalShare
       :id="shareId"
       v-if="isSharing"
       @close="isSharing = false"
       :url="shareURL"
       :title="shareTitle"
-    />
-    <JanjiPolitikCreateItem
-      :avatar="user.avatar.medium_square.url"
-      :author_name="setName(user.full_name)"
-      @clicked="modalCreate()"
-      v-if="userAuth && isAllowCreated"
     />
     <div class="card-content" v-for="item in data" :key="item.id">
       <div v-if="loading">
@@ -28,7 +14,6 @@
       </div>
       <JanjiPolitikItem
         v-else
-        :userAuth="userAuth"
         :user="user"
         :id="item.id"
         :avatar="item.creator.avatar.thumbnail_square.url"
@@ -57,18 +42,14 @@ import { cleanURL } from '@/utils'
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
 
 import ContentLoader from '@/components/Loading/ContentLoader'
-import ModalCreate from '@/components/Linimasa/ModalCreate'
 import ModalShare from '@/components/modal-share'
 import JanjiPolitikItem from '@/components/Linimasa/JanjiPolitikItem'
-import JanjiPolitikCreateItem from '@/components/Linimasa/JanjiPolitikCreateItem'
 import ShareOptions from '@/mixins/share-options'
 export default {
-  name: 'JanjiPolitikList',
+  name: 'JanjiPolitikCard',
   components: {
     ContentLoader,
     JanjiPolitikItem,
-    JanjiPolitikCreateItem,
-    ModalCreate,
     ModalShare,
     LinkIcon,
     AlertIcon,
@@ -79,10 +60,6 @@ export default {
   props: {
     data: {
       type: Array,
-      required: true
-    },
-    userAuth: {
-      type: Boolean,
       required: true
     },
     loading: {
@@ -101,25 +78,11 @@ export default {
     }
   },
   computed: {
-    isAllowCreated() {
-      if (!this.user || !this.user.cluster) return false
-      return this.user.cluster.is_eligible
-    },
     shareURL() {
       return `/linimasa/detail/`
     }
   },
   methods: {
-    ...mapActions(['postJanjiPolitik', 'deleteJanjiPolitik']),
-    modalCreate() {
-      this.modal = 'modalCreate'
-    },
-
-    deletePost(id) {
-      this.deleteJanjiPolitik({ id }).then(() => {
-        this.$toaster.success('Berhasil menghapus janji politik.')
-      })
-    },
     copyToClipboard(id) {
       this.isActive = false
       const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
@@ -133,13 +96,6 @@ export default {
     },
     closeModal() {
       this.modal = false
-    },
-    submitPublikasi(data) {
-      this.isSubmitting = true
-      this.postJanjiPolitik(data).then(() => {
-        this.isSubmitting = false
-        this.closeModal()
-      })
     }
   }
 }
