@@ -10,12 +10,18 @@
         </div>
       </router-link>
       <div class="ml-auto navbar-right align-item-center d-flex">
-        <!-- <div class="d-none d-lg-flex">
+        <div class="d-none d-lg-flex">
           <div class="input-search">
-            <input type="text" class="form-control" placeholder="CARI">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="CARI"
+              :value="searchValue"
+              @keypress="search($event)"
+            >
             <search-icon></search-icon>
           </div>
-        </div>-->
+        </div>
         <!-- <a href="#" class="word-stadium">
           <word-stadium-icon></word-stadium-icon>
         </a>-->
@@ -91,6 +97,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import debounce from 'lodash.debounce'
 import { authLink } from '@/mixins/link'
 import { LogoProduct } from '@/svg/products'
 import {
@@ -117,7 +124,8 @@ export default {
   data() {
     return {
       isActive: false,
-      isDropdownNoteActive: false
+      isDropdownNoteActive: false,
+      query: this.$route.query.q || ''
     }
   },
   created() {
@@ -138,9 +146,21 @@ export default {
     ...mapState({
       avatarURL: s => s.profile.user.avatar.medium.url,
       isLoggedIn: s => s.profile.token != null
-    })
+    }),
+    searchValue() {
+      return this.$route.query.q || this.query
+    }
   },
   methods: {
+    search: debounce(function search(event) {
+      const query = event.target.value
+      if (query.length < 3) return
+      if (this.$route.name !== 'search') {
+        this.$router.push({ path: '/search/people', query: { q: query } })
+      } else {
+        this.$router.push({ path: this.$route.path, query: { q: query } })
+      }
+    }, 300),
     logout() {
       this.$store.dispatch('meLogout/logout')
     },
