@@ -9,35 +9,50 @@
     <div class="SearchLayout">
       <ul class="search-type">
         <li>
-          <router-link to="/search/people" :class="{ active: searchType === 'people' }">Orang</router-link>
-        </li>
-        <li>
-          <router-link to="/search/cluster" :class="{ active: searchType === 'cluster' }">Cluster</router-link>
-        </li>
-        <li>
-          <router-link to="/search/pilpres" :class="{ active: searchType === 'pilpres' }">Pilpres</router-link>
+          <router-link
+            :to="{ name: 'search', params: { type: 'people' }, query: { q: query } }"
+            :class="{ active: searchType === 'people' }"
+          >Orang</router-link>
         </li>
         <li>
           <router-link
-            to="/search/janji-politik"
+            :to="{ name: 'search', params: { type: 'cluster' }, query: { q: query } }"
+            :class="{ active: searchType === 'cluster' }"
+          >Cluster</router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'search', params: { type: 'pilpres' }, query: { q: query } }"
+            :class="{ active: searchType === 'pilpres' }"
+          >Pilpres</router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'search', params: { type: 'janji-politik' }, query: { q: query } }"
             :class="{ active: searchType === 'janji-politik' }"
           >Janji Politik</router-link>
         </li>
         <li>
-          <router-link to="/search/tanya" :class="{ active: searchType === 'tanya' }">Tanya</router-link>
-        </li>
-        <li>
-          <router-link to="/search/quiz" :class="{ active: searchType === 'quiz' }">Quiz</router-link>
+          <router-link
+            :to="{ name: 'search', params: { type: 'tanya' }, query: { q: query } }"
+            :class="{ active: searchType === 'tanya' }"
+          >Tanya</router-link>
         </li>
         <li>
           <router-link
-            to="/search/wordstadium"
+            :to="{ name: 'search', params: { type: 'quiz' }, query: { q: query } }"
+            :class="{ active: searchType === 'quiz' }"
+          >Quiz</router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'search', params: { type: 'wordstadium' }, query: { q: query } }"
             :class="{ active: searchType === 'wordstadium' }"
           >Wordstadium</router-link>
         </li>
         <li>
           <router-link
-            to="/search/perhitungan"
+            :to="{ name: 'search', params: { type: 'perhitungan' }, query: { q: query } }"
             :class="{ active: searchType === 'perhitungan' }"
           >Perhitungan</router-link>
         </li>
@@ -89,6 +104,9 @@ export default {
   computed: {
     searchType() {
       return this.$route.params.type
+    },
+    query() {
+      return this.$route.query.q
     }
   },
   methods: {
@@ -110,7 +128,7 @@ export default {
   position: fixed
   top: 64px
   width: 100%
-  z-index: 99
+  z-index: 8
 
 .container.main-wrapper .sidebar
   top: 125px
