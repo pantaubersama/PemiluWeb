@@ -25,10 +25,10 @@
 <script>
 export default {
   name: 'SearchPeopleFilter',
-  props: { input: String },
+  props: { value: String },
   data() {
     return {
-      filter: this.input || 'verified_all'
+      filter: this.value || 'verified_all'
     }
   },
   methods: {
