@@ -144,6 +144,7 @@ export default {
   li
     margin-left: 10px
     text-transform: uppercase
+    padding: 8px 14px
     a
       color: #333
       font-weight: bold

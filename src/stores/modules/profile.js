@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import {
   vueAuth
-} from '@/services/symbolic';
+} from '@/services/symbolic'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
@@ -134,8 +134,12 @@ export const actions = {
   },
   async getClusterList(ctx, payload) {
     const clusters = await ProfileAPI.getClusterList(payload)
-    ctx.commit('setClusterList', clusters)
-    ctx.commit('setFilterClusterList', clusters)
+      .then(clusters => {
+        ctx.commit('setClusterList', clusters)
+        ctx.commit('setFilterClusterList', clusters)
+      })
+      .catch(() => {})
+
     return Promise.resolve(clusters)
   },
   searchClusters(ctx, name) {
@@ -238,7 +242,7 @@ export const actions = {
     store.commit('setPoliticalParties', {
       political_parties: data.political_parties
     })
-  },
+  }
 }
 
 export const mutations = {

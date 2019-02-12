@@ -1,6 +1,8 @@
 <template>
   <SearchLayout>
     <template slot="main-content" slot-scope="props">
+      <SearchJanjiPolitik v-if="props.type === 'janji-politik'" :query="query"></SearchJanjiPolitik>
+      <SearchQuestion v-if="props.type === 'tanya'" :query="query"></SearchQuestion>
       <search-people v-if="props.type === 'people'"
         :query="query"
         :filter="filterPeople"
@@ -34,6 +36,8 @@ export default {
   name: 'SearchHome',
   components: {
     SearchLayout,
+    SearchJanjiPolitik: () => import('@/pages/search/janji-politik'),
+    SearchQuestion: () => import('@/pages/search/question'),
     SearchPeople: () => import('@/pages/search/people'),
     SearchPeopleWidget: () => import('@/pages/search/people-widget'),
     SearchPilpres: () => import('@/pages/search/pilpres'),
