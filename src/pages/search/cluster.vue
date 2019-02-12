@@ -1,12 +1,12 @@
 <template>
   <ul class="card search-type-people">
-    <li v-for="user in users"
-      :key="user.id"
+    <li v-for="item in clusters"
+      :key="item.id"
       class="user-item">
-      <img :src="user.avatar.url" alt="user.username" class="avatar">
+      <img :src="item.image.url" :alt="item.username" class="avatar">
       <div class="detail">
-        <div class="fullname">{{user.full_name}}</div>
-        <div class="username">@{{user.username}}</div>
+        <div class="fullname">{{item.name}}</div>
+        <div class="category">{{item.category.name}}</div>
       </div>
       <hr class="separator">
     </li>
@@ -16,28 +16,28 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 export default {
-  name: 'SearchPeople',
+  name: 'SearchCluster',
   props: { query: String , filter: String },
   watch: {
     filter(value) {
-      this.search({ q: this.query, filter_by: this.filter })
+      this.search({ q: this.query, filter_value: this.filter })
     },
     query: {
       immediate: true,
       handler(query = '') {
         if (query == null) return
-        this.search({ q: query, filter_by: this.filter })
+        this.search({ q: query, filter_value: this.filter })
       }
     }
   },
   computed: {
     ...mapState({
-      users: s => s.search.people
+      clusters: s => s.search.clusters
     })
   },
   methods: {
     ...mapActions({
-      search: 'search/people'
+      search: 'search/cluster'
     })
   }
 }
@@ -45,7 +45,8 @@ export default {
 
 <style lang="sass" scoped>
 ul.card
-  padding: 10px 50px
+  padding: 10px 0
+
 .user-item
   display: flex
   flex-direction: row
@@ -72,13 +73,14 @@ img.avatar
   margin-left: 10px
 
 .fullname
-  font-weight: bold
   font-size: 14px
-  line-height: 1.14
-  color: #000
-.username
-  color: #757575
-  font-size: 11px
-  line-height: 1.36
+  line-height: 1.21
+  color: #000000
+
+.category
+  font-size: 14px
+  line-height: 1.21
+  color: #b5b5b5
+  margin-top: 5px
 
 </style>

@@ -6,7 +6,10 @@ export const namespaced = true
 export const state = {
   people: [],
   janjiPolitiks: [],
-  questions: []
+  questions: [],
+  pilpres: [],
+  clusterCategories: [],
+  clusters: []
 }
 
 export const actions = {
@@ -30,6 +33,18 @@ export const actions = {
     }).catch(error => {
       console.log(error)
     })
+  },
+  async pilpres(ctx, payload) {
+    const pilpres = await SearchAPI.pilpres(payload)
+    ctx.commit('setPilpres', pilpres)
+  },
+  async cluster(ctx, payload) {
+    const cluster = await SearchAPI.cluster(payload)
+    ctx.commit('setCluster', cluster)
+  },
+  async clusterCategory(ctx, payload) {
+    const categories = await SearchAPI.clusterCategories(payload)
+    ctx.commit('setClusterCategories', categories)
   }
 }
 
@@ -42,5 +57,14 @@ export const mutations = {
   },
   setQuestions(state, questions) {
     Vue.set(state, 'questions', questions)
+  },
+  setPilpres(state, pilpres) {
+    Vue.set(state, 'pilpres', pilpres)
+  },
+  setCluster(state, cluster) {
+    state.clusters = cluster
+  },
+  setClusterCategories(state, categories) {
+    state.clusterCategories = categories
   }
 }

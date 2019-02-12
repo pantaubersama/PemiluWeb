@@ -154,7 +154,6 @@ export default {
   methods: {
     search: debounce(function search(event) {
       const query = event.target.value
-      if (query.length < 3) return
       if (this.$route.name !== 'search') {
         this.$router.push({ path: '/search/people', query: { q: query } })
       } else {
