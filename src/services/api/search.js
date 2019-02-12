@@ -72,3 +72,16 @@ export const pilpres = ({ q, page = 1, per_page = 100, filter_by = 'team_all' } 
     params: { page, per_page, q, filter_by }
   })
   .then(resp => resp.data.data.feeds)
+
+// eslint-disable-next-line camelcase
+export const cluster = ({ q, page = 1, per_page = 100, filter_value = null } = {}) => api
+  .get('/v1/clusters', {
+    params: { page, per_page, q, filter_value, filter_by: 'category_id' }
+  })
+  .then(resp => resp.data.data.clusters)
+
+// eslint-disable-next-line camelcase
+export const clusterCategories = ({ page = 1, per_page = 100 } = {}) => api
+  .get('/v1/categories', {
+    params: { page, per_page }
+  })
