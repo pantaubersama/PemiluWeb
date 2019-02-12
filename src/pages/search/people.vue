@@ -26,9 +26,7 @@ export default {
       immediate: true,
       handler(query = '') {
         if (query == null) return
-        if (query.length > 3) {
-          this.search({ q: query, filter_by: this.filter })
-        }
+        this.search({ q: query, filter_by: this.filter })
       }
     }
   },
