@@ -10,13 +10,15 @@ const api = Api(BASE_URL, () => vueAuth.getToken())
 export const people = ({
   q,
   page = 1,
-  per_page = 100
+  per_page = 100,
+  filter_by = 'verified_all'
 } = {}) => api
   .get('/v1/users', {
     params: {
       page,
       per_page,
-      q
+      q,
+      filter_by
     }
   })
   .then(resp => resp.data.data.users)
