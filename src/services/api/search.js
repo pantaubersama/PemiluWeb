@@ -42,4 +42,30 @@ export const janjiPolitiks = ({
     })
     .then(resp => resp.data.data.janji_politiks)
 }
+
+export const questions = ({
+  page = 1,
+  per_page = 100,
+  q,
+  o = 'and',
+  m = 'word_start',
+  order_by = 'created_at',
+  direction = 'desc',
+  filter_by = 'user_verified_all'
+}) => {
+  return apiPemilu
+    .get('pendidikan_politik/v1/questions', {
+      params: {
+        page,
+        direction,
+        per_page,
+        q,
+        o,
+        m,
+        order_by,
+        filter_by
+      }
+    })
+    .then(response => response.data.data.questions)
+}
 /* eslint-disable */

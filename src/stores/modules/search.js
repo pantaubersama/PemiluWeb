@@ -5,7 +5,8 @@ export const namespaced = true
 
 export const state = {
   people: [],
-  janjiPolitiks: []
+  janjiPolitiks: [],
+  questions: []
 }
 
 export const actions = {
@@ -22,6 +23,13 @@ export const actions = {
     }).catch(error => {
       console.log(error)
     })
+  },
+  async questions(ctx, payload) {
+    await SearchAPI.questions(payload).then(questions => {
+      ctx.commit('setQuestions', questions)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 }
 
@@ -31,5 +39,8 @@ export const mutations = {
   },
   setJanjiPolitiks(state, janjiPolitiks) {
     Vue.set(state, 'janjiPolitiks', janjiPolitiks)
+  },
+  setQuestions(state, questions) {
+    Vue.set(state, 'questions', questions)
   }
 }
