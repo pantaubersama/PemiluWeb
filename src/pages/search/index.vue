@@ -1,15 +1,22 @@
 <template>
   <SearchLayout>
     <template slot="main-content" slot-scope="props">
-      <SearchPeople v-if="props.type === 'people'"
+      <search-people v-if="props.type === 'people'"
         :query="query"
         :filter="filterPeople"
-      ></SearchPeople>
+      ></search-people>
+      <search-pilpres v-if="props.type === 'pilpres'"
+        :query="query"
+        :filter="filterPilpres"
+      ></search-pilpres>
     </template>
     <template slot="widget-wrapper" slot-scope="props">
-      <SearchPeopleWidget v-if="props.type === 'people'"
+      <search-people-widget v-if="props.type === 'people'"
         v-model="filterPeople"
-      ></SearchPeopleWidget>
+      ></search-people-widget>
+      <search-pilpres-widget v-if="props.type === 'pilpres'"
+        v-model="filterPilpres"
+      ></search-pilpres-widget>
     </template>
   </SearchLayout>
 </template>
@@ -21,11 +28,14 @@ export default {
   components: {
     SearchLayout,
     SearchPeople: () => import('@/pages/search/people'),
-    SearchPeopleWidget: () => import('@/pages/search/people-widget')
+    SearchPeopleWidget: () => import('@/pages/search/people-widget'),
+    SearchPilpres: () => import('@/pages/search/pilpres'),
+    SearchPilpresWidget: () => import('@/pages/search/pilpres-widget'),
   },
   data() {
     return {
-      filterPeople: 'verified_all'
+      filterPeople: 'verified_all',
+      filterPilpres: 'team_all',
     }
   },
   computed: {
