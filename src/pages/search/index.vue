@@ -9,6 +9,10 @@
         :query="query"
         :filter="filterPilpres"
       ></search-pilpres>
+      <search-cluster v-if="props.type === 'cluster'"
+        :query="query"
+        :filter="filterCluster"
+      ></search-cluster>
     </template>
     <template slot="widget-wrapper" slot-scope="props">
       <search-people-widget v-if="props.type === 'people'"
@@ -17,6 +21,9 @@
       <search-pilpres-widget v-if="props.type === 'pilpres'"
         v-model="filterPilpres"
       ></search-pilpres-widget>
+      <search-cluster-widget v-if="props.type === 'cluster'"
+        v-model="filterCluster"
+      ></search-cluster-widget>
     </template>
   </SearchLayout>
 </template>
@@ -31,11 +38,14 @@ export default {
     SearchPeopleWidget: () => import('@/pages/search/people-widget'),
     SearchPilpres: () => import('@/pages/search/pilpres'),
     SearchPilpresWidget: () => import('@/pages/search/pilpres-widget'),
+    SearchCluster: () => import('@/pages/search/cluster'),
+    SearchClusterWidget: () => import('@/pages/search/cluster-widget')
   },
   data() {
     return {
       filterPeople: 'verified_all',
       filterPilpres: 'team_all',
+      filterCluster: null
     }
   },
   computed: {
