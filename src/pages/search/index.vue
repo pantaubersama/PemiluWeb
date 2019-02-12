@@ -1,9 +1,17 @@
 <template>
   <SearchLayout>
     <template slot="main-content" slot-scope="props">
-      <SearchPeople v-if="props.type === 'people'" :query="query"></SearchPeople>
       <SearchJanjiPolitik v-if="props.type === 'janji-politik'" :query="query"></SearchJanjiPolitik>
       <SearchQuestion v-if="props.type === 'tanya'" :query="query"></SearchQuestion>
+      <SearchPeople v-if="props.type === 'people'"
+        :query="query"
+        :filter="filterPeople"
+      ></SearchPeople>
+    </template>
+    <template slot="widget-wrapper" slot-scope="props">
+      <SearchPeopleWidget v-if="props.type === 'people'"
+        v-model="filterPeople"
+      ></SearchPeopleWidget>
     </template>
     <template slot="widget-wrapper">&nbsp;</template>
   </SearchLayout>
@@ -17,7 +25,13 @@ export default {
     SearchLayout,
     SearchPeople: () => import('@/pages/search/people'),
     SearchJanjiPolitik: () => import('@/pages/search/janji-politik'),
-    SearchQuestion: () => import('@/pages/search/question')
+    SearchQuestion: () => import('@/pages/search/question'),
+    SearchPeopleWidget: () => import('@/pages/search/people-widget')
+  },
+  data() {
+    return {
+      filterPeople: 'verified_all'
+    }
   },
   computed: {
     query() {

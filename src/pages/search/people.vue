@@ -17,14 +17,17 @@
 import {mapState} from 'vuex'
 export default {
   name: 'SearchPeople',
-  props: { query: { type: String } },
+  props: { query: String , filter: String },
   watch: {
+    filter(value) {
+      this.$store.dispatch('search/people', { q: this.query, filter_by: this.filter })
+    },
     query: {
       immediate: true,
       handler(query = '') {
         if (query == null) return
         if (query.length > 3) {
-          this.$store.dispatch('search/people', { q: query })
+          this.$store.dispatch('search/people', { q: query, filter_by: this.filter })
         }
       }
     }
