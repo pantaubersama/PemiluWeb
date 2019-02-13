@@ -13,6 +13,13 @@ export const state = {
   quizzes: []
 }
 
+export const getters = {
+  quizzesFilter: state => status => {
+    if (!status || status === 'all') return state.quizzes
+    return state.quizzes.filter(quiz => quiz.participation_status === status)
+  }
+}
+
 export const actions = {
   async people(ctx, payload) {
     await SearchAPI.people(payload).then(people => {

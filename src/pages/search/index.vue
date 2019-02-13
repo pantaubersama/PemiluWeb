@@ -2,8 +2,8 @@
   <SearchLayout>
     <template slot="main-content" slot-scope="props">
       <search-janji v-if="props.type === 'janji-politik'" :query="query" :filter="filterJanji"></search-janji>
-      <search-question v-if="props.type === 'tanya'" :query="query"></search-question>
-      <search-quiz v-if="props.type === 'quiz'" :query="query"></search-quiz>
+      <search-question v-if="props.type === 'tanya'" :query="query" :filter="filterQuestion"></search-question>
+      <search-quiz v-if="props.type === 'quiz'" :query="query" :filter="filterQuiz"></search-quiz>
       <search-people v-if="props.type === 'people'" :query="query" :filter="filterPeople"></search-people>
       <search-pilpres v-if="props.type === 'pilpres'" :query="query" :filter="filterPilpres"></search-pilpres>
       <search-cluster v-if="props.type === 'cluster'" :query="query" :filter="filterCluster"></search-cluster>
@@ -13,6 +13,8 @@
       <search-pilpres-widget v-if="props.type === 'pilpres'" v-model="filterPilpres"></search-pilpres-widget>
       <search-cluster-widget v-if="props.type === 'cluster'" v-model="filterCluster"></search-cluster-widget>
       <search-janji-widget v-if="props.type === 'janji-politik'" v-model="filterJanji"></search-janji-widget>
+      <search-question-widget v-if="props.type === 'tanya'" v-model="filterQuestion"></search-question-widget>
+      <search-quiz-widget v-if="props.type === 'quiz'" v-model="filterQuiz"></search-quiz-widget>
     </template>
   </SearchLayout>
 </template>
@@ -33,7 +35,9 @@ export default {
     SearchPeopleWidget: () => import('@/pages/search/widget/people'),
     SearchPilpresWidget: () => import('@/pages/search/widget/pilpres'),
     SearchClusterWidget: () => import('@/pages/search/widget/cluster'),
-    SearchJanjiWidget: () => import('@/pages/search/widget/janji-politik')
+    SearchJanjiWidget: () => import('@/pages/search/widget/janji-politik'),
+    SearchQuestionWidget: () => import('@/pages/search/widget/question'),
+    SearchQuizWidget: () => import('@/pages/search/widget/quiz')
   },
   data() {
     return {
@@ -43,7 +47,12 @@ export default {
       filterJanji: {
         cluster: null,
         filter: 'user_verified_all'
-      }
+      },
+      filterQuestion: {
+        user: 'user_verified_all',
+        sorting: 'created_at'
+      },
+      filterQuiz: null
     }
   },
   computed: {

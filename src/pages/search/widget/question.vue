@@ -1,28 +1,32 @@
 <template>
   <div class="card">
     <div class="row">
-      <h5 class="dropdown-title">Cluster</h5>
-      <div class="cluster-search">
-        <text-autocomplete
-          :items="clusters"
-          :cleared="cleared"
-          @onUpdateItems="searchClusters($event)"
-          @onSelectedItem="setCluster($event)"
-        />
-      </div>
-    </div>
-    <div class="row">
       <h5 class="dropdown-title">User</h5>
       <ul class="radio-group">
         <li v-for="input in listFilterUser" :key="input.id">
           <input
             type="radio"
             name="radio.user"
-            v-model="filter"
+            v-model="filterUser"
             :id="`user.${input.id}`"
             :value="input.value"
           >
           <label :for="`user.${input.id}`">{{ input.name }}</label>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <h5 class="dropdown-title">Urutan</h5>
+      <ul class="radio-group">
+        <li v-for="input in listFilterSorting" :key="input.id">
+          <input
+            type="radio"
+            name="radio.sorting"
+            v-model="filterSorting"
+            :id="`sorting.${input.id}`"
+            :value="input.value"
+          >
+          <label :for="`sorting.${input.id}`">{{ input.name }}</label>
         </li>
       </ul>
     </div>
@@ -34,18 +38,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import TextAutocomplete from '@/components/Autocomplete/TextAutocomplete'
-
 export default {
-  name: 'SearchJanjiPolitikFilter',
-  components: { TextAutocomplete },
+  name: 'SearchQuestionFilter',
   props: { value: Object },
   data() {
     return {
-      cleared: false,
-      filter: this.value.filter || 'user_verified_all',
-      cluster: null,
+      filterUser: this.value.user || 'user_verified_all',
+      filterSorting: this.value.sorting || 'created_at',
       listFilterUser: [
         {
           id: 1,
@@ -62,37 +61,35 @@ export default {
           value: 'user_verified_true',
           name: 'Terverifikasi'
         }
+      ],
+      listFilterSorting: [
+        {
+          id: 1,
+          value: 'created_at',
+          name: 'Paling Baru'
+        },
+        {
+          id: 2,
+          value: 'cached_votes_up',
+          name: 'Paling Banyak Divoting'
+        }
       ]
     }
   },
-  computed: {
-    ...mapState({
-      clusters: s => s.profile.filterClusters
-    })
-  },
   methods: {
-    setDefault() {
-      this.filter = 'user_verified_all'
-      this.cluster = null
-    },
     getFilter() {
       return {
-        filter: this.filter,
-        cluster: this.cluster
+        user: this.filterUser,
+        sorting: this.filterSorting
       }
     },
     submit() {
       this.$emit('input', this.getFilter())
     },
     reset() {
-      this.setDefault()
+      this.filterUser = 'user_verified_all'
+      this.filterSorting = 'created_at'
       this.$emit('input', this.getFilter())
-    },
-    searchClusters(cluster) {
-      this.$store.dispatch('profile/searchClusters', cluster)
-    },
-    setCluster(item) {
-      this.cluster = item.id
     }
   }
 }
@@ -155,18 +152,4 @@ ul.radio-group
   color: #111111
   margin-bottom: 10px
   margin-left: 4px
-
-/deep/
-  .cluster-search
-    margin-bottom: 10px
-
-    input
-      width: 100%
-      border-radius: 4px
-      color: #393939
-      border: 1px solid rgba(0, 0, 0, 0.125)
-      padding: 10px 15px
-
-      &:focus
-        border-color: #6ccfc0
 </style>
