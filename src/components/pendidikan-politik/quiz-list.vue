@@ -1,6 +1,6 @@
 <template>
   <div class="quiz-list">
-    <div class="total-kecenderungan">
+    <div class="total-kecenderungan" v-if="totalKecenderungan">
       <div class="total-kecenderungan-bg">
         <img src="@/assets/image-banner-pendidikan-quiz-1.svg" alt="thumbnail">
       </div>
@@ -77,7 +77,7 @@ export default {
     },
     totalKecenderungan: {
       type: Object,
-      required: true
+      required: false
     }
   },
   data() {
