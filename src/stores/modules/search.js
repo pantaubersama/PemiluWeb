@@ -9,7 +9,8 @@ export const state = {
   questions: [],
   pilpres: [],
   clusterCategories: [],
-  clusters: []
+  clusters: [],
+  quizzes: []
 }
 
 export const actions = {
@@ -30,6 +31,13 @@ export const actions = {
   async questions(ctx, payload) {
     await SearchAPI.questions(payload).then(questions => {
       ctx.commit('setQuestions', questions)
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+  async quiz(ctx, payload) {
+    await SearchAPI.quiz(payload).then(quizzes => {
+      ctx.commit('setQuizzes', quizzes)
     }).catch(error => {
       console.log(error)
     })
@@ -60,6 +68,9 @@ export const mutations = {
   },
   setPilpres(state, pilpres) {
     Vue.set(state, 'pilpres', pilpres)
+  },
+  setQuizzes(state, quizzes) {
+    Vue.set(state, 'quizzes', quizzes)
   },
   setCluster(state, cluster) {
     state.clusters = cluster
