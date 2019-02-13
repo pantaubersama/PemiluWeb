@@ -80,10 +80,7 @@ export default {
       type: Boolean,
       required: true
     },
-    userAuth: {
-      type: Boolean,
-      required: true
-    }
+    userAuth: Boolean
   },
   data() {
     return {

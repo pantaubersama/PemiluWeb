@@ -1,28 +1,28 @@
 <template>
-<div class="card">
-  <h5 class="--title">Kategori</h5>
-  <v-autocomplete
-    :items="filteredCategories"
-    v-model="selectedCategory"
-    :get-label="getLabel"
-    :auto-select-one-item="false"
-    :keep-open="false"
-    :component-item="template"
-    @change="onUpdateItems($event)"
-    @item-selected="onSelectItem($event)"
-  ></v-autocomplete>
-  <div class="button-filter-group">
-    <button class="btn btn-primary" type="button" @click.prevent="submit()">Terapkan</button>
-    <button class="btn btn-outline" type="button" @click.prevent="reset()">Reset</button>
+  <div class="card">
+    <h5 class="--title">Kategori</h5>
+    <v-autocomplete
+      :items="filteredCategories"
+      v-model="selectedCategory"
+      :get-label="getLabel"
+      :auto-select-one-item="false"
+      :keep-open="false"
+      :component-item="template"
+      @change="onUpdateItems($event)"
+      @item-selected="onSelectItem($event)"
+    ></v-autocomplete>
+    <div class="button-filter-group">
+      <button class="btn btn-primary" type="button" @click.prevent="submit()">Terapkan</button>
+      <button class="btn btn-outline" type="button" @click.prevent="reset()">Reset</button>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import debounce from 'lodash.debounce'
+// import debounce from 'lodash.debounce'
 import TextAutocomplete from '@/components/Autocomplete/TextAutocomplete'
-import clusterCategoryItem from '@/pages/search/cluster-category-item';
+import clusterCategoryItem from '@/pages/search/cluster-category-item'
 
 export default {
   name: 'SearchClusterFilter',
@@ -44,7 +44,9 @@ export default {
     }),
     filteredCategories() {
       const filter = this.currentFilter
-      return this.categories.filter(it => it.name.toLowerCase().indexOf(filter) !== -1)
+      return this.categories.filter(
+        it => it.name.toLowerCase().indexOf(filter) !== -1
+      )
     }
   },
   async mounted() {
@@ -55,7 +57,9 @@ export default {
       searchCluster: 'profile/searchClusters',
       getCategories: 'profile/getClusterCategories'
     }),
-    submit() { this.$emit('input', this.filter) },
+    submit() {
+      this.$emit('input', this.filter)
+    },
     reset() {
       this.filter = null
       this.selectedCategory = null

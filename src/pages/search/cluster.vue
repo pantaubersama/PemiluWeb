@@ -1,8 +1,6 @@
 <template>
   <ul class="card search-type-people">
-    <li v-for="item in clusters"
-      :key="item.id"
-      class="user-item">
+    <li v-for="item in clusters" :key="item.id" class="user-item">
       <img :src="item.image.url" :alt="item.username" class="avatar">
       <div class="detail">
         <div class="fullname">{{item.name}}</div>
@@ -14,10 +12,11 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'SearchCluster',
-  props: { query: String , filter: String },
+  props: { query: String, filter: String },
   watch: {
     filter(value) {
       this.search({ q: this.query, filter_value: this.filter })
@@ -57,7 +56,6 @@ ul.card
   border-bottom: 1px solid #ececec
   &:last-child
     border-bottom: initial
-
 
 img.avatar
   flex: 0

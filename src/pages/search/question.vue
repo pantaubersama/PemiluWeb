@@ -2,10 +2,9 @@
   <div class="card card-tabs">
     <question-list
       :questions="questions"
+      :loading="isLoading"
       @upvoted="onUpvote($event)"
       @removeVoted="onRemoveVote($event)"
-      :loading="isLoading"
-      :userAuth="userAuth"
     ></question-list>
   </div>
 </template>
@@ -49,8 +48,7 @@ export default {
   },
   computed: {
     ...mapState({
-      questions: s => s.search.questions,
-      userAuth: s => s.meLogout.userLogin
+      questions: s => s.search.questions
     })
   }
 }
