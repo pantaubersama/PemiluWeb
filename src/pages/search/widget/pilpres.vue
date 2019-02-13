@@ -1,17 +1,17 @@
 <template>
-<div class="card">
-  <h5 class="--title">Sumber</h5>
-  <ul class="radio-group">
-    <li v-for="source in sources" :key="source.value">
-      <input type="radio" name="filter" v-model="filter" :value="source.value" :id="source.value">
-      <label :for="source.value">{{source.label}}</label>
-    </li>
-  </ul>
-  <div class="button-filter-group">
-    <button class="btn btn-primary" type="button" @click.prevent="submit()">Terapkan</button>
-    <button class="btn btn-outline" type="button" @click.prevent="reset()">Reset</button>
+  <div class="card">
+    <h5 class="--title">Sumber</h5>
+    <ul class="radio-group">
+      <li v-for="source in sources" :key="source.value">
+        <input type="radio" name="filter" v-model="filter" :value="source.value" :id="source.value">
+        <label :for="source.value">{{source.label}}</label>
+      </li>
+    </ul>
+    <div class="button-filter-group">
+      <button class="btn btn-primary" type="button" @click.prevent="submit()">Terapkan</button>
+      <button class="btn btn-outline" type="button" @click.prevent="reset()">Reset</button>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -23,15 +23,17 @@ export default {
       filter: this.value || 'team_all',
       sources: [
         { label: 'Semua', value: 'team_all' },
-        { label: 'Tim Jokowi - Ma\'ruf', value: 'team_id_1' },
+        { label: "Tim Jokowi - Ma'ruf", value: 'team_id_1' },
         { label: 'Tim Prabowo - Sandi', value: 'team_id_2' },
         { label: 'KPU', value: 'team_id_3' },
-        { label: 'Bawaslu', value: 'team_id_4' },
+        { label: 'Bawaslu', value: 'team_id_4' }
       ]
     }
   },
   methods: {
-    submit() { this.$emit('input', this.filter) },
+    submit() {
+      this.$emit('input', this.filter)
+    },
     reset() {
       this.filter = 'verified_all'
       this.$emit('input', this.filter)
