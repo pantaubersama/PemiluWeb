@@ -27,9 +27,7 @@ export default {
       immediate: true,
       handler(query = '') {
         if (query == null) return
-        if (query.length > 3) {
-          this.$store.dispatch('search/quiz', { q: query })
-        }
+        this.$store.dispatch('search/quiz', { q: query })
       }
     }
   },

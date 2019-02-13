@@ -81,14 +81,11 @@ export default {
       type: Array,
       required: true
     },
-    userAuth: {
-      type: Boolean,
-      required: true
-    },
     loading: {
       type: Boolean,
       require: true
     },
+    userAuth: Boolean,
     user: Object
   },
   data() {
