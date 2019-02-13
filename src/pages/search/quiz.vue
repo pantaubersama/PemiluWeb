@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import router from '@/router'
 import QuizList from '@/components/pendidikan-politik/quiz-list'
 
@@ -15,9 +15,13 @@ export default {
   props: {
     query: {
       type: String
-    }
+    },
+    filter: String
   },
   methods: {
+    ...mapActions({
+      search: 'search/quiz'
+    }),
     openPageKecenderungan() {
       router.push({ name: 'PendidikanPolitikQuizKecenderungan' })
     }
@@ -27,14 +31,17 @@ export default {
       immediate: true,
       handler(query = '') {
         if (query == null) return
-        this.$store.dispatch('search/quiz', { q: query })
+        this.search({ q: this.query })
       }
     }
   },
   computed: {
-    ...mapState({
-      quizzes: s => s.search.quizzes
-    })
+    ...mapGetters({
+      quizzesFilter: 'search/quizzesFilter'
+    }),
+    quizzes() {
+      return this.quizzesFilter(this.filter)
+    }
   }
 }
 </script>
