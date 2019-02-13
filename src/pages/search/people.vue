@@ -1,9 +1,8 @@
 <template>
   <ul class="card search-type-people">
-    <li v-for="user in users"
-      :key="user.id"
-      class="user-item">
-      <img :src="user.avatar.url" alt="user.username" class="avatar">
+    <li v-for="user in users" :key="user.id" class="user-item">
+      <img :src="user.avatar.url" :alt="user.username" class="avatar" v-if="user.avatar.url">
+      <img src="@/assets/user.svg" class="avatar" alt="thumbnail" v-else>
       <div class="detail">
         <div class="fullname">{{user.full_name}}</div>
         <div class="username">@{{user.username}}</div>
@@ -14,10 +13,10 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'SearchPeople',
-  props: { query: String , filter: String },
+  props: { query: String, filter: String },
   watch: {
     filter(value) {
       this.search({ q: this.query, filter_by: this.filter })
@@ -56,7 +55,6 @@ ul.card
   border-bottom: 1px solid #ececec
   &:last-child
     border-bottom: initial
-
 
 img.avatar
   flex: 0

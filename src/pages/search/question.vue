@@ -40,12 +40,10 @@ export default {
       immediate: true,
       handler(query = '') {
         if (query == null) return
-        if (query.length > 3) {
-          this.isLoading = true
-          this.$store.dispatch('search/questions', { q: query }).finally(() => {
-            this.isLoading = false
-          })
-        }
+        this.isLoading = true
+        this.$store.dispatch('search/questions', { q: query }).finally(() => {
+          this.isLoading = false
+        })
       }
     }
   },
