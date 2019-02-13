@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import QuestionList from '@/components/pendidikan-politik/question-list'
 
 export default {
@@ -19,7 +19,8 @@ export default {
   props: {
     query: {
       type: String
-    }
+    },
+    filter: Object
   },
   data() {
     return {
@@ -27,6 +28,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      search: 'search/questions'
+    }),
     onUpvote(id) {
       this.$store.dispatch('vote', id)
     },
@@ -39,11 +43,24 @@ export default {
       immediate: true,
       handler(query = '') {
         if (query == null) return
+        const { user, sorting } = this.filter
         this.isLoading = true
-        this.$store.dispatch('search/questions', { q: query }).finally(() => {
+        this.search({
+          q: this.query,
+          filter_by: user,
+          order_by: sorting
+        }).finally(() => {
           this.isLoading = false
         })
       }
+    },
+    filter(value) {
+      const { user, sorting } = value
+      this.search({
+        q: this.query,
+        filter_by: user,
+        order_by: sorting
+      })
     }
   },
   computed: {

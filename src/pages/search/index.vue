@@ -2,7 +2,7 @@
   <SearchLayout>
     <template slot="main-content" slot-scope="props">
       <search-janji v-if="props.type === 'janji-politik'" :query="query" :filter="filterJanji"></search-janji>
-      <search-question v-if="props.type === 'tanya'" :query="query"></search-question>
+      <search-question v-if="props.type === 'tanya'" :query="query" :filter="filterQuestion"></search-question>
       <search-quiz v-if="props.type === 'quiz'" :query="query"></search-quiz>
       <search-people v-if="props.type === 'people'" :query="query" :filter="filterPeople"></search-people>
       <search-pilpres v-if="props.type === 'pilpres'" :query="query" :filter="filterPilpres"></search-pilpres>
@@ -13,6 +13,7 @@
       <search-pilpres-widget v-if="props.type === 'pilpres'" v-model="filterPilpres"></search-pilpres-widget>
       <search-cluster-widget v-if="props.type === 'cluster'" v-model="filterCluster"></search-cluster-widget>
       <search-janji-widget v-if="props.type === 'janji-politik'" v-model="filterJanji"></search-janji-widget>
+      <search-question-widget v-if="props.type === 'tanya'" v-model="filterQuestion"></search-question-widget>
     </template>
   </SearchLayout>
 </template>
@@ -33,7 +34,8 @@ export default {
     SearchPeopleWidget: () => import('@/pages/search/widget/people'),
     SearchPilpresWidget: () => import('@/pages/search/widget/pilpres'),
     SearchClusterWidget: () => import('@/pages/search/widget/cluster'),
-    SearchJanjiWidget: () => import('@/pages/search/widget/janji-politik')
+    SearchJanjiWidget: () => import('@/pages/search/widget/janji-politik'),
+    SearchQuestionWidget: () => import('@/pages/search/widget/question')
   },
   data() {
     return {
@@ -43,6 +45,10 @@ export default {
       filterJanji: {
         cluster: null,
         filter: 'user_verified_all'
+      },
+      filterQuestion: {
+        user: 'user_verified_all',
+        sorting: 'created_at'
       }
     }
   },
