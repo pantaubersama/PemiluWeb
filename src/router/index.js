@@ -80,11 +80,6 @@ const router = new VueRouter({
       component: () => import('@/pages/pendidikan-politik'),
     },
     {
-      path: '/profile/verified-steps',
-      name: 'ProfileVerified',
-      component: () => import('@/pages/Profile/ProfileVerified')
-    },
-    {
       path: '/profile/cluster',
       name: 'ProfileCluster',
       component: () => import('@/pages/Profile/Cluster'),
