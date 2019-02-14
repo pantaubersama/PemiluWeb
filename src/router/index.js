@@ -78,6 +78,8 @@ const router = new VueRouter({
       path: 'quiz/hasil/:id',
       name: 'PendidikanPolitikQuizHasil',
       component: () => import('@/pages/pendidikan-politik'),
+    },
+    {
       path: '/profile/verified-steps',
       name: 'ProfileVerified',
       component: () => import('@/pages/Profile/ProfileVerified')
