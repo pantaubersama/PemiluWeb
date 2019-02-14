@@ -1,9 +1,9 @@
 <template>
   <div class="login-wrapper">
-    <div class="login-background" ref="loginBackground"></div>
     <div class="login-content">
       <div class="logo">
         <logo-pantau/>
+        <div class="lottie lottie-radar" ref="lottieRadar"></div>
       </div>
       <p>Pantau Bersama Pemilu 2019
         <br>Rayakan Partisipasi Pesta Demokrasi!
@@ -12,6 +12,9 @@
         <div class="btn btn-primary" @click="auth('symbolic')">Mulai</div>
         <div class="btn" @click="$router.push('/')">Lewati</div>
       </div>
+    </div>
+    <div class="lottie-bottom">
+      <div class="lottie lottie-wave" ref="lottieWave"></div>
     </div>
   </div>
 </template>
@@ -31,7 +34,8 @@ export default {
   },
   data() {
     return {
-      loginBackground: null
+      lottieWave: null,
+      lottieRadar: null
     }
   },
   mounted() {
@@ -39,16 +43,24 @@ export default {
     if (vueAuth.isAuthenticated()) {
       this.$router.push({ path: '/' })
     }
-    this.loginBackground = lottie.loadAnimation({
-      container: this.$refs.loginBackground,
-      path: '/lottie/landing-page-backround.json',
+    this.lottieWave = lottie.loadAnimation({
+      container: this.$refs.lottieWave,
+      path: '/lottie/wave-bottom-landing.json',
       autoplay: true,
-      loop: true,
+      loop: false,
+      renderer: 'svg'
+    })
+    this.lottieRadar = lottie.loadAnimation({
+      container: this.$refs.lottieRadar,
+      path: '/lottie/radar-logo.json',
+      autoplay: true,
+      loop: false,
       renderer: 'svg'
     })
   },
   destroyed() {
-    this.loginBackground.destroy()
+    this.lottieWave.destroy()
+    this.lottieRadar.destroy()
   },
   methods: {
     auth: function(provider) {

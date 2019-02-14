@@ -82,7 +82,8 @@ export const state = {
   historyWordStadium: [],
   historyLapor: [],
   historyPerhitungan: [],
-  politicalParties: []
+  politicalParties: [],
+  clusterDetail: []
 }
 
 export const actions = {
@@ -120,7 +121,14 @@ export const actions = {
       badges: data.achieved_badges
     })
   },
-
+  async getClusterDetail(store, payload) {
+    const data = await ProfileAPI.getClusterDetail(payload.id)
+    store.commit('setClusterDetail', data.cluster)
+  },
+  async leaveClusters(store) {
+    const data = await ProfileAPI.leaveClusters()
+    store.commit('leaveClusters')
+  },
   async listBadges(ctx) {
     const badges = (await ProfileAPI.listBadges()).badges
       .slice()
@@ -257,6 +265,12 @@ export const mutations = {
   },
   setBadges(state, payload) {
     state.badges = payload.badges
+  },
+  setClusterDetail(state, payload) {
+    state.clusterDetail = payload
+  },
+  leaveClusters(state) {
+    state.user.cluster = null
   },
   setBadgeDetail(state, payload) {
     state.badgeDetail = payload

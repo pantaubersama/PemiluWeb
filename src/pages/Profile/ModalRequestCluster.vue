@@ -1,5 +1,5 @@
 <template>
-  <modal @close-request="() => $emit('close-request')" class="modal-request-cluster">
+  <modal class="modal-request-cluster">
     <template slot="modal-content">
       <div class="modal-header">
         <div class="description">
@@ -34,11 +34,23 @@
             >
           </div>
           <div class="card">
-            <div class="card-column">
+            <div class="card-column" :class="{'input': true, 'is-danger': errors.has('name') }">
               <label for="name">Nama</label>
-              <input type="text" id="name" name="name" v-model="name">
+              <input
+                v-validate="'required'"
+                data-vv-validate-on="blur|input"
+                type="text"
+                id="name"
+                name="name"
+                :class="{'input': true, 'is-danger': errors.has('name') }"
+                v-model="name"
+              >
+              <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
             </div>
-            <div class="card-column category-dropdown">
+            <div
+              class="card-column category-dropdown"
+              :class="{'input': true, 'is-danger': validCategory }"
+            >
               <label for="category">Kategori</label>
               <button
                 type="button"
@@ -48,8 +60,12 @@
                 :class="{'is-active': isDropdownCategoryActive}"
                 @click.stop="toggleDropdown()"
               >
-                <template v-if="selectedCategory">{{selectedCategory.name}}</template>
-                <template v-else>-</template>
+                <template v-if="selectedCategory">
+                  <span>{{selectedCategory.name}}</span>
+                </template>
+                <template v-else>
+                  <span>-</span>
+                </template>
                 <i class="icon icon-chevron-down"></i>
               </button>
               <div class="dropdown-content">
@@ -74,13 +90,16 @@
                   @click.stop="setCategory(category.id)"
                 >{{category.name}}</button>
               </div>
+              <span v-if="validCategory" class="help is-danger">* Wajib Diisi.</span>
             </div>
             <div class="card-column">
               <label for="description">Deskripsi</label>
               <input type="text" id="description" name="description" v-model="description">
             </div>
           </div>
-          <input type="submit" value="Request" class="btn btn-outline">
+
+          <input v-if="isSubmitting" type="submit" value="Sending" disabled class="btn btn-outline">
+          <input v-else type="submit" value="Request" class="btn btn-outline">
         </form>
       </div>
     </template>
@@ -101,6 +120,8 @@ export default {
       inputCustomCategory: '',
       selectedCategoryId: -1,
       isDropdownCategoryActive: false,
+      validCategory: false,
+      isSubmitting: false,
       avatarURL: null,
       avatarFile: null
     }
@@ -118,34 +139,39 @@ export default {
   },
   methods: {
     submit(event) {
-      const name = event.target['name'].value
-      const categoryId = this.selectedCategoryId
-      const description = event.target['description'].value
-      const avatarFile = this.avatarFile
-      this.$store
-        .dispatch('profile/createCluster', {
-          name,
-          categoryId,
-          description,
-          avatarFile
-        })
-        .then(() => {
-          this.$emit('close-request')
-        })
-      // this.$emit('submit', {
-      //   avatar,
-      //   name: name,
-      //   category: category,
-      //   description: description
-      // })
+      if (this.selectedCategoryId === -1) {
+        this.validCategory = true
+      }
+      this.$validator.validateAll().then(result => {
+        if (result && !this.validCategory) {
+          this.isSubmitting = true
+          const name = event.target['name'].value
+          const categoryId = this.selectedCategoryId
+          const description = event.target['description'].value
+          const avatarFile = this.avatarFile
+
+          this.$store
+            .dispatch('profile/createCluster', {
+              name,
+              categoryId,
+              description,
+              avatarFile
+            })
+            .then(() => {
+              this.isSubmitting = false
+              this.$emit('close-request')
+            })
+        }
+      })
     },
     toggleDropdown() {
       this.isDropdownCategoryActive = !this.isDropdownCategoryActive
+      if (!this.isDropdownCategoryActive && this.selectedCategoryId == -1) {
+        this.validCategory = true
+      }
     },
     addCategory() {
       if (this.inputCustomCategory.length <= 0) return
-      // this.categories = [this.inputCustomCategory, ...this.categories]
-      // this.inputCustomCategory = ''
       this.$store
         .dispatch('profile/createCategories', this.inputCustomCategory)
         .then(() => {
@@ -153,8 +179,9 @@ export default {
         })
     },
     setCategory(id) {
-      this.selectedCategoryId = id
       this.isDropdownCategoryActive = false
+      this.selectedCategoryId = id
+      this.validCategory = false
     },
     inputAvatarChanged(event) {
       const file = Array.from(event.target.files).pop()
@@ -213,6 +240,8 @@ img.avatar
   align-items: center
   border: none
   background: none
+  span
+    min-width: 50px
   .icon.icon-chevron-down
     background-color: grey
     -webkit-mask: url(~@/assets/icon-chevron-down.svg)
@@ -224,6 +253,7 @@ img.avatar
 .category-btn.is-active + .dropdown-content
   display: block
   right: auto
+  left: 0
 .category-item
   padding: 5px 10px
   height: 44px

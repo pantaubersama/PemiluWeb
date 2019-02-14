@@ -46,6 +46,15 @@ export const getBadges = id =>
     })
     .then(resp => resp.data.data)
 
+export const getClusterDetail = id =>
+  api
+  .get(`/v1/clusters/${id}`)
+  .then(resp => resp.data.data)
+
+export const leaveClusters = () =>
+  api
+  .delete('/v1/me/clusters')
+
 export const listBadges = () =>
   api.get('/v1/badges').then(resp => resp.data.data)
 
@@ -78,8 +87,12 @@ export const createCluster = (
   const formData = new FormData()
   formData.append('name', name)
   formData.append('category_id', categoryId)
-  formData.append('description', description)
-  formData.append('image', avatarFile)
+  if (description !== null) {
+    formData.append('description', description)
+  }
+  if (avatarFile !== null) {
+    formData.append('image', avatarFile)
+  }
   return axios
     .post('/v1/clusters', formData)
     .then(resp => resp.data.data.cluster)

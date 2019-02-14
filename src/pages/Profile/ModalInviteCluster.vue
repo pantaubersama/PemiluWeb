@@ -27,10 +27,11 @@
         <div class="panel-header">
           Link di bawah ini dapat digunakan untuk menambah anggota secara otomatis
           apabila di-klik oleh penerima.
-          <br>Kamu bisa non-aktifkan link undangan sewaktu-waktu.
+          Kamu bisa non-aktifkan link undangan sewaktu-waktu.
         </div>
         <h3 class="title">Bagikan Undangan Lewat Link</h3>
         <div class="input-container">
+          {{magicLinkURL}}
           <i class="icon icon-link"></i>
           <input
             type="text"
@@ -43,10 +44,7 @@
         </div>
         <div class="enable-link-container">
           <input type="checkbox" name="enable-link" :checked="cluster.is_link_active">
-          <label
-            for="enable-link"
-            @click.prevent="toggleLinkActiveState()"
-          >Non aktifkan link undangan</label>
+          <label for="enable-link" @click.prevent="toggleLinkActiveState()">Aktifkan link undangan</label>
         </div>
       </div>
     </template>
@@ -122,4 +120,5 @@ export default {
   color: #666
   margin-left: 2px
   font-size: 7pt
+  margin-top: 5px
 </style>

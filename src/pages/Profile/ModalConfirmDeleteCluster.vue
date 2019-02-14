@@ -1,10 +1,10 @@
 <template>
-  <modal @close-request="() => $emit('close-request')" class="modal-confirm-request-cluster">
+  <modal class="modal-confirm-delete-cluster">
     <div slot="modal-content" class="card">
-      <div class="modal-content">Apa kamu yakin data cluster sudah benar?
+      <div class="modal-content">Apa kamu yakin akan meninggalkan Cluster?
         <div class="confirm-button-container">
-          <button class="back" @click="$emit('back')">Kembali</button>
-          <button class="confirm" @click="$emit('confirm')">Ya</button>
+          <button class="back" @click="$emit('back')">Tidak</button>
+          <button class="confirm" @click="$emit('deleteCluster')">Ya</button>
         </div>
       </div>
     </div>
@@ -14,13 +14,13 @@
 <script>
 import Modal from '@/layout/Modal'
 export default {
-  name: 'ModalConfirmRequestCluster',
+  name: 'ModalConfirmDeleteCluster',
   components: { Modal }
 }
 </script>
 
 <style lang="sass" scoped>
-.modal-confirm-request-cluster
+.modal-confirm-delete-cluster
   & /deep/ .modal-container
     display: flex
     flex-direction: column
@@ -28,13 +28,15 @@ export default {
     justify-content: center
     padding: 20px
     height: 247px
-    width: 536px
+    max-width: 536px
+    width: 100%
   .card
     width: 100%
     height: 100%
     border-radius: 0
     margin: 0
     justify-content: space-evenly
+    border: 1px solid rgba(0, 0, 0, 0.125)
   .modal-content
     // flex: 1
     justify-content: center
@@ -59,7 +61,7 @@ export default {
     text-align: center
     cursor: pointer
   button.back
-    color: #7c7c7c
-  button.confirm
     color: #bd081c
+  button.confirm
+    color: #7c7c7c
 </style>

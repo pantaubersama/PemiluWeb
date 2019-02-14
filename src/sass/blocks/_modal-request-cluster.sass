@@ -1,5 +1,7 @@
 .modal-request-cluster
   border: none
+  .dropdown-content
+    min-width: 230px
   .modal-container
     @media (max-width: 1199px)
       max-width: calc(1080px / 12 * 6)
@@ -48,14 +50,18 @@
 
   .card
     border-radius: 0
-    border: .5px solid #ececec
+    border: none
   .card-column
     display: flex
     flex-direction: column
-    border-bottom: .5px solid #ececec
+    border: .5px solid #ececec
     padding: 10px
-    &:last-child
-      border: none
+    position: relative
+    .help.is-danger
+      position: relative
+      top: auto
+      left: auto
+
     label
       font-size: 10px
       font-style: italic

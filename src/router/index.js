@@ -78,6 +78,22 @@ const router = new VueRouter({
       path: 'quiz/hasil/:id',
       name: 'PendidikanPolitikQuizHasil',
       component: () => import('@/pages/pendidikan-politik'),
+      path: '/profile/verified-steps',
+      name: 'ProfileVerified',
+      component: () => import('@/pages/Profile/ProfileVerified')
+    },
+    {
+      path: '/profile/cluster',
+      name: 'ProfileCluster',
+      component: () => import('@/pages/Profile/Cluster'),
+      meta: {
+        AuthenticationRequired: true
+      }
+    },
+    {
+      path: '/profile/setting',
+      name: 'ProfileSetting',
+      component: () => import('@/pages/Profile/Setting'),
       meta: {
         AuthenticationRequired: true
       }

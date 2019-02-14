@@ -24,18 +24,22 @@
       background-repeat: no-repeat
   .card.email-panel,
   .card.link-panel
-    height: 209px
-    width: 487px
+    width: 100%
     padding: 20px
     border: 1px solid #f4f4f4
+    height: auto
+    @media (max-width: 767px)
+      padding: 15px
     .title
       font-family: BwModelica, Lato
-      font-size: 22px
       font-weight: bold
       font-stretch: condensed
-      line-height: 1.23
       text-align: center
       color: #4f4f4f
+      text-transform: none
+      @media (max-width: 767px)
+        font-size: 14px
+        padding: 10px
     input[type=email]
       margin-top: 23.5px
       padding: 10px 20px

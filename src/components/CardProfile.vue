@@ -26,6 +26,7 @@
         :user="user"
         @request-cluster="() => modal = 'ModalRequestCluster'"
         @invite-cluster="() => modal = 'ModalInviteCluster'"
+        @confirm-delete-cluster="() => modal = 'ModalConfirmDeleteCluster'"
       />
 
       <div class="list-wrap">
@@ -61,14 +62,12 @@
           <div v-for="(badge, index) in badges" :key="index">
             <div v-if="index <= 2" class="item">
               <div class="item-thumb">
-                <img :src="badge.badge.image.url">
+                <img v-if="badge.badge.image.url" :src="badge.badge.image.url">
+                <img v-else src="@/assets/flag-star-1.png">
               </div>
               <span>
                 <p :data-title="badge.name">{{badge.badge.name}}</p>
-                <p
-                  class="sub-text"
-                  :data-text="badge.description"
-                >{{badge.badge.description || '-'}}</p>
+                <p class="sub-text" :data-text="badge.description">{{badge.badge.description || ''}}</p>
               </span>
             </div>
           </div>
@@ -166,10 +165,10 @@
 
     <modal-request-cluster v-if="modal === 'ModalRequestCluster'" @close-request="closeModal()"/>
 
-    <modal-confirm-request-cluster
-      v-if="modal === 'ModalConfirmCluster'"
+    <modal-confirm-delete-cluster
+      v-if="modal === 'ModalConfirmDeleteCluster'"
       @back="onConfirmBack()"
-      @confirm="onConfirmRequestCluster()"
+      @deleteCluster="onConfirmDeleteCluster()"
     />
 
     <modal-edit-profile
@@ -194,7 +193,7 @@ import { mapState, mapActions } from 'vuex'
 
 import ListCardJP from '@/components/ListCardJP'
 import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
-import ModalConfirmRequestCluster from '@/pages/Profile/ModalConfirmRequestCluster'
+import ModalConfirmDeleteCluster from '@/pages/Profile/ModalConfirmDeleteCluster'
 import ModalEditProfile from '@/pages/Profile/ModalEditProfile'
 import { VerifiedIconDefault } from '@/svg/icons'
 import ClusterPanel from '@/components/profile/cluster-panel'
@@ -210,7 +209,7 @@ export default {
     ListCardJP,
     JanjiPolitikCard,
     ModalRequestCluster,
-    ModalConfirmRequestCluster,
+    ModalConfirmDeleteCluster,
     VerifiedIconDefault,
     ModalEditProfile,
     ClusterPanel,
@@ -271,10 +270,13 @@ export default {
       this.isDropdownActive = !this.isDropdownActive
     },
     onConfirmBack() {
-      this.modal = 'ModalRequestCluster'
-    },
-    onConfirmRequestCluster() {
       this.modal = false
+    },
+    onConfirmDeleteCluster() {
+      this.$store.dispatch('profile/leaveClusters').then(() => {
+        this.modal = false
+        this.$toaster.info('Berhasil Meninggalkan Cluster.')
+      })
     },
     onSubmitRequest({ name, category, description }) {
       this.requestCluster.name = name

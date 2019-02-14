@@ -54,7 +54,7 @@
           <div class="dropdown-content">
             <ul>
               <li>
-                <router-link to="/profile">Edit Profile</router-link>
+                <router-link to="/profile">Profile</router-link>
               </li>
               <li>
                 <router-link to="/profile/data-lapor">Data Profile Lapor</router-link>
