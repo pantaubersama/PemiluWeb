@@ -17,7 +17,7 @@
               class="nav-tab--item"
               :class="{ active: activePage === 'quiz' }"
               :to="{ path: '/pendidikan-politik', query: { type: 'quiz' } }"
-            >Quiz</router-link>
+            >Kata Kandidat</router-link>
           </div>
 
           <div class="content">

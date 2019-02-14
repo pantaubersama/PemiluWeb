@@ -25,14 +25,19 @@
         <div v-else class="dropdown-content">
           <ul>
             <li>
+              <router-link
+                :to="{ path: '/profile/cluster', query: { id: user.cluster.id }}"
+              >Lihat Cluster</router-link>
+            </li>
+            <li>
               <button @click="$emit('invite-cluster')">Undang Anggota</button>
             </li>
             <li>
-              <button>Tinggalkan Cluster</button>
+              <button @click="$emit('confirm-delete-cluster')">Tinggalkan Cluster</button>
             </li>
-            <li>
+            <!-- <li>
               <button>Atur Anggota</button>
-            </li>
+            </li>-->
           </ul>
         </div>
       </span>
@@ -92,6 +97,8 @@ button.request-cluster
   &.is-active + .dropdown-content
     display: block
 .dropdown-content
+  a
+    padding: 5px
   button
     font-family: Lato
     font-size: 12px
