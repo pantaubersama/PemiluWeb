@@ -3,7 +3,7 @@
     <div class="card card-detail">
       <div class="detail-title">{{ data.title }}</div>
       <div class="content-wrapper">
-        <div class="detail-cluster">
+        <div class="detail-cluster" v-if="data.creator.cluster.name">
           <div class="cluster-thumb">
             <img
               :src="data.creator.cluster.image.thumbnail_square.url"

@@ -6,15 +6,20 @@
       </button>
       <div class="card email-panel">
         <h3 class="title">Bagikan Undangan Lewat Email</h3>
-        <!-- <input type="email" name="email" placeholder="Masukkan email di sini" id="email"> -->
-        <tags-input
+        <vue-tags-input
           element-id="email"
-          placeholder="Masukkan email disini"
-          :add-tags-on-comma="true"
-          :validate="validateEmail"
-          v-model="emails"
-        ></tags-input>
+          placeholder="Masukkan email di sini"
+          v-model="email"
+          :emails="emails"
+          name="emails"
+          v-validate="'email'"
+          :class="{'input': true, 'is-danger': errors.has('emails') }"
+          data-vv-validate-on="blur|input"
+          :add-on-key="[13,',']"
+          @tags-changed="newTags => emails = newTags"
+        ></vue-tags-input>
         <small>Multiple value, don't forget to press enter for each email</small>
+        <span v-show="errors.has('emails')" class="help is-danger">{{ errors.first('emails') }}</span>
         <input
           type="submit"
           :disabled="isInviting"
@@ -31,15 +36,21 @@
         </div>
         <h3 class="title">Bagikan Undangan Lewat Link</h3>
         <div class="input-container">
-          {{magicLinkURL}}
           <i class="icon icon-link"></i>
+          <input
+            type="text"
+            :value="magicLinkURL"
+            ref="inputMagicLink"
+            @focus.prevent="onFocusMagicLink($event)"
+            v-if="cluster.is_link_active == true"
+          >
           <input
             type="text"
             :value="magicLinkURL"
             readonly="readonly"
             ref="inputMagicLink"
-            @click="() => $refs.inputMagicLink.select()"
-            @focus="onFocusMagicLink($event)"
+            tabindex="-1"
+            v-else
           >
         </div>
         <div class="enable-link-container">
@@ -56,14 +67,18 @@ import Modal from '@/layout/Modal'
 import { IconAvatar } from '@/svg/icons'
 import * as ProfileAPI from '@/services/api/profile'
 import { mapState } from 'vuex'
+import VueTagsInput from '@johmun/vue-tags-input'
 
-const reEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export default {
   name: 'ModalInviteCluster',
-  components: { Modal, IconAvatar },
-  props: ['name', 'category', 'description'],
+  components: { Modal, IconAvatar, VueTagsInput },
   data() {
-    return { emails: [], isInviting: false, inviteLabel: 'Undang' }
+    return {
+      email:'',
+      emails: [],
+      isInviting: false,
+      inviteLabel: 'Undang'
+    }
   },
   computed: {
     ...mapState({
@@ -75,9 +90,6 @@ export default {
     }
   },
   methods: {
-    validateEmail(text) {
-      return reEmail.test(text)
-    },
     toggleLinkActiveState() {
       // POST /v1/clusters/{id}/magic_link
       const clusterId = this.cluster.id
@@ -92,15 +104,17 @@ export default {
       input.select()
       input.setSelectionRange(0, input.value.length)
       this.$clipboard(event.target.value)
+      this.$toaster.info('Berhasil menyalin teks.')
     },
     invite() {
       const clusterId = this.cluster.id
-      const emails = this.emails
+      const emails = this.emails.map(a => a.text).join()
       this.isInviting = true
       this.inviteLabel = 'Mengundang'
       return ProfileAPI.inviteToCluster(clusterId, emails).then(data => {
         this.isInviting = false
         this.inviteLabel = 'Terundang'
+        this.$toaster.info('Berhasil mengirimkan undangan.')
         window.setTimeout(() => {
           this.inviteLabel = 'Undang'
           this.emails = []
@@ -112,13 +126,19 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.email-panel /deep/ .tags-input-wrapper-default
-  border: .5px solid #ececec
-.email-panel /deep/ .tags-input input[type=text]
-  margin-left: 15px
+.email-panel /deep/ .vue-tags-input
+  width: 100%
+  max-width: none
+.email-panel /deep/ .vue-tags-input .ti-tag
+  background-color: #bd081c
 .email-panel small
   color: #666
   margin-left: 2px
   font-size: 7pt
   margin-top: 5px
+.help.is-danger
+  position: relative
+  left: 2px
+  top: auto
+
 </style>

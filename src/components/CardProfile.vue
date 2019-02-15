@@ -180,7 +180,6 @@
 
     <modal-invite-cluster
       v-if="modal === 'ModalInviteCluster'"
-      :cluster="user.cluster"
       @close-request="closeModal()"
     />
   </div>

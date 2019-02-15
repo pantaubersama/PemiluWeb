@@ -1,12 +1,12 @@
 <template>
   <timeline-layout>
-    <div class="ProfileCluster" slot="main-content">
-      <div class="thumb" v-if="data.image.thumbnail_square.url">
+    <div class="ProfileCluster" slot="main-content" >
+      <div class="thumb" v-if="data.image">
         <img :src="data.image.thumbnail_square.url" alt>
       </div>
       <div class="title">{{data.name}}</div>
-      <div class="category">{{data.category}} Cluster Pendidikan</div>
-      <div class="anggota">{{data.members_count}} Anggota</div>
+      <div class="category" v-if="data.category">{{data.category.name}}</div>
+      <div class="anggota" >{{data.members_count}} Anggota</div>
       <div class="desc">{{data.description}}</div>
     </div>
     <template slot="widget-wrapper">

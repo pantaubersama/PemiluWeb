@@ -58,65 +58,64 @@ const router = new VueRouter({
     name: 'PendidikanPolitik',
     component: () => import('@/pages/pendidikan-politik'),
     props: true,
-    children: [{
-      path: 'quiz/ikuti/:id',
-      name: 'PendidikanPolitikQuizIkuti',
-      component: () => import('@/pages/pendidikan-politik'),
-      meta: {
-        AuthenticationRequired: true
+    children: [
+      {
+        path: 'quiz/ikuti/:id',
+        name: 'PendidikanPolitikQuizIkuti',
+        component: () => import('@/pages/pendidikan-politik'),
+        meta: { AuthenticationRequired: true }
+      },
+      {
+        path: 'quiz/lanjut/:id',
+        name: 'PendidikanPolitikQuizLanjut',
+        component: () => import('@/pages/pendidikan-politik'),
+        meta: {
+          AuthenticationRequired: true
+        }
+      },
+      {
+        path: 'quiz/hasil/:id',
+        name: 'PendidikanPolitikQuizHasil',
+        component: () => import('@/pages/pendidikan-politik')
+      },
+      {
+        path: 'quiz/kecenderungan',
+        name: 'PendidikanPolitikQuizKecenderungan',
+        component: () => import('@/pages/pendidikan-politik'),
+        meta: {
+          AuthenticationRequired: true
+        }
+      },
+      {
+        path: 'hint',
+        name: 'PendidikanPolitikHint',
+        component: () => import('@/pages/pendidikan-politik'),
+        meta: {
+          AuthenticationRequired: true
+        }
+      },
+      {
+        path: 'detail/:id',
+        name: 'PendidikanPolitikDetail',
+        component: () => import('@/pages/pendidikan-politik')
       }
-    },
-    {
-      path: 'quiz/lanjut/:id',
-      name: 'PendidikanPolitikQuizLanjut',
-      component: () => import('@/pages/pendidikan-politik'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
-    {
-      path: 'quiz/hasil/:id',
-      name: 'PendidikanPolitikQuizHasil',
-      component: () => import('@/pages/pendidikan-politik')
-    },
-    {
-      path: '/profile/cluster',
-      name: 'ProfileCluster',
-      component: () => import('@/pages/Profile/Cluster'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
-    {
-      path: '/profile/setting',
-      name: 'ProfileSetting',
-      component: () => import('@/pages/Profile/Setting'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
-    {
-      path: 'quiz/kecenderungan',
-      name: 'PendidikanPolitikQuizKecenderungan',
-      component: () => import('@/pages/pendidikan-politik'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
-    {
-      path: 'hint',
-      name: 'PendidikanPolitikHint',
-      component: () => import('@/pages/pendidikan-politik'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
-    {
-      path: 'detail/:id',
-      name: 'PendidikanPolitikDetail',
-      component: () => import('@/pages/pendidikan-politik')
-    }
     ]
+  },
+  {
+    path: '/profile/cluster',
+    name: 'ProfileCluster',
+    component: () => import('@/pages/Profile/Cluster'),
+    meta: {
+      AuthenticationRequired: true
+    }
+  },
+  {
+    path: '/profile/setting',
+    name: 'ProfileSetting',
+    component: () => import('@/pages/Profile/Setting'),
+    meta: {
+      AuthenticationRequired: true
+    }
   },
   {
     path: '/catatan-pilihan',
@@ -138,14 +137,6 @@ const router = new VueRouter({
     path: '/profile/verified-steps',
     name: 'ProfileVerified',
     component: () => import('@/pages/Profile/ProfileVerified')
-  },
-  {
-    path: '/profile/setting',
-    name: 'ProfileSetting',
-    component: () => import('@/pages/Profile/Setting'),
-    meta: {
-      AuthenticationRequired: true
-    }
   },
   {
     path: '/profile/badge',

@@ -97,8 +97,7 @@ button.request-cluster
   &.is-active + .dropdown-content
     display: block
 .dropdown-content
-  a
-    padding: 5px
+  a,
   button
     font-family: Lato
     font-size: 12px
