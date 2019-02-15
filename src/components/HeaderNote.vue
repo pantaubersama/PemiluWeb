@@ -38,14 +38,8 @@
     <div class="total-kecenderungan-container">
       <div class="image-container">
         <img
-          src="~@/assets/note-image/image1/image@1x.jpg"
-          alt="jokowi-ma'ruf"
-          v-if="idOfPaslon(totalKecenderungan.groupName) === 1"
-        >
-        <img
-          src="~@/assets/note-image/image2/image@1x.jpg"
-          alt="prabowo-sandi"
-          v-if="idOfPaslon(totalKecenderungan.groupName) === 2"
+          :src="totalKecenderungan.groupAvatar"
+          :alt="totalKecenderungan.groupName"
         >
       </div>
       <div class="desc-container">

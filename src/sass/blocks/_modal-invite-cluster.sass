@@ -1,8 +1,6 @@
 .modal-invite-cluster
   display: flex
   flex-direction: column
-  .modal-container
-    max-width: initial
   button.close-btn
     display: block
     flex: 0
@@ -37,6 +35,7 @@
       text-align: center
       color: #4f4f4f
       text-transform: none
+      border-bottom: none
       @media (max-width: 767px)
         font-size: 14px
         padding: 10px
@@ -125,7 +124,10 @@
           &:after
             display: none
         &:checked + label
+          &:before
+            background-color: #bd081c
+            border-color: #bd081c
           &:after
             display: inline-block
-            background: grey
+            background: #ffffff
             -webkit-mask: url(~@/assets/icon_check_green.svg)

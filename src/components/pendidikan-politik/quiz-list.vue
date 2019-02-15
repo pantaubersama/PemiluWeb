@@ -2,7 +2,8 @@
   <div class="quiz-list">
     <div class="total-kecenderungan" v-if="totalKecenderungan">
       <div class="total-kecenderungan-bg">
-        <img src="@/assets/image-banner-pendidikan-quiz-1.svg" alt="thumbnail">
+        <!-- <img src="@/assets/image-banner-pendidikan-quiz-1.svg" alt="thumbnail"> -->
+        <img :src="totalKecenderungan.groupAvatar" alt="thumbnail">
       </div>
       <div class="total-kecenderungan-content">
         <div class="content-text" @click.stop="$emit('onClickKecenderungan')">
