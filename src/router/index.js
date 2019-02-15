@@ -77,7 +77,7 @@ const router = new VueRouter({
     {
       path: 'quiz/hasil/:id',
       name: 'PendidikanPolitikQuizHasil',
-      component: () => import('@/pages/pendidikan-politik'),
+      component: () => import('@/pages/pendidikan-politik')
     },
     {
       path: '/profile/cluster',
@@ -172,6 +172,11 @@ const router = new VueRouter({
     path: '/wordstadium',
     name: 'WordStadium',
     component: () => import('@/pages/WordStadium')
+  },
+  {
+    path: '/wordstadium/debate',
+    name: 'WordStadiumDebate',
+    component: () => import('@/pages/wordstadium/debate')
   },
   {
     path: '/lapor',
