@@ -7,8 +7,9 @@
             <live-red/>Live Now
           </div>
           <div class="detail">
+            <img src="@/assets/dildo.jpg" alt="thumbnail" class="img-float left">
+            <img src="@/assets/dildo.jpg" alt="thumbnail" class="img-float right">
             <div class="thumb left">
-              <!-- <img src="@/assets/user.svg" alt="thumbnail"> -->
               <div class="user-title">
                 <h5>Raja Kampreta</h5>
                 <span>@raja_kampreta</span>
@@ -25,9 +26,8 @@
               </div>
             </div>
             <div class="thumb right">
-              <!-- <img src="@/assets/user.svg" alt="thumbnail"> -->
               <div class="user-title">
-                <h5>Anik Kemala</h5>
+                <h5 class="in--active">Anik Kemala</h5>
                 <span>@anik_kemala</span>
               </div>
             </div>
@@ -104,7 +104,49 @@
       </div>
     </template>
     <template slot="widget-wrapper">
-      <div class="widget">&nbsp;</div>
+      <div class="sidebar-activity">
+        <div class="activity-title">
+          <div class="icon">
+            <comment/>
+          </div>
+          <h5>Komentar (4)</h5>
+        </div>
+        <div class="comment-area">
+          <img src="@/assets/dildo.jpg" alt="user">
+          <textarea placeholder="Tulis komentar" name="komentar" cols="30" rows="3"></textarea>
+        </div>
+        <div class="activity-list">
+          <div class="activity-collapse">Paling baru
+            <filter-icon/>
+          </div>
+          <div class="activity-content">
+            <div class="activity-thumbnail">
+              <img src="@/assets/dildo.jpg" alt="user">
+            </div>
+            <div class="activity-description">
+              <p>
+                <strong>Ratu CebonganYK</strong>
+                aku memberikan komentar pada debat ini. Komentar
+                yang sangat komentar sekali.
+              </p>
+              <span class="activity-time">5 menit yang lalu</span>
+            </div>
+          </div>
+          <div class="activity-content">
+            <div class="activity-thumbnail">
+              <img src="@/assets/dildo.jpg" alt="user">
+            </div>
+            <div class="activity-description">
+              <p>
+                <strong>Ratu CebonganYK</strong>
+                aku memberikan komentar pada debat ini. Komentar
+                yang sangat komentar sekali.
+              </p>
+              <span class="activity-time">5 menit yang lalu</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </template>
   </layout-wordstadium>
 </template>
@@ -119,7 +161,9 @@ import {
   AppreciateBlack,
   DateSecondary,
   Clock,
-  Saldo
+  Saldo,
+  Comment,
+  FilterIcon
 } from '@/svg/icons'
 import LayoutWordstadium from '@/layout/Wordstadium'
 
@@ -135,7 +179,9 @@ export default {
     AppreciateBlack,
     DateSecondary,
     Clock,
-    Saldo
+    Saldo,
+    Comment,
+    FilterIcon
   },
   data() {
     return {
@@ -175,6 +221,7 @@ export default {
   border: 1px solid #ececec
   padding: 0
   margin: 0
+  overflow: hidden
 
 .heading
   height: 192px
@@ -185,18 +232,7 @@ export default {
   background-color: #512da8
   border-top-left-radius: 8px
   border-top-right-radius: 8px
-
-  // .img-float
-  //   width: 88px
-  //   height: 88px
-  //   border-radius: 60px
-  //   position: fixed
-
-  //   &.left
-  //     float: left
-
-  //   &.right
-  //     float: right
+  z-index: 1
 
   .status
     display: flex
@@ -226,15 +262,25 @@ export default {
     border-top: 1px solid #ffffff
     margin: 0
 
+    .img-float
+      width: 88px
+      height: 88px
+      top: auto
+      left: auto
+      right: auto
+      position: fixed
+      z-index: 4
+
+      &.left
+        transform: translate(-364px, -44px)
+        border-radius: 8px 0 60px 0
+
+      &.right
+        transform: translate(364px, -44px)
+        border-radius: 0 8px 0 60px
+
     .thumb
       flex: 0 27%
-      // border: 1px solid #ffffff
-
-      img
-        width: 88px
-        height: 88px
-        border-radius: 60px
-        // position: fixed
 
       &.left, &.right
         padding: 14px
@@ -266,20 +312,69 @@ export default {
         display: flex
         align-items: center
         justify-content: center
+        position: relative
+
+        // &:before
+        //   content: ''
+        //   position: absolute
+        //   height: 0
+        //   width: 0
+        //   bottom: -36px
+        //   left: 0
+        //   border-width: 0 28px 34px
+        //   border-style: solid
+        //   border-color: #ffffff transparent
+        //   transform: rotate(180deg)
 
       .description
-        font-family: BwModelicaSS01, Lato
+        font-family: BwModelica, Lato
         font-size: 14px
-        font-weight: 700
+        font-weight: 400
         line-height: 16px
         letter-spacing: 0.34px
         color: #ffffff
+
+.left
+  .user-title
+    h5
+      &:after
+        position: absolute
+        content: ''
+        background-color: #eb3037
+        height: 8px
+        width: 8px
+        z-index: 2
+        margin: 4px 0 0 8px
+        border-radius: 100%
+        z-index: 2
+
+      &.in--active
+        &:after
+          background-color: #08bda8
+
+.right
+  .user-title
+    h5
+      &:before
+        position: absolute
+        content: ''
+        background-color: #eb3037
+        height: 8px
+        width: 8px
+        z-index: 2
+        margin: 4px 0 0 -15px
+        border-radius: 100%
+        z-index: 2
+
+      &.in--active
+        &:before
+          background-color: #08bda8
 
 .user-title
   h5
     font-family: BwModelicaSS01, Lato
     font-size: 14px
-    font-weight: 800
+    font-weight: 500
     line-height: 16px
     color: #ffffff
     margin: 0
@@ -287,7 +382,7 @@ export default {
 
   span
     font-family: Lato
-    font-weight: bold
+    font-weight: 400
     font-size: 12px
     line-height: 25px
     color: #ffffff
@@ -345,13 +440,10 @@ export default {
 
   table
     border-collapse: collapse
-    // border-radius: 8px
     overflow: hidden
 
     tr
       td
-        // background-color: #e9ebeb
-        // border: 1px solid #ffffff
         border: 1px solid #ececec
         color: #212121
         min-width: 200px
@@ -382,7 +474,6 @@ export default {
           min-width: 56px
           text-align: center
           color: #4f4f4f
-          // display: inline-lo
 
         svg
           width: 16px
@@ -432,19 +523,6 @@ export default {
       flex-direction: row
       color: #212121
 
-      // .line
-      //   background-color: #eb3037
-      //   width: 5px
-      //   height: 100%
-      //   border-radius: 2px
-
-      // &:after
-      //   content: ''
-      //   background-color: #eb3037
-      //   width: 5px
-      //   height: 100%
-      //   border-radius: 2px
-
     .conversation-action
       font-size: 10px
       line-height: 12px
@@ -485,5 +563,129 @@ export default {
         line-height: 12px
         letter-spacing: 0.15px
         text-align: right
+
+.sidebar-activity
+  background-color: #ffffff
+  width: 100%
+  border: 1px solid #ececec
+  border-radius: 8px
+
+  img
+    width: 24px
+    height: 24px
+    border-radius: 50%
+
+.activity-title
+  height: 55px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  flex-direction: row
+
+  .icon
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 60px
+    height: 100%
+
+    svg
+      width: 24px
+      height: 24px
+
+  h5
+    font-family: BwModelica, Lato
+    font-size: 14px
+    font-weight: 400
+    line-height: 22px
+    display: inline-block
+    flex: 1
+    align-self: center
+    height: 28px
+    margin: 0
+    padding-left: 40px
+    text-transform: uppercase
+
+.comment-area
+  background-color: #f9f9f9
+  display: flex
+  justify-content: center
+  align-items: flex-start
+  flex-direction: row
+  border-radius: 2px
+  margin-bottom: 25px
+  min-height: 55px
+
+  img
+    margin: 6px
+
+  textarea
+    font-family: Lato
+    font-style: italic
+    font-size: 12px
+    line-height: 16px
+    letter-spacing: 0.29px
+    border: none
+    overflow: auto
+    outline: none
+    box-shadow: none
+    resize: none
+    background: #f9f9f9
+    margin: 6px
+
+    &::placeholder
+      color: #aaaaaa
+
+.activity-list
+  margin: 0
+
+  .activity-collapse
+    font-family: Lato
+    font-weight: 500
+    font-size: 11px
+    line-height: 13px
+    text-align: right
+    color: #aaaaaa
+    margin: 4px 16px 10px
+
+    svg
+      width: 14px
+      height: 14px
+      margin-left: 8px
+
+  .activity-content
+    display: flex
+    justify-content: center
+    align-items: flex-start
+    flex-direction: row
+
+    .activity-thumbnail
+      flex: 0 80px
+      height: 100%
+      padding: 4px 6px 0 10px
+
+    .activity-description
+      color: #4f4f4f
+      font-family: Lato
+      font-weight: 400
+      font-size: 12px
+      line-height: 14px
+
+      p
+        margin: 0
+        padding: 0
+
+        strong
+          color: #212121
+          letter-spacing: 0.29px
+
+      .activity-time
+        color: #aaaaaa
+        font-size: 10px
+        line-height: 12px
+        text-align: right
+        float: right
+        padding: 4px 12px
+        margin-bottom: 16px
 
 </style>
