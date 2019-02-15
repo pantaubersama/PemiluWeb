@@ -1,6 +1,6 @@
 <template>
-  <timeline-layout>
-    <div class="ProfileSetting" slot="main-content">
+  <LayoutTimeline>
+    <div class="profile-setting" slot="main-content">
       <div class="card setting">
         <div class="card-title">Setting</div>
         <div class="card-body">
@@ -49,11 +49,11 @@
     <template slot="widget-wrapper">
       <div class="d-none d-lg-block">&nbsp;</div>
     </template>
-  </timeline-layout>
+  </LayoutTimeline>
 </template>
 
 <script>
-import TimelineLayout from '@/layout/Timeline'
+import LayoutTimeline from '@/layout/Timeline'
 import ModalChangePassword from '@/pages/Profile/ModalChangePassword'
 import { IconTwitter, IconFacebook } from '@/svg/icons'
 import * as FBService from '@/services/facebook'
@@ -61,7 +61,7 @@ import * as ProfileAPI from '@/services/api/profile'
 export default {
   name: 'ProfileSetting',
   components: {
-    TimelineLayout,
+   LayoutTimeline ,
     ModalChangePassword,
     IconTwitter,
     IconFacebook
