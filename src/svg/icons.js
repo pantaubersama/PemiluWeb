@@ -49,6 +49,7 @@ import ExpandCollapse from './icons/expand-collapse.svg'
 import DateSecondary from './icons/date-sec.svg'
 import Clock from './icons/clock.svg'
 import Saldo from './icons/saldo.svg'
+import SaldoClock from './icons/saldo-clock.svg'
 import Comment from './icons/comment.svg'
 
 export {
@@ -103,5 +104,6 @@ export {
   DateSecondary,
   Clock,
   Saldo,
+  SaldoClock,
   Comment
 }

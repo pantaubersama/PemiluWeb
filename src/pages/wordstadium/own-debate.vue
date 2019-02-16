@@ -11,8 +11,8 @@
             <img src="@/assets/dildo.jpg" alt="thumbnail" class="img-float right">
             <div class="thumb left">
               <div class="user-title">
-                <h5>Raja Kampreta</h5>
-                <span>@raja_kampreta</span>
+                <h5 class="in--active">Ratu CebonganYK</h5>
+                <span>@ratu_cebonganYK</span>
               </div>
             </div>
             <div class="thumb center">
@@ -27,17 +27,26 @@
             </div>
             <div class="thumb right">
               <div class="user-title">
-                <h5 class="in--active">Anik Kemala</h5>
-                <span>@anik_kemala</span>
+                <h5>Raja Kampreta</h5>
+                <span>@raja_kampreta</span>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="heading-duration">
+          <div class="duration-icon">
+            <saldo-clock/>
+          </div>
+          <div class="duration-time">
+            <span class="duration-text">sisa waktu anda</span>
+            <span class="duration-clock">40 Menit</span>
           </div>
         </div>
         <div class="heading-info">
           <div class="info-status">
             <status-wordstadium/>Status
           </div>
-          <div class="info-placeholder">Giliran Anik Kemala menulis argumen...</div>
+          <div class="info-placeholder">Giliran Raja Kampreta menulis argumen...</div>
           <div class="info-action">
             <button class="btn" type="button" @click.prevent="showDetail = !showDetail">Detail debat
               <expand-more v-if="showDetail"/>
@@ -102,6 +111,27 @@
           </div>
         </div>
       </div>
+      <div class="container row">
+        <div class="conversation-area">
+          <div class="conversation-textarea">
+            <!-- Using @paste.prevent to disallow paste -->
+            <textarea
+              placeholder="Tulis argumen anda di sini..."
+              name="komentar"
+              cols="30"
+              rows="4"
+              v-model="argument"
+            ></textarea>
+            <span
+              class="conversation-textarea__info"
+            >{{ argumentCharacters.count }} / {{ argumentCharacters.max }}</span>
+          </div>
+          <div class="conversation-action">
+            <button class="btn cancel">BATAL</button>
+            <button class="btn publish">PUBLISH</button>
+          </div>
+        </div>
+      </div>
     </template>
     <template slot="widget-wrapper">
       <div class="sidebar-activity">
@@ -150,13 +180,14 @@ import {
   DateSecondary,
   Clock,
   Saldo,
+  SaldoClock,
   Comment,
   FilterIcon
 } from '@/svg/icons'
 import LayoutWordstadium from '@/layout/Wordstadium'
 
 export default {
-  name: 'WordStadiumDebate',
+  name: 'WordStadiumOwnDebate',
   components: {
     ExpandMore,
     ExpandCollapse,
@@ -168,11 +199,17 @@ export default {
     DateSecondary,
     Clock,
     Saldo,
+    SaldoClock,
     Comment,
     FilterIcon
   },
   data() {
     return {
+      argument: '',
+      argumentCharacters: {
+        count: 0,
+        max: 255
+      },
       showDetail: false,
       conversations: [
         {
@@ -215,6 +252,14 @@ export default {
         }
       ]
     }
+  },
+  watch: {
+    argument(text, oldText) {
+      this.argumentCharacters.count = text.length
+      if (text.length > this.argumentCharacters.max) {
+        this.argument = oldText
+      }
+    }
   }
 }
 </script>
@@ -228,6 +273,9 @@ export default {
   padding: 0
   margin: 0
   overflow: hidden
+
+  &.row
+    margin-top: 16px
 
 .heading
   height: 192px
@@ -320,18 +368,6 @@ export default {
         justify-content: center
         position: relative
 
-        // &:before
-        //   content: ''
-        //   position: absolute
-        //   height: 0
-        //   width: 0
-        //   bottom: -36px
-        //   left: 0
-        //   border-width: 0 28px 34px
-        //   border-style: solid
-        //   border-color: #ffffff transparent
-        //   transform: rotate(180deg)
-
       .description
         font-family: BwModelica, Lato
         font-size: 14px
@@ -392,6 +428,55 @@ export default {
     font-size: 12px
     line-height: 25px
     color: #ffffff
+
+.heading-duration
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: row
+  height: 72px
+  background-color: #7c5bc0
+
+  .duration-icon
+    height: 30px
+    width: 34px
+    padding: 0
+    margin: 0
+    display: flex
+    justify-content: center
+    align-items: center
+
+    svg
+      width: 32px
+      height: 32px
+      fill: #ffffff
+
+  .duration-time
+    width: 100px
+    height: 32px
+    display: flex
+    align-items: center
+    justify-content: space-around
+    flex-direction: column
+    color: #ffffff
+
+    .duration-text
+      font-family: BwModelicaSS01, Lato
+      font-size: 10px
+      font-weight: 400
+      line-height: 12px
+      height: 14px
+      letter-spacing: 0.5px
+      text-transform: lowercase
+
+    .duration-clock
+      font-family: BwModelicaSS01, Lato
+      font-size: 16px
+      font-weight: 700
+      line-height: 12px
+      height: 16px
+      letter-spacing: 0.8px
+      text-transform: uppercase
 
 .heading-info
   display: flex
@@ -569,6 +654,79 @@ export default {
         line-height: 12px
         letter-spacing: 0.15px
         text-align: right
+
+.conversation-area
+  padding: 16px
+  width: 100%
+
+  .conversation-textarea
+    margin: 0
+    padding: 0
+
+    &:before
+      position: absolute
+      content: ''
+      background-color: #cbcbcb
+      height: 96px
+      width: 5px
+      z-index: 2
+      margin: 0
+      border-radius: 2px
+
+    textarea
+      font-family: Lato
+      font-style: italic
+      font-size: 14px
+      line-height: 16px
+      border: none
+      overflow: auto
+      outline: none
+      box-shadow: none
+      resize: none
+      background: #f9f9f9
+      width: calc(100% - 16px)
+      padding: 16px
+      margin-left: 16px
+
+      &::placeholder
+        color: #aaaaaa
+
+    &__info
+      color: #aaaaaa
+      font-family: Lato
+      font-size: 10px
+      line-height: 12px
+      display: block
+      text-align: right
+
+  .conversation-action
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    flex-direction: row
+    margin-top: 16px
+
+    .btn
+      font-family: Lato
+      font-size: 12px
+      line-height: 15px
+      height: 40px
+      width: 120px
+      border-radius: 2px
+      letter-spacing: 1.2px
+      transition: all .3s ease
+
+      &:hover, &:active, &:focus
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .33)
+
+      &.cancel
+        color: #cbcbcb
+        background-color: transparent
+        margin-right: 8px
+
+      &.publish
+        color: #ffffff
+        background-color: #cbcbcb
 
 .sidebar-activity
   background-color: #ffffff
