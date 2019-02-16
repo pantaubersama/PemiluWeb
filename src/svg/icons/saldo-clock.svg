@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ic_saldo_white_24" width="32" height="32" viewBox="0 0 32 32">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#fff}
+        </style>
+    </defs>
+    <path id="Path_97" d="M0 0h32v32H0z" class="cls-1" data-name="Path 97"/>
+    <path id="Path_2073" d="M18.882 1h-7.941v2.658h7.941zm-5.294 17.278h2.647V10.3h-2.647zm10.627-8.785l1.879-1.887a14.653 14.653 0 0 0-1.866-1.874l-1.879 1.887a11.971 11.971 0 1 0 1.866 1.874zm-9.3 16.76a9.3 9.3 0 1 1 9.264-9.3 9.277 9.277 0 0 1-9.268 9.3z" class="cls-2" data-name="Path 2073" transform="translate(1.089 .363)"/>
+</svg>
