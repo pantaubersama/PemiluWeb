@@ -46,7 +46,7 @@
           <div class="info-status">
             <status-wordstadium/>Status
           </div>
-          <div class="info-placeholder">Giliran Anik Kemala menulis argumen...</div>
+          <div class="info-placeholder">Giliran Raja Kampreta menulis argumen...</div>
           <div class="info-action">
             <button class="btn" type="button" @click.prevent="showDetail = !showDetail">Detail debat
               <expand-more v-if="showDetail"/>
