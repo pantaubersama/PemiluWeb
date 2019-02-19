@@ -19,12 +19,13 @@
         </router-link>
       </li>
 
-      <!-- <li>
+      <li>
         <router-link to="/wordstadium">
           <record-icon/>Menguji
         </router-link>
       </li>
 
+      <!--
       <li>
         <router-link to="/lapor">
           <report-icon/>Menjaga

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="243.81" height="64" viewBox="0 0 243.81 64">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:#ffb471}.cls-4{fill:#ff004a}.cls-4,.cls-6,.cls-7{opacity:.502}.cls-5{fill:#ff914a}.cls-6{fill:#ff4a4b}.cls-7{fill:#911a52}
+        </style>
+        <clipPath id="clip-path">
+            <path id="vectorMask" d="M8 0h227.81a8 8 0 0 1 8 8v56H0V8a8 8 0 0 1 8-8z" class="cls-1"/>
+        </clipPath>
+    </defs>
+    <g id="challenge" transform="translate(-1048 -1420)">
+        <g id="Mask_by_Rectangle" class="cls-2" data-name="Mask by Rectangle" transform="translate(1048 1420)">
+            <g id="challenge_banner" data-name="challenge banner" transform="translate(-36.685 -79.934)">
+                <path id="Rectangle" d="M8 0h227.81a8 8 0 0 1 8 8v57.333H0V8a8 8 0 0 1 8-8z" class="cls-3" transform="translate(36.685 79.934)"/>
+                <path id="Rectangle-2" d="M1367.965 1387h91.61v104.889l-234.9 10.391c-18.631.825-23.484-5.244-10.856-13.576L1367.965 1387z" class="cls-4" data-name="Rectangle" transform="translate(-936.884 -1336.399)"/>
+                <path id="Rectangle-3" d="M1445.058 1551.637l-205.941-13.284c-18.576-1.2-28.129 6.353-21.372 16.893l49.9 77.839h184.67l19.676-59.238c3.681-11.084-8.358-21.012-26.933-22.21z" class="cls-5" data-name="Rectangle" transform="translate(-932.767 -1353.203)"/>
+                <path id="Oval" d="M1033.289 1403.619c0-35.527 309.443-73.545 367.989-73.545s-13.5 94.646-146.183 103.455-74.132 52.034-132.678 52.034-89.128-46.417-89.128-81.944z" class="cls-6" transform="translate(-1018.211 -1330.074)"/>
+                <path id="Triangle" d="M1107.424 1549.819c-73.6 58.18 14.7 23.274-84.4 77.474l308.57-4.339c-22.426-43.071-28.021-37.08-86.764-55.108s94.573-97.751 65.157-101.611-128.966 25.403-202.563 83.584z" class="cls-7" transform="translate(-1023.023 -1345.166)"/>
+            </g>
+        </g>
+    </g>
+</svg>
