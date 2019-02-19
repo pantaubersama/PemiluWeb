@@ -14,7 +14,16 @@
       <li v-for="item in items"
         :key="item"
         :style="`transform: translateX(${scrollValue}px)`">
-        <card-debat type="live"></card-debat>
+        <card-debat type="live">
+          <template slot="body-lower">
+            <small class="tag">ekonomi</small>
+            <p class="description">
+              2018 pertumbuhan ekonomi Indonesia
+              mengalami pertumbuhan mencapai 5,27%.
+              2 periode yuk, biar 10,54%.
+            </p>
+          </template>
+        </card-debat>
       </li>
       <button type="button" class="go-right"
         @mousedown.prevent="scroll(-10)"
@@ -62,6 +71,31 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.Wordstadium-live-list
+  .debat-card
+    height: 180px
+.debat-card /deep/ .body-lower
+  margin-top: 5px !important
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  .tag
+    flex: 0
+    border: 1px solid #f9d65c
+    border-radius: 4px
+    padding: 4px
+  .description
+    font-family: BwModelicaSS01, Lato, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: condensed;
+    line-height: 1.17;
+    letter-spacing: normal;
+    text-align: center;
+    color: #212121;
+
 .debat-item-list.--horizontal
   display: flex
   overflow: hidden

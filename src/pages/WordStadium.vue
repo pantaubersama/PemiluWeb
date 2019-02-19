@@ -95,6 +95,7 @@ export default {
 
 <style lang="sass" scoped>
 a.see-more
+  margin-top: 10px
   text-align: center
   margin-left: 50%
   transform: translateX(-50%)
