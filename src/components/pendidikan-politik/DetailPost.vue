@@ -107,7 +107,7 @@ export default {
 
   computed: {
     shareURL() {
-      return `/pendidikan-politik/detail/`
+      return `/share/tanya/`
     }
   },
   methods: {
@@ -125,7 +125,7 @@ export default {
     },
     copyToClipboard(id) {
       const url = cleanURL(
-        `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
+        `${process.env.SHARE_DOMAIN}/share/tanya/${id}`
       )
       this.$clipboard(url)
       this.isActive = false
