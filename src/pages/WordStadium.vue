@@ -29,7 +29,9 @@
                 <panel-debat-coming-soon></panel-debat-coming-soon>
               </li>
             </ul>
-            <a class="see-more" href="javascript:void(0)">See more >></a>
+            <router-link class="see-more" to="/wordstadium/coming-soon">
+              See more >>
+            </router-link>
           </div>
           <div class="debat-list --done">
             <div class="meta">
@@ -41,7 +43,7 @@
                 <panel-debat-done></panel-debat-done>
               </li>
             </ul>
-            <a class="see-more" href="javascript:void(0)">See more >></a>
+            <router-link class="see-more" to="/wordstadium/done">See more >></router-link>
           </div>
           <div class="debat-list --challenge">
             <div class="meta">
@@ -53,7 +55,7 @@
                 <panel-debat-challenge></panel-debat-challenge>
               </li>
             </ul>
-            <a class="see-more" href="javascript:void(0)">See more >></a>
+            <router-link class="see-more" to="/wordstadium/challenge">See more >></router-link>
           </div>
         </div>
       </div>

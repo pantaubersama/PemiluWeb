@@ -3,7 +3,7 @@
     <div class="titlebar">
       <i class="icon icon-live-now"></i>
       <div class="title">Live now</div>
-      <a href="javascript:void(0)" class="see-more">See more >></a>
+      <router-link class="see-more" to="/wordstadium/live">See more >></router-link>
     </div>
     <ul class="debat-item-list --horizontal">
       <button type="button" class="go-left"
