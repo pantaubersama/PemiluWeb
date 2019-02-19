@@ -16,7 +16,8 @@ export const state = {
     totalQuiz: 0,
     finishedQuiz: 0,
     percentage: 0,
-    groupName: null
+    groupName: null,
+    userId: null
   },
   quizSummary: {}
 }
@@ -171,10 +172,10 @@ export const actions = {
   async getTotalKecenderungan(ctx) {
     const resp = await PenpolAPI.getTotalKecenderungan()
     var selectedData = null
-    if(resp.teams[0].percentage == 50.0){
+    if (resp.teams[0].percentage === 50.0) {
       selectedData = resp.teams[Math.floor(resp.teams.length * Math.random())]
-    }else{
-      selectedData = resp.teams.find(item => item.percentage == Math.max(...resp.teams.map(function(d){ return d.percentage})))
+    } else {
+      selectedData = resp.teams.find(item => item.percentage === Math.max(...resp.teams.map(function(d) { return d.percentage })))
     }
     const id = resp.quiz_preference.id
     const percentage = Math.ceil(selectedData.percentage)
@@ -184,6 +185,7 @@ export const actions = {
     const fullName = resp.user.full_name
     const groupAvatar = selectedData.team.avatar
     const image = resp.quiz_preference.image_result.url
+    const userId = resp.user.id
     ctx.commit('setTotalKecenderungan', {
       id,
       finishedQuiz,
@@ -192,7 +194,8 @@ export const actions = {
       percentage,
       fullName,
       groupAvatar,
-      image
+      image,
+      userId
     })
   },
   getQuizResult({

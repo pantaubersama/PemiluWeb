@@ -32,7 +32,7 @@
         <a
           href="javascript:void(0)"
           class="share"
-          @click.prevent="share('/share/kecenderungan/', totalKecenderungan.id)"
+          @click.prevent="share('/share/kecenderungan/', totalKecenderungan.userId)"
         >
           <share-icon></share-icon>BAGIKAN
         </a>

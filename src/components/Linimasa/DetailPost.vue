@@ -135,12 +135,12 @@ export default {
       )
     },
     shareURL() {
-      return `/linimasa/detail/`
+      return `/share/janjipolitik/`
     }
   },
   methods: {
     copyToClipboard(id) {
-      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.SHARE_DOMAIN}/share/janjipolitik/${id}`)
       this.$clipboard(url)
       this.isActive = false
       this.$toaster.info('Berhasil menyalin teks.')

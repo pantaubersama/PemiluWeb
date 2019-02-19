@@ -103,7 +103,7 @@ export default {
       return this.user.cluster.is_eligible
     },
     shareURL() {
-      return `/linimasa/detail/`
+      return `/share/janjipolitik/`
     }
   },
   methods: {
@@ -119,7 +119,7 @@ export default {
     },
     copyToClipboard(id) {
       this.isActive = false
-      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.SHARE_DOMAIN}/share/janjipolitik/${id}`)
       this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
     },
