@@ -14,7 +14,7 @@
         </div>
         <button
           class="share-btn"
-          @click.prevent="share(`/share/kecenderungan/`,totalKecenderungan.id, 'Hmm.. Ternyata begini kecenderunganku 👀')"
+          @click.prevent="share(`/share/kecenderungan/`,totalKecenderungan.userId, 'Hmm.. Ternyata begini kecenderunganku 👀')"
         >
           <i class="icon icon-share"></i>
         </button>
