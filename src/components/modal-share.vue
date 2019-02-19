@@ -46,7 +46,7 @@ export default {
   },
   data() {
     return {
-      baseURL: process.env.BASE_URL // window.location.origin
+      baseURL: process.env.SHARE_DOMAIN // window.location.origin
     }
   },
   computed: {
