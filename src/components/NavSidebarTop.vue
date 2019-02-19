@@ -25,7 +25,8 @@
         </router-link>
       </li>
 
-      <!-- <li>
+      <!--
+      <li>
         <router-link to="/lapor">
           <report-icon/>Menjaga
         </router-link>

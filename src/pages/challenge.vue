@@ -16,12 +16,67 @@
         </div>
       </div>
       <div class="content-bidang">
-        <div class="row-bidang">
+        <div class="row-bidang" :class="{'row-bidang__active': kajian}">
           <h5>Bidang Kajian</h5>
           <p>Pilih Bidang Kajian yang sesuai dengan materi debat kamu. Misal: Ekonomi, Agama, Sosial, Politik, dan sebagainya.</p>
           <a href="javascript:void(0)" class="link-bidang">Pilih bidang kajian</a>
         </div>
-        <div class="row-bidang row-bidang__last">&nbsp;</div>
+        <div class="row-bidang" :class="{'row-bidang__active': pernyataan.text || pernyataan.link}">
+          <h5>Pernyataan</h5>
+          <p>Tulis pernyataan yang sesuai dengan Bidang Kajian. Kamu juga bisa menyertakan tautan/link di sini.</p>
+          <textarea
+            v-model="pernyataan.text"
+            placeholder="Tulis pernyataan disini..."
+            name="komentar"
+            cols="30"
+            rows="3"
+          ></textarea>
+          <a href="javascript:void(0)" class="link-bidang__icon">
+            <outline-link/>Sertakan link disini...
+          </a>
+        </div>
+        <div class="row-bidang" :class="{'row-bidang__active': dateTime.date && dateTime.time}">
+          <h5>Date & Time</h5>
+          <p>
+            Tentukan waktu dan tanggal debat yang kamu inginkan. Jangan sampai salah momen,
+            lho! :|
+          </p>
+          <div class="input-group input-bidang">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <date-secondary/>
+              </span>
+            </div>
+            <input v-model="dateTime.date" type="text" class="form-control" placeholder="Tanggal">
+          </div>
+          <div class="input-group input-bidang">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <clock/>
+              </span>
+            </div>
+            <input v-model="dateTime.time" type="text" class="form-control" placeholder="Waktu">
+          </div>
+          <!-- <input v-model="dateTime.date" class="input-datetime" type="text" placeholder="Tanggal"> -->
+          <!-- <input v-model="dateTime.time" class="input-datetime" type="text" placeholder="Waktu"> -->
+        </div>
+        <div class="row-bidang" :class="{'row-bidang__active': saldo}">
+          <h5>Saldo Waktu</h5>
+          <p>Tentukan durasi atau Saldo Waktu debat untuk kamu dan lawan debatmu. Masing-masing akan mendapat bagian yang sama rata.</p>
+          <div class="input-group input-bidang">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <saldo/>
+              </span>
+            </div>
+            <input v-model="saldo" type="text" class="form-control" placeholder="Pilih saldo waktu">
+            <div class="input-group-append">
+              <span class="input-group-text">menit</span>
+            </div>
+          </div>
+          <!-- <input v-model="saldo" type="text" placeholder="Pilih saldo waktu"> -->
+        </div>
+        <!-- <div class="row-bidang row-bidang__last">&nbsp;</div> -->
         <div class="row-bidang row-bidang__action">
           <div class="row-action">
             <a href="javascript:void(0)" class="btn-primary">Lanjutkan</a>
@@ -38,8 +93,10 @@
           <div class="sidebar-thumbnail">
             <img src="@/assets/dildo.jpg" alt="user">
           </div>
-          <h6>Bidang Kajian</h6>
-          <p>Bidang Kajian menunjukkan topik yang sedang dibahas dalam perdebatan. Misalnya Ekonomi, Sosial, Budaya, Agama, Tata Negara, dan lain sebagainya. Bidang Kajian memudahkan kamu untuk mencari tema apa yang ingin dijelajahi. Semakin baik kualitas bahasan seseorang pada sebuah Bidang Kajian, semakin tinggi pula kredibilitasnya pada topik tersebut. Ayo tunjukkan reputasimu yang sesungguhnya!</p>
+          <div class="sidebar-description">
+            <h6>Bidang Kajian</h6>
+            <p>Bidang Kajian menunjukkan topik yang sedang dibahas dalam perdebatan. Misalnya Ekonomi, Sosial, Budaya, Agama, Tata Negara, dan lain sebagainya. Bidang Kajian memudahkan kamu untuk mencari tema apa yang ingin dijelajahi. Semakin baik kualitas bahasan seseorang pada sebuah Bidang Kajian, semakin tinggi pula kredibilitasnya pada topik tersebut. Ayo tunjukkan reputasimu yang sesungguhnya!</p>
+          </div>
         </div>
       </div>
     </div>
@@ -49,15 +106,25 @@
 <script>
 import TimelineLayout from '@/layout/Timeline'
 import { OrangeStadiumBackground } from '@/svg/backgrounds'
+import { DateSecondary, Clock, Saldo, OutlineLink } from '@/svg/icons'
 
 export default {
   name: 'Challenge',
   components: {
     TimelineLayout,
-    OrangeStadiumBackground
+    OrangeStadiumBackground,
+    DateSecondary,
+    Clock,
+    Saldo,
+    OutlineLink
   },
   data() {
-    return {}
+    return {
+      kajian: null,
+      pernyataan: { text: null, link: null },
+      dateTime: { date: null, time: null },
+      saldo: null
+    }
   },
   methods: {}
 }
@@ -111,13 +178,13 @@ export default {
     justify-content: space-between
     height: 100%
     width: 100%
-    border-top: 1px solid #ffffff
+    border-top: 2px solid #ffffff
     margin: 0
 
     .versus
       height: 56px
       width: 56px
-      border: 1px solid #ffffff
+      border: 2px solid #ffffff
       border-top: none
       color: #ffffff
       font-weight: 800
@@ -185,8 +252,8 @@ export default {
 
   .row-bidang
     min-height: 94px
-    margin: 0 0 6px 24px
-    width: 100%
+    margin: 0 0 12px 24px
+    width: calc(100% - 22px)
     padding: 0
 
     .row-action
@@ -198,6 +265,7 @@ export default {
 
     &__action
       min-height: 30px
+      margin-top: 80px
       text-align: center
 
     &:before
@@ -211,6 +279,72 @@ export default {
       margin: 7px 0 0 -33px
       border-radius: 50%
       z-index: 2
+
+    &__active
+      &:before
+        background-color: #08bda8
+
+    textarea
+      font-family: Lato
+      font-style: italic
+      font-size: 12px
+      line-height: 14px
+      border: none
+      overflow: auto
+      outline: none
+      box-shadow: none
+      resize: none
+      background: transparent
+      border-bottom: 1px solid #ececec
+      width: 100%
+      margin-top: 12px
+
+      &::placeholder
+        color: #aaaaaa
+
+    .input-bidang
+      width: 280px
+      margin: 8px 0
+
+      .form-control, .input-group-text
+        background-color: #f9f9f9
+        border-width: 0
+        padding: 0 12px
+
+      .form-control
+        padding-left: 2px
+        font-family: Lato
+        font-size: 12px
+        color: #212121
+
+      .input-group-prepend
+        .input-group-text
+          svg
+            width: 24px
+            height: 24px
+
+      .input-group-append
+        .input-group-text
+          font-family: Lato
+          font-size: 11px
+          color: #7c7c7c
+
+    // .input-datetime
+    // // input[type="text"]
+    //   display: block
+    //   font-family: BwModelica, Lato
+    //   font-size: 12px
+    //   font-weight: bold
+    //   font-style: normal
+    //   font-stretch: condensed
+    //   height: 40px
+    //   width: 300px
+    //   border-radius: 4px
+    //   color: #212121
+    //   background-color: #f9f9f9
+    //   border: none
+    //   margin: 8px 0
+    //   padding: 8px
 
     h5
       font-family: Lato
@@ -236,6 +370,15 @@ export default {
       color: #cbcbcb
       margin-top: 12px
       display: inline-block
+
+      &__icon
+        line-height: 15px
+        color: #08bda8
+
+        svg
+          width: 16px
+          height: 16px
+          margin-right: 4px
 
 .btn-primary
   padding: 8px 32px
@@ -292,5 +435,8 @@ export default {
       font-size: 12px
       line-height: 15px
       color: #7c7c7c
+
+  .sidebar-description
+    margin-bottom: 6px
 
 </style>

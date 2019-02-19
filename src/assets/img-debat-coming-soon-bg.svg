@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="244" height="64" viewBox="0 0 244 64">
+    <defs>
+        <style>
+            .cls-1,.cls-5,.cls-6{fill:none}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:url(#linear-gradient)}.cls-4{opacity:.698;fill:url(#linear-gradient-2)}.cls-5,.cls-6{stroke:#707070}.cls-5{stroke-width:23px}.cls-6{stroke-width:27.83px}.cls-7{fill:url(#linear-gradient-3)}.cls-8{fill:url(#linear-gradient-4)}
+        </style>
+        <clipPath id="clip-path">
+            <path id="vectorMask" d="M8 0h228a8 8 0 0 1 8 8v56H0V8a8 8 0 0 1 8-8z" class="cls-1"/>
+        </clipPath>
+        <linearGradient id="linear-gradient" x1=".222" x2=".778" y1="-.345" y2="1.345" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#22e1ff"/>
+            <stop offset=".699" stop-color="#1d8fe1"/>
+            <stop offset="1" stop-color="#625eb1"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-2" x1=".28" x2=".72" y1=".955" y2=".045" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#1ea1e7" stop-opacity="0"/>
+            <stop offset="1" stop-color="#92fe9d"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-3" x1=".038" x2=".962" y1="-.165" y2="1.165" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#22e1ff" stop-opacity="0"/>
+            <stop offset=".637" stop-color="#1d8fe1"/>
+            <stop offset="1" stop-color="#625eb1"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-4" x1="-.182" x2="1.182" y1="-.235" y2="1.235" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#22dffe"/>
+            <stop offset="1" stop-color="#615fb2"/>
+        </linearGradient>
+    </defs>
+    <g id="coming_soon" class="cls-2" data-name="coming soon">
+        <g id="coming_soon_banner" data-name="coming soon banner" transform="translate(-171.165 -116.897)">
+            <path id="Rectangle_Copy" d="M8 0h228a8 8 0 0 1 8 8v63.111H0V8a8 8 0 0 1 8-8z" class="cls-3" data-name="Rectangle Copy" transform="translate(171.165 116.897)"/>
+            <g id="Mask_by_Rectangle_Copy" data-name="Mask by Rectangle Copy">
+                <path id="Rectangle" d="M1849.9 2260.378l391.59-230.876 56.628 92.476-391.591 230.876z" class="cls-4" transform="translate(-1700.34 -1952.051)"/>
+                <ellipse id="Oval" cx="102.555" cy="100.103" class="cls-5" rx="102.555" ry="100.103" transform="translate(59.216 281.736)"/>
+                <ellipse id="Oval_Copy" cx="161.771" cy="157.896" class="cls-6" data-name="Oval Copy" rx="161.771" ry="157.896" transform="translate(0 223.942)"/>
+                <path id="Rectangle-2" d="M1856.9 2135.28s135.3 31.76 166.529-13.092-41.621-166.313-41.621-166.313H1856.9z" class="cls-7" data-name="Rectangle" transform="translate(-1699.816 -1955.875)"/>
+                <path id="Oval-2" d="M2088.675 2274.979c0-53.875-8.923-116.522 45.992-116.522s152.874 62.647 152.874 116.522-44.518 97.552-99.434 97.552-99.432-43.676-99.432-97.552z" class="cls-8" data-name="Oval" transform="translate(-1682.498 -1945.353)"/>
+            </g>
+        </g>
+    </g>
+</svg>
