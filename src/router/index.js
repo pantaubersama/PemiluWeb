@@ -165,6 +165,23 @@ const router = new VueRouter({
       component: () => import('@/pages/WordStadium')
     },
     {
+      path: '/wordstadium/coming-soon',
+      name: 'WordStadium-ComingSoon',
+      component: () => import('@/pages/wordstadium/coming-soon')
+    }, {
+      path: '/wordstadium/done',
+      name: 'WordStadium-Done',
+      component: () => import('@/pages/wordstadium/done')
+    }, {
+      path: '/wordstadium/challenge',
+      name: 'WordStadium-Challenge',
+      component: () => import('@/pages/wordstadium/challenge')
+    }, {
+      path: '/wordstadium/live',
+      name: 'WordStadium-Live',
+      component: () => import('@/pages/wordstadium/live')
+    },
+    {
       path: '/wordstadium/debate',
       name: 'WordStadiumDebate',
       component: () => import('@/pages/wordstadium/debate')
