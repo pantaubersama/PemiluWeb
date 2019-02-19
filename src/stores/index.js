@@ -19,6 +19,9 @@ import loadingLottie from '@/stores/modules/loading-lottie'
 import showLottie from '@/stores/modules/empty-lottie'
 import * as search from '@/stores/modules/search'
 
+// Lini Masa
+import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
+
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -48,7 +51,8 @@ export default new Vuex.Store({
     snackbar,
     homeKenalan,
     search,
-    showLottie
+    showLottie,
+    LiniMasaDetail
   },
   strict: debug,
   plugins: [beforeAction]

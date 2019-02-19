@@ -223,7 +223,7 @@ const router = new VueRouter({
         {
           path: 'janjipolitik/:id',
           name: 'ShareJanjiPolitik',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/JanjiPolitik')
         },
         {
           path: 'tanya/:id',
