@@ -78,7 +78,7 @@ export default {
     ...mapState('homeQuestions', ['feedsQuestions', 'paginations']),
     ...mapState('loadingLottie', ['loadingAnimating']),
     shareURL() {
-      return `/pendidikan-politik/detail/`
+      return `/share/tanya/`
     }
   },
   created() {
@@ -121,7 +121,7 @@ export default {
     copyToClipboard(id) {
       this.isActive = false
       const url = cleanURL(
-        `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
+        `${process.env.SHARE_DOMAIN}/share/tanya/${id}`
       )
       this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
