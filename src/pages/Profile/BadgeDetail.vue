@@ -35,7 +35,7 @@
             <a
               href
               class="btn btn-outline-primary btn-share"
-              @click.prevent="share(`/profile/badge/`, badgeDetail.achieved_id)"
+              @click.prevent="share(`/share/badge/`, badgeDetail.achieved_id)"
             >
               <icon-share/>Bagikan
             </a>
@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       isModalOpened: false,
-      modalShareURL: null,
+      modalShareURL: "/share/badge/",
       modalShareId: null
     }
   },
