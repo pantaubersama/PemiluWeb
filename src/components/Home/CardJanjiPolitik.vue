@@ -129,7 +129,7 @@ export default {
     ...mapState('homeJanjiPolitik', ['feedsJanjiPolitik', 'paginations']),
     ...mapState('loadingLottie', ['loadingAnimating']),
     shareURL() {
-      return `/linimasa/detail/`
+      return `/share/janjipolitik/`
     }
   },
   created() {
@@ -176,7 +176,7 @@ export default {
     },
 
     copyToClipboard(id) {
-      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.SHARE_DOMAIN}/share/janjipolitik/${id}`)
       this.$clipboard(url)
       this.isActive = false
       this.$toaster.info('Berhasil menyalin teks.')
