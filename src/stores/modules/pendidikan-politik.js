@@ -197,7 +197,7 @@ export const actions = {
     const totalQuiz = resp.meta.quizzes.total
     const fullName = resp.user.full_name
     const finishedQuiz = resp.meta.quizzes.finished
-
+    const userId = resp.user.id
     ctx.commit('setTotalKecenderungan', {
       id,
       finishedQuiz,
