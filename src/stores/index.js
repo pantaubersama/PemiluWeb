@@ -16,6 +16,7 @@ import homeCluster from '@/stores/modules/home/cluster'
 import homeKenalan from '@/stores/modules/home/kenalan'
 import dashboard from '@/stores/modules/dashboard'
 import loadingLottie from '@/stores/modules/loading-lottie'
+import showLottie from '@/stores/modules/empty-lottie'
 import * as search from '@/stores/modules/search'
 
 Vue.use(Vuex)
@@ -46,7 +47,8 @@ export default new Vuex.Store({
     homeCluster,
     snackbar,
     homeKenalan,
-    search
+    search,
+    showLottie
   },
   strict: debug,
   plugins: [beforeAction]

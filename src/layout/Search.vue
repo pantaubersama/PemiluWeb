@@ -36,15 +36,15 @@
           <router-link
             :to="{ name: 'search', params: { type: 'tanya' }, query: { q: query } }"
             :class="{ active: searchType === 'tanya' }"
-          >Tanya</router-link>
+          >Tanya Kandidat</router-link>
         </li>
         <li>
           <router-link
             :to="{ name: 'search', params: { type: 'quiz' }, query: { q: query } }"
             :class="{ active: searchType === 'quiz' }"
-          >Quiz</router-link>
+          >Kata Kandidat</router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link
             :to="{ name: 'search', params: { type: 'wordstadium' }, query: { q: query } }"
             :class="{ active: searchType === 'wordstadium' }"
@@ -55,7 +55,7 @@
             :to="{ name: 'search', params: { type: 'perhitungan' }, query: { q: query } }"
             :class="{ active: searchType === 'perhitungan' }"
           >Perhitungan</router-link>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="container main-wrapper">
@@ -133,18 +133,34 @@ export default {
 .container.main-wrapper .sidebar
   top: 125px
 
-.search-type
-  display: inline-flex
-  flex-direction: row
-  justify-content: center
-  align-items: center
-  width: 100%
+.SearchLayout
   background: white
-  padding: 10px
+
+.search-type
+  display: flex
+  overflow: auto
+  padding: 10px 15px
+  justify-content: space-around
+  max-width: 1140px
+  margin: auto
+  @media (max-width: 1199px)
+    max-width: 960px
+  @media (max-width: 991px)
+    max-width: 720px
+  @media (max-width: 767px)
+    max-width: 540px
+    padding: 10px 0
+    justify-content: flex-start
+    height: 70px
+    align-items: center
+
   li
-    margin-left: 10px
     text-transform: uppercase
     padding: 8px 14px
+    // min-width: 125px
+    text-align: center
+    @media (max-width: 767px)
+      min-width: 125px
     a
       color: #333
       font-weight: bold

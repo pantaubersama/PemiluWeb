@@ -1,46 +1,55 @@
 <template>
   <div class="card-jp">
-    <ModalShare
-      :id="shareId"
-      v-if="isSharing"
-      @close="isSharing = false"
-      :url="shareURL"
-      :title="shareTitle"
-    />
-    <div class="card-content" v-for="item in data" :key="item.id">
-      <div v-if="loading">
-        <!-- TODO: seharuusnya menggunakan loader yang berbeda, disesuaikan dengan stylenya :) -->
-        <ContentLoader/>
-      </div>
-      <JanjiPolitikItem
-        v-else
-        :user="user"
-        :id="item.id"
-        :avatar="item.creator.avatar.thumbnail_square.url"
-        :author_name="setName(item.creator.full_name)"
-        :author_about="item.creator.about"
-        :created_at_in_word="item.created_at_in_word.id"
-        :title="item.title"
-        :description="trimCharacters(item.body, 180)"
-        :image="item.image.large.url"
-        :creator="item.creator"
-        @onDelete="deletePost(item.id, $event)"
-        @onCopy="copyToClipboard(item.id, $event)"
-        @onShare="modalShare(item.id, $event)"
-        :isActive="isActive"
-        @toggleDropdown="toggleDropdown(item.id, $event)"
+    <div v-if="data != ''">
+      <ModalShare
+        :id="shareId"
+        v-if="isSharing"
+        @close="isSharing = false"
+        :url="shareURL"
+        :title="shareTitle"
       />
+      <div class="card-content" v-for="item in data" :key="item.id">
+        <div v-if="loading">
+          <!-- TODO: seharuusnya menggunakan loader yang berbeda, disesuaikan dengan stylenya :) -->
+          <ContentLoader/>
+        </div>
+        <JanjiPolitikItem
+          v-else
+          :user="user"
+          :id="item.id"
+          :avatar="item.creator.avatar.thumbnail_square.url"
+          :author_name="setName(item.creator.full_name)"
+          :author_about="item.creator.about"
+          :created_at_in_word="item.created_at_in_word.id"
+          :title="item.title"
+          :description="trimCharacters(item.body, 180)"
+          :image="item.image.large.url"
+          :creator="item.creator"
+          @onDelete="deletePost(item.id, $event)"
+          @onCopy="copyToClipboard(item.id, $event)"
+          @onShare="modalShare(item.id, $event)"
+          :isActive="isActive"
+          @toggleDropdown="toggleDropdown(item.id, $event)"
+        />
+      </div>
+      <div class="load-more" @click="$emit('loadMoreLinimasa')" v-if="!paginationsLinimasa.isLast && data.length > 4">Tampilkan lebih banyak
+        <div class="arrow-icon">
+          <bottom-arrow/>
+        </div>
+      </div>
     </div>
+    <LottieEmpty v-if="showLottie"/>
   </div>
+
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
+import { mapActions, mapState } from 'vuex'
+import lottie from 'lottie-web'
 import { utils } from '@/mixins/utils'
 import { cleanURL } from '@/utils'
-import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
-
+import { LinkIcon, AlertIcon, ShareIcon, CloseIcon,BottomArrow } from '@/svg/icons'
+import LottieEmpty from '@/components/LottieEmpty'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import ModalShare from '@/components/modal-share'
 import JanjiPolitikItem from '@/components/Linimasa/JanjiPolitikItem'
@@ -54,7 +63,9 @@ export default {
     LinkIcon,
     AlertIcon,
     ShareIcon,
-    CloseIcon
+    CloseIcon,
+    LottieEmpty,
+    BottomArrow
   },
   mixins: [utils, ShareOptions],
   props: {
@@ -66,7 +77,8 @@ export default {
       type: Boolean,
       require: true
     },
-    user: Object
+    user: Object,
+    paginationsLinimasa: Object
   },
   data() {
     return {
@@ -74,13 +86,17 @@ export default {
       isSubmitting: false,
       shareTitle: 'Sudah tahu Janji yang ini, belum? Siap-siap catatan, ya! ✔',
       isSharing: false,
-      shareId: ''
+      shareId: '',
+      emptyLottie: null
     }
   },
   computed: {
     shareURL() {
       return `/linimasa/detail/`
-    }
+    },
+    ...mapState({
+      showLottie: s => s.showLottie.showLottie
+    })
   },
   methods: {
     copyToClipboard(id) {
@@ -100,3 +116,5 @@ export default {
   }
 }
 </script>
+
+

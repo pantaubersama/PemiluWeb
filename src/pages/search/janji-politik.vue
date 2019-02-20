@@ -1,16 +1,17 @@
 <template>
   <div class="card card-tabs">
     <janji-politik-list :data="janjiPolitiks" :loading="isLoading"/>
+    <LottieEmpty v-if="showLottie"/>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import JanjiPolitikList from '@/components/Linimasa/JanjiPolitikList'
-
+import LottieEmpty from '@/components/LottieEmpty'
 export default {
   name: 'SearchJanjiPolitik',
-  components: { JanjiPolitikList },
+  components: { JanjiPolitikList, LottieEmpty },
   props: { query: String, filter: Object },
   data() {
     return {
@@ -40,7 +41,8 @@ export default {
   },
   computed: {
     ...mapState({
-      janjiPolitiks: s => s.search.janjiPolitiks
+      janjiPolitiks: s => s.search.janjiPolitiks,
+      showLottie: s => s.showLottie.showLottie
     })
   },
   methods: {

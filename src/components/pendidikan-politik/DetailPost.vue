@@ -69,6 +69,19 @@
         </div>
       </div>
     </div>
+    <a href="" class="card card-author" >
+      <div class="author-thumb">
+        <img
+          :src="data.user.avatar.medium_square.url"
+          v-if="data.user.avatar.medium_square.url"
+          alt
+        >
+        <img src="@/assets/user.svg" alt v-else>
+      </div>
+      <div class="author-name">{{ data.user.full_name }}</div>
+      <p>{{ data.user.about }}</p>
+      <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
+    </a>
   </div>
 </template>
 <script>

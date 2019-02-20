@@ -184,12 +184,23 @@ export const inviteToCluster = (clusterId, ...emails) =>
       emails: emails.join(',')
     })
     .then(resp => resp.data.data)
+
 export const enableMagicLink = (clusterId, enable = true) =>
   api
     .post(`/v1/clusters/${clusterId}/magic_link`, {
       enable
     })
     .then(resp => resp.data.data)
+
+export const joinCluster = magicLink => {
+  return api
+    .get('/v1/clusters/join', {
+        params: {
+          magic_link: magicLink
+        }
+      })
+      .then(resp => resp.data)
+  }
 
 export const votePreference = ({
   votePreference = null,

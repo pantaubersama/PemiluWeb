@@ -36,11 +36,12 @@ export const fetchQuestions = ({
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }
-export const getQuestionHistory = id =>
+export const getQuestionHistory = (id, page, perPage) =>
   api
   .get(`/v1/users/${id}/questions`, {
     params: {
-      per_page: 5
+      page: page,
+      per_page: perPage
     }
   })
   .then(resp => resp.data.data)

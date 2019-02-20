@@ -91,7 +91,6 @@ import { mapState, mapActions } from 'vuex'
 import { authLink } from '@/mixins/link'
 import { cleanURL } from '@/utils'
 
-import LoadingLottie from '@/components/LoadingLottie'
 import {
   LinkIcon,
   AlertIcon,
@@ -107,7 +106,6 @@ export default {
   components: {
     BottomArrow,
     IconDots,
-    LoadingLottie,
     LinkIcon,
     AlertIcon,
     ShareIcon,

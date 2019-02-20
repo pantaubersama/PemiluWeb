@@ -38,9 +38,11 @@
     <div class="total-kecenderungan-container">
       <div class="image-container">
         <img
+          v-if="totalKecenderungan.groupAvatar"
           :src="totalKecenderungan.groupAvatar"
           :alt="totalKecenderungan.groupName"
         >
+        <img v-else src="@/assets/user.svg" alt="avatar">
       </div>
       <div class="desc-container">
         <span class="text1">
@@ -81,10 +83,6 @@ export default {
 
 <style lang="sass" scoped>
 .header-note
-  background: white
-  display: flex
-  flex-direction: column
-  width: 358px
 
   .title
     font-size: 22px
@@ -95,6 +93,10 @@ export default {
     letter-spacing: normal
     color: #393939
     padding: 10px 20px 0
+    @media (max-width: 767px)
+      padding: 10px 15px
+      margin-bottom: 0
+      font-size: 18px
 
   .description
     height: 53px
@@ -104,11 +106,15 @@ export default {
     color: #707070
     padding: 15px 20px
     margin: 0
+    @media (max-width: 767px)
+      padding: 15px
 
   .note-container
     display: flex
     flex-direction: column
     padding: 20px
+    @media (max-width: 767px)
+      padding: 15px
     .result-container
       flex: 0
       margin-bottom: 20px
@@ -156,10 +162,15 @@ export default {
     display: flex
     background: #f9f9f9
     padding: 20px 25px
+    @media (max-width: 767px)
+      padding: 15px
     .image-container
       height: 48px
       width: 48px
       border-radius: 50%
+      @media (max-width: 767px)
+        height: 35px
+        width: 35px
       img
         width: 100%
         height: 100%
@@ -182,6 +193,8 @@ export default {
         font-stretch: condensed
         line-height: 1
         color: #111111
+        @media (max-width: 767px)
+          font-size: 14px
   a.more-notes
     padding: 10px 20px
     background: #bd081c

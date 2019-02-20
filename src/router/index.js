@@ -102,17 +102,9 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/profile/cluster',
-      name: 'ProfileCluster',
-      component: () => import('@/pages/Profile/Cluster'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
-    {
-      path: '/profile/setting',
-      name: 'ProfileSetting',
-      component: () => import('@/pages/Profile/Setting'),
+      path: '/joincluster/:id',
+      name: 'JoinCluster',
+      component: () => import('@/pages/Profile/JoinCluster'),
       meta: {
         AuthenticationRequired: true
       }
@@ -129,6 +121,22 @@ const router = new VueRouter({
       path: '/profile',
       name: 'Profile',
       component: () => import('@/pages/Profile'),
+      meta: {
+        AuthenticationRequired: true
+      }
+    },
+    {
+      path: '/profile/cluster',
+      name: 'ProfileCluster',
+      component: () => import('@/pages/Profile/Cluster'),
+      meta: {
+        AuthenticationRequired: true
+      }
+    },
+    {
+      path: '/profile/setting',
+      name: 'ProfileSetting',
+      component: () => import('@/pages/Profile/Setting'),
       meta: {
         AuthenticationRequired: true
       }
