@@ -15,11 +15,12 @@
           </div>
         </div>
       </div>
-      <div class="content-bidang">
+      <div class="content-bidang" :class="{'content-bidang__completed': formCompleted}">
         <div class="row-bidang" :class="{'row-bidang__active': kajian}">
           <h5>Bidang Kajian</h5>
           <p>Pilih Bidang Kajian yang sesuai dengan materi debat kamu. Misal: Ekonomi, Agama, Sosial, Politik, dan sebagainya.</p>
-          <a href="javascript:void(0)" class="link-bidang">Pilih bidang kajian</a>
+          <span class="badge" v-if="kajian">{{ kajian }}</span>
+          <a href="javascript:void(0)" class="link-bidang" v-else>Pilih bidang kajian</a>
         </div>
         <div class="row-bidang" :class="{'row-bidang__active': pernyataan.text || pernyataan.link}">
           <h5>Pernyataan</h5>
@@ -77,9 +78,13 @@
           <!-- <input v-model="saldo" type="text" placeholder="Pilih saldo waktu"> -->
         </div>
         <!-- <div class="row-bidang row-bidang__last">&nbsp;</div> -->
-        <div class="row-bidang row-bidang__action">
+        <div class="row-bidang row-bidang__action" :class="{'row-bidang__active': formCompleted}">
           <div class="row-action">
-            <a href="javascript:void(0)" class="btn-primary">Lanjutkan</a>
+            <a
+              href="javascript:void(0)"
+              class="btn-primary"
+              :class="{'btn-primary__active': saldo}"
+            >Lanjutkan</a>
           </div>
         </div>
       </div>
@@ -96,6 +101,20 @@
           <div class="sidebar-description">
             <h6>Bidang Kajian</h6>
             <p>Bidang Kajian menunjukkan topik yang sedang dibahas dalam perdebatan. Misalnya Ekonomi, Sosial, Budaya, Agama, Tata Negara, dan lain sebagainya. Bidang Kajian memudahkan kamu untuk mencari tema apa yang ingin dijelajahi. Semakin baik kualitas bahasan seseorang pada sebuah Bidang Kajian, semakin tinggi pula kredibilitasnya pada topik tersebut. Ayo tunjukkan reputasimu yang sesungguhnya!</p>
+          </div>
+          <div class="sidebar-description">
+            <h6>Pernyataan</h6>
+            <p>
+              Rumusan pernyataan juga harus diperhatikan. Jangan sampai lawan debat kamu bingung dengan apa yang ingin dibahas. Gunakan tata bahasa yang baik dan jangan menyingkat kata-kata spy tdk mmbngngkn mslny sprt ini. Hmm...
+              Kamu bisa mengutip berita atau pernyataan seseorang sebagai bahan debat. Ingat! Harus tetap bertanggung jawab dengan materi debat, ya. Kualitas argumen dan fokus adalah kunci! Jaga debatnya biar nggak melebar ke mana-mana.
+            </p>
+          </div>
+          <div class="sidebar-description">
+            <h6>Date & Time</h6>
+            <p>
+              Tanggal dan Waktu amat penting diperhatikan sebelum memulai atau menerima tantangan. Keduanya menunjukkan kesiapan kamu pada suatu saat tertentu. Tantangan akan dianggap kedaluarsa/expired jika melewati tanggal dan waktu yang disepakati.
+              Coba pilih prakiraan waktu yang memungkinkan kamu dan lawan debatmu sama-sama tersedia. Jangan sampai uji argumentasimu terganggu karena salah momen :(
+            </p>
           </div>
         </div>
       </div>
@@ -120,10 +139,24 @@ export default {
   },
   data() {
     return {
-      kajian: null,
-      pernyataan: { text: null, link: null },
-      dateTime: { date: null, time: null },
-      saldo: null
+      kajian: 'ekonomi',
+      pernyataan: {
+        text:
+          '2018 pertumbuhan ekonomi Indonesia mengalami pertumbuhan mencapai 5,27%.2 periode yuk, biar 10,54%.',
+        link: null
+      },
+      dateTime: { date: 'Selasa, 24 Maret 2019', time: '16.00' },
+      saldo: 120
+    }
+  },
+  computed: {
+    formCompleted() {
+      return (
+        this.kajian &&
+        (this.pernyataan.text || this.pernyataan.link) &&
+        (this.dateTime.date && this.dateTime.time) &&
+        this.saldo
+      )
     }
   },
   methods: {}
@@ -244,11 +277,15 @@ export default {
   &:before
     content: ''
     position: absolute
-    height: calc(100% - 265px)
+    height: calc(100% - 268px)
     width: 2px
     background-color: #ececec
     margin: 12px 0 0 -2px
     z-index: 1
+
+  &__completed
+    &:before
+      background-color: #08bda8
 
   .row-bidang
     min-height: 94px
@@ -287,6 +324,7 @@ export default {
     textarea
       font-family: Lato
       font-style: italic
+      font-weight: bold
       font-size: 12px
       line-height: 14px
       border: none
@@ -315,6 +353,7 @@ export default {
         padding-left: 2px
         font-family: Lato
         font-size: 12px
+        font-weight: bold
         color: #212121
 
       .input-group-prepend
@@ -380,12 +419,30 @@ export default {
           height: 16px
           margin-right: 4px
 
+.badge
+  font-family: Lato
+  font-size: 10px
+  font-weight: 400
+  font-style: italic
+  line-height: 10px
+  height: 16px
+  border-radius: 4px
+  display: inline-block
+  border: 1px solid #f9d65c
+  padding: 2px
+  min-width: 56px
+  text-align: center
+  color: #4f4f4f
+
 .btn-primary
   padding: 8px 32px
   text-align: center
   color: #ffffff
   background-color: #cbcbcb
   text-transform: uppercase
+
+  &__active
+    background-color: #08bda8
 
 .sidebar-challenge
   background-color: #ffffff
