@@ -1,21 +1,23 @@
 <template>
   <div class="card card-tabs">
     <question-list
+      v-if="questions != ''"
       :questions="questions"
       :loading="isLoading"
       @upvoted="onUpvote($event)"
       @removeVoted="onRemoveVote($event)"
     ></question-list>
+    <LottieEmpty v-if="showLottie"/>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import QuestionList from '@/components/pendidikan-politik/question-list'
-
+import LottieEmpty from '@/components/LottieEmpty'
 export default {
   name: 'SearchQuestion',
-  components: { QuestionList },
+  components: { QuestionList, LottieEmpty },
   props: {
     query: {
       type: String
@@ -65,7 +67,8 @@ export default {
   },
   computed: {
     ...mapState({
-      questions: s => s.search.questions
+      questions: s => s.search.questions,
+      showLottie: s => s.showLottie.showLottie
     })
   }
 }

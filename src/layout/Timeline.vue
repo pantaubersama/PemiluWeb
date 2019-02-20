@@ -12,7 +12,7 @@
                 <search-icon></search-icon>
               </div>
             </div>
-          </div>-->
+          </div> -->
           <nav-sidebar-top></nav-sidebar-top>
           <nav-sidebar-bottom></nav-sidebar-bottom>
         </slot>

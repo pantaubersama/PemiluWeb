@@ -5,7 +5,7 @@
         <div class="card-title">Setting</div>
         <div class="card-body">
           <div class="card-column">
-            <a href="//identitas.extrainteger.com" class="change-password" target="_blank">
+            <a href="//identitas.extrainteger.com/users/edit" class="change-password" target="_blank">
               <i class="icon icon-lock"></i>
               <span class="label">Ubah Sandi</span>
               <i class="icon icon-chevron-right"></i>
@@ -13,7 +13,7 @@
           </div>
           <div class="card-column">
             <div class="connect">
-              <p>Tap di bawah ini untuk mengubungkan Symbolic kamu dengan Twitter</p>
+              <p>Tap di bawah ini untuk menghubungkan Symbolic kamu dengan Twitter</p>
               <button class="btn btn-twitter">
                 <icon-twitter/>
                 <span>CONNECT WITH TWITTER</span>

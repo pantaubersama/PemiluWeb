@@ -1,8 +1,10 @@
 .header-note
   background: white
-  display: flex
-  flex-direction: column
-  width: 358px
+  max-width: 358px
+  max-height: 90vh
+  overflow: auto
+  @media (max-width: 767px)
+    max-width: 290px
 
   .title
     font-size: 22px

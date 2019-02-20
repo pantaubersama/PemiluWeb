@@ -72,40 +72,8 @@
             </div>
           </div>
         </template>
-
-        <!-- <template v-else>
-          <div class="item">
-            <img src="@/assets/flag-star-1.png">
-            <span>
-              <p>
-                KADET -
-                <i>placeholder</i>
-              </p>
-              <p class="sub-text">Ikut Kuis Pendidikan Pertama Kali</p>
-            </span>
-          </div>
-          <div class="item">
-            <img src="@/assets/finger-star-1.png">
-            <span>
-              <p>
-                KEPO -
-                <i>placeholder</i>
-              </p>
-              <p class="sub-text">Ikut Tanya Calon Presiden Pertama Kali</p>
-            </span>
-          </div>
-          <div class="item">
-            <img src="@/assets/flag-star-3.png">
-            <span>
-              <p>
-                VETERAN -
-                <i>placeholder</i>
-              </p>
-              <p class="sub-text">Misi Ikut Kuis Pendidikan 10 X</p>
-            </span>
-          </div>
-        </template>-->
       </div>
+
     </div>
     <div class="card tabs">
       <div class="nav-tabs">
@@ -150,12 +118,16 @@
         :data="feedLinimasa"
         :user="user"
         :loading="isLoading"
+        :paginationsLinimasa="paginationsLinimasa"
+        @loadMoreLinimasa='loadMoreLinimasa'
       />
 
       <tanya-kandidat-card
         v-if="$route.query.history === 'penpol'"
         :questions="feedPenpol"
+        :paginationsPenPol="paginationsPenPol"
         :loading="isLoading"
+        @loadMorePenPol='loadMorePenPol'
       />
 
       <!-- <template v-else>
@@ -163,7 +135,10 @@
       </template>-->
     </div>
 
-    <modal-request-cluster v-if="modal === 'ModalRequestCluster'" @close-request="closeModal()"/>
+    <modal-request-cluster
+      v-if="modal === 'ModalRequestCluster'"
+      @close-request="closeModal()"
+    />
 
     <modal-confirm-delete-cluster
       v-if="modal === 'ModalConfirmDeleteCluster'"
@@ -230,7 +205,9 @@ export default {
       user: s => s.profile.user,
       badges: s => s.profile.badges,
       feedLinimasa: s => s.profile.historyLinimasa,
-      feedPenpol: s => s.profile.historyPendidikanPolitik
+      feedPenpol: s => s.profile.historyPendidikanPolitik,
+      paginationsLinimasa: s => s.profile.paginations.historyLinimasa,
+      paginationsPenPol: s => s.profile.paginations.historyPenPol
     }),
     sortedBadges() {
       return this.badges.slice().sort((a, b) => a.position - b.position)
@@ -248,10 +225,10 @@ export default {
         id: this.user.id
       })
       await setTimeout(() => (this.isLoading = false), 1000)
-      await this.$store.dispatch('profile/getQuestionHistory', {
-        id: this.user.id
-      })
       await this.$store.dispatch('profile/getBadges', {
+          id: this.user.id
+        })
+      await this.$store.dispatch('profile/getQuestionHistory', {
         id: this.user.id
       })
     })
@@ -262,6 +239,22 @@ export default {
     window.removeEventListener('click', this.removeDropdown)
   },
   methods: {
+    loadMoreLinimasa() {
+      if (this.paginationsLinimasa.isLast === false) {
+        this.$store.dispatch('profile/nextPageLinimasaHistory')
+        this.$store.dispatch('profile/updateLinimasaHistory',{
+          id: this.user.id
+        })
+      }
+    },
+    loadMorePenPol() {
+      if (this.paginationsPenPol.isLast === false) {
+        this.$store.dispatch('profile/nextPageQuestionHistory')
+        this.$store.dispatch('profile/updateQuestionHistory',{
+          id: this.user.id
+        })
+      }
+    },
     loader() {
       this.isLoading = true
     },

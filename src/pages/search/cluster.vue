@@ -1,22 +1,26 @@
 <template>
-  <ul class="card search-type-people">
-    <li v-for="item in clusters" :key="item.id" class="user-item">
-      <img :src="item.image.url" :alt="item.username" class="avatar">
-      <div class="detail">
-        <div class="fullname">{{item.name}}</div>
-        <div class="category">{{item.category.name}}</div>
+  <ul class="card search-type-people" >
+    <li v-if="clusters != ''">
+      <div v-for="item in clusters" :key="item.id" class="user-item">
+        <img :src="item.image.url" :alt="item.username" class="avatar">
+        <div class="detail">
+          <div class="fullname">{{item.name}}</div>
+          <div class="category">{{item.category.name}}</div>
+        </div>
+        <hr class="separator">
       </div>
-      <hr class="separator">
     </li>
+    <LottieEmpty v-if="showLottie"/>
   </ul>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-
+import LottieEmpty from '@/components/LottieEmpty'
 export default {
   name: 'SearchCluster',
   props: { query: String, filter: String },
+  components: { LottieEmpty },
   watch: {
     filter(value) {
       this.search({ q: this.query, filter_value: this.filter })
@@ -31,7 +35,8 @@ export default {
   },
   computed: {
     ...mapState({
-      clusters: s => s.search.clusters
+      clusters: s => s.search.clusters,
+      showLottie: s => s.showLottie.showLottie
     })
   },
   methods: {
@@ -80,5 +85,4 @@ img.avatar
   line-height: 1.21
   color: #b5b5b5
   margin-top: 5px
-
 </style>

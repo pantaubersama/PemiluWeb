@@ -7,7 +7,7 @@
       :url="shareURL"
       :title="shareTitle"
     />
-
+    <div v-if="questions != ''">
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
       <ContentLoader/>
     </li>
@@ -30,6 +30,13 @@
         @onReport="handleReport(question.id, $event)"
       ></question-item>
     </li>
+    <div class="load-more" @click="$emit('loadMorePenPol')" v-if="!paginationsPenPol.isLast && questions.length > 4">Tampilkan lebih banyak
+        <div class="arrow-icon">
+          <bottom-arrow/>
+        </div>
+      </div>
+    </div>
+    <LottieEmpty v-if="showLottieTanya"/>
   </ul>
 </template>
 
@@ -37,7 +44,8 @@
 import { mapState, mapActions } from 'vuex'
 import { utils } from '@/mixins/utils'
 import { cleanURL } from '@/utils'
-
+import { BottomArrow } from '@/svg/icons'
+import LottieEmpty from '@/components/LottieEmpty'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import ModalShare from '@/components/modal-share'
 import ContentLoader from '@/components/Loading/ContentLoader'
@@ -48,7 +56,9 @@ export default {
   components: {
     QuestionItem,
     ContentLoader,
-    ModalShare
+    ModalShare,
+    LottieEmpty,
+    BottomArrow
   },
   mixins: [utils, ShareOptions],
   props: {
@@ -59,7 +69,8 @@ export default {
     loading: {
       type: Boolean,
       required: true
-    }
+    },
+    paginationsPenPol: Object
   },
   data() {
     return {
@@ -74,7 +85,8 @@ export default {
   computed: {
     ...mapState({
       user: s => s.profile.user,
-      isLoggedIn: s => s.profile.token != null
+      isLoggedIn: s => s.profile.token != null,
+      showLottieTanya: s => s.showLottie.showLottieTanya
     }),
     shareURL() {
       return `/pendidikan-politik/detail/`
@@ -169,4 +181,15 @@ export default {
       padding: 5px 0
       @media (max-width: 575px)
         font-size: 14px
+
+.empty-post
+  padding: 15px
+  text-align: center
+  p
+    margin-bottom: 0
+
+  .lottie-empty
+    max-width: 200px
+    height: 200px
+    margin: 0 auto 10px
 </style>
