@@ -358,10 +358,12 @@ export default {
     &:before
       content: ''
       position: absolute
-      height: 16px
-      width: 16px
-      left: 45px
+      height: 25px
+      width: 25px
+      left: 42px
       top: auto
+      -webkit-mask: url(~@/assets/check.svg)
+      fill: #cbcbcb
       background-color: #cbcbcb
       margin: 7px 0 0 -33px
       border-radius: 50%
@@ -369,7 +371,9 @@ export default {
 
     &__active
       &:before
+        -webkit-mask: url(~@/assets/check.svg)
         background-color: #08bda8
+        fill: #08bda8
 
     textarea
       font-family: Lato
