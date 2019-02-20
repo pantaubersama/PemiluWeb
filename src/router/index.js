@@ -228,7 +228,7 @@ const router = new VueRouter({
         {
           path: 'tanya/:id',
           name: 'ShareTanya',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Tanya')
         },
         {
           path: 'kuis/:id',

@@ -4,9 +4,9 @@ import {
 } from '@/services/symbolic'
 import Api from '@/services/api/base'
 
-const BASE_URL = process.env.API_PEMILU_BASE_URL ?
-  `${process.env.API_PEMILU_BASE_URL}/pendidikan_politik` :
-  'https://staging-pemilu.pantaubersama.com/pendidikan_politik'
+const BASE_URL = process.env.API_PEMILU_BASE_URL
+  ? `${process.env.API_PEMILU_BASE_URL}/pendidikan_politik`
+  : 'https://staging-pemilu.pantaubersama.com/pendidikan_politik'
 
 const api = Api(BASE_URL, () => vueAuth.getToken())
 
@@ -38,13 +38,13 @@ export const fetchQuestions = ({
 }
 export const getQuestionHistory = (id, page, perPage) =>
   api
-  .get(`/v1/users/${id}/questions`, {
-    params: {
-      page: page,
-      per_page: perPage
-    }
-  })
-  .then(resp => resp.data.data)
+    .get(`/v1/users/${id}/questions`, {
+      params: {
+        page: page,
+        per_page: perPage
+      }
+    })
+    .then(resp => resp.data.data)
 
 export const postReport = (id, className = 'Question') => {
   return api
@@ -80,10 +80,10 @@ export const unVote = (id, className = 'Question') => {
 
 export const postQuestion = body =>
   api
-  .post(`/v1/questions`, {
-    body
-  })
-  .then(resp => resp.data.data)
+    .post(`/v1/questions`, {
+      body
+    })
+    .then(resp => resp.data.data)
 
 const services = {
   fetchQuestions,
@@ -99,45 +99,45 @@ export const QuizType = {
 }
 const listNotParticipatedQuiz = (page = 1, perPage = 100) =>
   api
-  .get(`${BASE_URL}/v1/quizzes`, {
-    params: {
-      per_page: perPage,
-      page
-    }
-  })
-  .then(resp => resp.data.data)
+    .get(`${BASE_URL}/v1/quizzes`, {
+      params: {
+        per_page: perPage,
+        page
+      }
+    })
+    .then(resp => resp.data.data)
 const listParticipatedQuiz = (
-    type = QuizType.IN_PROGRESS,
-    page = 1,
-    perPage = 100
-  ) =>
+  type = QuizType.IN_PROGRESS,
+  page = 1,
+  perPage = 100
+) =>
   api
-  .get('/v1/quizzes/participated', {
-    params: {
-      per_page: perPage,
-      page,
-      filter_by: type
-    }
-  })
-  .then(resp => resp.data.data)
+    .get('/v1/quizzes/participated', {
+      params: {
+        per_page: perPage,
+        page,
+        filter_by: type
+      }
+    })
+    .then(resp => resp.data.data)
 const listAllQuiz = (type = QuizType.ALL, page = 1, perPage = 100) =>
   axios
-  .all([
-    listNotParticipatedQuiz(page, perPage),
-    listParticipatedQuiz(QuizType.IN_PROGRESS, page, perPage),
-    listParticipatedQuiz(QuizType.FINISHED, page, perPage)
-  ])
-  .then(
-    axios.spread(
-      (notParticipatedQuizzes, inProgressQuizzes, finishedQuizzes) => {
-        return Promise.resolve([
-          ...notParticipatedQuizzes.quizzes,
-          ...inProgressQuizzes.quizzes,
-          ...finishedQuizzes.quizzes
-        ])
-      }
+    .all([
+      listNotParticipatedQuiz(page, perPage),
+      listParticipatedQuiz(QuizType.IN_PROGRESS, page, perPage),
+      listParticipatedQuiz(QuizType.FINISHED, page, perPage)
+    ])
+    .then(
+      axios.spread(
+        (notParticipatedQuizzes, inProgressQuizzes, finishedQuizzes) => {
+          return Promise.resolve([
+            ...notParticipatedQuizzes.quizzes,
+            ...inProgressQuizzes.quizzes,
+            ...finishedQuizzes.quizzes
+          ])
+        }
+      )
     )
-  )
 export const listQuizz = (type = QuizType.ALL, page = 1, perPage = 100) => {
   switch (type) {
     case QuizType.IN_PROGRESS:
@@ -161,12 +161,12 @@ export const getQuizDetail = quizId =>
   api.get(`/v1/quizzes/${quizId}`).then(resp => resp.data.data.quiz)
 export const answerQuestion = (quizId, questionId, answerId) =>
   api
-  .post(`/v1/quizzes/${quizId}/questions`, {
-    question_id: questionId,
-    answer_id: answerId
-  })
-  .then(resp => Promise.resolve(resp.data.data))
-  .catch(error => Promise.reject(error))
+    .post(`/v1/quizzes/${quizId}/questions`, {
+      question_id: questionId,
+      answer_id: answerId
+    })
+    .then(resp => Promise.resolve(resp.data.data))
+    .catch(error => Promise.reject(error))
 
 export const getTotalKecenderungan = () =>
   api.get('/v1/me/quizzes').then(resp => resp.data.data)

@@ -36,11 +36,7 @@
         user: state => state.profile.user,
         userAuth: state => state.meLogout.userLogin,
         isLoadingJanjiPolitik: state => state.LiniMasaDetail.isLoadingJanjiPolitik
-      }),
-
-      ...mapGetters([
-        'detailJanjiPolitik'
-      ])
+      })
     },
 
     created(){

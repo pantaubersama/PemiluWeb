@@ -31,6 +31,7 @@ const mutations = {
 
   emptyDetail(state) {
     state.janji_politik = {}
+    state.isLoadingJanjiPolitik = true
   }
 
 }
