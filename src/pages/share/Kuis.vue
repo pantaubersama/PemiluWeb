@@ -2,11 +2,11 @@
   <timeline-layout>
     <div slot="main-content">
       <quiz-detail
-            :showModal="showModal"
-            @close="onClickCloseButton"
-            @onClickNextButton="onClickNextButton"
-            @onClickChoicesButton="onClickChoicesButton"
-          />
+        :showModal="showModal"
+        @close="onClickCloseButton"
+        @onClickNextButton="onClickNextButton"
+        @onClickChoicesButton="onClickChoicesButton"
+      />
     </div>
     <div slot="widget-wrapper">
     </div>

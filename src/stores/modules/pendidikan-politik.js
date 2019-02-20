@@ -224,6 +224,13 @@ export const actions = {
       commit('setQuizResult', response)
     )
   },
+  getQuizResultDetail({
+    commit
+  }, quizParticipationId) {
+    PenpolAPI.getQuizResultDetail(quizParticipationId).then(response =>
+      commit('setQuizResult', response)
+    )
+  },
   getQuizSummary({
     commit
   }, quizId) {

@@ -8,14 +8,6 @@ import {
 export const http = {
   base_url: process.env.API_BASE_URL,
 
-  setBaseUrl(b) {
-    this.base_url = b
-  },
-
-  getBaseUrl() {
-    return this.base_url
-  },
-
   request(method, url, data, successCb = null, errorCb = null, headers = {}) {
     axios
       .request({
@@ -58,7 +50,7 @@ export const http = {
   },
 
   init() {
-    axios.defaults.baseURL = this.getBaseUrl()
+    axios.defaults.baseURL = this.base_url
 
     // Intercept the request to make sure the token is injected into the header.
     axios.interceptors.request.use(config => {

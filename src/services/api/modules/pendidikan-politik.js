@@ -153,6 +153,8 @@ export const listQuizz = (type = QuizType.ALL, page = 1, perPage = 100) => {
 
 export const getQuizResult = quizId =>
   api.get(`/v1/quizzes/${quizId}/result`).then(resp => resp.data.data)
+export const getQuizResultDetail = quizParticipationId =>
+  api.get(`/v1/quiz_participations/${quizParticipationId}/result`).then(resp => resp.data.data)
 export const getQuizSummary = quizId =>
   api.get(`/v1/quizzes/${quizId}/summary`).then(resp => resp.data.data)
 export const getQuizQuestions = quizId =>

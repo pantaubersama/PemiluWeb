@@ -238,7 +238,7 @@ const router = new VueRouter({
         {
           path: 'hasilkuis/:id',
           name: 'ShareHasilKuis',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/HasilKuis')
         },
         {
           path: 'kecenderungan/:id',
