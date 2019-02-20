@@ -243,7 +243,7 @@ const router = new VueRouter({
         {
           path: 'kecenderungan/:id',
           name: 'ShareKecenderungan',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Kecenderungan')
         },
         {
           path: 'badge/:id',

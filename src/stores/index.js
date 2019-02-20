@@ -22,6 +22,7 @@ import * as search from '@/stores/modules/search'
 // Lini Masa
 import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
 import PendidikanPolitikDetail from '@/stores/pendidikan_politik/tanya/detail'
+import PendidikanPolitikQuizParticipation from '@/stores/pendidikan_politik/quiz_participations/kecenderungan'
 
 Vue.use(Vuex)
 
@@ -54,7 +55,8 @@ export default new Vuex.Store({
     search,
     showLottie,
     LiniMasaDetail,
-    PendidikanPolitikDetail
+    PendidikanPolitikDetail,
+    PendidikanPolitikQuizParticipation
   },
   strict: debug,
   plugins: [beforeAction]
