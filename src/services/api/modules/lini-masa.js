@@ -4,9 +4,9 @@ import {
 import Api from '@/services/api/base'
 
 const PREFIX = 'linimasa'
-const BASE_URL = process.env.API_PEMILU_BASE_URL ?
-  process.env.API_PEMILU_BASE_URL :
-  'https://staging-pemilu.pantaubersama.com'
+const BASE_URL = process.env.API_PEMILU_BASE_URL
+  ? process.env.API_PEMILU_BASE_URL
+  : 'https://staging-pemilu.pantaubersama.com'
 
 const httpClient = Api(BASE_URL, () => vueAuth.getToken())
 

@@ -19,6 +19,11 @@ import loadingLottie from '@/stores/modules/loading-lottie'
 import showLottie from '@/stores/modules/empty-lottie'
 import * as search from '@/stores/modules/search'
 
+// Lini Masa
+import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
+import PendidikanPolitikDetail from '@/stores/pendidikan_politik/tanya/detail'
+import PendidikanPolitikQuizParticipation from '@/stores/pendidikan_politik/quiz_participations/kecenderungan'
+
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -48,7 +53,10 @@ export default new Vuex.Store({
     snackbar,
     homeKenalan,
     search,
-    showLottie
+    showLottie,
+    LiniMasaDetail,
+    PendidikanPolitikDetail,
+    PendidikanPolitikQuizParticipation
   },
   strict: debug,
   plugins: [beforeAction]

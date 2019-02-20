@@ -223,32 +223,32 @@ const router = new VueRouter({
         {
           path: 'janjipolitik/:id',
           name: 'ShareJanjiPolitik',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/JanjiPolitik')
         },
         {
           path: 'tanya/:id',
           name: 'ShareTanya',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Tanya')
         },
         {
           path: 'kuis/:id',
           name: 'ShareKuis',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Kuis')
         },
         {
           path: 'hasilkuis/:id',
           name: 'ShareHasilKuis',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/HasilKuis')
         },
         {
           path: 'kecenderungan/:id',
           name: 'ShareKecenderungan',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Kecenderungan')
         },
         {
-          path: 'badge/:id',
+          path: 'badge/:badgeId',
           name: 'ShareBadge',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Badge')
         }
       ]
     }

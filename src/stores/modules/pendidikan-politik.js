@@ -66,14 +66,20 @@ export const actions = {
     commit
   }, id) {
     PenpolAPI.vote(id)
-      .then(() => commit(types.SUCCESS_VOTE, id))
+      .then(() => {
+        this.dispatch('PendidikanPolitikDetail/increaseVote', id, { root: true })
+        commit(types.SUCCESS_VOTE, id)
+      })
       .catch(() => commit(types.ERROR_VOTE))
   },
   unVote({
     commit
   }, id) {
     PenpolAPI.unVote(id)
-      .then(() => commit(types.SUCCESS_UNVOTE, id))
+      .then(() => {
+        this.dispatch('PendidikanPolitikDetail/decreaseVote', id, { root: true })
+        commit(types.SUCCESS_UNVOTE, id)
+      })
       .catch(() => commit(types.ERROR_VOTE))
   },
   addQuestion(ctx, question) {
@@ -177,21 +183,21 @@ export const actions = {
     var groupAvatar = null
     var image = null
     var id = null
-    if(resp.teams[0].percentage == 50.0){
+    if (resp.teams[0].percentage === 50.0) {
       selectedData = resp.teams[Math.floor(resp.teams.length * Math.random())]
     } else {
       selectedData = resp.teams.find(item => item.percentage === Math.max(...resp.teams.map(function(d) { return d.percentage })))
     }
-    if(selectedData != null){
+    if (selectedData != null) {
       percentage = Math.ceil(selectedData.percentage)
       groupAvatar = selectedData.team.avatar
       groupName = selectedData.team.title
     }
-    if(resp.quiz_preference.image_result != null){
+    if (resp.quiz_preference.image_result != null) {
       image = resp.quiz_preference.image_result.url
     }
 
-    if(resp.quiz_preference.id != null){
+    if (resp.quiz_preference.id != null) {
       id = resp.quiz_preference.id
     }
     const totalQuiz = resp.meta.quizzes.total
@@ -215,6 +221,13 @@ export const actions = {
     commit
   }, quizId) {
     PenpolAPI.getQuizResult(quizId).then(response =>
+      commit('setQuizResult', response)
+    )
+  },
+  getQuizResultDetail({
+    commit
+  }, quizParticipationId) {
+    PenpolAPI.getQuizResultDetail(quizParticipationId).then(response =>
       commit('setQuizResult', response)
     )
   },
@@ -326,18 +339,23 @@ export const mutations = {
   [types.SUCCESS_VOTE](state, id) {
     const index = state.questions.findIndex(question => question.id === id)
     let question = state.questions.find(question => question.id === id)
-    question.is_liked = true
-    question.like_count += 1
 
-    state.questions[index] = question
+    if (question) {
+      question.is_liked = true
+      question.like_count += 1
+
+      state.questions[index] = question
+    }
   },
   [types.SUCCESS_UNVOTE](state, id) {
     const index = state.questions.findIndex(question => question.id === id)
     let question = state.questions.find(question => question.id === id)
-    question.is_liked = false
-    question.like_count -= 1
+    if (question) {
+      question.is_liked = false
+      question.like_count -= 1
 
-    state.questions[index] = question
+      state.questions[index] = question
+    }
   },
   [types.ERROR_VOTE](state) {},
   [types.ADD_QUESTION](state, question) {
