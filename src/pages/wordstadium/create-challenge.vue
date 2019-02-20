@@ -5,7 +5,7 @@
         <div class="status">Buat Tantangan</div>
         <div class="detail">
           <div class="versus">VS</div>
-          <div class="description">OPEN CHALLENGE</div>
+          <div class="description">DIRECT CHALLENGE</div>
         </div>
         <div class="user-info">
           <img src="@/assets/dildo.jpg" alt="user">
@@ -37,6 +37,55 @@
           </a>
         </div>
         <div class="row-bidang" :class="{'row-bidang__active': dateTime.date && dateTime.time}">
+          <h5>Lawan Debat</h5>
+          <p>Undang orang untuk menjadi lawan debat kamu. Undang lawan debatmu dari Symbolic ID, atau mention langsung akun Twitternya.</p>
+          <div class="input-group input-challenge">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input
+                  type="radio"
+                  aria-label="Username Symbolic"
+                  id="user-symbolic"
+                  name="user-lawan"
+                >
+                <label for="user-symbolic">&nbsp;</label>
+              </div>
+              <div class="input-group-text">
+                <img src="@/assets/ic_symbolic.png" alt="symbolic">
+              </div>
+            </div>
+            <input
+              value="Raja Kampreta"
+              type="text"
+              class="form-control"
+              aria-label="Username Symbolic"
+              placeholder="Username Symbolic"
+            >
+          </div>
+          <div class="input-group input-challenge">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input
+                  type="radio"
+                  aria-label="Username Twitter"
+                  id="user-twitter"
+                  name="user-lawan"
+                >
+                <label for="user-twitter">&nbsp;</label>
+              </div>
+              <div class="input-group-text">
+                <img src="@/assets/ic_twitter_24.png" alt="twitter">
+              </div>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Username Twitter"
+              placeholder="Username Twitter"
+            >
+          </div>
+        </div>
+        <div class="row-bidang" :class="{'row-bidang__active': dateTime.date && dateTime.time}">
           <h5>Date & Time</h5>
           <p>
             Tentukan waktu dan tanggal debat yang kamu inginkan. Jangan sampai salah momen,
@@ -58,8 +107,6 @@
             </div>
             <input v-model="dateTime.time" type="text" class="form-control" placeholder="Waktu">
           </div>
-          <!-- <input v-model="dateTime.date" class="input-datetime" type="text" placeholder="Tanggal"> -->
-          <!-- <input v-model="dateTime.time" class="input-datetime" type="text" placeholder="Waktu"> -->
         </div>
         <div class="row-bidang" :class="{'row-bidang__active': saldo}">
           <h5>Saldo Waktu</h5>
@@ -75,9 +122,7 @@
               <span class="input-group-text">menit</span>
             </div>
           </div>
-          <!-- <input v-model="saldo" type="text" placeholder="Pilih saldo waktu"> -->
         </div>
-        <!-- <div class="row-bidang row-bidang__last">&nbsp;</div> -->
         <div class="row-bidang row-bidang__action" :class="{'row-bidang__active': formCompleted}">
           <div class="row-action">
             <a
@@ -104,17 +149,17 @@
           </div>
           <div class="sidebar-description">
             <h6>Pernyataan</h6>
-            <p>
-              Rumusan pernyataan juga harus diperhatikan. Jangan sampai lawan debat kamu bingung dengan apa yang ingin dibahas. Gunakan tata bahasa yang baik dan jangan menyingkat kata-kata spy tdk mmbngngkn mslny sprt ini. Hmm...
-              Kamu bisa mengutip berita atau pernyataan seseorang sebagai bahan debat. Ingat! Harus tetap bertanggung jawab dengan materi debat, ya. Kualitas argumen dan fokus adalah kunci! Jaga debatnya biar nggak melebar ke mana-mana.
-            </p>
+            <p>Rumusan pernyataan juga harus diperhatikan. Jangan sampai lawan debat kamu bingung dengan apa yang ingin dibahas. Gunakan tata bahasa yang baik dan jangan menyingkat kata-kata spy tdk mmbngngkn mslny sprt ini. Hmm...</p>
+            <p>Kamu bisa mengutip berita atau pernyataan seseorang sebagai bahan debat. Ingat! Harus tetap bertanggung jawab dengan materi debat, ya. Kualitas argumen dan fokus adalah kunci! Jaga debatnya biar nggak melebar ke mana-mana.</p>
+          </div>
+          <div class="sidebar-description">
+            <h6>Lawan Debat</h6>
+            <p>Sebelum menantang debat, pastikan lawan kamu memiliki akun Twitter; bisa juga langsung mention namanya apabila sudah tercatat di akun Symbolic ID.</p>
           </div>
           <div class="sidebar-description">
             <h6>Date & Time</h6>
-            <p>
-              Tanggal dan Waktu amat penting diperhatikan sebelum memulai atau menerima tantangan. Keduanya menunjukkan kesiapan kamu pada suatu saat tertentu. Tantangan akan dianggap kedaluarsa/expired jika melewati tanggal dan waktu yang disepakati.
-              Coba pilih prakiraan waktu yang memungkinkan kamu dan lawan debatmu sama-sama tersedia. Jangan sampai uji argumentasimu terganggu karena salah momen :(
-            </p>
+            <p>Tanggal dan Waktu amat penting diperhatikan sebelum memulai atau menerima tantangan. Keduanya menunjukkan kesiapan kamu pada suatu saat tertentu. Tantangan akan dianggap kedaluarsa/expired jika melewati tanggal dan waktu yang disepakati.</p>
+            <p>Coba pilih prakiraan waktu yang memungkinkan kamu dan lawan debatmu sama-sama tersedia. Jangan sampai uji argumentasimu terganggu karena salah momen :(</p>
           </div>
         </div>
       </div>
@@ -345,6 +390,54 @@ export default {
       &::placeholder
         color: #aaaaaa
 
+    .input-challenge
+      width: 280px
+      margin: 8px 0
+
+      .form-control, .input-group-text
+        background-color: transparent
+        border-width: 0
+        padding: 0 8px 0 0
+
+        input[type="radio"]:checked + label:after,
+        input[type="radio"]:not(:checked) + label:after
+          background: #08bda8
+
+        input[type="radio"]:checked + label:before
+          border-color: #08bda8
+
+        input[type="radio"]:not(:checked) + label:before
+          border: 2px solid #cbcbcb
+
+      .input-group-text
+        &:last-child
+          background-color: #f9f9f9
+          padding: 0 0 0 10px
+
+      .form-control
+        padding-left: 2px
+        font-family: Lato
+        font-size: 12px
+        font-weight: bold
+        color: #212121
+        background-color: #f9f9f9
+        padding: 0 12px
+
+        &::placeholder
+          color: #cbcbcb
+
+      .input-group-prepend
+        .input-group-text
+          svg
+            width: 24px
+            height: 24px
+
+      .input-group-append
+        .input-group-text
+          font-family: Lato
+          font-size: 11px
+          color: #7c7c7c
+
     .input-bidang
       width: 280px
       margin: 8px 0
@@ -360,6 +453,9 @@ export default {
         font-size: 12px
         font-weight: bold
         color: #212121
+
+        &::placeholder
+          color: #cbcbcb
 
       .input-group-prepend
         .input-group-text
@@ -499,6 +595,6 @@ export default {
       color: #7c7c7c
 
   .sidebar-description
-    margin-bottom: 6px
+    margin-bottom: 16px
 
 </style>
