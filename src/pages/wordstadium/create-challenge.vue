@@ -32,7 +32,7 @@
             cols="30"
             rows="3"
           ></textarea>
-          <a href="javascript:void(0)" class="link-bidang__icon">
+          <a href="javascript:void(0)" class="link-bidang__icon" @click.prevent="attachLink()">
             <outline-link/>Sertakan link disini...
           </a>
         </div>
@@ -128,7 +128,7 @@ import { OrangeStadiumBackground } from '@/svg/backgrounds'
 import { DateSecondary, Clock, Saldo, OutlineLink } from '@/svg/icons'
 
 export default {
-  name: 'Challenge',
+  name: 'WordStadiumCreateChallenge',
   components: {
     TimelineLayout,
     OrangeStadiumBackground,
@@ -159,7 +159,12 @@ export default {
       )
     }
   },
-  methods: {}
+  methods: {
+    attachLink() {
+      const link = prompt('Input Link', 100)
+      console.log('link', link)
+    }
+  }
 }
 </script>
 

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="536" height="28" viewBox="0 0 536 28">
+    <defs>
+        <style>
+            .cls-1{opacity:.5;fill:url(#linear-gradient)}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y1=".14" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f6b42a"/>
+            <stop offset="1" stop-color="#fff"/>
+        </linearGradient>
+    </defs>
+    <path id="Background_base" d="M.327 4.7S63.411-.078 165.706.847 261.5 8.884 536 6.034v22.694H0z" class="cls-1" data-name="Background base" transform="translate(0 -.728)"/>
+</svg>
