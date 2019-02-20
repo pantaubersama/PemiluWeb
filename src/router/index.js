@@ -246,9 +246,9 @@ const router = new VueRouter({
           component: () => import('@/pages/share/Kecenderungan')
         },
         {
-          path: 'badge/:id',
+          path: 'badge/:badgeId',
           name: 'ShareBadge',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Badge')
         }
       ]
     }
