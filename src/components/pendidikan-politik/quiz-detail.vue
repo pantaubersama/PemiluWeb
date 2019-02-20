@@ -14,8 +14,15 @@
           type="button"
           class="btn btn-block btn-primary"
           @click.stop="$emit('onClickNextButton', showModal)"
-          :disabled="!questionsValid"
+          :disabled="!questionsValid" v-if="questionsValid"
         >{{ ($route.name === 'PendidikanPolitikQuizIkuti') ? 'Mulai' : 'Lanjut' }}</button>
+        <button
+          type="button"
+          class="btn btn-block btn-primary"
+          @click.stop="goToHasilKuis" v-else
+        >
+          Lihat Hasil
+        </button>
       </div>
     </card-question-layout>
 
@@ -34,6 +41,7 @@
 import { MeditationIllustration } from '@/svg/illustrations'
 import CardQuestionLayout from '@/layout/CardQuestion'
 import QuestionModal from '@/components/pendidikan-politik/question-modal'
+import router from '@/router'
 
 export default {
   name: 'QuizDetail',
@@ -76,6 +84,13 @@ export default {
         return null
       }
       return this.quiz.image.url
+    }
+  },
+
+  methods: {
+    goToHasilKuis(){
+      var qid = this.quizId
+      router.push({ name: 'PendidikanPolitikQuizHasil', params: { qid } })
     }
   }
 }

@@ -102,17 +102,9 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/profile/cluster',
-      name: 'ProfileCluster',
-      component: () => import('@/pages/Profile/Cluster'),
-      meta: {
-        AuthenticationRequired: true
-      }
-    },
-    {
-      path: '/profile/setting',
-      name: 'ProfileSetting',
-      component: () => import('@/pages/Profile/Setting'),
+      path: '/joincluster/:id',
+      name: 'JoinCluster',
+      component: () => import('@/pages/Profile/JoinCluster'),
       meta: {
         AuthenticationRequired: true
       }
@@ -129,6 +121,22 @@ const router = new VueRouter({
       path: '/profile',
       name: 'Profile',
       component: () => import('@/pages/Profile'),
+      meta: {
+        AuthenticationRequired: true
+      }
+    },
+    {
+      path: '/profile/cluster',
+      name: 'ProfileCluster',
+      component: () => import('@/pages/Profile/Cluster'),
+      meta: {
+        AuthenticationRequired: true
+      }
+    },
+    {
+      path: '/profile/setting',
+      name: 'ProfileSetting',
+      component: () => import('@/pages/Profile/Setting'),
       meta: {
         AuthenticationRequired: true
       }
@@ -220,32 +228,32 @@ const router = new VueRouter({
         {
           path: 'janjipolitik/:id',
           name: 'ShareJanjiPolitik',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/JanjiPolitik')
         },
         {
           path: 'tanya/:id',
           name: 'ShareTanya',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Tanya')
         },
         {
           path: 'kuis/:id',
           name: 'ShareKuis',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Kuis')
         },
         {
           path: 'hasilkuis/:id',
           name: 'ShareHasilKuis',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/HasilKuis')
         },
         {
           path: 'kecenderungan/:id',
           name: 'ShareKecenderungan',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Kecenderungan')
         },
         {
-          path: 'badge/:id',
+          path: 'badge/:badgeId',
           name: 'ShareBadge',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Badge')
         }
       ]
     }

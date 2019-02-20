@@ -95,13 +95,11 @@ import {
   ShareIcon
 } from '@/svg/icons'
 import { mapState, mapActions } from 'vuex'
-import LoadingLottie from '@/components/LoadingLottie'
 export default {
   name: 'CardPilpress',
   components: {
     BottomArrow,
     IconDots,
-    LoadingLottie,
     LinkIcon,
     SosmedTwitterIcon,
     ShareIcon,

@@ -1,17 +1,18 @@
 <template>
   <div class="card card-tabs">
-    <quiz-list :quizzes="quizzes" @onClickKecenderungan="openPageKecenderungan"></quiz-list>
+    <quiz-list v-if="quizzes != ''" :quizzes="quizzes" @onClickKecenderungan="openPageKecenderungan"></quiz-list>
+    <LottieEmpty v-if="showLottie"/>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters,mapState } from 'vuex'
 import router from '@/router'
 import QuizList from '@/components/pendidikan-politik/quiz-list'
-
+import LottieEmpty from '@/components/LottieEmpty'
 export default {
   name: 'SearchQuiz',
-  components: { QuizList },
+  components: { QuizList, LottieEmpty },
   props: {
     query: {
       type: String
@@ -41,7 +42,10 @@ export default {
     }),
     quizzes() {
       return this.quizzesFilter(this.filter)
-    }
-  }
+    },
+    ...mapState({
+      showLottie: s => s.showLottie.showLottie
+    })
+  },
 }
 </script>

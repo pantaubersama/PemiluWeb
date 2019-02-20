@@ -32,7 +32,7 @@
           <share-icon></share-icon>BAGIKAN
         </a>
         <div class="block-bottom">
-          <a
+          <a v-if="this.showKunciJawaban()"
             class="block-bottom--title"
             @click="$emit('onClickAnswerButton')"
           >Lihat kunci jawaban >>></a>
@@ -78,7 +78,9 @@ export default {
     ModalShare
   },
   props: {
-    showModal: Boolean
+    showModal: Boolean,
+    hideKunciJawaban: Boolean,
+    isPublic: Boolean
   },
   data() {
     return {
@@ -87,9 +89,13 @@ export default {
       shareTitle: null
     }
   },
-  beforeCreate() {
+  created() {
     const id = this.$route.params.id
-    this.$store.dispatch('getQuizResult', id)
+    if(this.isPublic){
+      this.$store.dispatch('getQuizResultDetail', id)
+    }else{
+      this.$store.dispatch('getQuizResult', id)
+    }
   },
   computed: {
     ...mapState({
@@ -137,6 +143,10 @@ export default {
       this.shareTitle = title
       this.shareId = id
       this.isSharing = true
+    },
+
+    showKunciJawaban(){
+      return !this.hideKunciJawaban
     }
   }
 }

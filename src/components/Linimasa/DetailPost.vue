@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <router-link class="card card-author" to="/profile">
+    <a href="" class="card card-author" >
       <div class="author-thumb">
         <img
           :src="data.creator.avatar.medium_square.url"
@@ -71,7 +71,7 @@
       <div class="author-name">{{ data.creator.full_name }}</div>
       <p>{{ data.creator.about }}</p>
       <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
-    </router-link>
+    </a>
     <ModalShare
       v-if="isSharing"
       @close="isSharing = false"

@@ -83,7 +83,21 @@ export const state = {
   historyLapor: [],
   historyPerhitungan: [],
   politicalParties: [],
-  clusterDetail: []
+  clusterDetail: [],
+  paginations: {
+    historyLinimasa: {
+      page: 1,
+      perPage: 5,
+      total: 0,
+      isLast: false
+    },
+    historyPenPol: {
+      page: 1,
+      perPage: 5,
+      total: 0,
+      isLast: false
+    }
+  },
 }
 
 export const actions = {
@@ -200,15 +214,53 @@ export const actions = {
   },
 
   async getLinimasaHistory(ctx, payload) {
-    const data = await LiniMasaAPI.getLinimasaHistory(payload.id)
+    const data = await LiniMasaAPI.getLinimasaHistory(
+      payload.id,
+      state.paginations.historyLinimasa.page,
+      state.paginations.historyLinimasa.perPage)
     ctx.commit('setLinimasaHistory', data.janji_politiks)
+    if(data.janji_politiks.length <= 0){
+      ctx.commit('showLottie/showLottie',{},{
+        root: true
+      })
+    }
   },
+  async nextPageLinimasaHistory(ctx) {
+    ctx.commit('nextPageLinimasaHistory')
+  },
+
+  async updateLinimasaHistory(ctx, payload) {
+    const data = await LiniMasaAPI.getLinimasaHistory(
+      payload.id,
+      state.paginations.historyLinimasa.page,
+      state.paginations.historyLinimasa.perPage)
+    ctx.commit('updateLinimasaHistory', data)
+  },
+
 
   async getQuestionHistory(ctx, payload) {
-    const data = await PenpolAPI.getQuestionHistory(payload.id)
+    const data = await PenpolAPI.getQuestionHistory(
+      payload.id,
+      state.paginations.historyPenPol.page,
+      state.paginations.historyPenPol.perPage)
     ctx.commit('setPenpolHistory', data.questions)
+    if(data.questions.length <= 0){
+      ctx.commit('showLottie/showLottieTanya',{},{
+        root: true
+      })
+    }
+  },
+  async nextPageQuestionHistory(ctx) {
+    ctx.commit('nextPageQuestionHistory')
   },
 
+  async updateQuestionHistory(ctx, payload) {
+    const data = await PenpolAPI.getQuestionHistory(
+      payload.id,
+      state.paginations.historyPenPol.page,
+      state.paginations.historyPenPol.perPage)
+    ctx.commit('updateQuestionHistory', data)
+  },
   inviteToCluster(ctx, payload) {
     return ProfileAPI.inviteToCluster(payload.clusterId, payload.emails)
   },
@@ -220,7 +272,13 @@ export const actions = {
       }
     )
   },
-
+  async joinCluster(ctx, payload) {
+    return ProfileAPI.joinCluster(payload.magicLink).then(
+      data => {
+        ctx.commit('setClusterDetail', data.cluster)
+      }
+    )
+  },
   async selectCalon(ctx, payload) {
     ctx.commit('selectCalon', payload.id)
     const politicalParty = ctx.rootState.profile.user.political_party
@@ -330,7 +388,28 @@ export const mutations = {
     question.like_count -= 1
 
     state.historyPendidikanPolitik[index] = question
+  },
+  nextPageLinimasaHistory(state) {
+    state.paginations.historyLinimasa.page++
+  },
+  updateLinimasaHistory(state, data) {
+    if (data.meta.pages.total == state.paginations.historyLinimasa.page) {
+      state.paginations.historyLinimasa.isLast = true
+    }
+    state.historyLinimasa.push.apply(state.historyLinimasa, data.janji_politiks)
+  },
+
+  nextPageQuestionHistory(state) {
+    state.paginations.historyPenPol.page++
+  },
+
+  updateQuestionHistory(state, data) {
+    if (data.meta.pages.total == state.paginations.historyPenPol.page) {
+      state.paginations.historyPenPol.isLast = true
+    }
+    state.historyPendidikanPolitik.push.apply(state.historyPendidikanPolitik, data.questions)
   }
+
 }
 
 export const getters = {

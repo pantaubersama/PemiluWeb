@@ -51,7 +51,6 @@ import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import { cleanURL } from '@/utils'
 import { BottomArrow, IconDots } from '@/svg/icons'
 import { mapState, mapActions } from 'vuex'
-import LoadingLottie from '@/components/LoadingLottie'
 import TanyaItem from '@/components/Home/CardTanyaItem'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import ShareOptions from '@/mixins/share-options'
@@ -61,7 +60,6 @@ export default {
   components: {
     BottomArrow,
     IconDots,
-    LoadingLottie,
     TanyaItem,
     ContentLoader,
     ModalShare
