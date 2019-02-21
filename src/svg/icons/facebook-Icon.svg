@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#4267b2}.cls-3{fill:#fff}
+        </style>
+    </defs>
+    <g id="ic_facebook_32" transform="translate(-16 -428)">
+        <path id="Path_97" d="M0 0h32v32H0z" class="cls-1" data-name="Path 97" transform="translate(16 428)"/>
+        <g id="f-ogo_RGB_HEX-58" transform="translate(21.333 433.333)">
+            <path id="Path_2072" d="M20.156 0H1.177A1.177 1.177 0 0 0 0 1.177v18.979a1.177 1.177 0 0 0 1.177 1.177H11.4v-8.25H8.625V9.854H11.4V7.478a3.88 3.88 0 0 1 4.142-4.256 23.614 23.614 0 0 1 2.479.125v2.88h-1.69c-1.339 0-1.6.633-1.6 1.567V9.85h3.2l-.416 3.229h-2.8v8.254h5.444a1.177 1.177 0 0 0 1.177-1.177V1.177A1.177 1.177 0 0 0 20.156 0z" class="cls-2" data-name="Path 2072"/>
+            <path id="f" d="M29.613 27.1v-8.356h2.819l.421-3.27h-3.24v-2.081c0-.946.264-1.586 1.62-1.586h1.732v-2.92a23.909 23.909 0 0 0-2.514-.127 3.924 3.924 0 0 0-4.19 4.309v2.406H23.45v3.27h2.812V27.1z" class="cls-3" transform="translate(-14.91 -5.764)"/>
+        </g>
+    </g>
+</svg>

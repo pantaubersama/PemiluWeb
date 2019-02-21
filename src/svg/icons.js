@@ -27,6 +27,8 @@ import SearchIcon from './icons/search.svg'
 import SettingIcon from './icons/setting.svg'
 import ShareIcon from './icons/share.svg'
 import SosmedTwitterIcon from './icons/sosmed-twitter.svg'
+import TwitterIcon from './icons/twitter-icon.svg'
+import FacebookIcon from './icons/facebook-Icon.svg'
 import UpvoteIcon from './icons/upvote.svg'
 import UserIcon from './icons/user.svg'
 import VerifiedIcon from './icons/verified.svg'
@@ -84,6 +86,8 @@ export {
   SettingIcon,
   ShareIcon,
   SosmedTwitterIcon,
+  TwitterIcon,
+  FacebookIcon,
   UpvoteIcon,
   UserIcon,
   VerifiedIcon,

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#059ff5}
+        </style>
+    </defs>
+    <g id="ic_twitter_32" transform="translate(-32 -448)">
+        <path id="Path_97" d="M0 0h32v32H0z" class="cls-1" data-name="Path 97" transform="translate(32 448)"/>
+        <g id="Twitter_Social_Icon_Circle_Color" transform="translate(36.784 455.44)">
+            <g id="Logo__x2014__FIXED">
+                <path id="Path_1531" d="M96.393 131.846a12.376 12.376 0 0 0 12.46-12.46c0-.191 0-.381-.009-.563a8.972 8.972 0 0 0 2.189-2.27 8.889 8.889 0 0 1-2.516.69 4.377 4.377 0 0 0 1.925-2.425 8.867 8.867 0 0 1-2.779 1.063 4.382 4.382 0 0 0-7.574 3 4.013 4.013 0 0 0 .118 1 12.423 12.423 0 0 1-9.027-4.581 4.377 4.377 0 0 0 1.362 5.84 4.3 4.3 0 0 1-1.98-.545v.054a4.384 4.384 0 0 0 3.515 4.3 4.366 4.366 0 0 1-1.153.154 4.181 4.181 0 0 1-.826-.082 4.373 4.373 0 0 0 4.087 3.042 8.8 8.8 0 0 1-5.44 1.871 7.961 7.961 0 0 1-1.044-.064 12.2 12.2 0 0 0 6.693 1.98" class="cls-2" data-name="Path 1531" transform="translate(-89.7 -114.5)"/>
+            </g>
+        </g>
+    </g>
+</svg>

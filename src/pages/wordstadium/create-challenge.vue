@@ -559,23 +559,6 @@ export default {
           font-size: 11px
           color: #7c7c7c
 
-    // .input-datetime
-    // // input[type="text"]
-    //   display: block
-    //   font-family: BwModelica, Lato
-    //   font-size: 12px
-    //   font-weight: bold
-    //   font-style: normal
-    //   font-stretch: condensed
-    //   height: 40px
-    //   width: 300px
-    //   border-radius: 4px
-    //   color: #212121
-    //   background-color: #f9f9f9
-    //   border: none
-    //   margin: 8px 0
-    //   padding: 8px
-
     h5
       font-family: Lato
       font-weight: 500

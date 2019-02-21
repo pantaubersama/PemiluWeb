@@ -201,8 +201,13 @@ const router = new VueRouter({
     },
     {
       path: '/wordstadium/create-challenge',
-      name: 'Challenge',
+      name: 'CreateChallenge',
       component: () => import('@/pages/wordstadium/create-challenge')
+    },
+    {
+      path: '/wordstadium/preview-challenge',
+      name: 'PreviewChallenge',
+      component: () => import('@/pages/wordstadium/preview-challenge')
     },
     {
       path: '/lapor',
