@@ -55,6 +55,7 @@ import SaldoClock from './icons/saldo-clock.svg'
 import Comment from './icons/comment.svg'
 import OutlineLink from './icons/outline-link.svg'
 import HighlightOff from './icons/highlight-off.svg'
+import WordColored from './icons/word-colored.svg'
 
 export {
   AlertIcon,
@@ -113,5 +114,6 @@ export {
   SaldoClock,
   Comment,
   OutlineLink,
-  HighlightOff
+  HighlightOff,
+  WordColored
 }

@@ -224,6 +224,11 @@
         v-if="modal === 'modal-success'"
         @close-request="modal = false"
       />
+      <modal-challenge
+        v-if="modal === 'modal-challenge'"
+        @close-request="modal = false"
+        @close="modal = false"
+      />
     </div>
   </timeline-layout>
 </template>
@@ -233,6 +238,7 @@ import TimelineLayout from '@/layout/Timeline'
 import ModalKajian from '@/components/wordstadium/modal-kajian'
 import ModalLink from '@/components/wordstadium/modal-link'
 import ModalSuccess from '@/components/wordstadium/modal-success'
+import ModalChallenge from '@/components/wordstadium/modal-challenge'
 import { OrangeStadiumBackground } from '@/svg/backgrounds'
 import {
   DateSecondary,
@@ -249,6 +255,7 @@ export default {
     ModalKajian,
     ModalLink,
     ModalSuccess,
+    ModalChallenge,
     OrangeStadiumBackground,
     DateSecondary,
     Clock,

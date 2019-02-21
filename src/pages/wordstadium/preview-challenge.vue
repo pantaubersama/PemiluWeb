@@ -174,9 +174,6 @@
 
 <script>
 import TimelineLayout from '@/layout/Timeline'
-import ModalKajian from '@/components/wordstadium/modal-kajian'
-import ModalLink from '@/components/wordstadium/modal-link'
-import ModalSuccess from '@/components/wordstadium/modal-success'
 import { OrangeStadiumBackground } from '@/svg/backgrounds'
 import {
   DateSecondary,
@@ -191,9 +188,6 @@ export default {
   name: 'WordStadiumCreateChallenge',
   components: {
     TimelineLayout,
-    ModalKajian,
-    ModalLink,
-    ModalSuccess,
     OrangeStadiumBackground,
     DateSecondary,
     Clock,
