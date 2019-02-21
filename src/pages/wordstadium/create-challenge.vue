@@ -8,11 +8,13 @@
           <div class="description">DIRECT CHALLENGE</div>
         </div>
         <div class="user-info">
-          <img src="@/assets/dildo.jpg" alt="user">
-          <div class="user-title">
-            <h5>Ratu CebonganYK</h5>
-            <span>@ratu_cebonganYK</span>
-          </div>
+          <router-link to="/profile">
+            <img src="@/assets/dildo.jpg" alt="user">
+            <div class="user-title">
+              <h5>Ratu CebonganYK</h5>
+              <span>@ratu_cebonganYK</span>
+            </div>
+          </router-link>
         </div>
       </div>
       <div class="content-bidang" :class="{'content-bidang__completed': formCompleted}">
@@ -20,11 +22,43 @@
           <h5>Bidang Kajian</h5>
           <p>Pilih Bidang Kajian yang sesuai dengan materi debat kamu. Misal: Ekonomi, Agama, Sosial, Politik, dan sebagainya.</p>
           <span class="badge" v-if="kajian">{{ kajian }}</span>
-          <a href="javascript:void(0)" class="link-bidang" v-else>Pilih bidang kajian</a>
+          <a
+            href="javascript:void(0)"
+            class="link-bidang"
+            @click.stop="showModal('modal-bidang')"
+            v-else
+          >Pilih bidang kajian</a>
         </div>
         <div class="row-bidang" :class="{'row-bidang__active': pernyataan.text || pernyataan.link}">
           <h5>Pernyataan</h5>
           <p>Tulis pernyataan yang sesuai dengan Bidang Kajian. Kamu juga bisa menyertakan tautan/link di sini.</p>
+          <div
+            class="alert alert-preview alert-secondary alert-dismissible fade show"
+            role="alert"
+            v-if="pernyataan && pernyataan.link"
+          >
+            <div class="link">{{ pernyataan.link }}</div>
+            <div class="preview-content">
+              <img src="@/assets/dildo.jpg" alt="user">
+              <div class="preview-content__info">
+                <h5>
+                  Raja Kampreta
+                  <small>@raja_kampreeta . 5 des</small>
+                </h5>
+                <p>
+                  Prabowo berbasis militer. Disiplin. Sandiaga berbasis wiraswasta.
+                  Kreatif. Perpaduan keduanya akan sangat dibutuhkan Indonesia
+                  untuk ekonomi ke depannya. #2019gantipresiden yuk!
+                </p>
+              </div>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <!-- <span aria-hidden="true">&times;</span> -->
+              <span aria-hidden="true">
+                <highlight-off/>
+              </span>
+            </button>
+          </div>
           <textarea
             v-model="pernyataan.text"
             placeholder="Tulis pernyataan disini..."
@@ -32,7 +66,11 @@
             cols="30"
             rows="3"
           ></textarea>
-          <a href="javascript:void(0)" class="link-bidang__icon" @click.prevent="attachLink()">
+          <a
+            href="javascript:void(0)"
+            class="link-bidang__icon"
+            @click.stop="showModal('modal-link')"
+          >
             <outline-link/>Sertakan link disini...
           </a>
         </div>
@@ -129,6 +167,7 @@
               href="javascript:void(0)"
               class="btn-primary"
               :class="{'btn-primary__active': saldo}"
+              @click.stop="showModal('modal-success')"
             >Lanjutkan</a>
           </div>
         </div>
@@ -163,35 +202,83 @@
           </div>
         </div>
       </div>
+      <modal-kajian
+        v-if="modal === 'modal-bidang'"
+        :bidang="bidangKajian"
+        @onSelect="(b) => {
+          kajian = b.name;
+          modal = false;
+        }"
+        @close-request="modal = false"
+      />
+      <modal-link
+        v-if="modal === 'modal-link'"
+        @input="(link) => {
+          pernyataan.link = link;
+          modal = false;
+        }"
+        @close-request="modal = false"
+      />
+      <modal-success
+        text="Tantanganmu Berhasil Dipublikasikan"
+        v-if="modal === 'modal-success'"
+        @close-request="modal = false"
+      />
     </div>
   </timeline-layout>
 </template>
 
 <script>
 import TimelineLayout from '@/layout/Timeline'
+import ModalKajian from '@/components/wordstadium/modal-kajian'
+import ModalLink from '@/components/wordstadium/modal-link'
+import ModalSuccess from '@/components/wordstadium/modal-success'
 import { OrangeStadiumBackground } from '@/svg/backgrounds'
-import { DateSecondary, Clock, Saldo, OutlineLink } from '@/svg/icons'
+import {
+  DateSecondary,
+  Clock,
+  Saldo,
+  OutlineLink,
+  HighlightOff
+} from '@/svg/icons'
 
 export default {
   name: 'WordStadiumCreateChallenge',
   components: {
     TimelineLayout,
+    ModalKajian,
+    ModalLink,
+    ModalSuccess,
     OrangeStadiumBackground,
     DateSecondary,
     Clock,
     Saldo,
-    OutlineLink
+    OutlineLink,
+    HighlightOff
   },
   data() {
     return {
-      kajian: 'ekonomi',
+      kajian: null,
       pernyataan: {
         text:
           '2018 pertumbuhan ekonomi Indonesia mengalami pertumbuhan mencapai 5,27%.2 periode yuk, biar 10,54%.',
         link: null
       },
       dateTime: { date: 'Selasa, 24 Maret 2019', time: '16.00' },
-      saldo: 120
+      saldo: 120,
+      modal: false,
+      bidangKajian: [
+        { id: 1, name: 'Politik' },
+        { id: 2, name: 'Ekonomi' },
+        { id: 3, name: 'Hukum' },
+        { id: 4, name: 'HAM' },
+        { id: 5, name: 'Korupsi' },
+        { id: 6, name: 'Terorisme' },
+        { id: 7, name: 'Energi' },
+        { id: 8, name: 'Pangan' },
+        { id: 9, name: 'Infrastruktur' },
+        { id: 10, name: 'Sumber daya alam' }
+      ]
     }
   },
   computed: {
@@ -205,9 +292,8 @@ export default {
     }
   },
   methods: {
-    attachLink() {
-      const link = prompt('Input Link', 100)
-      console.log('link', link)
+    showModal(name = 'modal-bidang') {
+      this.modal = name
     }
   }
 }
@@ -600,5 +686,52 @@ export default {
 
   .sidebar-description
     margin-bottom: 16px
+
+.alert-preview
+  background-color: #f9f9f9
+  color: #212121
+  width: 100%
+  padding: 8px 12px
+  border: none
+  margin: 16px 0 8px
+
+  .close
+    padding: 1px
+    background-color: transparent
+    top: -5px
+    right: -5px
+
+  .link
+    color: #1da1f2
+    font-weight: normal
+    font-size: 10px
+    line-height: 16px
+
+  .preview-content
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+
+    &__info
+      width: 100%
+
+      small
+        color: #aaaaaa
+
+      p
+        font-family: Lato
+        font-size: 11px
+        line-height: 1.18
+        letter-spacing: 0.2px
+        color: #212121
+
+    img
+      align-self: flex-start
+      height: 40px
+      width: 40px
+      border-radius: 50%
+      margin-top: 8px
+      margin-right: 8px
 
 </style>
