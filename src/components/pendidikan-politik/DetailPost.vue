@@ -69,7 +69,7 @@
         </div>
       </div>
     </div>
-    <div class="card card-author">
+    <a href="" class="card card-author" >
       <div class="author-thumb">
         <img
           :src="data.user.avatar.medium_square.url"
@@ -81,7 +81,7 @@
       <div class="author-name">{{ data.user.full_name }}</div>
       <p>{{ data.user.about }}</p>
       <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
-    </div>
+    </a>
   </div>
 </template>
 <script>
@@ -117,21 +117,10 @@ export default {
       shareId: ''
     }
   },
-  // mounted() {
-  //   this.upvoteDetail = lottie.loadAnimation({
-  //     container: this.$refs.upvote,
-  //     path: '/lottie/upvote.json',
-  //     autoplay: false,
-  //     renderer: 'svg'
-  //   })
 
-  //   this.upvoteDetail.addEventListener('complete', (...args) => {
-  //     this.isAnimating = false
-  //   })
-  // },
   computed: {
     shareURL() {
-      return `/pendidikan-politik/detail/`
+      return `/share/tanya/`
     }
   },
   methods: {
@@ -149,7 +138,7 @@ export default {
     },
     copyToClipboard(id) {
       const url = cleanURL(
-        `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
+        `${process.env.SHARE_DOMAIN}/share/tanya/${id}`
       )
       this.$clipboard(url)
       this.isActive = false
@@ -174,12 +163,6 @@ export default {
       this.isSharing = true
     }
   }
-  // watch: {
-  //   isAnimating(value) {
-  //     if (value) return this.upvoteDetail.play()
-  //     return this.upvoteDetail.stop()
-  //   }
-  // }
 }
 </script>
 <style lang="sass" scoped>

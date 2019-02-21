@@ -23,6 +23,11 @@ const router = new VueRouter({
       component: () => import('@/pages/Home')
     },
     {
+      path: '/search/:type',
+      name: 'search',
+      component: () => import('@/pages/search/index.vue')
+    },
+    {
       path: '/linimasa',
       name: 'Linimasa',
       component: () => import('@/pages/Linimasa'),
@@ -58,9 +63,7 @@ const router = new VueRouter({
           path: 'quiz/ikuti/:id',
           name: 'PendidikanPolitikQuizIkuti',
           component: () => import('@/pages/pendidikan-politik'),
-          meta: {
-            AuthenticationRequired: true
-          }
+          meta: { AuthenticationRequired: true }
         },
         {
           path: 'quiz/lanjut/:id',
@@ -73,10 +76,7 @@ const router = new VueRouter({
         {
           path: 'quiz/hasil/:id',
           name: 'PendidikanPolitikQuizHasil',
-          component: () => import('@/pages/pendidikan-politik'),
-          meta: {
-            AuthenticationRequired: true
-          }
+          component: () => import('@/pages/pendidikan-politik')
         },
         {
           path: 'quiz/kecenderungan',
@@ -102,6 +102,14 @@ const router = new VueRouter({
       ]
     },
     {
+      path: '/joincluster/:id',
+      name: 'JoinCluster',
+      component: () => import('@/pages/Profile/JoinCluster'),
+      meta: {
+        AuthenticationRequired: true
+      }
+    },
+    {
       path: '/catatan-pilihan',
       name: 'CatatanPilihan',
       component: () => import('@/pages/CatatanPilihan'),
@@ -118,9 +126,12 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/profile/verified-steps',
-      name: 'ProfileVerified',
-      component: () => import('@/pages/Profile/ProfileVerified')
+      path: '/profile/cluster',
+      name: 'ProfileCluster',
+      component: () => import('@/pages/Profile/Cluster'),
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/profile/setting',
@@ -131,6 +142,11 @@ const router = new VueRouter({
       }
     },
     {
+      path: '/profile/verified-steps',
+      name: 'ProfileVerified',
+      component: () => import('@/pages/Profile/ProfileVerified')
+    },
+    {
       path: '/profile/badge',
       name: 'ProfileBadge',
       component: () => import('@/pages/Profile/Badge'),
@@ -139,7 +155,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/profile/badge-detail/:badgeId',
+      path: '/profile/badge/:badgeId',
       name: 'ProfileBadgeDetail',
       component: () => import('@/pages/Profile/BadgeDetail'),
       meta: {
@@ -155,6 +171,33 @@ const router = new VueRouter({
       path: '/wordstadium',
       name: 'WordStadium',
       component: () => import('@/pages/WordStadium')
+    },
+    {
+      path: '/wordstadium/coming-soon',
+      name: 'WordStadium-ComingSoon',
+      component: () => import('@/pages/wordstadium/coming-soon')
+    }, {
+      path: '/wordstadium/done',
+      name: 'WordStadium-Done',
+      component: () => import('@/pages/wordstadium/done')
+    }, {
+      path: '/wordstadium/challenge',
+      name: 'WordStadium-Challenge',
+      component: () => import('@/pages/wordstadium/challenge')
+    }, {
+      path: '/wordstadium/live',
+      name: 'WordStadium-Live',
+      component: () => import('@/pages/wordstadium/live')
+    },
+    {
+      path: '/wordstadium/debate',
+      name: 'WordStadiumDebate',
+      component: () => import('@/pages/wordstadium/debate')
+    },
+    {
+      path: '/wordstadium/own-debate',
+      name: 'WordStadiumOwnDebate',
+      component: () => import('@/pages/wordstadium/own-debate')
     },
     {
       path: '/lapor',
@@ -180,38 +223,40 @@ const router = new VueRouter({
         {
           path: 'janjipolitik/:id',
           name: 'ShareJanjiPolitik',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/JanjiPolitik')
         },
         {
           path: 'tanya/:id',
           name: 'ShareTanya',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Tanya')
         },
         {
           path: 'kuis/:id',
           name: 'ShareKuis',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Kuis')
         },
         {
           path: 'hasilkuis/:id',
           name: 'ShareHasilKuis',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/HasilKuis')
         },
         {
           path: 'kecenderungan/:id',
           name: 'ShareKecenderungan',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Kecenderungan')
         },
         {
-          path: 'badge/:id',
+          path: 'badge/:badgeId',
           name: 'ShareBadge',
-          component: () => import('@/pages/Share')
+          component: () => import('@/pages/share/Badge')
         }
       ]
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
+    if (to.name === from.name) {
+      return false
+    } else if (savedPosition) {
       return savedPosition
     } else {
       return {

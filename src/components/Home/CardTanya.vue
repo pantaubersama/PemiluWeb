@@ -33,7 +33,7 @@
           <ContentLoader/>
         </li>
         <router-link
-          to="/pendidikan-politik?type=tanya"
+          to="/pendidikan-politik"
           class="load-more"
           v-if="!paginations.isLast"
         >Tampilkan lebih banyak
@@ -51,7 +51,6 @@ import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import { cleanURL } from '@/utils'
 import { BottomArrow, IconDots } from '@/svg/icons'
 import { mapState, mapActions } from 'vuex'
-import LoadingLottie from '@/components/LoadingLottie'
 import TanyaItem from '@/components/Home/CardTanyaItem'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import ShareOptions from '@/mixins/share-options'
@@ -61,7 +60,6 @@ export default {
   components: {
     BottomArrow,
     IconDots,
-    LoadingLottie,
     TanyaItem,
     ContentLoader,
     ModalShare
@@ -78,7 +76,7 @@ export default {
     ...mapState('homeQuestions', ['feedsQuestions', 'paginations']),
     ...mapState('loadingLottie', ['loadingAnimating']),
     shareURL() {
-      return `/pendidikan-politik/detail/`
+      return `/share/tanya/`
     }
   },
   created() {
@@ -121,7 +119,7 @@ export default {
     copyToClipboard(id) {
       this.isActive = false
       const url = cleanURL(
-        `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
+        `${process.env.SHARE_DOMAIN}/share/tanya/${id}`
       )
       this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')

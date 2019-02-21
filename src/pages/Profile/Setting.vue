@@ -1,11 +1,11 @@
 <template>
-  <timeline-layout>
-    <div class="ProfileSetting" slot="main-content">
+  <LayoutTimeline>
+    <div class="profile-setting" slot="main-content">
       <div class="card setting">
         <div class="card-title">Setting</div>
         <div class="card-body">
           <div class="card-column">
-            <a href="//identitas.extrainteger.com" class="change-password" target="_blank">
+            <a href="//identitas.extrainteger.com/users/edit" class="change-password" target="_blank">
               <i class="icon icon-lock"></i>
               <span class="label">Ubah Sandi</span>
               <i class="icon icon-chevron-right"></i>
@@ -13,7 +13,7 @@
           </div>
           <div class="card-column">
             <div class="connect">
-              <p>Tap di bawah ini untuk mengubungkan Symbolic kamu dengan Twitter</p>
+              <p>Tap di bawah ini untuk menghubungkan Symbolic kamu dengan Twitter</p>
               <button class="btn btn-twitter">
                 <icon-twitter/>
                 <span>CONNECT WITH TWITTER</span>
@@ -49,11 +49,11 @@
     <template slot="widget-wrapper">
       <div class="d-none d-lg-block">&nbsp;</div>
     </template>
-  </timeline-layout>
+  </LayoutTimeline>
 </template>
 
 <script>
-import TimelineLayout from '@/layout/Timeline'
+import LayoutTimeline from '@/layout/Timeline'
 import ModalChangePassword from '@/pages/Profile/ModalChangePassword'
 import { IconTwitter, IconFacebook } from '@/svg/icons'
 import * as FBService from '@/services/facebook'
@@ -61,7 +61,7 @@ import * as ProfileAPI from '@/services/api/profile'
 export default {
   name: 'ProfileSetting',
   components: {
-    TimelineLayout,
+   LayoutTimeline ,
     ModalChangePassword,
     IconTwitter,
     IconFacebook

@@ -8,6 +8,11 @@
         <div class="card avatar">
           <div class="user-profile">
             <img v-if="avatarURL != null" class="profile-thumb" :src="avatarURL">
+            <img
+              v-else-if="user.avatar.medium.url"
+              class="profile-thumb"
+              :src="user.avatar.medium.url"
+            >
             <img v-else class="profile-thumb" src="~@/assets/user.svg">
           </div>
           <button

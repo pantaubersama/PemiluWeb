@@ -83,6 +83,17 @@ export const fetchFeedsPilpres = ({
     .catch(error => Promise.reject(error))
 }
 
+export const getLinimasaHistory = (id, page, perPage) => {
+  return httpClient
+    .get(`${PREFIX}/v1/janji_politiks/user/${id}`, {
+      params: {
+        page: page,
+        per_page: perPage
+      }
+    })
+    .then(resp => resp.data.data)
+}
+
 const postJanjiPolitik = ({
   title,
   body,

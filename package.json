@@ -11,7 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@voerro/vue-tagsinput": "^1.11.1",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "lottie-web": "^5.4.2",
     "v-autocomplete": "^1.8.2",
     "v-clipboard": "^2.2.1",
@@ -24,6 +25,7 @@
     "vue-social-sharing": "^2.3.3"
   },
   "devDependencies": {
+    "@johmun/vue-tags-input": "^2.0.1",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",
     "babel-core": "^6.22.1",

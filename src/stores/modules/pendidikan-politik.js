@@ -16,7 +16,8 @@ export const state = {
     totalQuiz: 0,
     finishedQuiz: 0,
     percentage: 0,
-    groupName: null
+    groupName: null,
+    userId: null
   },
   quizSummary: {}
 }
@@ -43,7 +44,10 @@ export const getters = {
 }
 
 export const actions = {
-  fetchQuestions({ commit, state }, payload) {
+  fetchQuestions({
+    commit,
+    state
+  }, payload) {
     const savedQuestions = [...state.questions]
     PenpolAPI.fetchQuestions(payload)
       .then(response => commit(types.SUCCESS_QUESTIONS, response.questions))
@@ -53,23 +57,38 @@ export const actions = {
         })
       )
   },
-  postReport({ commit }, payload) {
+  postReport({
+    commit
+  }, payload) {
     return PenpolAPI.postReport(payload)
   },
-  vote({ commit }, id) {
+  vote({
+    commit
+  }, id) {
     PenpolAPI.vote(id)
-      .then(() => commit(types.SUCCESS_VOTE, id))
+      .then(() => {
+        this.dispatch('PendidikanPolitikDetail/increaseVote', id, { root: true })
+        commit(types.SUCCESS_VOTE, id)
+      })
       .catch(() => commit(types.ERROR_VOTE))
   },
-  unVote({ commit }, id) {
+  unVote({
+    commit
+  }, id) {
     PenpolAPI.unVote(id)
-      .then(() => commit(types.SUCCESS_UNVOTE, id))
+      .then(() => {
+        this.dispatch('PendidikanPolitikDetail/decreaseVote', id, { root: true })
+        commit(types.SUCCESS_UNVOTE, id)
+      })
       .catch(() => commit(types.ERROR_VOTE))
   },
   addQuestion(ctx, question) {
     ctx.commit(types.ADD_QUESTION, question)
   },
-  async listAllQuiz(ctx, { page = 1, perPage = 100 } = {}) {
+  async listAllQuiz(ctx, {
+    page = 1,
+    perPage = 100
+  } = {}) {
     const resp = await PenpolAPI.listQuizz(QuizType.ALL, page, perPage)
     const notParticipated = resp.filter(
       it => it.participation_status === 'not_participating'
@@ -83,12 +102,18 @@ export const actions = {
     ctx.commit('setFinishedQuiz', finished)
     return Promise.resolve([...notParticipated, ...inProgress, ...finished])
   },
-  listFilterQuiz(ctx, { type = QuizType.ALL, page = 1, perPage = 100 } = {}) {
+  listFilterQuiz(ctx, {
+    type = QuizType.ALL,
+    page = 1,
+    perPage = 100
+  } = {}) {
     return PenpolAPI.listQuizz(type, page, perPage).then(response => {
       ctx.commit('setQuizzes', response.quizzes)
     })
   },
-  async getQuizDetail(ctx, { quizId }) {
+  async getQuizDetail(ctx, {
+    quizId
+  }) {
     const quiz = await PenpolAPI.getQuizDetail(quizId)
     ctx.commit('setQuizDetail', {
       quizId,
@@ -104,7 +129,10 @@ export const actions = {
     }
     return Promise.resolve(quiz)
   },
-  async getQuizQuestions(ctx, { quiz, quizId }) {
+  async getQuizQuestions(ctx, {
+    quiz,
+    quizId
+  }) {
     const detail = await PenpolAPI.getQuizQuestions(quizId)
     const questions = [
       ...detail.answered_questions.map(it => {
@@ -125,8 +153,13 @@ export const actions = {
     })
   },
   async answerQuestion(
-    ctx,
-    { quizId, questionId, answerId, status = 'in_progress', isLast = false }
+    ctx, {
+      quizId,
+      questionId,
+      answerId,
+      status = 'in_progress',
+      isLast = false
+    }
   ) {
     const quiz = await PenpolAPI.answerQuestion(quizId, questionId, answerId)
     ctx.commit('answeredQuestion', {
@@ -144,15 +177,33 @@ export const actions = {
   },
   async getTotalKecenderungan(ctx) {
     const resp = await PenpolAPI.getTotalKecenderungan()
-    const selectedData = resp.teams.find(team => Math.max(team.percentage))
-    const id = resp.quiz_preference.id
-    const percentage = Math.ceil(selectedData.percentage)
+    var selectedData = null
+    var groupName = null
+    var percentage = 0
+    var groupAvatar = null
+    var image = null
+    var id = null
+    if (resp.teams[0].percentage === 50.0) {
+      selectedData = resp.teams[Math.floor(resp.teams.length * Math.random())]
+    } else {
+      selectedData = resp.teams.find(item => item.percentage === Math.max(...resp.teams.map(function(d) { return d.percentage })))
+    }
+    if (selectedData != null) {
+      percentage = Math.ceil(selectedData.percentage)
+      groupAvatar = selectedData.team.avatar
+      groupName = selectedData.team.title
+    }
+    if (resp.quiz_preference.image_result != null) {
+      image = resp.quiz_preference.image_result.url
+    }
+
+    if (resp.quiz_preference.id != null) {
+      id = resp.quiz_preference.id
+    }
     const totalQuiz = resp.meta.quizzes.total
-    const finishedQuiz = resp.meta.quizzes.finished
-    const groupName = selectedData.team.title
     const fullName = resp.user.full_name
-    const groupAvatar = selectedData.team.avatar
-    const image = resp.quiz_preference.image_result.url
+    const finishedQuiz = resp.meta.quizzes.finished
+    const userId = resp.user.id
     ctx.commit('setTotalKecenderungan', {
       id,
       finishedQuiz,
@@ -161,15 +212,28 @@ export const actions = {
       percentage,
       fullName,
       groupAvatar,
-      image
+      image,
+      userId
     })
   },
-  getQuizResult({ commit }, quizId) {
+
+  getQuizResult({
+    commit
+  }, quizId) {
     PenpolAPI.getQuizResult(quizId).then(response =>
       commit('setQuizResult', response)
     )
   },
-  getQuizSummary({ commit }, quizId) {
+  getQuizResultDetail({
+    commit
+  }, quizParticipationId) {
+    PenpolAPI.getQuizResultDetail(quizParticipationId).then(response =>
+      commit('setQuizResult', response)
+    )
+  },
+  getQuizSummary({
+    commit
+  }, quizId) {
     PenpolAPI.getQuizSummary(quizId).then(response =>
       commit('setQuizSummary', response)
     )
@@ -186,7 +250,11 @@ export const mutations = {
   setFinishedQuiz(state, quiz) {
     state.quizzesFinised = quiz
   },
-  answeredQuestion(state, { quizId, questionId, answerId }) {
+  answeredQuestion(state, {
+    quizId,
+    questionId,
+    answerId
+  }) {
     const questions = state.quizQuestions[quizId]
     const index = questions.findIndex(question => question.id === questionId)
     let stateQuestions = questions.find(question => question.id === questionId)
@@ -194,7 +262,11 @@ export const mutations = {
 
     state.quizQuestions[index] = stateQuestions
   },
-  checkoutQuiz(state, { id, status, currentStatus }) {
+  checkoutQuiz(state, {
+    id,
+    status,
+    currentStatus
+  }) {
     const listQuiz = (() => {
       switch (status) {
         case 'not_participating':
@@ -217,10 +289,16 @@ export const mutations = {
     listTargetQuiz.unshift(quiz)
     listQuiz.splice(index, 1)
   },
-  setQuizQuestions(state, { quizId, questions }) {
+  setQuizQuestions(state, {
+    quizId,
+    questions
+  }) {
     Vue.set(state.quizQuestions, quizId, questions)
   },
-  setQuizDetail(state, { quizId, quiz }) {
+  setQuizDetail(state, {
+    quizId,
+    quiz
+  }) {
     const quizType = quiz.participation_status
     const listQuiz = (() => {
       switch (quizType) {
@@ -251,7 +329,9 @@ export const mutations = {
   [types.SUCCESS_QUESTIONS](state, payload) {
     state.questions = payload
   },
-  [types.ERROR_QUESTIONS](state, { savedQuestions }) {
+  [types.ERROR_QUESTIONS](state, {
+    savedQuestions
+  }) {
     state.questions = savedQuestions
   },
   [types.SUCCESS_REPORT](state, payload) {},
@@ -259,18 +339,23 @@ export const mutations = {
   [types.SUCCESS_VOTE](state, id) {
     const index = state.questions.findIndex(question => question.id === id)
     let question = state.questions.find(question => question.id === id)
-    question.is_liked = true
-    question.like_count += 1
 
-    state.questions[index] = question
+    if (question) {
+      question.is_liked = true
+      question.like_count += 1
+
+      state.questions[index] = question
+    }
   },
   [types.SUCCESS_UNVOTE](state, id) {
     const index = state.questions.findIndex(question => question.id === id)
     let question = state.questions.find(question => question.id === id)
-    question.is_liked = false
-    question.like_count -= 1
+    if (question) {
+      question.is_liked = false
+      question.like_count -= 1
 
-    state.questions[index] = question
+      state.questions[index] = question
+    }
   },
   [types.ERROR_VOTE](state) {},
   [types.ADD_QUESTION](state, question) {

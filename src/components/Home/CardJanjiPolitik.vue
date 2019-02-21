@@ -91,7 +91,6 @@ import { mapState, mapActions } from 'vuex'
 import { authLink } from '@/mixins/link'
 import { cleanURL } from '@/utils'
 
-import LoadingLottie from '@/components/LoadingLottie'
 import {
   LinkIcon,
   AlertIcon,
@@ -107,7 +106,6 @@ export default {
   components: {
     BottomArrow,
     IconDots,
-    LoadingLottie,
     LinkIcon,
     AlertIcon,
     ShareIcon,
@@ -129,7 +127,7 @@ export default {
     ...mapState('homeJanjiPolitik', ['feedsJanjiPolitik', 'paginations']),
     ...mapState('loadingLottie', ['loadingAnimating']),
     shareURL() {
-      return `/linimasa/detail/`
+      return `/share/janjipolitik/`
     }
   },
   created() {
@@ -176,7 +174,7 @@ export default {
     },
 
     copyToClipboard(id) {
-      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.SHARE_DOMAIN}/share/janjipolitik/${id}`)
       this.$clipboard(url)
       this.isActive = false
       this.$toaster.info('Berhasil menyalin teks.')

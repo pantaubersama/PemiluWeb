@@ -7,6 +7,7 @@ import {
 
 export const http = {
   base_url: process.env.API_BASE_URL,
+
   request(method, url, data, successCb = null, errorCb = null, headers = {}) {
     axios
       .request({

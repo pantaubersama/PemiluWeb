@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" :class="{'sidebar-open':isToggle}">
     <div class="menu-bg"></div>
-    <Header @toggleSidebar="activeSidebar"/>
+    <Header @toggleSidebar="activeSidebar" @removeSidebar="removeSidebar"/>
     <div class="container main-wrapper">
       <div class="col-lg-3 sidebar">
         <slot name="sidebar">
@@ -12,7 +12,7 @@
                 <search-icon></search-icon>
               </div>
             </div>
-          </div>-->
+          </div> -->
           <nav-sidebar-top></nav-sidebar-top>
           <nav-sidebar-bottom></nav-sidebar-bottom>
         </slot>
@@ -47,12 +47,6 @@ export default {
       isToggle: false
     }
   },
-  created() {
-    window.addEventListener('click', this.removeSidebar)
-  },
-  beforeDestroy() {
-    window.removeEventListener('click', this.removeSidebar)
-  },
   methods: {
     activeSidebar() {
       this.isToggle = !this.isToggle
@@ -61,13 +55,8 @@ export default {
         : ''
     },
     removeSidebar(event) {
-      if (
-        !event.target.parentNode.classList.contains('burger-wrapper') &&
-        !event.target.parentNode.classList.contains('input-search')
-      ) {
-        this.isToggle = false
-        document.documentElement.className = ''
-      }
+      this.isToggle = false
+      document.documentElement.className = ''
     }
   },
   beforeDestroy() {

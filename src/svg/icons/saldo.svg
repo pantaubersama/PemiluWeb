@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <style>
+            .cls-1{fill:none}
+        </style>
+    </defs>
+    <g id="Saldo" transform="translate(-24 -424)">
+        <path id="Path_97" d="M0 0h16v16H0z" class="cls-1" data-name="Path 97" transform="translate(24 424)"/>
+        <path id="Path_1962" d="M13.333 3.333h1.333V2H4v1.333h1.333v1.494l1.92 3.84-1.92 3.84V14H4v1.333h10.667V14h-1.334v-1.487l-1.92-3.847 1.92-3.84zM8.667 8.847v2.307L8.253 12H7.08zM11.587 12h-1.174L10 11.173V8.867zM12 4.507L11.26 6H7.407l-.74-1.493V3.333H12z" data-name="Path 1962" transform="translate(22.667 423.333)"/>
+    </g>
+</svg>

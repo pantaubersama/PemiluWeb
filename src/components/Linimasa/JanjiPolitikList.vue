@@ -3,6 +3,7 @@
     <ModalCreate
       :name="setName(user.full_name)"
       :avatar="user.avatar.medium_square.url"
+      :is-submitting="isSubmitting"
       v-if="modal === 'modalCreate'"
       v-on:close="closeModal()"
       v-on:submit="submitPublikasi($event)"
@@ -80,19 +81,17 @@ export default {
       type: Array,
       required: true
     },
-    userAuth: {
-      type: Boolean,
-      required: true
-    },
     loading: {
       type: Boolean,
       require: true
     },
+    userAuth: Boolean,
     user: Object
   },
   data() {
     return {
       modal: false,
+      isSubmitting: false,
       shareTitle: 'Sudah tahu Janji yang ini, belum? Siap-siap catatan, ya! ✔',
       isSharing: false,
       shareId: ''
@@ -104,7 +103,7 @@ export default {
       return this.user.cluster.is_eligible
     },
     shareURL() {
-      return `/linimasa/detail/`
+      return `/share/janjipolitik/`
     }
   },
   methods: {
@@ -120,7 +119,7 @@ export default {
     },
     copyToClipboard(id) {
       this.isActive = false
-      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.SHARE_DOMAIN}/share/janjipolitik/${id}`)
       this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')
     },
@@ -133,7 +132,11 @@ export default {
       this.modal = false
     },
     submitPublikasi(data) {
-      this.postJanjiPolitik(data).then(() => this.closeModal())
+      this.isSubmitting = true
+      this.postJanjiPolitik(data).then(() => {
+        this.isSubmitting = false
+        this.closeModal()
+      })
     }
   }
 }

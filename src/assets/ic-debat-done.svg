@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#111}
+        </style>
+    </defs>
+    <g id="outline-debate-done-24px" transform="translate(-118 -1034)">
+        <path id="Rectangle_160" d="M0 0h24v24H0z" class="cls-1" data-name="Rectangle 160" transform="translate(118 1034)"/>
+        <path id="Path_1941" d="M8 20.8L5.46 17H2V4h16v13h-7.46zM4 15h2.54L8 17.2 9.46 15H16V6H4z" class="cls-2" data-name="Path 1941" transform="translate(118 1034)"/>
+        <path id="Path_1942" d="M22 21H12v-2h8V8h2z" class="cls-2" data-name="Path 1942" transform="translate(118 1034)"/>
+        <path id="Path_1943" d="M8 13.41l-2.71-2.7 1.42-1.42L8 10.59l3.29-3.3 1.42 1.42z" class="cls-2" data-name="Path 1943" transform="translate(118 1034)"/>
+    </g>
+</svg>

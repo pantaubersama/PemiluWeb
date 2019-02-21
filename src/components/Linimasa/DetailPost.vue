@@ -3,7 +3,7 @@
     <div class="card card-detail">
       <div class="detail-title">{{ data.title }}</div>
       <div class="content-wrapper">
-        <div class="detail-cluster">
+        <div class="detail-cluster" v-if="data.creator.cluster.name">
           <div class="cluster-thumb">
             <img
               :src="data.creator.cluster.image.thumbnail_square.url"
@@ -59,7 +59,19 @@
         </div>
       </div>
     </div>
-
+    <a href="" class="card card-author" >
+      <div class="author-thumb">
+        <img
+          :src="data.creator.avatar.medium_square.url"
+          v-if="data.creator.avatar.medium_square.url"
+          alt
+        >
+        <img src="@/assets/user.svg" alt v-else>
+      </div>
+      <div class="author-name">{{ data.creator.full_name }}</div>
+      <p>{{ data.creator.about }}</p>
+      <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
+    </a>
     <ModalShare
       v-if="isSharing"
       @close="isSharing = false"
@@ -123,12 +135,12 @@ export default {
       )
     },
     shareURL() {
-      return `/linimasa/detail/`
+      return `/share/janjipolitik/`
     }
   },
   methods: {
     copyToClipboard(id) {
-      const url = cleanURL(`${process.env.BASE_URL}/linimasa/detail/${id}`)
+      const url = cleanURL(`${process.env.SHARE_DOMAIN}/share/janjipolitik/${id}`)
       this.$clipboard(url)
       this.isActive = false
       this.$toaster.info('Berhasil menyalin teks.')

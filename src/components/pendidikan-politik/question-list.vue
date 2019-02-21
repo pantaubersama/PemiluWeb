@@ -80,14 +80,12 @@ export default {
       type: Boolean,
       required: true
     },
-    userAuth: {
-      type: Boolean,
-      required: true
-    }
+    userAuth: Boolean
   },
   data() {
     return {
       modal: false,
+      isActive: false,
       isSubmitting: false,
       shareTitle: 'Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆',
       isSharing: false,
@@ -100,7 +98,7 @@ export default {
       isLoggedIn: s => s.profile.token != null
     }),
     shareURL() {
-      return `/pendidikan-politik/detail/`
+      return `/share/tanya/`
     }
   },
   methods: {
@@ -132,7 +130,7 @@ export default {
     copyToClipboard(id) {
       this.isActive = false
       const url = cleanURL(
-        `${process.env.BASE_URL}/pendidikan-politik/detail/${id}`
+        `${process.env.SHARE_DOMAIN}/share/tanya//${id}`
       )
       this.$clipboard(url)
       this.$toaster.info('Berhasil menyalin teks.')

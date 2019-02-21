@@ -36,6 +36,15 @@ export const fetchQuestions = ({
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }
+export const getQuestionHistory = (id, page, perPage) =>
+  api
+    .get(`/v1/users/${id}/questions`, {
+      params: {
+        page: page,
+        per_page: perPage
+      }
+    })
+    .then(resp => resp.data.data)
 
 export const postReport = (id, className = 'Question') => {
   return api
@@ -59,7 +68,12 @@ export const vote = (id, className = 'Question') => {
 
 export const unVote = (id, className = 'Question') => {
   return api
-    .delete(`/v1/votes`, { data: { id, class_name: className } })
+    .delete(`/v1/votes`, {
+      data: {
+        id,
+        class_name: className
+      }
+    })
     .then(response => Promise.resolve(response.data.data))
     .catch(error => Promise.reject(error))
 }
@@ -139,6 +153,8 @@ export const listQuizz = (type = QuizType.ALL, page = 1, perPage = 100) => {
 
 export const getQuizResult = quizId =>
   api.get(`/v1/quizzes/${quizId}/result`).then(resp => resp.data.data)
+export const getQuizResultDetail = quizParticipationId =>
+  api.get(`/v1/quiz_participations/${quizParticipationId}/result`).then(resp => resp.data.data)
 export const getQuizSummary = quizId =>
   api.get(`/v1/quizzes/${quizId}/summary`).then(resp => resp.data.data)
 export const getQuizQuestions = quizId =>

@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import { vueAuth } from '@/services/symbolic'
+import {
+  vueAuth
+} from '@/services/symbolic'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LiniMasaAPI from '@/services/api/modules/lini-masa'
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
-
 export const namespaced = true
 export const state = {
   token: null,
@@ -56,33 +57,47 @@ export const state = {
   },
   badges: [],
   listBadges: [],
+  badgeDetail: [],
   categories: [],
   cluster: {},
   clusters: [],
-  filterClusters: [
-    {
-      category: {},
-      category_id: null,
-      created_at: null,
-      description: null,
-      id: null,
-      image: null,
-      is_displayed: true,
-      is_eligible: false,
-      is_link_active: false,
-      magic_link: null,
-      members_count: 0,
-      name: 'Semua Cluster',
-      requester: {},
-      status: 'approved'
-    }
-  ],
+  filterClusters: [{
+    category: {},
+    category_id: null,
+    created_at: null,
+    description: null,
+    id: null,
+    image: null,
+    is_displayed: true,
+    is_eligible: false,
+    is_link_active: false,
+    magic_link: null,
+    members_count: 0,
+    name: 'Semua Cluster',
+    requester: {},
+    status: 'approved'
+  }],
   historyLinimasa: [],
   historyPendidikanPolitik: [],
   historyWordStadium: [],
   historyLapor: [],
   historyPerhitungan: [],
-  politicalParties: []
+  politicalParties: [],
+  clusterDetail: [],
+  paginations: {
+    historyLinimasa: {
+      page: 1,
+      perPage: 5,
+      total: 0,
+      isLast: false
+    },
+    historyPenPol: {
+      page: 1,
+      perPage: 5,
+      total: 0,
+      isLast: false
+    }
+  },
 }
 
 export const actions = {
@@ -95,6 +110,7 @@ export const actions = {
       user
     })
   },
+
   async update(store, user) {
     store.commit('setProfileData', {
       user
@@ -113,11 +129,19 @@ export const actions = {
     })
   },
 
-  async getBadges(store) {
-    const data = await ProfileAPI.getBadges()
+  async getBadges(store, payload) {
+    const data = await ProfileAPI.getBadges(payload.id)
     store.commit('setBadges', {
-      badges: data.achieved_badges.map(it => it.badge)
+      badges: data.achieved_badges
     })
+  },
+  async getClusterDetail(store, payload) {
+    const data = await ProfileAPI.getClusterDetail(payload.id)
+    store.commit('setClusterDetail', data.cluster)
+  },
+  async leaveClusters(store) {
+    const data = await ProfileAPI.leaveClusters()
+    store.commit('leaveClusters')
   },
   async listBadges(ctx) {
     const badges = (await ProfileAPI.listBadges()).badges
@@ -126,10 +150,18 @@ export const actions = {
     ctx.commit('setListBadges', badges)
   },
 
+  async getBadgeDetail(ctx, payload) {
+    const data = await ProfileAPI.getBadgeDetail(payload.id)
+    ctx.commit('setBadgeDetail', data.achieved_badge)
+  },
   async getClusterList(ctx, payload) {
     const clusters = await ProfileAPI.getClusterList(payload)
-    ctx.commit('setClusterList', clusters)
-    ctx.commit('setFilterClusterList', clusters)
+      .then(clusters => {
+        ctx.commit('setClusterList', clusters)
+        ctx.commit('setFilterClusterList', clusters)
+      })
+      .catch(() => {})
+
     return Promise.resolve(clusters)
   },
   searchClusters(ctx, name) {
@@ -144,11 +176,13 @@ export const actions = {
       categories: data.categories
     })
   },
+
   async createCategories(store, name) {
     const data = await ProfileAPI.createCategories(name)
     store.commit('addCategory', data)
     return Promise.resolve(data)
   },
+
   async createCluster(store, payload) {
     const data = await ProfileAPI.createCluster(
       payload.name,
@@ -158,6 +192,7 @@ export const actions = {
     )
     return Promise.resolve(data)
   },
+
   async verify(store, payload) {
     return ProfileAPI.verify(payload)
   },
@@ -178,26 +213,69 @@ export const actions = {
     })
   },
 
-  async getLinimasaHistory(ctx) {
-    const feeds = (await LiniMasaAPI.fetchFeedsPilpres({
-      perPage: 5
-    })).feeds
-    ctx.commit('setLinimasaHistory', feeds)
+  async getLinimasaHistory(ctx, payload) {
+    const data = await LiniMasaAPI.getLinimasaHistory(
+      payload.id,
+      state.paginations.historyLinimasa.page,
+      state.paginations.historyLinimasa.perPage)
+    ctx.commit('setLinimasaHistory', data.janji_politiks)
+    if(data.janji_politiks.length <= 0){
+      ctx.commit('showLottie/showLottie',{},{
+        root: true
+      })
+    }
   },
-  async getQuestionList(ctx) {
-    const data = await PenpolAPI.fetchQuestions({
-      perPage: 5
-    })
-    ctx.commit('setPenpolHistory', data.questions)
+  async nextPageLinimasaHistory(ctx) {
+    ctx.commit('nextPageLinimasaHistory')
   },
 
+  async updateLinimasaHistory(ctx, payload) {
+    const data = await LiniMasaAPI.getLinimasaHistory(
+      payload.id,
+      state.paginations.historyLinimasa.page,
+      state.paginations.historyLinimasa.perPage)
+    ctx.commit('updateLinimasaHistory', data)
+  },
+
+
+  async getQuestionHistory(ctx, payload) {
+    const data = await PenpolAPI.getQuestionHistory(
+      payload.id,
+      state.paginations.historyPenPol.page,
+      state.paginations.historyPenPol.perPage)
+    ctx.commit('setPenpolHistory', data.questions)
+    if(data.questions.length <= 0){
+      ctx.commit('showLottie/showLottieTanya',{},{
+        root: true
+      })
+    }
+  },
+  async nextPageQuestionHistory(ctx) {
+    ctx.commit('nextPageQuestionHistory')
+  },
+
+  async updateQuestionHistory(ctx, payload) {
+    const data = await PenpolAPI.getQuestionHistory(
+      payload.id,
+      state.paginations.historyPenPol.page,
+      state.paginations.historyPenPol.perPage)
+    ctx.commit('updateQuestionHistory', data)
+  },
   inviteToCluster(ctx, payload) {
     return ProfileAPI.inviteToCluster(payload.clusterId, payload.emails)
   },
+
   enableMagicLink(ctx, payload) {
     return ProfileAPI.enableMagicLink(payload.clusterId, payload.enabled).then(
       data => {
         ctx.commit('setCluster', data.cluster)
+      }
+    )
+  },
+  async joinCluster(ctx, payload) {
+    return ProfileAPI.joinCluster(payload.magicLink).then(
+      data => {
+        ctx.commit('setClusterDetail', data.cluster)
       }
     )
   },
@@ -214,6 +292,7 @@ export const actions = {
       user
     })
   },
+
   async selectPartai(ctx, payload) {
     const user = await ProfileAPI.votePreference({
       votePreference: ctx.rootState.profile.user.vote_preference || null,
@@ -223,6 +302,7 @@ export const actions = {
       user
     })
   },
+
   async getPoliticalParties(store) {
     const data = await ProfileAPI.getPoliticalParties()
     store.commit('setPoliticalParties', {
@@ -243,6 +323,21 @@ export const mutations = {
   },
   setBadges(state, payload) {
     state.badges = payload.badges
+  },
+  setClusterDetail(state, payload) {
+    state.clusterDetail = payload
+  },
+  leaveClusters(state) {
+    state.user.cluster = null
+  },
+  setBadgeDetail(state, payload) {
+    state.badgeDetail = payload
+  },
+  emptyBadgeDetail(state) {
+    state.badgeDetail = []
+  },
+  UserQuestion(state, payload) {
+    state.userQuestion = payload.questions
   },
   setCategories(state, payload) {
     state.categories = payload.categories
@@ -277,7 +372,44 @@ export const mutations = {
   setFilterClusterList(state, clusters) {
     const allClusters = [state.filterClusters[0], ...clusters]
     state.filterClusters = allClusters
+  },
+  setVoted(state, id) {
+    const index = state.historyPendidikanPolitik.findIndex(question => question.id === id)
+    let question = state.historyPendidikanPolitik.find(question => question.id === id)
+    question.is_liked = true
+    question.like_count += 1
+
+    state.historyPendidikanPolitik[index] = question
+  },
+  removeVoted(state, id) {
+    const index = state.historyPendidikanPolitik.findIndex(question => question.id === id)
+    let question = state.historyPendidikanPolitik.find(question => question.id === id)
+    question.is_liked = false
+    question.like_count -= 1
+
+    state.historyPendidikanPolitik[index] = question
+  },
+  nextPageLinimasaHistory(state) {
+    state.paginations.historyLinimasa.page++
+  },
+  updateLinimasaHistory(state, data) {
+    if (data.meta.pages.total == state.paginations.historyLinimasa.page) {
+      state.paginations.historyLinimasa.isLast = true
+    }
+    state.historyLinimasa.push.apply(state.historyLinimasa, data.janji_politiks)
+  },
+
+  nextPageQuestionHistory(state) {
+    state.paginations.historyPenPol.page++
+  },
+
+  updateQuestionHistory(state, data) {
+    if (data.meta.pages.total == state.paginations.historyPenPol.page) {
+      state.paginations.historyPenPol.isLast = true
+    }
+    state.historyPendidikanPolitik.push.apply(state.historyPendidikanPolitik, data.questions)
   }
+
 }
 
 export const getters = {

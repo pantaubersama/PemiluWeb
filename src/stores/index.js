@@ -16,6 +16,13 @@ import homeCluster from '@/stores/modules/home/cluster'
 import homeKenalan from '@/stores/modules/home/kenalan'
 import dashboard from '@/stores/modules/dashboard'
 import loadingLottie from '@/stores/modules/loading-lottie'
+import showLottie from '@/stores/modules/empty-lottie'
+import * as search from '@/stores/modules/search'
+
+// Lini Masa
+import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
+import PendidikanPolitikDetail from '@/stores/pendidikan_politik/tanya/detail'
+import PendidikanPolitikQuizParticipation from '@/stores/pendidikan_politik/quiz_participations/kecenderungan'
 
 Vue.use(Vuex)
 
@@ -44,7 +51,12 @@ export default new Vuex.Store({
     homeQuiz,
     homeCluster,
     snackbar,
-    homeKenalan
+    homeKenalan,
+    search,
+    showLottie,
+    LiniMasaDetail,
+    PendidikanPolitikDetail,
+    PendidikanPolitikQuizParticipation
   },
   strict: debug,
   plugins: [beforeAction]

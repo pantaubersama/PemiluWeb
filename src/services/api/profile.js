@@ -37,19 +37,29 @@ export const updateProfile = user =>
     .then(resp => resp.data)
     .then(data => data.data.user)
 
-export const getBadges = () =>
+export const getBadges = id =>
   api
-    .get('/v1/me/badges', {
+    .get(`/v1/badges/user/${id}`, {
       params: {
         per_page: 3
       }
     })
     .then(resp => resp.data.data)
+
+export const getClusterDetail = id =>
+  api
+  .get(`/v1/clusters/${id}`)
+  .then(resp => resp.data.data)
+
+export const leaveClusters = () =>
+  api
+  .delete('/v1/me/clusters')
+
 export const listBadges = () =>
   api.get('/v1/badges').then(resp => resp.data.data)
 
 export const getBadgeDetail = id =>
-  api.get(`/v1/badge/${id}`).then(resp => resp.data.data)
+  api.get(`/v1/achieved_badges/${id}`).then(resp => resp.data.data)
 
 export const getCategories = (page = 1, per_page = 100) =>
   api
@@ -77,8 +87,12 @@ export const createCluster = (
   const formData = new FormData()
   formData.append('name', name)
   formData.append('category_id', categoryId)
-  formData.append('description', description)
-  formData.append('image', avatarFile)
+  if (description !== null) {
+    formData.append('description', description)
+  }
+  if (avatarFile !== null) {
+    formData.append('image', avatarFile)
+  }
   return axios
     .post('/v1/clusters', formData)
     .then(resp => resp.data.data.cluster)
@@ -170,12 +184,23 @@ export const inviteToCluster = (clusterId, ...emails) =>
       emails: emails.join(',')
     })
     .then(resp => resp.data.data)
+
 export const enableMagicLink = (clusterId, enable = true) =>
   api
     .post(`/v1/clusters/${clusterId}/magic_link`, {
       enable
     })
     .then(resp => resp.data.data)
+
+export const joinCluster = magicLink => {
+  return api
+    .get('/v1/clusters/join', {
+        params: {
+          magic_link: magicLink
+        }
+      })
+      .then(resp => resp.data)
+  }
 
 export const votePreference = ({
   votePreference = null,

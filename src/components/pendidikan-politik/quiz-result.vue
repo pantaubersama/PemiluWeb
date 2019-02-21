@@ -27,12 +27,12 @@
         <a
           href="javascript:void(0)"
           class="share"
-          @click.prevent="share(`/share/hasilkuis/${quizzesResult.quiz_participation.id}`, 'Kamu sudah ikut? Aku sudah dapat hasilnya 😎')"
+          @click.prevent="share('/share/hasilkuis/',quizzesResult.quiz_participation.id, 'Kamu sudah ikut? Aku sudah dapat hasilnya 😎')"
         >
           <share-icon></share-icon>BAGIKAN
         </a>
         <div class="block-bottom">
-          <a
+          <a v-if="this.showKunciJawaban()"
             class="block-bottom--title"
             @click="$emit('onClickAnswerButton')"
           >Lihat kunci jawaban >>></a>
@@ -48,7 +48,13 @@
       @close="$emit('onClickNextButton', showModal)"
       @click.stop="$emit('onClickNextButton', showModal)"
     />
-    <ModalShare v-if="isSharing" :url="shareURL" :title="shareTitle" @close="isSharing = false"></ModalShare>
+    <ModalShare
+      v-if="isSharing"
+      :url="shareURL"
+      :title="shareTitle"
+      :id="shareId"
+      @close="isSharing = false"
+    ></ModalShare>
   </div>
 </template>
 
@@ -72,7 +78,9 @@ export default {
     ModalShare
   },
   props: {
-    showModal: Boolean
+    showModal: Boolean,
+    hideKunciJawaban: Boolean,
+    isPublic: Boolean
   },
   data() {
     return {
@@ -81,9 +89,13 @@ export default {
       shareTitle: null
     }
   },
-  beforeCreate() {
+  created() {
     const id = this.$route.params.id
-    this.$store.dispatch('getQuizResult', id)
+    if(this.isPublic){
+      this.$store.dispatch('getQuizResultDetail', id)
+    }else{
+      this.$store.dispatch('getQuizResult', id)
+    }
   },
   computed: {
     ...mapState({
@@ -126,10 +138,15 @@ export default {
     }
   },
   methods: {
-    share(url, title) {
+    share(url, id, title) {
       this.shareURL = url
       this.shareTitle = title
+      this.shareId = id
       this.isSharing = true
+    },
+
+    showKunciJawaban(){
+      return !this.hideKunciJawaban
     }
   }
 }

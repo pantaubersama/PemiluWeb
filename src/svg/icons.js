@@ -40,6 +40,17 @@ import IconShare from './icons/icon-share.svg'
 import LogoPantau from './icons/logo-pantau.svg'
 import IconAvatar from './icons/avatar.svg'
 import ImageDefault from './icons/image-default.svg'
+import ExpandMore from './icons/expand-more.svg'
+import LiveRed from './icons/live-red.svg'
+import StatusWordstadium from './icons/status-wordstadium.svg'
+import AppreciateYellow from './icons/appreciate-yellow.svg'
+import AppreciateBlack from './icons/appreciate-black.svg'
+import ExpandCollapse from './icons/expand-collapse.svg'
+import DateSecondary from './icons/date-sec.svg'
+import Clock from './icons/clock.svg'
+import Saldo from './icons/saldo.svg'
+import SaldoClock from './icons/saldo-clock.svg'
+import Comment from './icons/comment.svg'
 
 export {
   AlertIcon,
@@ -83,5 +94,16 @@ export {
   IconAvatar,
   IconShare,
   LogoPantau,
-  ImageDefault
+  ImageDefault,
+  ExpandMore,
+  LiveRed,
+  StatusWordstadium,
+  AppreciateYellow,
+  AppreciateBlack,
+  ExpandCollapse,
+  DateSecondary,
+  Clock,
+  Saldo,
+  SaldoClock,
+  Comment
 }

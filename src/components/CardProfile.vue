@@ -26,7 +26,9 @@
         :user="user"
         @request-cluster="() => modal = 'ModalRequestCluster'"
         @invite-cluster="() => modal = 'ModalInviteCluster'"
-      ></cluster-panel>
+        @confirm-delete-cluster="() => modal = 'ModalConfirmDeleteCluster'"
+      />
+
       <div class="list-wrap">
         <h4 class="title">
           Biodata
@@ -55,55 +57,29 @@
         <h4 class="title">Badge
           <router-link class="badge-more" to="/profile/badge">Lihat lainnya</router-link>
         </h4>
+
         <template v-if="badges.length > 0">
-          <div v-for="badge in sortedBadges" :key="badge.id" class="item">
-            <img :src="badge.image.url">
-            <span>
-              <p :data-title="badge.name">{{badge.name}}</p>
-              <p class="sub-text" :data-text="badge.description">{{badge.description || '-'}}</p>
-            </span>
-          </div>
-        </template>
-        <template v-else>
-          <div class="item">
-            <img src="@/assets/flag-star-1.png">
-            <span>
-              <p>
-                KADET -
-                <i>placeholder</i>
-              </p>
-              <p class="sub-text">Ikut Kuis Pendidikan Pertama Kali</p>
-            </span>
-          </div>
-          <div class="item">
-            <img src="@/assets/finger-star-1.png">
-            <span>
-              <p>
-                KEPO -
-                <i>placeholder</i>
-              </p>
-              <p class="sub-text">Ikut Tanya Calon Presiden Pertama Kali</p>
-            </span>
-          </div>
-          <div class="item">
-            <img src="@/assets/flag-star-3.png">
-            <span>
-              <p>
-                VETERAN -
-                <i>placeholder</i>
-              </p>
-              <p class="sub-text">Misi Ikut Kuis Pendidikan 10 X</p>
-            </span>
+          <div v-for="(badge, index) in badges" :key="index">
+            <div v-if="index <= 2" class="item">
+              <div class="item-thumb">
+                <img v-if="badge.badge.image.url" :src="badge.badge.image.url">
+                <img v-else src="@/assets/flag-star-1.png">
+              </div>
+              <span>
+                <p :data-title="badge.name">{{badge.badge.name}}</p>
+                <p class="sub-text" :data-text="badge.description">{{badge.badge.description || ''}}</p>
+              </span>
+            </div>
           </div>
         </template>
       </div>
-    </div>
 
+    </div>
     <div class="card tabs">
       <div class="nav-tabs">
         <ul>
           <li>
-            <router-link class="tab-nav" :to="{ path: '/profile', query: { history: 'linimasa' }}">
+            <router-link class="tab-nav" :to="{ path: '/profile'}">
               <i class="icon icon-book"></i>
             </router-link>
           </li>
@@ -112,7 +88,8 @@
               <i class="icon icon-education"></i>
             </router-link>
           </li>
-          <li>
+
+          <!-- <li>
             <router-link
               class="tab-nav"
               :to="{ path: '/profile', query: { history: 'wordstadium' }}"
@@ -132,92 +109,95 @@
             >
               <i class="icon icon-date"></i>
             </router-link>
-          </li>
+          </li>-->
         </ul>
       </div>
-      <template v-if="$route.query.history == null || $route.query.history === 'linimasa'">
-        <janji-politik-card
-          v-for="feed in feedLinimasa"
-          :key="feed.id"
-          :avatarURL="feed.account.profile_image_url"
-          :name="feed.account.name"
-          :cluster="feed.team.title"
-          :text="feed.source.text"
-          :time="feed.created_at_in_word.en"
-        ></janji-politik-card>
-      </template>
-      <template v-else-if="$route.query.history === 'penpol'">
-        <question-item
-          v-for="question in feedPenpol"
-          :key="question.id"
-          :id="question.id"
-          :name="question.user.full_name"
-          :avatar="question.user.avatar.url"
-          :title="question.title"
-          :time="question.created_at_in_word.en"
-          :question="question.body"
-          :is-voted="question.is_liked"
-          :count="question.like_count"
-        ></question-item>
-      </template>
-      <template v-else>
+
+      <janji-politik-card
+        v-if="$route.query.history == null"
+        :data="feedLinimasa"
+        :user="user"
+        :loading="isLoading"
+        :paginationsLinimasa="paginationsLinimasa"
+        @loadMoreLinimasa='loadMoreLinimasa'
+      />
+
+      <tanya-kandidat-card
+        v-if="$route.query.history === 'penpol'"
+        :questions="feedPenpol"
+        :paginationsPenPol="paginationsPenPol"
+        :loading="isLoading"
+        @loadMorePenPol='loadMorePenPol'
+      />
+
+      <!-- <template v-else>
         <comming-soon></comming-soon>
-      </template>
+      </template>-->
     </div>
 
-    <modal-request-cluster v-if="modal === 'ModalRequestCluster'" @close-request="closeModal()"></modal-request-cluster>
-    <modal-confirm-request-cluster
-      v-if="modal === 'ModalConfirmCluster'"
+    <modal-request-cluster
+      v-if="modal === 'ModalRequestCluster'"
+      @close-request="closeModal()"
+    />
+
+    <modal-confirm-delete-cluster
+      v-if="modal === 'ModalConfirmDeleteCluster'"
       @back="onConfirmBack()"
-      @confirm="onConfirmRequestCluster()"
-    ></modal-confirm-request-cluster>
+      @deleteCluster="onConfirmDeleteCluster()"
+    />
+
     <modal-edit-profile
       v-if="modal === 'ModalEditProfile'"
       @close="closeModal()"
       @submit="onSubmitProfile($event)"
       :user="user"
     />
+
     <modal-invite-cluster
       v-if="modal === 'ModalInviteCluster'"
-      :cluster="user.cluster"
       @close-request="closeModal()"
-    ></modal-invite-cluster>
+    />
   </div>
 </template>
 
 <script>
 import { authLink } from '@/mixins/link'
-import { mapState } from 'vuex'
+import { utils } from '@/mixins/utils'
+import { mapState, mapActions } from 'vuex'
+
 import ListCardJP from '@/components/ListCardJP'
 import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
-import ModalConfirmRequestCluster from '@/pages/Profile/ModalConfirmRequestCluster'
+import ModalConfirmDeleteCluster from '@/pages/Profile/ModalConfirmDeleteCluster'
 import ModalEditProfile from '@/pages/Profile/ModalEditProfile'
 import { VerifiedIconDefault } from '@/svg/icons'
 import ClusterPanel from '@/components/profile/cluster-panel'
 import ModalInviteCluster from '@/pages/Profile/ModalInviteCluster'
-import JanjiPolitikCard from '@/components/janji-politik-card'
-import QuestionItem from '@/components/pendidikan-politik/question-item'
-import CommingSoon from '@/components/ComingSoon'
+import JanjiPolitikCard from '@/components/profile/janji-politik-card'
+import TanyaKandidatCard from '@/components/profile/tanya-kandidat-card'
+import ShareOptions from '@/mixins/share-options'
+import ContentLoader from '@/components/Loading/ContentLoader'
+// import CommingSoon from '@/components/ComingSoon'
 export default {
   name: 'CardProfile',
   components: {
     ListCardJP,
     JanjiPolitikCard,
     ModalRequestCluster,
-    ModalConfirmRequestCluster,
+    ModalConfirmDeleteCluster,
     VerifiedIconDefault,
     ModalEditProfile,
     ClusterPanel,
     ModalInviteCluster,
-    QuestionItem,
-    CommingSoon
+    TanyaKandidatCard,
+    ContentLoader
+    // CommingSoon
   },
-  mixins: [authLink],
+  mixins: [utils, authLink, ShareOptions],
   data() {
     return {
       isVerified: false,
-      isDropdownActive: false,
-      modal: false
+      modal: false,
+      isLoading: false
     }
   },
   computed: {
@@ -225,7 +205,9 @@ export default {
       user: s => s.profile.user,
       badges: s => s.profile.badges,
       feedLinimasa: s => s.profile.historyLinimasa,
-      feedPenpol: s => s.profile.historyPendidikanPolitik
+      feedPenpol: s => s.profile.historyPendidikanPolitik,
+      paginationsLinimasa: s => s.profile.paginations.historyLinimasa,
+      paginationsPenPol: s => s.profile.paginations.historyPenPol
     }),
     sortedBadges() {
       return this.badges.slice().sort((a, b) => a.position - b.position)
@@ -237,25 +219,56 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('profile/getMe')
-    this.$store.dispatch('profile/getBadges')
-    this.$store.dispatch('profile/getLinimasaHistory')
-    this.$store.dispatch('profile/getQuestionList')
-    this.$store.dispatch('profile/listBadges')
+    this.loader()
+    this.$store.dispatch('profile/getMe').then(async () => {
+      await this.$store.dispatch('profile/getLinimasaHistory', {
+        id: this.user.id
+      })
+      await setTimeout(() => (this.isLoading = false), 1000)
+      await this.$store.dispatch('profile/getBadges', {
+          id: this.user.id
+        })
+      await this.$store.dispatch('profile/getQuestionHistory', {
+        id: this.user.id
+      })
+    })
+
     window.addEventListener('click', this.removeDropdown)
   },
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
   },
   methods: {
+    loadMoreLinimasa() {
+      if (this.paginationsLinimasa.isLast === false) {
+        this.$store.dispatch('profile/nextPageLinimasaHistory')
+        this.$store.dispatch('profile/updateLinimasaHistory',{
+          id: this.user.id
+        })
+      }
+    },
+    loadMorePenPol() {
+      if (this.paginationsPenPol.isLast === false) {
+        this.$store.dispatch('profile/nextPageQuestionHistory')
+        this.$store.dispatch('profile/updateQuestionHistory',{
+          id: this.user.id
+        })
+      }
+    },
+    loader() {
+      this.isLoading = true
+    },
     toggleDropdownCluster() {
       this.isDropdownActive = !this.isDropdownActive
     },
     onConfirmBack() {
-      this.modal = 'ModalRequestCluster'
-    },
-    onConfirmRequestCluster() {
       this.modal = false
+    },
+    onConfirmDeleteCluster() {
+      this.$store.dispatch('profile/leaveClusters').then(() => {
+        this.modal = false
+        this.$toaster.info('Berhasil Meninggalkan Cluster.')
+      })
     },
     onSubmitRequest({ name, category, description }) {
       this.requestCluster.name = name
@@ -293,6 +306,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+
 a.router-link-exact-active i.icon
   background-color: #bd081c
 i.icon
@@ -300,6 +314,7 @@ i.icon
   height: 25px
   width: 25px
   background: #4f4f4f
+  margin: auto
 
   &.icon-book
     -webkit-mask: url(~@/assets/icon_book.svg)

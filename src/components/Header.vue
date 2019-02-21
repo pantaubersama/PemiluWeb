@@ -10,12 +10,18 @@
         </div>
       </router-link>
       <div class="ml-auto navbar-right align-item-center d-flex">
-        <!-- <div class="d-none d-lg-flex">
+        <div class="d-none d-lg-flex">
           <div class="input-search">
-            <input type="text" class="form-control" placeholder="CARI">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="CARI"
+              :value="searchValue"
+              @keypress="search($event)"
+            >
             <search-icon></search-icon>
           </div>
-        </div>-->
+        </div>
         <!-- <a href="#" class="word-stadium">
           <word-stadium-icon></word-stadium-icon>
         </a>-->
@@ -48,7 +54,7 @@
           <div class="dropdown-content">
             <ul>
               <li>
-                <router-link to="/profile">Edit Profile</router-link>
+                <router-link to="/profile">Profile</router-link>
               </li>
               <li>
                 <router-link to="/profile/data-lapor">Data Profile Lapor</router-link>
@@ -91,6 +97,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import debounce from 'lodash.debounce'
 import { authLink } from '@/mixins/link'
 import { LogoProduct } from '@/svg/products'
 import {
@@ -117,7 +124,8 @@ export default {
   data() {
     return {
       isActive: false,
-      isDropdownNoteActive: false
+      isDropdownNoteActive: false,
+      query: this.$route.query.q || ''
     }
   },
   created() {
@@ -126,24 +134,39 @@ export default {
     }
     window.addEventListener('click', this.removeDropdown)
     window.addEventListener('click', this.removeDropdownNote)
+    window.addEventListener('click', this.removeSidebar)
   },
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
+    window.removeEventListener('click', this.removeDropdownNote)
+    window.removeEventListener('click', this.removeSidebar)
   },
   computed: {
     ...mapState('meLogout', ['userLogin']),
     ...mapState({
       avatarURL: s => s.profile.user.avatar.medium.url,
       isLoggedIn: s => s.profile.token != null
-    })
+    }),
+    searchValue() {
+      return this.$route.query.q || this.query
+    }
   },
   methods: {
+    search: debounce(function search(event) {
+      const query = event.target.value
+      if (this.$route.name !== 'search') {
+        this.$router.push({ path: '/search/people', query: { q: query } })
+      } else {
+        this.$router.push({ path: this.$route.path, query: { q: query } })
+      }
+    }, 300),
     logout() {
       this.$store.dispatch('meLogout/logout')
     },
     toggleDropdownNote() {
       this.isDropdownNoteActive = !this.isDropdownNoteActive
       this.isActive = false
+      this.$emit('removeSidebar')
     },
     removeDropdownNote(event) {
       if (!event.target.parentNode.parentNode.classList.contains('icon-pins')) {
@@ -153,6 +176,7 @@ export default {
     toggleDropdown(event) {
       this.isActive = !this.isActive
       this.isDropdownNoteActive = false
+      this.$emit('removeSidebar')
     },
     removeDropdown(event) {
       if (
@@ -164,6 +188,16 @@ export default {
     },
     toggleSidebar(event) {
       this.$emit('toggleSidebar')
+    },
+    removeSidebar(event) {
+      if (
+        !event.target.classList.contains('burger-wrapper', 'z', 'y', 'x') &&
+        !event.target.classList.contains('navbar-toggle') &&
+        (!event.target.classList.contains('burger-wrapper') &&
+          !event.target.parentNode.classList.contains('burger-wrapper'))
+      ) {
+        this.$emit('removeSidebar')
+      }
     }
   }
 }
