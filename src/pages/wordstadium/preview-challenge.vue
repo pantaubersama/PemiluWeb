@@ -16,6 +16,18 @@
             </div>
           </router-link>
         </div>
+        <div class="user-info user-info__right">
+          <router-link to="/profile/raja_kampreta">
+            <div class="mask-avatar">
+              <span>?</span>
+              <img src="@/assets/dildo.jpg" alt="user">
+            </div>
+            <div class="user-title">
+              <h5>Raja Kampreta</h5>
+              <span>@raja_kampreta</span>
+            </div>
+          </router-link>
+        </div>
       </div>
       <div class="content-preview">
         <h2 class="head head--default">Selangkah lagi,</h2>
@@ -63,10 +75,43 @@
         <h5>CHALLENGE DETAIL</h5>
         <div class="detail-row">
           <span class="badge">ekonomi</span>
+          <div class="alert alert-preview alert-secondary fade show" role="alert">
+            <div class="link">https://twitter.com/ident_it/status/997050576012591104</div>
+            <div class="preview-content">
+              <div class="thumbnail-avatar thumbnail-avatar__large">
+                <icon-twitter/>
+                <img src="@/assets/dildo.jpg" alt="user">
+              </div>
+              <div class="preview-content__info">
+                <h5>
+                  Raja Kampreta
+                  <small>@raja_kampreeta . 5 des</small>
+                </h5>
+                <p>
+                  Prabowo berbasis militer. Disiplin. Sandiaga berbasis wiraswasta.
+                  Kreatif. Perpaduan keduanya akan sangat dibutuhkan Indonesia
+                  untuk ekonomi ke depannya. #2019gantipresiden yuk!
+                </p>
+              </div>
+            </div>
+          </div>
           <p>
             2018 pertumbuhan ekonomi Indonesia mengalami pertumbuhan mencapai 5,27%.
             2 periode yuk, biar 10,54%.
           </p>
+        </div>
+        <div class="detail-row">
+          <h6>Lawan Debat</h6>
+          <div class="detail-lawan">
+            <div class="thumbnail-avatar">
+              <icon-twitter/>
+              <img src="@/assets/dildo.jpg" alt="user">
+            </div>
+            <div class="detail-lawan__user">
+              <h5>Raja Kampreta</h5>
+              <small>@raja_kampreeta</small>
+            </div>
+          </div>
         </div>
         <div class="detail-row">
           <h6>Date & Time</h6>
@@ -138,7 +183,8 @@ import {
   Clock,
   Saldo,
   FacebookIcon,
-  TwitterIcon
+  TwitterIcon,
+  IconTwitter
 } from '@/svg/icons'
 
 export default {
@@ -153,7 +199,8 @@ export default {
     Clock,
     Saldo,
     FacebookIcon,
-    TwitterIcon
+    TwitterIcon,
+    IconTwitter
   },
   data() {
     return {}
@@ -282,6 +329,12 @@ export default {
         line-height: 25px
         color: #ffffff
         letter-spacing: 0.18px
+
+    &__right
+      left: auto
+      right: 16px
+      top: 32px
+      text-align: right
 
 .switch
   position: relative
@@ -435,6 +488,11 @@ export default {
   .detail-row
     margin: 32px 0 30px
 
+    p
+      color: #212121
+      font-weight: bold
+      margin: 0
+
     .input-bidang
       width: 280px
       margin: 2px 0
@@ -468,6 +526,132 @@ export default {
           font-family: Lato
           font-size: 11px
           color: #7c7c7c
+
+  .alert-preview
+    background-color: #f9f9f9
+    color: #212121
+    width: 100%
+    padding: 8px 12px
+    border: none
+    margin: 0 0 8px
+
+    .link
+      color: #1da1f2
+      font-weight: normal
+      font-size: 10px
+      line-height: 16px
+
+    .preview-content
+      display: flex
+      flex-direction: row
+      align-items: center
+      justify-content: center
+
+      &__info
+        width: 100%
+
+        h5
+          text-align: left
+          font-family: Lato
+          font-size: 12px
+          font-weight: bold
+          font-style: normal
+          font-stretch: normal
+          line-height: 2
+          letter-spacing: 0px
+          text-align: left
+
+        small
+          color: #aaaaaa
+
+        p
+          font-family: Lato
+          font-size: 11px
+          font-weight: normal
+          line-height: 1.18
+          letter-spacing: 0.2px
+          color: #212121
+
+      img
+        align-self: flex-start
+        height: 40px
+        width: 40px
+        border-radius: 50%
+        margin-top: 8px
+        margin-right: 8px
+
+.mask-avatar
+  span
+    font-family: Helvetica
+    width: 20px
+    height: 32px
+    font-size: 32px
+    font-weight: bold
+    line-height: 1.19
+    position: absolute
+    color: #ffffff
+    z-index: 2
+    width: 18px
+    height: 18px
+    transform: translate(100%, 50%)
+    text-shadow: 0 0 3px rgba(0,0,0,.3)
+
+  img
+    z-index: 1
+    border-radius: 50%
+
+.thumbnail-avatar
+  svg
+    position: absolute
+    z-index: 2
+    width: 18px
+    height: 18px
+    transform: translate(-2px, 18px)
+
+  img
+    z-index: 1
+    border-radius: 50%
+
+  &__large
+    svg
+      width: 22px
+      height: 22px
+      transform: translate(-3px, 32px)
+
+.detail-lawan
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: flex-start
+
+  img
+    width: 32px
+    height: 32px
+
+  &__user
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    margin-left: 12px
+
+    h5
+      height: 15px
+      font-family: Lato
+      font-size: 12px
+      font-weight: bold
+      font-style: normal
+      font-stretch: normal
+      line-height: 1.33
+
+    small
+      height: 12px
+      font-family: Lato
+      font-size: 10px
+      line-height: 1.5
+      letter-spacing: 0.2px
+      text-align: left
+      color: #757575
 
 .badge
   font-family: Lato
