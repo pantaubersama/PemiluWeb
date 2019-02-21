@@ -27,6 +27,8 @@ import SearchIcon from './icons/search.svg'
 import SettingIcon from './icons/setting.svg'
 import ShareIcon from './icons/share.svg'
 import SosmedTwitterIcon from './icons/sosmed-twitter.svg'
+import TwitterIcon from './icons/twitter-icon.svg'
+import FacebookIcon from './icons/facebook-Icon.svg'
 import UpvoteIcon from './icons/upvote.svg'
 import UserIcon from './icons/user.svg'
 import VerifiedIcon from './icons/verified.svg'
@@ -51,6 +53,9 @@ import Clock from './icons/clock.svg'
 import Saldo from './icons/saldo.svg'
 import SaldoClock from './icons/saldo-clock.svg'
 import Comment from './icons/comment.svg'
+import OutlineLink from './icons/outline-link.svg'
+import HighlightOff from './icons/highlight-off.svg'
+import WordColored from './icons/word-colored.svg'
 
 export {
   AlertIcon,
@@ -82,6 +87,8 @@ export {
   SettingIcon,
   ShareIcon,
   SosmedTwitterIcon,
+  TwitterIcon,
+  FacebookIcon,
   UpvoteIcon,
   UserIcon,
   VerifiedIcon,
@@ -105,5 +112,8 @@ export {
   Clock,
   Saldo,
   SaldoClock,
-  Comment
+  Comment,
+  OutlineLink,
+  HighlightOff,
+  WordColored
 }

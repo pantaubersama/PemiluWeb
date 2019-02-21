@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#f6b42a}
+        </style>
+    </defs>
+    <g id="ic_word_colored" transform="translate(-16 -283)">
+        <g id="Group_2152" data-name="Group 2152">
+            <path id="Path_157" d="M0 0h24v24H0z" class="cls-1" data-name="Path 157" transform="translate(16 283)"/>
+            <path id="Path_158" d="M9 13a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2.006 2.006 0 0 1 2-2zm0 8c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm-6 4c.22-.72 3.31-2 6-2s5.8 1.29 6 2zM15.08 7.05a3.317 3.317 0 0 1 0 3.89l1.68 1.69a5.117 5.117 0 0 0 0-7.27l-1.68 1.69zM20.07 2l-1.63 1.63a7.978 7.978 0 0 1 0 10.74L20.07 16a9.829 9.829 0 0 0 0-14z" class="cls-2" data-name="Path 158" transform="translate(16 283)"/>
+        </g>
+    </g>
+</svg>

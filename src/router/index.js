@@ -200,6 +200,16 @@ const router = new VueRouter({
       component: () => import('@/pages/wordstadium/own-debate')
     },
     {
+      path: '/wordstadium/create-challenge',
+      name: 'CreateChallenge',
+      component: () => import('@/pages/wordstadium/create-challenge')
+    },
+    {
+      path: '/wordstadium/preview-challenge',
+      name: 'PreviewChallenge',
+      component: () => import('@/pages/wordstadium/preview-challenge')
+    },
+    {
       path: '/lapor',
       name: 'Lapor',
       component: () => import('@/pages/Lapor')
