@@ -106,7 +106,7 @@ export default {
     transform: translateY(-50%)
     background: rgba(255, 255, 255, 0.8)
     height: 100%
-    z-index: 100
+    z-index: 9
     border: 0
     cursor: pointer
     &.go-right

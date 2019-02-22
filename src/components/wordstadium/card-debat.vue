@@ -64,6 +64,7 @@ i.icon.icon-live-now
     justify-content: center
     align-items: center
     position: relative
+    z-index: 1
     &.--coming-soon
       background: url(~@/assets/img-debat-coming-soon-bg.svg)
     &.--live
