@@ -1,16 +1,10 @@
-// initial state
-const state = {
+export const namespaced = true
+export const state = {
   showLottie: false,
   showLottieTanya: false
 }
 
-// actions
-const actions = {
-
-}
-
-// mutations
-const mutations = {
+export const mutations = {
   showLottie(state) {
     state.showLottie = true
   },
@@ -20,17 +14,4 @@ const mutations = {
   hideLottie(state) {
     state.showLottie = false
   }
-}
-
-// getters
-const getters = {
-
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

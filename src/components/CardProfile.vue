@@ -13,7 +13,7 @@
           <div v-if="user.verified" class="line-verified">
             <verified-icon-default/>Terverifikasi
           </div>
-          <router-link v-else class="btn line" to="/profile/verified-steps">
+          <router-link v-else class="btn line" :to="{path: '/profile/verified', query: {steps: userSteps.next_step}}">
             <verified-icon-default/>Belum Verifikasi
           </router-link>
         </span>
@@ -207,7 +207,8 @@ export default {
       feedLinimasa: s => s.profile.historyLinimasa,
       feedPenpol: s => s.profile.historyPendidikanPolitik,
       paginationsLinimasa: s => s.profile.paginations.historyLinimasa,
-      paginationsPenPol: s => s.profile.paginations.historyPenPol
+      paginationsPenPol: s => s.profile.paginations.historyPenPol,
+      userSteps: s => s.profile.stepVerificationUser
     }),
     sortedBadges() {
       return this.badges.slice().sort((a, b) => a.position - b.position)
@@ -221,6 +222,7 @@ export default {
   mounted() {
     this.loader()
     this.$store.dispatch('profile/getMe').then(async () => {
+      await this.$store.dispatch('profile/getStepVerification')
       await this.$store.dispatch('profile/getLinimasaHistory', {
         id: this.user.id
       })
@@ -237,6 +239,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
+    this.$store.commit('profile/emptyStepVerification')
   },
   methods: {
     loadMoreLinimasa() {

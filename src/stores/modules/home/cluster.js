@@ -1,6 +1,7 @@
 import ApiHomeCluster from '@/services/api/home/cluster'
-// initial state
-const state = {
+
+export const namespaced = true
+export const state = {
   paginations: {
     page: 1,
     perPage: 2
@@ -8,8 +9,8 @@ const state = {
   feedsCluster: []
 }
 
-// actions
-const actions = {
+
+export const actions = {
   homeCluster({
     commit,
     state
@@ -20,22 +21,8 @@ const actions = {
   }
 }
 
-// mutations
-const mutations = {
+export const mutations = {
   getHomeCluster(state, data) {
     state.feedsCluster = data.clusters
   }
-}
-
-// getters
-const getters = {
-
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

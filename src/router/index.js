@@ -142,7 +142,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/profile/verified-steps',
+      path: '/profile/verified',
       name: 'ProfileVerified',
       component: () => import('@/pages/Profile/ProfileVerified')
     },

@@ -2,21 +2,19 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // modules
-import snackbar from '@/stores/modules/snackbar'
-import meLogout from '@/stores/modules/me/logout'
-import imagesUpload from '@/stores/modules/images/upload'
+import * as  meLogout from '@/stores/modules/me/logout'
 import liniMasa from '@/stores/modules/lini-masa'
 import * as profile from '@/stores/modules/profile'
 import * as pendidikanPolitik from '@/stores/modules/pendidikan-politik'
-import homePilpres from '@/stores/modules/home/pilpres'
-import homeJanjiPolitik from '@/stores/modules/home/janji-politik'
-import homeQuestions from '@/stores/modules/home/questions'
-import homeQuiz from '@/stores/modules/home/quiz'
-import homeCluster from '@/stores/modules/home/cluster'
-import homeKenalan from '@/stores/modules/home/kenalan'
-import dashboard from '@/stores/modules/dashboard'
-import loadingLottie from '@/stores/modules/loading-lottie'
-import showLottie from '@/stores/modules/empty-lottie'
+import * as homePilpres from '@/stores/modules/home/pilpres'
+import * as homeJanjiPolitik from '@/stores/modules/home/janji-politik'
+import * as homeQuestions from '@/stores/modules/home/questions'
+import * as homeQuiz from '@/stores/modules/home/quiz'
+import * as homeCluster from '@/stores/modules/home/cluster'
+import * as homeKenalan from '@/stores/modules/home/kenalan'
+import * as dashboard from '@/stores/modules/dashboard'
+import * as loadingLottie from '@/stores/modules/loading-lottie'
+import * as showLottie from '@/stores/modules/empty-lottie'
 import * as search from '@/stores/modules/search'
 
 // Lini Masa
@@ -40,7 +38,6 @@ export default new Vuex.Store({
   modules: {
     loadingLottie,
     meLogout,
-    imagesUpload,
     liniMasa,
     profile,
     pendidikanPolitik,
@@ -50,7 +47,6 @@ export default new Vuex.Store({
     homeQuestions,
     homeQuiz,
     homeCluster,
-    snackbar,
     homeKenalan,
     search,
     showLottie,

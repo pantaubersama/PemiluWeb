@@ -98,6 +98,7 @@ export const state = {
       isLast: false
     }
   },
+  stepVerificationUser: []
 }
 
 export const actions = {
@@ -193,10 +194,30 @@ export const actions = {
     return Promise.resolve(data)
   },
 
-  async verify(store, payload) {
-    return ProfileAPI.verify(payload)
-  },
+  // async verify(store, payload) {
+  //   return ProfileAPI.verify(payload)
+  // },
 
+  async getStepVerification(ctx) {
+    const data = await ProfileAPI.getStepVerification()
+    ctx.commit('setStepVerification', data)
+  },
+  async verifyKTPNumber(ctx, payload){
+    const data = await ProfileAPI.verifyKTPNumber(payload.ktp_number)
+    return Promise.resolve(data)
+  },
+  async verifySelfie(ctx, payload){
+    const data = await ProfileAPI.verifySelfie(payload.ktp_selfie)
+    return Promise.resolve(data)
+  },
+  async verifyKTP(ctx, payload){
+    const data = await ProfileAPI.verifyKTP(payload.ktp_photo)
+    return Promise.resolve(data)
+  },
+  async verifySignature(ctx, payload){
+    const data = await ProfileAPI.verifySignature(payload.signature)
+    return Promise.resolve(data)
+  },
   async updateInformant(ctx, p) {
     const user0 = {
       informant: {
@@ -321,6 +342,55 @@ export const mutations = {
       ...payload.user
     }
   },
+  removeProfileData(state) {
+    state.user = {
+        id: null,
+        email: null,
+        full_name: null,
+        uid: null,
+        provider: null,
+        is_admin: false,
+        is_moderator: false,
+        cluster: null,
+        vote_preference: null,
+        political_party: null,
+        verified: false,
+        twitter: false,
+        facebook: false,
+        username: null,
+        about: null,
+        location: null,
+        education: null,
+        occupation: null,
+        avatar: {
+          url : null,
+          thumbnail : {
+            url: null
+          },
+          thumbnail_square : {
+            url:null
+          },
+          medium : {
+            url: null
+          },
+          medium_square : {
+            url: null
+          }
+        },
+        informant: {
+          user_id: null,
+          identity_number: null,
+          pob: null,
+          dob: null,
+          gender: null,
+          gender_str: null,
+          occupation: null,
+          nationality: null,
+          address: null,
+          phone_number: null
+        }
+    }
+  },
   setBadges(state, payload) {
     state.badges = payload.badges
   },
@@ -373,6 +443,13 @@ export const mutations = {
     const allClusters = [state.filterClusters[0], ...clusters]
     state.filterClusters = allClusters
   },
+  setStepVerification(state, payload) {
+    state.stepVerificationUser = payload.user
+  },
+  emptyStepVerification(state, payload) {
+    state.stepVerificationUser = []
+  },
+
   setVoted(state, id) {
     const index = state.historyPendidikanPolitik.findIndex(question => question.id === id)
     let question = state.historyPendidikanPolitik.find(question => question.id === id)
