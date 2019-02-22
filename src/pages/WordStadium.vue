@@ -156,28 +156,41 @@ export default {
       lives: []
     }
   },
+  methods: {
+    loadLottie() {
+      if (this.$route.query.type !== 'personal') return
+      this.comingsoonLottie = Lottie.loadAnimation({
+        container: this.$refs.comingsoonLottie,
+        path: '/lottie/empty-status.json',
+        autoplay: true,
+        loop: true,
+        renderer: 'svg'
+      })
+      this.comingsoon2Lottie = Lottie.loadAnimation({
+        container: this.$refs.comingsoon2Lottie,
+        path: '/lottie/empty-status.json',
+        autoplay: true,
+        loop: true,
+        renderer: 'svg'
+      })
+      this.comingsoon3Lottie = Lottie.loadAnimation({
+        container: this.$refs.comingsoon3Lottie,
+        path: '/lottie/empty-status.json',
+        autoplay: true,
+        loop: true,
+        renderer: 'svg'
+      })
+    }
+  },
   mounted() {
-    this.comingsoonLottie = Lottie.loadAnimation({
-      container: this.$refs.comingsoonLottie,
-      path: '/lottie/empty-status.json',
-      autoplay: true,
-      loop: true,
-      renderer: 'svg'
-    })
-    this.comingsoon2Lottie = Lottie.loadAnimation({
-      container: this.$refs.comingsoon2Lottie,
-      path: '/lottie/empty-status.json',
-      autoplay: true,
-      loop: true,
-      renderer: 'svg'
-    })
-    this.comingsoon3Lottie = Lottie.loadAnimation({
-      container: this.$refs.comingsoon3Lottie,
-      path: '/lottie/empty-status.json',
-      autoplay: true,
-      loop: true,
-      renderer: 'svg'
-    })
+    this.loadLottie()
+  },
+  watch: {
+    $route(to, from) {
+      setTimeout(() => {
+        this.loadLottie()
+      }, 700)
+    }
   },
   destroyed() {
     this.comingsoonLottie.destroy()
