@@ -1,12 +1,10 @@
 <template>
   <div id="app">
     <router-view/>
-    <snackbar/>
   </div>
 </template>
 
 <script>
-import snackbar from '@/components/snackbar'
 import { vueAuth } from '@/services/symbolic'
 export default {
   name: 'App',
@@ -15,9 +13,6 @@ export default {
     titleTemplate: titleChunk => {
       return titleChunk ? `${titleChunk} - Pantau Bersama` : 'Pantau Bersama'
     }
-  },
-  components: {
-    snackbar
   },
   data() {
     return {

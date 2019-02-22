@@ -1,6 +1,6 @@
 import ApiHomeQuize from '@/services/api/home/quiz'
-// initial state
-const state = {
+export const namespaced = true
+export const state = {
   paginations: {
     page: 1,
     perPage: 1,
@@ -8,8 +8,7 @@ const state = {
   feedsQuiz: []
 }
 
-// actions
-const actions = {
+export const actions = {
   homeQuiz({
     commit,
     state
@@ -20,22 +19,8 @@ const actions = {
   },
 }
 
-// mutations
-const mutations = {
+export const mutations = {
   getHomeJanjiPolitik(state, data) {
     state.feedsQuiz = data.quizzes
   }
-}
-
-// getters
-const getters = {
-
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

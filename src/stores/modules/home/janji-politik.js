@@ -1,6 +1,7 @@
 import ApiHomeJanjiPolitik from '@/services/api/home/janji-politik'
-// initial state
-const state = {
+
+export const namespaced = true
+export const state = {
   paginations: {
     page: 1,
     perPage: 5,
@@ -10,8 +11,7 @@ const state = {
   feedsJanjiPolitik: []
 }
 
-// actions
-const actions = {
+export const actions = {
   homeJanjiPolitik({
     commit,
     state
@@ -49,8 +49,8 @@ const actions = {
   }
 }
 
-// mutations
-const mutations = {
+
+export const mutations = {
   getHomeJanjiPolitik(state, data) {
     state.feedsJanjiPolitik = data.janji_politiks
     state.paginations.total = data.meta.pages.total
@@ -65,17 +65,4 @@ const mutations = {
     }
     state.feedsJanjiPolitik.push.apply(state.feedsJanjiPolitik, data.janji_politiks)
   }
-}
-
-// getters
-const getters = {
-
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

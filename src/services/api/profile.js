@@ -113,7 +113,7 @@ export const getClusterList = ({
   .then(resp => resp.data.data.clusters)
 /* eslint-enable */
 
-const verifySignature = signature => {
+export const verifySignature = signature => {
   const formData = new FormData()
   formData.append('signature', signature)
   return axios
@@ -121,7 +121,7 @@ const verifySignature = signature => {
     .then(resp => resp.data.data)
 }
 
-const verifyKTP = ktpFile => {
+export const verifyKTP = ktpFile => {
   const formData = new FormData()
   formData.append('ktp_photo', ktpFile)
   return axios
@@ -129,7 +129,7 @@ const verifyKTP = ktpFile => {
     .then(resp => resp.data.data)
 }
 
-const verifySelfie = selfieFile => {
+export const verifySelfie = selfieFile => {
   const formData = new FormData()
   formData.append('ktp_selfie', selfieFile)
   return axios
@@ -137,31 +137,33 @@ const verifySelfie = selfieFile => {
     .then(resp => resp.data.data)
 }
 
-const verifyKTPNumber = ktpNumber =>
+export const verifyKTPNumber = ktpNumber =>
   api
     .put('/v1/verifications/ktp_number', {
       ktp_number: ktpNumber
     })
     .then(resp => resp.data.data)
 
-export const verify = payload =>
-  axios
-    .all([
-      verifySignature(payload.signature),
-      verifyKTP(payload.ktp_photo),
-      verifySelfie(payload.ktp_selfie),
-      verifyKTPNumber(payload.ktp_number)
-    ])
-    .then(
-      axios.spread((signature, ktp, selfie, ktpNumber) => {
-        return Promise.resolve({
-          signature,
-          ktp,
-          selfie,
-          ktpNumber
-        })
-      })
-    )
+export const getStepVerification = () =>
+  api.get('/v1/me/verifications').then(resp => resp.data.data)
+// export const verify = payload =>
+//   axios
+//     .all([
+//       verifySignature(payload.signature),
+//       verifyKTP(payload.ktp_photo),
+//       verifySelfie(payload.ktp_selfie),
+//       verifyKTPNumber(payload.ktp_number)
+//     ])
+//     .then(
+//       axios.spread((signature, ktp, selfie, ktpNumber) => {
+//         return Promise.resolve({
+//           signature,
+//           ktp,
+//           selfie,
+//           ktpNumber
+//         })
+//       })
+//     )
 
 export const updateInformant = p =>
   api

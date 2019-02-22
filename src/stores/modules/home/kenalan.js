@@ -1,11 +1,12 @@
 import ApiHomeKenalan from '@/services/api/home/kenalan'
-// initial state
-const state = {
+
+export const namespaced = true
+export const state = {
   feedsKenalan: []
 }
 
-// actions
-const actions = {
+
+export const actions = {
   homeKenalan({
     commit,
     state
@@ -30,25 +31,12 @@ const actions = {
   },
 }
 
-// mutations
-const mutations = {
+
+export const mutations = {
   getHomeKenalan(state, data) {
     state.feedsKenalan = data.kenalans
   },
   updateKenalan(state, data) {
     state.feedsKenalan = data.kenalans
   }
-}
-
-// getters
-const getters = {
-
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

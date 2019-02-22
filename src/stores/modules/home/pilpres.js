@@ -1,6 +1,7 @@
 import ApiHomePilpres from '@/services/api/home/pilpres'
-// initial state
-const state = {
+
+export const namespaced = true
+export const state = {
   paginations: {
     page: 1,
     perPage: 5,
@@ -10,8 +11,8 @@ const state = {
   feedsPilpres: []
 }
 
-// actions
-const actions = {
+
+export const actions = {
   homePilpres({
     commit,
     state
@@ -49,8 +50,8 @@ const actions = {
   }
 }
 
-// mutations
-const mutations = {
+
+export const mutations = {
   getHomePilpres(state, data) {
     state.feedsPilpres = data.feeds
     state.paginations.total = data.meta.pages.total
@@ -65,17 +66,4 @@ const mutations = {
     }
     state.feedsPilpres.push.apply(state.feedsPilpres, data.feeds)
   }
-}
-
-// getters
-const getters = {
-
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }
