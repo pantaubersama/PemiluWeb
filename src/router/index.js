@@ -128,7 +128,7 @@ const router = new VueRouter({
     {
       path: '/profile/user',
       name: 'ProfileUser',
-      component: () => import('@/pages/ProfileUser'),
+      component: () => import('@/pages/ProfileUser')
     },
     {
       path: '/profile/cluster',
@@ -208,6 +208,11 @@ const router = new VueRouter({
       path: '/wordstadium/history-debate',
       name: 'WordStadiumHistoryDebate',
       component: () => import('@/pages/wordstadium/history-debate')
+    },
+    {
+      path: '/wordstadium/detail-debate',
+      name: 'DetailDebate',
+      component: () => import('@/pages/wordstadium/detail-debate')
     },
     {
       path: '/wordstadium/create-challenge',
