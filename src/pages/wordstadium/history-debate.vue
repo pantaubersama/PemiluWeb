@@ -35,20 +35,25 @@
             </div>
           </div>
         </div>
-        <div class="heading-duration">
-          <div class="duration-icon">
-            <saldo-clock/>
+        <div class="heading-appreciate">
+          <div class="appreciate appreciate--left">
+            <button class="btn">
+              <appreciate-white/>
+            </button>
+            <strong>50</strong> total apresiasi
           </div>
-          <div class="duration-time">
-            <span class="duration-text">sisa waktu anda</span>
-            <span class="duration-clock">40 Menit</span>
+          <div class="appreciate appreciate--right">
+            <strong>70</strong> total apresiasi
+            <button class="btn">
+              <appreciate-white/>
+            </button>
           </div>
         </div>
         <div class="heading-info">
           <div class="info-status">
             <status-wordstadium/>Status
           </div>
-          <div class="info-placeholder">Giliran Raja Kampreta menulis argumen...</div>
+          <div class="info-placeholder">Debat telah selesai</div>
           <div class="info-action">
             <button class="btn" type="button" @click.prevent="showDetail = !showDetail">Detail debat
               <expand-more v-if="showDetail"/>
@@ -102,35 +107,13 @@
                 <div class="info-duration">Estimasi baca {{ conversation.time }}</div>
                 <div class="info-like">
                   <button class="btn">
-                    <appreciate-yellow v-if="conversation.clapped"/>
-                    <appreciate-black v-else/>
+                    <appreciate-innactive/>
                   </button>
                   {{ conversation.like_count }}
                 </div>
               </div>
               <div class="action-mine" v-if="conversation.clapped">You clapped to this argument</div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="container row">
-        <div class="conversation-area">
-          <div class="conversation-textarea">
-            <!-- Using @paste.prevent to disallow paste -->
-            <textarea
-              placeholder="Tulis argumen anda di sini..."
-              name="komentar"
-              cols="30"
-              rows="4"
-              v-model="argument"
-            ></textarea>
-            <span
-              class="conversation-textarea__info"
-            >{{ argumentCharacters.count }} / {{ argumentCharacters.max }}</span>
-          </div>
-          <div class="conversation-action">
-            <button class="btn cancel">BATAL</button>
-            <button class="btn publish">PUBLISH</button>
           </div>
         </div>
       </div>
@@ -142,10 +125,6 @@
             <comment/>
           </div>
           <h5>Komentar ({{ comments.length }})</h5>
-        </div>
-        <div class="comment-area">
-          <img src="@/assets/dildo.jpg" alt="user">
-          <textarea placeholder="Tulis komentar" name="komentar" cols="30" rows="3"></textarea>
         </div>
         <div class="activity-list">
           <div class="activity-collapse">Paling baru
@@ -177,8 +156,8 @@ import {
   ExpandCollapse,
   LiveRed,
   StatusWordstadium,
-  AppreciateYellow,
-  AppreciateBlack,
+  AppreciateWhite,
+  AppreciateInnactive,
   DateSecondary,
   Clock,
   Saldo,
@@ -190,15 +169,15 @@ import {
 import LayoutWordstadium from '@/layout/Wordstadium'
 
 export default {
-  name: 'WordStadiumOwnDebate',
+  name: 'WordStadiumHistoryDebate',
   components: {
     ExpandMore,
     ExpandCollapse,
     LiveRed,
     StatusWordstadium,
     LayoutWordstadium,
-    AppreciateYellow,
-    AppreciateBlack,
+    AppreciateWhite,
+    AppreciateInnactive,
     DateSecondary,
     Clock,
     Saldo,
@@ -291,7 +270,7 @@ export default {
   border-top-left-radius: 8px
   border-top-right-radius: 8px
   z-index: 1
-  background: url('~@/assets/banner-live-now-full.svg') no-repeat center
+  background: url('~@/assets/banner-done-full.svg') no-repeat center
   background-size: cover
 
   .status
@@ -434,54 +413,40 @@ export default {
     line-height: 25px
     color: #ffffff
 
-.heading-duration
+.heading-appreciate
   display: flex
   align-items: center
-  justify-content: center
+  justify-content: space-between
   flex-direction: row
   height: 72px
   background-color: #7c5bc0
 
-  .duration-icon
-    height: 30px
-    width: 34px
+  .appreciate
+    flex: 0 50%
     padding: 0
     margin: 0
     display: flex
     justify-content: center
     align-items: center
-
-    svg
-      width: 32px
-      height: 32px
-      fill: #ffffff
-
-  .duration-time
-    width: 100px
-    height: 32px
-    display: flex
-    align-items: center
-    justify-content: space-around
-    flex-direction: column
     color: #ffffff
 
-    .duration-text
-      font-family: BwModelicaSS01, Lato
-      font-size: 10px
-      font-weight: 400
-      line-height: 12px
-      height: 14px
-      letter-spacing: 0.5px
-      text-transform: lowercase
+    strong
+      margin-right: 6px
 
-    .duration-clock
-      font-family: BwModelicaSS01, Lato
-      font-size: 16px
-      font-weight: 700
-      line-height: 12px
-      height: 16px
-      letter-spacing: 0.8px
-      text-transform: uppercase
+    &--left
+      justify-content: flex-start
+      text-align: left
+
+    &--right
+      justify-content: flex-end
+      text-align: right
+
+    .btn
+      background-color: transparent
+    svg
+      width: 24px
+      height: 24px
+      fill: #ffffff
 
 .heading-info
   display: flex
@@ -660,79 +625,6 @@ export default {
         letter-spacing: 0.15px
         text-align: right
 
-.conversation-area
-  padding: 16px
-  width: 100%
-
-  .conversation-textarea
-    margin: 0
-    padding: 0
-
-    &:before
-      position: absolute
-      content: ''
-      background-color: #cbcbcb
-      height: 96px
-      width: 5px
-      z-index: 2
-      margin: 0
-      border-radius: 2px
-
-    textarea
-      font-family: Lato
-      font-style: italic
-      font-size: 14px
-      line-height: 16px
-      border: none
-      overflow: auto
-      outline: none
-      box-shadow: none
-      resize: none
-      background: #f9f9f9
-      width: calc(100% - 16px)
-      padding: 16px
-      margin-left: 16px
-
-      &::placeholder
-        color: #aaaaaa
-
-    &__info
-      color: #aaaaaa
-      font-family: Lato
-      font-size: 10px
-      line-height: 12px
-      display: block
-      text-align: right
-
-  .conversation-action
-    display: flex
-    justify-content: flex-end
-    align-items: center
-    flex-direction: row
-    margin-top: 16px
-
-    .btn
-      font-family: Lato
-      font-size: 12px
-      line-height: 15px
-      height: 40px
-      width: 120px
-      border-radius: 2px
-      letter-spacing: 1.2px
-      transition: all .3s ease
-
-      &:hover, &:active, &:focus
-        box-shadow: 0 2px 8px rgba(0, 0, 0, .33)
-
-      &.cancel
-        color: #cbcbcb
-        background-color: transparent
-        margin-right: 8px
-
-      &.publish
-        color: #ffffff
-        background-color: #cbcbcb
-
 .sidebar-activity
   background-color: #ffffff
   width: 100%
@@ -750,6 +642,8 @@ export default {
   justify-content: space-between
   align-items: center
   flex-direction: row
+  border-bottom: 1px solid #ececec
+  margin-bottom: 16px
 
   .icon
     display: flex
@@ -774,36 +668,6 @@ export default {
     margin: 0
     padding-left: 40px
     text-transform: uppercase
-
-.comment-area
-  background-color: #f9f9f9
-  display: flex
-  justify-content: center
-  align-items: flex-start
-  flex-direction: row
-  border-radius: 2px
-  margin-bottom: 25px
-  min-height: 55px
-
-  img
-    margin: 6px
-
-  textarea
-    font-family: Lato
-    font-style: italic
-    font-size: 12px
-    line-height: 16px
-    letter-spacing: 0.29px
-    border: none
-    overflow: auto
-    outline: none
-    box-shadow: none
-    resize: none
-    background: #f9f9f9
-    margin: 6px
-
-    &::placeholder
-      color: #aaaaaa
 
 .activity-list
   margin: 0

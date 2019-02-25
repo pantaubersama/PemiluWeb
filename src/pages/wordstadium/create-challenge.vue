@@ -332,6 +332,7 @@ export default {
   border-top-right-radius: 8px
   z-index: 1
   background: url('~@/assets/orange-stadium.svg') no-repeat center
+  background-size: cover
 
   .status
     height: 95px

@@ -48,6 +48,8 @@ import LiveRed from './icons/live-red.svg'
 import StatusWordstadium from './icons/status-wordstadium.svg'
 import AppreciateYellow from './icons/appreciate-yellow.svg'
 import AppreciateBlack from './icons/appreciate-black.svg'
+import AppreciateWhite from './icons/appreciate-white.svg'
+import AppreciateInnactive from './icons/appreciate-innactive.svg'
 import ExpandCollapse from './icons/expand-collapse.svg'
 import DateSecondary from './icons/date-sec.svg'
 import Clock from './icons/clock.svg'
@@ -109,6 +111,8 @@ export {
   StatusWordstadium,
   AppreciateYellow,
   AppreciateBlack,
+  AppreciateWhite,
+  AppreciateInnactive,
   ExpandCollapse,
   DateSecondary,
   Clock,

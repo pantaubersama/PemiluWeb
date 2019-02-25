@@ -244,6 +244,7 @@ export default {
   border-top-right-radius: 8px
   z-index: 1
   background: url('~@/assets/banner-live-now-full.svg') no-repeat center
+  background-size: cover
 
   .status
     display: flex
