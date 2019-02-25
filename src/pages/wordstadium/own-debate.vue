@@ -291,6 +291,7 @@ export default {
   border-top-left-radius: 8px
   border-top-right-radius: 8px
   z-index: 1
+  background: url('~@/assets/banner-live-now-full.svg') no-repeat center
 
   .status
     display: flex

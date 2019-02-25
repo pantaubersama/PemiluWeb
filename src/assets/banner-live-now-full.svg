@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="812" height="192" viewBox="0 0 812 192">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{clip-path:url(#clip-path)}.cls-3,.cls-6{fill:#673ab7}.cls-4{fill:#1a237e}.cls-4,.cls-5,.cls-6,.cls-7{opacity:.6}.cls-5{fill:#512da8}.cls-7{fill:#9575cd}
+        </style>
+        <clipPath id="clip-path">
+            <path id="vectorMask" d="M8 0h796a8 8 0 0 1 8 8v184H0V8a8 8 0 0 1 8-8z" class="cls-1"/>
+        </clipPath>
+    </defs>
+    <g id="banner_live_now_full" class="cls-2" data-name="banner live now full">
+        <g id="Mask_by_Rectangle" data-name="Mask by Rectangle" transform="translate(-935.207 -1127.257)">
+            <path id="Rectangle" d="M0 0h868.49v562.018H0z" class="cls-3" transform="translate(894.122 976.138)"/>
+            <ellipse id="Oval" cx="978.336" cy="975.852" class="cls-4" rx="978.336" ry="975.852" transform="translate(-90)"/>
+            <ellipse id="Oval_Copy_3" cx="711.039" cy="709.248" class="cls-5" data-name="Oval Copy 3" rx="711.039" ry="709.248" transform="translate(177.297 266.604)"/>
+            <ellipse id="Oval_Copy_2" cx="499.237" cy="497.971" class="cls-6" data-name="Oval Copy 2" rx="499.237" ry="497.971" transform="translate(389.147 477.952)"/>
+            <ellipse id="Oval_Copy" cx="275.252" cy="274.559" class="cls-7" data-name="Oval Copy" rx="275.252" ry="274.559" transform="translate(613.084 701.292)"/>
+        </g>
+    </g>
+</svg>
