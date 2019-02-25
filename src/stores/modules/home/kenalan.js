@@ -1,11 +1,12 @@
 import ApiHomeKenalan from '@/services/api/home/kenalan'
-// initial state
-const state = {
+
+export const namespaced = true
+export const state = {
   feedsKenalan: []
 }
 
-// actions
-const actions = {
+
+export const actions = {
   homeKenalan({
     commit,
     state
@@ -30,8 +31,8 @@ const actions = {
   }
 }
 
-// mutations
-const mutations = {
+
+export const mutations = {
   getHomeKenalan(state, data) {
     var filtered = data.kenalans.filter(function(obj) {
       return obj.id !== '2022ad13-d602-4eba-9cf1-9ef2ea0e158d' && obj.id !== 'c3fded37-5b4b-4a81-aee7-ee24d845b5e8'
@@ -41,17 +42,4 @@ const mutations = {
   updateKenalan(state, data) {
     state.feedsKenalan = data.kenalans
   }
-}
-
-// getters
-const getters = {
-
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

@@ -1,6 +1,7 @@
 import ApiHomeQuestions from '@/services/api/home/questions'
-// initial state
-const state = {
+
+export const namespaced = true
+export const state = {
   paginations: {
     page: 1,
     perPage: 5,
@@ -10,8 +11,8 @@ const state = {
   feedsQuestions: []
 }
 
-// actions
-const actions = {
+
+export const actions = {
   homeQuestions({ commit, state }, payload) {
     commit(
       'loadingLottie/playLoading',
@@ -65,8 +66,8 @@ const actions = {
   }
 }
 
-// mutations
-const mutations = {
+
+export const mutations = {
   getHomeQuestions(state, data) {
     state.feedsQuestions = data.questions
     state.paginations.total = data.meta.pages.total
@@ -97,15 +98,4 @@ const mutations = {
 
     state.feedsQuestions[index] = question
   }
-}
-
-// getters
-const getters = {}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

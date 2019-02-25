@@ -142,7 +142,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/profile/verified-steps',
+      path: '/profile/verified',
       name: 'ProfileVerified',
       component: () => import('@/pages/Profile/ProfileVerified')
     },
@@ -198,6 +198,16 @@ const router = new VueRouter({
       path: '/wordstadium/own-debate',
       name: 'WordStadiumOwnDebate',
       component: () => import('@/pages/wordstadium/own-debate')
+    },
+    {
+      path: '/wordstadium/create-challenge',
+      name: 'CreateChallenge',
+      component: () => import('@/pages/wordstadium/create-challenge')
+    },
+    {
+      path: '/wordstadium/preview-challenge',
+      name: 'PreviewChallenge',
+      component: () => import('@/pages/wordstadium/preview-challenge')
     },
     {
       path: '/lapor',

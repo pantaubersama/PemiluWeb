@@ -5,6 +5,7 @@ import MeditationIllustration from './illustrations/meditation.svg'
 import PlanIllustration from './illustrations/plan.svg'
 import TeachingIllustration from './illustrations/teaching.svg'
 import ProfileIllustration from './illustrations/profile.svg'
+import ChallengeIllustration from './illustrations/challenge.svg'
 
 export {
   CoachingIllustration,
@@ -13,5 +14,6 @@ export {
   MeditationIllustration,
   PlanIllustration,
   TeachingIllustration,
-  ProfileIllustration
+  ProfileIllustration,
+  ChallengeIllustration
 }

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#eb3037}
+        </style>
+    </defs>
+    <g id="outline-lawan-debate-blm-konfirmasi-24px" transform="translate(-.5 15)">
+        <path id="Rectangle_163" d="M0 0h24v24H0z" class="cls-1" data-name="Rectangle 163" transform="translate(.5 -15)"/>
+        <path id="Rectangle_164" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 164" transform="translate(11.5 -1)"/>
+        <path id="Path_1948" d="M14.3 10.69s-.38.42-.67.71a2.68 2.68 0 0 0-.83 1.6h-1.6a2.93 2.93 0 0 1 .93-2l.93-.94A1.5 1.5 0 1 0 10.5 9H9a3 3 0 1 1 6 0 2.39 2.39 0 0 1-.7 1.69z" class="cls-2" data-name="Path 1948" transform="translate(.5 -15)"/>
+        <path id="Path_1949" d="M8 22.8L5.46 19H2V3h20v16H10.54zM4 17h2.54L8 19.2 9.46 17H20V5H4z" class="cls-2" data-name="Path 1949" transform="translate(.5 -15)"/>
+    </g>
+</svg>

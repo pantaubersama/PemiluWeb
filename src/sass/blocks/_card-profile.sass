@@ -11,6 +11,7 @@
 
 
   .profile
+    display: flex
     img
       width: 84px
       height: 84px
@@ -24,16 +25,17 @@
       h3
         font-size: 18px
         font-weight: 600
+        @media (max-width: 575px)
+          font-size: 16px
       a, .line-verified
-        padding: 5px 8px
+        padding: 3px 8px
         border: 1px solid #cbcbcb
         border-radius: 5px
         font-size: 12px
         color: #cbcbcb
         font-weight: 500
-        display: flex
+        display: inline-flex
         align-items: center
-        // width: 80%
         justify-content: center
         text-decoration: none
         background-color: transparent

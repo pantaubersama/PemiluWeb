@@ -171,5 +171,7 @@ export const answerQuestion = (quizId, questionId, answerId) =>
     .catch(error => Promise.reject(error))
 
 export const getTotalKecenderungan = () =>
-  api.get('/v1/me/quizzes').then(resp => resp.data.data)
+  api
+  .get('/v1/me/quizzes').then(resp => resp.data.data)
+
 export default services
