@@ -34,6 +34,7 @@ import UserIcon from './icons/user.svg'
 import VerifiedIcon from './icons/verified.svg'
 import VerifiedIconDefault from './icons/icon-verified.svg'
 import WordStadiumIcon from './icons/word-stadium.svg'
+import VsIcon from './icons/vs.svg'
 import IconFacebook from './icons/icon-facebook.svg'
 import IconTwitter from './icons/icon-twitter.svg'
 import IconDots from './icons/icon-dots.svg'
@@ -92,6 +93,7 @@ export {
   UpvoteIcon,
   UserIcon,
   VerifiedIcon,
+  VsIcon,
   VerifiedIconDefault,
   WordStadiumIcon,
   IconFacebook,

@@ -4,7 +4,9 @@
       <div class="heading">
         <div class="status">Buat Tantangan</div>
         <div class="detail">
-          <div class="versus">VS</div>
+          <div class="versus">
+            <vs-icon/>
+          </div>
           <div class="description">DIRECT CHALLENGE</div>
         </div>
         <div class="user-info">
@@ -245,7 +247,8 @@ import {
   Clock,
   Saldo,
   OutlineLink,
-  HighlightOff
+  HighlightOff,
+  VsIcon
 } from '@/svg/icons'
 
 export default {
@@ -261,7 +264,8 @@ export default {
     Clock,
     Saldo,
     OutlineLink,
-    HighlightOff
+    HighlightOff,
+    VsIcon
   },
   data() {
     return {
@@ -360,8 +364,6 @@ export default {
     .versus
       height: 56px
       width: 56px
-      border: 2px solid #ffffff
-      border-top: none
       color: #ffffff
       font-weight: 800
       font-size: 24px
@@ -370,6 +372,7 @@ export default {
       align-items: center
       justify-content: center
       position: relative
+      top: -1px
 
     .description
       display: flex

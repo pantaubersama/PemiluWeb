@@ -16,7 +16,9 @@
               </div>
             </div>
             <div class="thumb center">
-              <div class="versus">VS</div>
+              <div class="versus">
+                <vs-icon/>
+              </div>
               <div class="description">
                 <p>
                   2018 pertumbuhan ekonomi Indonesia mengalami
@@ -182,7 +184,8 @@ import {
   Saldo,
   SaldoClock,
   Comment,
-  FilterIcon
+  FilterIcon,
+  VsIcon
 } from '@/svg/icons'
 import LayoutWordstadium from '@/layout/Wordstadium'
 
@@ -201,7 +204,8 @@ export default {
     Saldo,
     SaldoClock,
     Comment,
-    FilterIcon
+    FilterIcon,
+    VsIcon
   },
   data() {
     return {
@@ -357,8 +361,6 @@ export default {
       .versus
         height: 56px
         width: 56px
-        border: 1px solid #ffffff
-        border-top: none
         color: #ffffff
         font-weight: 800
         font-size: 24px
@@ -367,6 +369,7 @@ export default {
         align-items: center
         justify-content: center
         position: relative
+        top: -1px
 
       .description
         font-family: BwModelica, Lato
