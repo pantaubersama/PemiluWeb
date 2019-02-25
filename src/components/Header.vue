@@ -38,9 +38,9 @@
           </div>
         </div>
 
-        <a href="#" class="notification">
+        <!-- <a href="#" class="notification">
           <notification-icon></notification-icon>
-        </a>
+        </a> -->
         <div class="profile-menu" v-if="userLogin">
           <div
             id="toggle-button"
@@ -56,9 +56,9 @@
               <li>
                 <router-link to="/profile">Profile</router-link>
               </li>
-              <li>
+              <!-- <li>
                 <router-link to="/profile/data-lapor">Data Profile Lapor</router-link>
-              </li>
+              </li> -->
               <li>
                 <router-link to="/profile/badge">Badge</router-link>
               </li>
