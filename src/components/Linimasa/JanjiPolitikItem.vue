@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="top">
+      <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
       <div class="avatar">
-        <a href="javascript:void(0)">
-          <img :src="avatar" v-if="avatar && avatar.length > 0" class="rounded-circle">
-          <img src="@/assets/user.svg" alt v-else>
-        </a>
+        <img :src="avatar" v-if="avatar && avatar.length > 0" class="rounded-circle">
+        <img src="@/assets/user.svg" alt v-else>
       </div>
       <h5>
         {{ author_name }},
         <span>{{ author_about }}</span>
       </h5>
+      </router-link>
       <span class="right">{{ created_at_in_word }}</span>
     </div>
     <router-link :to="{name: 'LinimasaDetail', params: {id: id}}" class="link-content">
@@ -81,6 +81,7 @@ export default {
     author_about: String,
     created_at_in_word: String,
     title: String,
+    userId: String,
     description: String,
     image: String,
     creator: Object,

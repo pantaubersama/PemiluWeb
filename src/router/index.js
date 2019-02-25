@@ -126,6 +126,11 @@ const router = new VueRouter({
       }
     },
     {
+      path: '/profile/user',
+      name: 'ProfileUser',
+      component: () => import('@/pages/ProfileUser'),
+    },
+    {
       path: '/profile/cluster',
       name: 'ProfileCluster',
       component: () => import('@/pages/Profile/Cluster'),

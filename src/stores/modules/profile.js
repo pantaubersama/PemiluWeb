@@ -98,7 +98,10 @@ export const state = {
       isLast: false
     }
   },
-  stepVerificationUser: []
+  stepVerificationUser: [],
+  profileUser: [],
+  profileAvatar: ''
+
 }
 
 export const actions = {
@@ -109,6 +112,18 @@ export const actions = {
     const user = await ProfileAPI.getMe()
     ctx.commit('setProfileData', {
       user
+    })
+  },
+  async getUser(store, payload) {
+    store.commit('removeUserData')
+    const data = await ProfileAPI.getUser(payload.id)
+    store.commit('setUserData', data)
+  },
+
+  async getBadges(store, payload) {
+    const data = await ProfileAPI.getBadges(payload.id)
+    store.commit('setBadges', {
+      badges: data.achieved_badges
     })
   },
 
@@ -193,10 +208,6 @@ export const actions = {
     )
     return Promise.resolve(data)
   },
-
-  // async verify(store, payload) {
-  //   return ProfileAPI.verify(payload)
-  // },
 
   async getStepVerification(ctx) {
     const data = await ProfileAPI.getStepVerification()
@@ -393,6 +404,14 @@ export const mutations = {
   },
   setBadges(state, payload) {
     state.badges = payload.badges
+  },
+  setUserData(state, payload){
+    state.profileUser = payload
+    state.profileAvatar = payload.avatar.url
+  },
+  removeUserData(state, payload){
+    state.profileUser = []
+    state.profileAvatar = ''
   },
   setClusterDetail(state, payload) {
     state.clusterDetail = payload

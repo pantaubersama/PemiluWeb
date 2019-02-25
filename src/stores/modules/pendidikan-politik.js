@@ -327,12 +327,15 @@ export const mutations = {
     state.quizzes = result
   },
   [types.SUCCESS_QUESTIONS](state, payload) {
-    state.questions = payload
+    state.questions = payload.sort(function (a, b) {
+      return b.like_count - a.like_count
+    })
   },
   [types.ERROR_QUESTIONS](state, {
     savedQuestions
   }) {
     state.questions = savedQuestions
+
   },
   [types.SUCCESS_REPORT](state, payload) {},
   [types.ERROR_REPORT](state) {},

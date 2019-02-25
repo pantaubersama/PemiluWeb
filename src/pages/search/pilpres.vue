@@ -13,6 +13,7 @@
           :user_name="item.account.username"
           :created_at_in_word="item.created_at_in_word.id"
           :description="item.source.text"
+          :media="item.source.media"
           :source_id="item.source.id"
           :is-active="isActive"
           @onOpenTwitter="openTwitter($event)"

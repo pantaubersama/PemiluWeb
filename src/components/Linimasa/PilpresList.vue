@@ -4,6 +4,7 @@
       <div v-if="loading">
         <ContentLoader/>
       </div>
+
       <PilpresItem
         v-else
         :id="item.id"
@@ -14,6 +15,7 @@
         :user_name="item.account.username"
         :created_at_in_word="item.created_at_in_word.id"
         :description="item.source.text"
+        :media="item.source.media"
         :source_id="item.source.id"
         @onOpenTwitter="openTwitter($event)"
         :isActive="isActive"

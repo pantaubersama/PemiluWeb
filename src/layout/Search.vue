@@ -24,7 +24,7 @@
           <router-link
             :to="{ name: 'search', params: { type: 'pilpres' }, query: { q: query } }"
             :class="{ active: searchType === 'pilpres' }"
-          >Pilpres</router-link>
+          >Linimasa</router-link>
         </li>
         <li>
           <router-link

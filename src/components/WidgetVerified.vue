@@ -16,7 +16,12 @@
                 {{kenalan.text}}
               </a>
             </div>
-            <router-link v-else class="active" :to="{path: '/'+ kenalan.link}">
+
+            <router-link v-else-if="
+            kenalan.text != 'Kontribusi Perhitungan' &&
+            kenalan.text != 'Kontribusi Lapor' &&
+            kenalan.text != 'Ikut Debat'
+            " class="active" :to="{path: '/'+ kenalan.link}">
               <check-icon/>
               {{kenalan.text}}
             </router-link>

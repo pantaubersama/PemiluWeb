@@ -2,13 +2,15 @@
   <ul class="card search-type-people" >
     <li v-if="users != ''">
       <div v-for="user in users" :key="user.id" class="user-item">
-        <img :src="user.avatar.url" :alt="user.username" class="avatar" v-if="user.avatar.url">
-        <img src="@/assets/user.svg" class="avatar" alt="thumbnail" v-else>
-        <div class="detail">
-          <div class="fullname">{{user.full_name}}</div>
-          <div class="username">@{{user.username}}</div>
-        </div>
-        <hr class="separator">
+        <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: user.id}}">
+          <img :src="user.avatar.url" :alt="user.username" class="avatar" v-if="user.avatar.url">
+          <img src="@/assets/user.svg" class="avatar" alt="thumbnail" v-else>
+          <div class="detail">
+            <div class="fullname">{{user.full_name}}</div>
+            <div class="username">@{{user.username}}</div>
+          </div>
+          <hr class="separator">
+        </router-link>
       </div>
     </li>
     <LottieEmpty v-if="showLottie"/>
