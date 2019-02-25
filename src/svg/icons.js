@@ -59,6 +59,7 @@ import Comment from './icons/comment.svg'
 import OutlineLink from './icons/outline-link.svg'
 import HighlightOff from './icons/highlight-off.svg'
 import WordColored from './icons/word-colored.svg'
+import OutlineChallengeAccepted from './icons/outline-challenge-accepted.svg'
 
 export {
   AlertIcon,
@@ -121,5 +122,6 @@ export {
   Comment,
   OutlineLink,
   HighlightOff,
-  WordColored
+  WordColored,
+  OutlineChallengeAccepted
 }
