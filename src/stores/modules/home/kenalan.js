@@ -27,13 +27,16 @@ const actions = {
     ApiHomeKenalan.updateKenalan(payload.id, result => {
       commit('updateKenalan', result.data.data)
     })
-  },
+  }
 }
 
 // mutations
 const mutations = {
   getHomeKenalan(state, data) {
-    state.feedsKenalan = data.kenalans
+    var filtered = data.kenalans.filter(function(obj) {
+      return obj.id !== '2022ad13-d602-4eba-9cf1-9ef2ea0e158d' && obj.id !== 'c3fded37-5b4b-4a81-aee7-ee24d845b5e8'
+    })
+    state.feedsKenalan = filtered
   },
   updateKenalan(state, data) {
     state.feedsKenalan = data.kenalans
