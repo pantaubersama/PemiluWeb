@@ -18,7 +18,7 @@
           {{ name }}
         </div>
         <textarea
-          v-validate="'required'"
+          v-validate="'required|min:3'"
           data-vv-validate-on="blur|input"
           name="title"
           v-model="title"

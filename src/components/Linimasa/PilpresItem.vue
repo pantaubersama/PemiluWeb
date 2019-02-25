@@ -29,6 +29,9 @@
         </div>
         <div class="desc-text">
           <p v-html="description"></p>
+          <div class="media-twitter">
+            <img v-if="media && imageLoad" :src="media[0]" @error="imageLoadError">
+          </div>
         </div>
       </div>
       <div class="content-action">
@@ -69,6 +72,11 @@ import {
 
 export default {
   name: 'PilpresItem',
+  data() {
+    return {
+      imageLoad: true
+    }
+  },
   props: {
     id: String,
     group_avatar: String,
@@ -78,6 +86,7 @@ export default {
     user_name: String,
     created_at_in_word: String,
     description: String,
+    media: Array,
     source_id: String,
     isActive: [Boolean, String]
   },
@@ -88,6 +97,24 @@ export default {
     ShareIcon,
     MoreHorizontalIcon,
     ContentLoader
+  },
+  methods: {
+    imageLoadError () {
+      this.imageLoad = false
+    }
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.media-twitter
+  max-height: 200px
+  overflow: hidden
+  border-radius: 5px
+  margin: 10px 0
+  img
+    height: 100%
+    width: 100%
+    object-fit: cover
+    margin: 0!important
+</style>

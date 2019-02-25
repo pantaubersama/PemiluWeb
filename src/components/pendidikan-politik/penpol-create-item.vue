@@ -3,10 +3,8 @@
     <div class="card-content">
       <div class="top">
         <div class="avatar">
-          <a href="javascript:void(0)">
             <img :src="avatar" v-if="avatar && avatar.length > 0" alt="avatar">
             <img src="@/assets/user.svg" alt="avatar" v-else>
-          </a>
         </div>
         <h5>{{ author_name }}</h5>
       </div>

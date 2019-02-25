@@ -11,20 +11,18 @@
     <div v-if="feedsJanjiPolitik">
       <div class="card-content" v-for="janjiPolitik in feedsJanjiPolitik" :key="janjiPolitik.id">
         <div class="top">
-          <div class="avatar">
-            <a href v-if="janjiPolitik.creator.avatar.thumbnail.url != null">
-              <img :src="janjiPolitik.creator.avatar.thumbnail.url">
-            </a>
-            <a href="#" v-else>
-              <img src="@/assets/user.svg">
-            </a>
-          </div>
-          <h5>
-            {{janjiPolitik.creator.full_name}},
-            <span
-              v-if="janjiPolitik.creator.cluster != null"
-            >{{janjiPolitik.creator.cluster.name}}</span>
-          </h5>
+          <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: janjiPolitik.creator.id}}">
+            <div class="avatar">
+                <img v-if="janjiPolitik.creator.avatar.thumbnail.url != null" :src="janjiPolitik.creator.avatar.thumbnail.url">
+                <img v-else src="@/assets/user.svg">
+            </div>
+            <h5>
+              {{janjiPolitik.creator.full_name}},
+              <span
+                v-if="janjiPolitik.creator.cluster != null"
+              >{{janjiPolitik.creator.cluster.name}}</span>
+            </h5>
+          </router-link>
           <span class="right">{{janjiPolitik.created_at_in_word.id}}</span>
         </div>
         <router-link :to="{name: 'LinimasaDetail', params: {id: janjiPolitik.id}}">

@@ -7,12 +7,14 @@
     </button>
     <div class="content">
       <div class="meta">
+        <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
         <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
         <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
         <div class="title">
           <div class="name">{{name}}</div>
           <small class="question-title">{{title}}</small>
         </div>
+        </router-link>
         <small class="time">{{time}}</small>
       </div>
       <router-link :to="{name: 'PendidikanPolitikDetail', params: {id:id}}">
@@ -85,6 +87,7 @@ export default {
     title: String,
     time: String,
     question: String,
+    userId: String,
     isVoted: Boolean,
     count: Number,
     isActive: [Boolean, String]
@@ -139,3 +142,8 @@ export default {
   }
 }
 </script>
+<style lang="sass" scoped>
+.question-item
+  border-top: 1px solid #ececec
+  margin-top: -1px
+</style>

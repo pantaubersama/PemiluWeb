@@ -15,6 +15,12 @@ export const getMe = () => api
   .then(resp => resp.data)
   .then(data => data.data.user)
 
+export const getUser = id =>
+  api
+    .get(`/v1/users/${id}/simple`)
+    .then(resp => resp.data)
+    .then(data => data.data.user)
+
 export const updateAvatar = avatar => {
   const formData = new FormData()
   formData.append('avatar', avatar)

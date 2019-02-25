@@ -28,7 +28,8 @@ Vue.use(VeeValidate, {
       messages: {
         required: (field) => `* Wajib Diisi.`,
         email: (field) => `Format email yang kamu masukkan salah`,
-        regex: (field) => `Format nomor KTP tidak valid`
+        regex: (field) => `Format nomor KTP tidak valid`,
+        min: (field, [length]) => `Minimal ${length} karakter.`,
       }
     }
   }

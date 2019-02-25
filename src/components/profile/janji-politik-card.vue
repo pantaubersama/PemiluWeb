@@ -20,6 +20,7 @@
           :avatar="item.creator.avatar.thumbnail_square.url"
           :author_name="setName(item.creator.full_name)"
           :author_about="item.creator.about"
+          :userId="item.creator.id"
           :created_at_in_word="item.created_at_in_word.id"
           :title="item.title"
           :description="trimCharacters(item.body, 180)"

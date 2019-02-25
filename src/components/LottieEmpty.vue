@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState,  mapActions } from 'vuex'
 import lottie from 'lottie-web'
 export default {
   name: 'LottieEmpty',
@@ -21,6 +21,7 @@ export default {
   },
   destroyed() {
     this.emptyLottie.destroy()
+    this.$store.commit('showLottie/hideLottie')
   },
 }
 </script>

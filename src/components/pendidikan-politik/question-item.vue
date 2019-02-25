@@ -7,12 +7,14 @@
     </button>
     <div class="content">
       <div class="meta">
+        <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
         <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
         <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
         <div class="title">
           <div class="name">{{name}}</div>
           <small class="question-title">{{title}}</small>
         </div>
+        </router-link>
         <small class="time">{{time}}</small>
       </div>
       <router-link :to="{name: 'PendidikanPolitikDetail', params: {id: id}}">
@@ -75,6 +77,7 @@ export default {
     avatar: String,
     title: String,
     time: String,
+    userId: String,
     question: String,
     isVoted: Boolean,
     count: Number,

@@ -69,7 +69,9 @@ export const actions = {
 
 export const mutations = {
   getHomeQuestions(state, data) {
-    state.feedsQuestions = data.questions
+    state.feedsQuestions = data.questions.sort(function (a, b) {
+      return b.like_count - a.like_count
+    })
     state.paginations.total = data.meta.pages.total
   },
 

@@ -10,24 +10,27 @@
         :title="shareTitle"
       />
       <ul class="question-list">
-        <li class="card-list" v-for="question in feedsQuestions" :key="question.id">
-          <tanya-item
-            :id="question.id"
-            :title="question.user.about"
-            :question="question.body"
-            :time="question.created_at_in_word.id"
-            :name="question.user.full_name"
-            :avatar="question.user.avatar.thumbnail_square.url"
-            :is-voted="question.is_liked"
-            :count="question.like_count"
-            @upvoted="onUpvote($event)"
-            @removeVoted="onRemoveVote($event)"
-            @onCopy="copyToClipboard(question.id, $event)"
-            @onShare="modalShare(question.id, $event)"
-            :isActive="isActive"
-            @toggleDropdown="toggleDropdown(question.id, $event)"
-            @onReport="handleReport(question.id, $event)"
-          ></tanya-item>
+        <li v-for="(question, index) in feedsQuestions" :key="index">
+          <div v-if="index <= 4">
+            <tanya-item
+              :id="question.id"
+              :title="question.user.about"
+              :question="question.body"
+              :time="question.created_at_in_word.id"
+              :name="question.user.full_name"
+              :userId="question.user.id"
+              :avatar="question.user.avatar.thumbnail_square.url"
+              :is-voted="question.is_liked"
+              :count="question.like_count"
+              @upvoted="onUpvote($event)"
+              @removeVoted="onRemoveVote($event)"
+              @onCopy="copyToClipboard(question.id, $event)"
+              @onShare="modalShare(question.id, $event)"
+              :isActive="isActive"
+              @toggleDropdown="toggleDropdown(question.id, $event)"
+              @onReport="handleReport(question.id, $event)"
+            ></tanya-item>
+          </div>
         </li>
         <li v-if="loadingAnimating">
           <ContentLoader/>
@@ -35,7 +38,7 @@
         <router-link
           to="/pendidikan-politik"
           class="load-more"
-          v-if="!paginations.isLast"
+
         >Tampilkan lebih banyak
           <div class="arrow-icon">
             <bottom-arrow/>
@@ -50,7 +53,7 @@
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import { cleanURL } from '@/utils'
 import { BottomArrow, IconDots } from '@/svg/icons'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import TanyaItem from '@/components/Home/CardTanyaItem'
 import ContentLoader from '@/components/Loading/ContentLoader'
 import ShareOptions from '@/mixins/share-options'
@@ -69,21 +72,39 @@ export default {
     return {
       shareTitle: 'Kamu setuju pertanyaan ini? Upvote dulu, dong ⬆',
       isSharing: false,
-      shareId: ''
+      shareId: '',
+      loadingAnimating: true
     }
   },
   computed: {
-    ...mapState('homeQuestions', ['feedsQuestions', 'paginations']),
-    ...mapState('loadingLottie', ['loadingAnimating']),
+    ...mapState({
+      feedsQuestions: state => state.pendidikanPolitik.questions,
+      // loadingAnimating: state => state.loadingLottie.loadingAnimating
+    }),
     shareURL() {
       return `/share/tanya/`
     }
   },
   created() {
-    this.$store.dispatch('homeQuestions/homeQuestions')
+    this.fetchDataQuestions()
   },
   methods: {
-    ...mapActions(['vote', 'unVote', 'postReport']),
+    ...mapActions(['fetchQuestions','vote', 'unVote', 'postReport']),
+    fetchDataQuestions() {
+      const payload = {
+        page: 1,
+        perPage: 100,
+        query: '',
+        operator: 'and',
+        match: 'word_start',
+        orderBy: this.filterUrutan,
+        direction: 'desc',
+        filter: this.filterUser
+      }
+      this.fetchQuestions(payload).then(async () => {
+      await setTimeout(() => (this.loadingAnimating = false), 1000)
+    })
+    },
     loadMore() {
       if (this.paginations.isLast === false) {
         this.$store.dispatch('homeQuestions/nextPage')

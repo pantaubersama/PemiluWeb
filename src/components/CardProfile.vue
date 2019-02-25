@@ -7,8 +7,10 @@
         </a>
       </span>
       <div class="profile">
-        <img :src="user.avatar.url">
+        <img v-if="user.avatar" :src="user.avatar.url">
+        <img v-else src="~@/assets/user.svg" alt>
         <span>
+
           <h3>{{user.full_name}}, @{{user.username}}</h3>
           <div v-if="user.verified" class="line-verified">
             <verified-icon-default/>Terverifikasi
@@ -17,8 +19,9 @@
             <verified-icon-default/>Belum Verifikasi
           </router-link>
         </span>
-        <p v-if="user.about && user.about.length > 0">{{user.about}}</p>
-        <p v-else>-</p>
+      </div>
+      <div class="user-about" v-if="user.about && user.about.length > 0">
+        <p>{{user.about}}</p>
       </div>
     </div>
     <div class="card">
@@ -165,7 +168,6 @@ import { authLink } from '@/mixins/link'
 import { utils } from '@/mixins/utils'
 import { mapState, mapActions } from 'vuex'
 
-import ListCardJP from '@/components/ListCardJP'
 import ModalRequestCluster from '@/pages/Profile/ModalRequestCluster'
 import ModalConfirmDeleteCluster from '@/pages/Profile/ModalConfirmDeleteCluster'
 import ModalEditProfile from '@/pages/Profile/ModalEditProfile'
@@ -180,7 +182,6 @@ import ContentLoader from '@/components/Loading/ContentLoader'
 export default {
   name: 'CardProfile',
   components: {
-    ListCardJP,
     JanjiPolitikCard,
     ModalRequestCluster,
     ModalConfirmDeleteCluster,
