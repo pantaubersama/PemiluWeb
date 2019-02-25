@@ -8,7 +8,7 @@
         </a>
       </li>
       <li>
-        <a href="https://pantaubersama.pusatbantuan.com/2/2">
+        <a href="https://pantaubersama.pusatbantuan.com/">
           <img src="@/assets/icon_info.svg">Pusat Bantuan
         </a>
       </li>
