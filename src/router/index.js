@@ -205,6 +205,11 @@ const router = new VueRouter({
       component: () => import('@/pages/wordstadium/own-debate')
     },
     {
+      path: '/wordstadium/history-debate',
+      name: 'WordStadiumHistoryDebate',
+      component: () => import('@/pages/wordstadium/history-debate')
+    },
+    {
       path: '/wordstadium/create-challenge',
       name: 'CreateChallenge',
       component: () => import('@/pages/wordstadium/create-challenge')

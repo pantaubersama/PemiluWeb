@@ -16,7 +16,9 @@
               </div>
             </div>
             <div class="thumb center">
-              <div class="versus">VS</div>
+              <div class="versus">
+                <vs-icon/>
+              </div>
               <div class="description">
                 <p>
                   2018 pertumbuhan ekonomi Indonesia mengalami
@@ -151,7 +153,8 @@ import {
   Clock,
   Saldo,
   Comment,
-  FilterIcon
+  FilterIcon,
+  VsIcon
 } from '@/svg/icons'
 import LayoutWordstadium from '@/layout/Wordstadium'
 
@@ -169,7 +172,8 @@ export default {
     Clock,
     Saldo,
     Comment,
-    FilterIcon
+    FilterIcon,
+    VsIcon
   },
   data() {
     return {
@@ -239,6 +243,8 @@ export default {
   border-top-left-radius: 8px
   border-top-right-radius: 8px
   z-index: 1
+  background: url('~@/assets/banner-live-now-full.svg') no-repeat center
+  background-size: cover
 
   .status
     display: flex
@@ -309,8 +315,6 @@ export default {
       .versus
         height: 56px
         width: 56px
-        border: 1px solid #ffffff
-        border-top: none
         color: #ffffff
         font-weight: 800
         font-size: 24px
@@ -319,18 +323,7 @@ export default {
         align-items: center
         justify-content: center
         position: relative
-
-        // &:before
-        //   content: ''
-        //   position: absolute
-        //   height: 0
-        //   width: 0
-        //   bottom: -36px
-        //   left: 0
-        //   border-width: 0 28px 34px
-        //   border-style: solid
-        //   border-color: #ffffff transparent
-        //   transform: rotate(180deg)
+        top: -1px
 
       .description
         font-family: BwModelica, Lato

@@ -4,7 +4,9 @@
       <div class="heading">
         <div class="status">Promote Your Challenge</div>
         <div class="detail">
-          <div class="versus">VS</div>
+          <div class="versus">
+            <vs-icon/>
+          </div>
           <div class="description">OPEN CHALLENGE</div>
         </div>
         <div class="user-info">
@@ -181,7 +183,8 @@ import {
   Saldo,
   FacebookIcon,
   TwitterIcon,
-  IconTwitter
+  IconTwitter,
+  VsIcon
 } from '@/svg/icons'
 
 export default {
@@ -194,7 +197,8 @@ export default {
     Saldo,
     FacebookIcon,
     TwitterIcon,
-    IconTwitter
+    IconTwitter,
+    VsIcon
   },
   data() {
     return {}
@@ -239,6 +243,7 @@ export default {
   border-top-right-radius: 8px
   z-index: 1
   background: url('~@/assets/orange-stadium.svg') no-repeat center
+  background-size: cover
 
   .status
     height: 95px
@@ -271,8 +276,6 @@ export default {
     .versus
       height: 56px
       width: 56px
-      border: 2px solid #ffffff
-      border-top: none
       color: #ffffff
       font-weight: 800
       font-size: 24px
@@ -281,6 +284,7 @@ export default {
       align-items: center
       justify-content: center
       position: relative
+      top: -1px
 
     .description
       display: flex
