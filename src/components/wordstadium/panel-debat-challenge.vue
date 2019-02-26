@@ -1,18 +1,14 @@
 <template>
   <div class="panel-debat-container">
     <card-debat type="challenge">
-      <template slot="body-lower">
-        Menunggu Lawan Debat
-      </template>
+      <template slot="body-lower">Menunggu Lawan Debat</template>
     </card-debat>
     <div class="panel-detail">
-      <small class="tag">ekonomi</small>
+      <small class="tag">{{ data.topic_list ? data.topic_list[0] : '' }}</small>
       <button type="button" class="menu-btn">
         <i class="icon icon-menu"></i>
       </button>
-      <p class="description">
-        2018 pertumbuhan ekonomi Indonesia mengalami pertumbuhan mencapai 5,27%. 2 periode yuk, biar 10,54%.
-      </p>
+      <p class="description" v-html="data.statement"></p>
     </div>
   </div>
 </template>
@@ -21,7 +17,10 @@
 import CardDebat from '@/components/wordstadium/card-debat'
 export default {
   name: 'PanelDebatChallenge',
-  components: { CardDebat }
+  components: { CardDebat },
+  props: {
+    data: Object
+  }
 }
 </script>
 

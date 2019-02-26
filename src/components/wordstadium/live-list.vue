@@ -6,28 +6,28 @@
       <router-link class="see-more" to="/wordstadium/live">See more >></router-link>
     </div>
     <ul class="debat-item-list --horizontal">
-      <button type="button" class="go-left"
+      <button
+        type="button"
+        class="go-left"
         @mousedown.prevent="scroll(10)"
-        @mouseup.prevent="clearScroll()">
+        @mouseup.prevent="clearScroll()"
+      >
         <i class="icon icon-arrow-left"></i>
       </button>
-      <li v-for="item in items"
-        :key="item"
-        :style="`transform: translateX(${scrollValue}px)`">
+      <li v-for="item in lives" :key="item.id" :style="`transform: translateX(${scrollValue}px)`">
         <card-debat type="live">
           <template slot="body-lower">
-            <small class="tag">ekonomi</small>
-            <p class="description">
-              2018 pertumbuhan ekonomi Indonesia
-              mengalami pertumbuhan mencapai 5,27%.
-              2 periode yuk, biar 10,54%.
-            </p>
+            <small class="tag">{{ item.topic_list ? item.topic_list[0] : '' }}</small>
+            <p class="description" v-html="item.statement"></p>
           </template>
         </card-debat>
       </li>
-      <button type="button" class="go-right"
+      <button
+        type="button"
+        class="go-right"
         @mousedown.prevent="scroll(-10)"
-        @mouseup.prevent="clearScroll()">
+        @mouseup.prevent="clearScroll()"
+      >
         <i class="icon icon-arrow-right"></i>
       </button>
     </ul>
@@ -42,15 +42,13 @@ export default {
   components: {
     CardDebat
   },
+  props: {
+    lives: Array
+  },
   data() {
     return {
       scrollValue: 0,
       scrollIntervalId: -1
-    }
-  },
-  computed: {
-    items() {
-      return Array.from(Array(10).keys())
     }
   },
   methods: {

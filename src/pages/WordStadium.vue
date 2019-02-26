@@ -75,7 +75,7 @@
         </div>
 
         <div v-else>
-          <wordstadium-live-list :lives="lives" v-if="$route.query.type !== 'personal'"/>
+          <wordstadium-live-list :lives="lives"/>
           <div class="debat-list-container">
             <div class="debat-title">
               <h3 class="title">Linimasa Debat</h3>
@@ -89,8 +89,8 @@
                 <div class="title">Debat: Coming Soon</div>
               </div>
               <ul class="debat-item-list">
-                <li>
-                  <panel-debat-coming-soon></panel-debat-coming-soon>
+                <li v-for="item in comingSoon" :key="item.id">
+                  <panel-debat-coming-soon :data="item" />
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/coming-soon">See more >></router-link>
@@ -101,8 +101,8 @@
                 <div class="title">Debat: Done</div>
               </div>
               <ul class="debat-item-list">
-                <li>
-                  <panel-debat-done></panel-debat-done>
+                <li v-for="item in done" :key="item.id">
+                  <panel-debat-done :data="item" />
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/done">See more >></router-link>
@@ -113,8 +113,8 @@
                 <div class="title">Challenge</div>
               </div>
               <ul class="debat-item-list">
-                <li>
-                  <panel-debat-challenge></panel-debat-challenge>
+                <li v-for="item in challenges" :key="item.id">
+                  <panel-debat-challenge :data="item" />
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/challenge">See more >></router-link>
@@ -130,6 +130,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 import LayoutTimeline from '@/layout/Timeline'
 import ComingSoon from '@/components/ComingSoon'
 import Lottie from 'lottie-web'
@@ -151,10 +153,16 @@ export default {
     PanelDebatChallenge,
     Lottie
   },
-  data() {
-    return {
-      lives: []
-    }
+  computed: {
+    ...mapState({
+      challenges: s => s.wordstadium.challenges
+    }),
+    ...mapGetters({
+      lives: 'wordstadium/lives',
+      ongoing: 'wordstadium/ongoing',
+      comingSoon: 'wordstadium/comingSoon',
+      done: 'wordstadium/done'
+    })
   },
   methods: {
     loadLottie() {
@@ -184,6 +192,7 @@ export default {
   },
   mounted() {
     this.loadLottie()
+    this.$store.dispatch('wordstadium/getAllChallenges')
   },
   watch: {
     $route(to, from) {

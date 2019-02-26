@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // modules
-import * as  meLogout from '@/stores/modules/me/logout'
+import * as meLogout from '@/stores/modules/me/logout'
 import liniMasa from '@/stores/modules/lini-masa'
 import * as profile from '@/stores/modules/profile'
 import * as pendidikanPolitik from '@/stores/modules/pendidikan-politik'
@@ -16,6 +16,7 @@ import * as dashboard from '@/stores/modules/dashboard'
 import * as loadingLottie from '@/stores/modules/loading-lottie'
 import * as showLottie from '@/stores/modules/empty-lottie'
 import * as search from '@/stores/modules/search'
+import * as wordstadium from '@/stores/modules/wordstadium'
 
 // Lini Masa
 import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
@@ -49,6 +50,7 @@ export default new Vuex.Store({
     homeCluster,
     homeKenalan,
     search,
+    wordstadium,
     showLottie,
     LiniMasaDetail,
     PendidikanPolitikDetail,
