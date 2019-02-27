@@ -18,8 +18,13 @@
         </div>
         <ul class="debat-list">
           <li v-for="item in items"
-            :key="item">
-            <panel-debat-challenge></panel-debat-challenge>
+            :key="item.id">
+            <panel-debat type="challenge" :debat="item">
+              <template slot="debat-card-footer" slot-scope="props">
+                <template v-if="props.item.progress === 'waiting_opponent'">Menunggu Lawan Debat</template>
+                <template v-if="props.item.progress === 'waiting_confirmation'">Menunggu Konfirmasi</template>
+              </template>
+            </panel-debat>
           </li>
         </ul>
       </div>
@@ -29,18 +34,28 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import LayoutTimeline from '@/layout/Timeline'
-import PanelDebatChallenge from '@/components/wordstadium/panel-debat-challenge'
+import PanelDebat from '@/components/wordstadium/panel-debat'
 export default {
   name: 'Wordstadium-ComingSoon',
   components: {
     LayoutTimeline,
-    PanelDebatChallenge
+    PanelDebat
   },
   computed: {
+    $items() {
+      return this.$store.getters['wordstadium/ongoing'](100)
+    },
     items() {
-      return Array.from(Array(10).keys())
+      return this.$items.map((item) => ({
+        ...item,
+        avatar: item.avatar || {}
+      }))
     }
+  },
+  mounted() {
+    this.$store.dispatch('wordstadium/getOngoingChallenges')
   }
 }
 </script>

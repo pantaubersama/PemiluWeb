@@ -98,8 +98,9 @@
                 <div class="title">Challenge</div>
               </div>
               <ul class="debat-item-list">
-                <li v-for="item in challenges" :key="item.id">
-                  <panel-debat-challenge :data="item" />
+                <li v-for="challenge in challenges"
+                  :key="challenge.id">
+                  <panel-debat-challenge :debat="challenge"></panel-debat-challenge>
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/challenge">See more >></router-link>
@@ -115,11 +116,11 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-
+import { mapState, mapActions, mapGetters } from 'vuex'
 import LayoutTimeline from '@/layout/Timeline'
 import ComingSoon from '@/components/ComingSoon'
 import Lottie from 'lottie-web'
+import WordstadiumPublic from '@/pages/wordstadium/public'
 import WordstadiumLiveList from '@/components/wordstadium/live-list'
 import WordstadiumProgressList from '@/components/wordstadium/progress-list'
 import CardDebat from '@/components/wordstadium/card-debat'
@@ -138,7 +139,8 @@ export default {
     PanelDebatComingSoon,
     PanelDebatDone,
     PanelDebatChallenge,
-    Lottie
+    Lottie,
+    WordstadiumPublic
   },
   computed: {
     ...mapState({
@@ -160,10 +162,30 @@ export default {
       await this.$store.dispatch('wordstadium/getMeAllChallenges')
     })
   },
-  destroyed() {
-    this.comingsoonLottie.destroy()
-    this.comingsoon2Lottie.destroy()
-    this.comingsoon3Lottie.destroy()
+  data() {
+    return {
+      lives: []
+    }
+  },
+  mounted() {
+    this.getLiveChallenges()
+    this.getComingSoonChallenges()
+    this.getOngoingChallenges()
+  },
+  computed: {
+    ongoing() {
+      return this.$store.getters['wordstadium/ongoing']()
+    },
+    challenges() {
+      return this.ongoing
+    }
+  },
+  methods: {
+    ...mapActions({
+      getLiveChallenges: 'wordstadium/getLiveChallenges',
+      getComingSoonChallenges: 'wordstadium/getComingSoonChallenges',
+      getOngoingChallenges: 'wordstadium/getOngoingChallenges'
+    })
   }
 }
 </script>

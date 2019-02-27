@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import * as Api from '@/services/api/wordstadium'
 
 const WordstadiumType = Api.WordstadiumType
@@ -54,6 +55,12 @@ export const getters = {
   }
 }
 
+export const getters = {
+  ongoing: s => (limit = 5) => Object.values(s.challenges)
+    .filter(it => it.condition === 'ongoing')
+    .slice(0, limit)
+}
+
 export const actions = {
   async getAllChallenges(ctx) {
     const data = await Api.getAllChallenge()
@@ -62,14 +69,22 @@ export const actions = {
   async getMeAllChallenges(ctx) {
     const data = await Api.getMeAllChallenge()
     ctx.commit('setOwnChallenges', data)
+  },
+  async getComingSoonChallenges(ctx) {
+    const data = await Api.getAllChallenge('coming_soon')
+    ctx.commit('setChallenges', data)
+  },
+  async getOngoingChallenges(ctx) {
+    const data = await Api.getAllChallenge('ongoing')
+    ctx.commit('setChallenges', data)
   }
 }
 
 export const mutations = {
   setChallenges(state, data) {
-    state.challenges = data
+    data.challenges.forEach((challenge) => Vue.set(state.challenges, challenge.id, challenge))
   },
   setOwnChallenges(state, data) {
-    state.ownChallenges = data
+    data.challenges.forEach((challenge) => Vue.set(state.ownChallenges, challenge.id, challenge))
   }
 }
