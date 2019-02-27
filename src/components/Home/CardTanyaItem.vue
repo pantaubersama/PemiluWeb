@@ -7,13 +7,21 @@
     </button>
     <div class="content">
       <div class="meta">
-        <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
-        <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
-        <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
-        <div class="title">
-          <div class="name">{{name}}</div>
-          <small class="question-title">{{title}}</small>
-        </div>
+        <router-link v-if="me == userId" class="avatar-wrapper" :to="{path: '/profile'}">
+          <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+          <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+          <div class="title">
+            <div class="name">{{name}}</div>
+            <small class="question-title">{{title}}</small>
+          </div>
+        </router-link>
+        <router-link v-else class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
+          <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+          <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+          <div class="title">
+            <div class="name">{{name}}</div>
+            <small class="question-title">{{title}}</small>
+          </div>
         </router-link>
         <small class="time">{{time}}</small>
       </div>
@@ -82,6 +90,7 @@ export default {
   },
   props: {
     id: String,
+    me: String,
     name: String,
     avatar: String,
     title: String,

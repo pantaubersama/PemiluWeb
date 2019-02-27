@@ -42,7 +42,9 @@
               </div>
               <div class="desc-text">
                 <p v-html="pilpres.source.text"></p>
-                <img v-if="pilpres.source.media" :src="pilpres.source.media">
+                <div class="media-twitter">
+                  <img v-if="pilpres.source.media" :src="pilpres.source.media">
+                </div>
               </div>
             </div>
             <div class="content-action action-img">

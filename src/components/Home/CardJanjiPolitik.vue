@@ -11,16 +11,24 @@
     <div v-if="feedsJanjiPolitik">
       <div class="card-content" v-for="janjiPolitik in feedsJanjiPolitik" :key="janjiPolitik.id">
         <div class="top">
-          <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: janjiPolitik.creator.id}}">
+          <router-link v-if="user.id == janjiPolitik.creator.id" class="avatar-wrapper" :to="{path: '/profile'}">
             <div class="avatar">
                 <img v-if="janjiPolitik.creator.avatar.thumbnail.url != null" :src="janjiPolitik.creator.avatar.thumbnail.url">
                 <img v-else src="@/assets/user.svg">
             </div>
             <h5>
-              {{janjiPolitik.creator.full_name}},
-              <span
-                v-if="janjiPolitik.creator.cluster != null"
-              >{{janjiPolitik.creator.cluster.name}}</span>
+              {{janjiPolitik.creator.full_name}}
+              <span>, {{janjiPolitik.creator.cluster.name}}</span>
+            </h5>
+          </router-link>
+          <router-link v-else class="avatar-wrapper" :to="{path: '/profile/user', query: {id: janjiPolitik.creator.id}}">
+            <div class="avatar">
+                <img v-if="janjiPolitik.creator.avatar.thumbnail.url != null" :src="janjiPolitik.creator.avatar.thumbnail.url">
+                <img v-else src="@/assets/user.svg">
+            </div>
+            <h5>
+              {{janjiPolitik.creator.full_name}}
+              <span>, {{janjiPolitik.creator.cluster.name}}</span>
             </h5>
           </router-link>
           <span class="right">{{janjiPolitik.created_at_in_word.id}}</span>
@@ -124,6 +132,14 @@ export default {
   computed: {
     ...mapState('homeJanjiPolitik', ['feedsJanjiPolitik', 'paginations']),
     ...mapState('loadingLottie', ['loadingAnimating']),
+    ...mapState('profile', ['user']),
+    // ...mapState({
+    //   janjiPolitiks: state => state.liniMasa.janjiPolitiks,
+    //   feedsPilpres: state => state.liniMasa.feedsPilpres,
+    //   user: state => state.profile.user,
+    //   userAuth: state => state.meLogout.userLogin,
+    //   clusters: state => state.profile.filterClusters
+    // }),
     shareURL() {
       return `/share/janjipolitik/`
     }

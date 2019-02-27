@@ -105,16 +105,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.media-twitter
-  max-height: 200px
-  overflow: hidden
-  border-radius: 5px
-  margin: 10px 0
-  img
-    height: 100%
-    width: 100%
-    object-fit: cover
-    margin: 0!important
-</style>

@@ -204,7 +204,7 @@ export default {
       await this.fetchJanjiPolitik(payload)
       await this.fetchFeedsPilpres(payloadFeeds)
       await this.$store.dispatch('profile/getClusterList')
-      await setTimeout(() => (this.isLoading = false), 1000)
+      await setTimeout(() => (this.isLoading = false), 500)
     })
   }
 }
