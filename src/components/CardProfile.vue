@@ -58,7 +58,7 @@
 
       <div class="list-wrap">
         <h4 class="title">Badge
-          <router-link class="badge-more" to="/profile/badge">Lihat lainnya</router-link>
+          <router-link class="badge-more" :to="{path:'/profile/badge',query: {id: user.id}}">Lihat lainnya</router-link>
         </h4>
 
         <template v-if="badges.length > 0">
@@ -78,6 +78,7 @@
       </div>
 
     </div>
+
     <div class="card tabs">
       <div class="nav-tabs">
         <ul>
@@ -210,10 +211,7 @@ export default {
       paginationsLinimasa: s => s.profile.paginations.historyLinimasa,
       paginationsPenPol: s => s.profile.paginations.historyPenPol,
       userSteps: s => s.profile.stepVerificationUser
-    }),
-    sortedBadges() {
-      return this.badges.slice().sort((a, b) => a.position - b.position)
-    }
+    })
   },
   created() {
     if (this.$route.query.hasOwnProperty('edit-profile')) {
@@ -241,6 +239,7 @@ export default {
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
     this.$store.commit('profile/emptyStepVerification')
+    this.$store.commit('profile/emptyBadges')
   },
   methods: {
     loadMoreLinimasa() {

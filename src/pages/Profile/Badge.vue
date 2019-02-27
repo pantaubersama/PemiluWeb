@@ -65,19 +65,20 @@ export default {
   },
   computed: {
     ...mapState({
-      user: s => s.profile.user,
       badges: s => s.profile.badges,
       listBadges: s => s.profile.listBadges
     })
   },
   mounted() {
-    this.$store.dispatch('profile/getMe').then(async () => {
-      this.$store.dispatch('profile/getBadges', {
-        id: this.user.id
-      }),
-        this.$store.dispatch('profile/listBadges')
+    this.$store.dispatch('profile/getBadges', {
+      id: this.$route.query.id
+    }).then(async () => {
+      await this.$store.dispatch('profile/listBadges')
     })
   },
-  methods: {}
+  destroyed() {
+    this.$store.commit('profile/emptyListBadges')
+  }
+
 }
 </script>

@@ -26,6 +26,7 @@
         <!-- TODO: seharuusnya menggunakan loader yang berbeda, disesuaikan dengan stylenya :) -->
         <ContentLoader/>
       </div>
+
       <JanjiPolitikItem
         v-else
         :userAuth="userAuth"

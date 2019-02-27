@@ -405,6 +405,9 @@ export const mutations = {
   setBadges(state, payload) {
     state.badges = payload.badges
   },
+  emptyBadges(state, payload) {
+    state.badges = []
+  },
   setUserData(state, payload){
     state.profileUser = payload
     state.profileAvatar = payload.avatar.url
@@ -454,6 +457,9 @@ export const mutations = {
   },
   setListBadges(state, badges) {
     Vue.set(state, 'listBadges', badges)
+  },
+  emptyListBadges(state) {
+    state.listBadges = []
   },
   setPoliticalParties(state, payload) {
     state.politicalParties = payload.political_parties

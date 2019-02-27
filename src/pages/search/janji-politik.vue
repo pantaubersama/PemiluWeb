@@ -1,6 +1,6 @@
 <template>
   <div class="card card-tabs">
-    <janji-politik-list :data="janjiPolitiks" :loading="isLoading"/>
+    <janji-politik-list :user="user" :data="janjiPolitiks" :loading="isLoading"/>
     <LottieEmpty v-if="showLottie"/>
   </div>
 </template>
@@ -42,6 +42,7 @@ export default {
   computed: {
     ...mapState({
       janjiPolitiks: s => s.search.janjiPolitiks,
+      user: state => state.profile.user,
       showLottie: s => s.showLottie.showLottie
     })
   },

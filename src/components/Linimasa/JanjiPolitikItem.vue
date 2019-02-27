@@ -1,15 +1,25 @@
 <template>
   <div>
     <div class="top">
-      <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
-      <div class="avatar">
-        <img :src="avatar" v-if="avatar && avatar.length > 0" class="rounded-circle">
-        <img src="@/assets/user.svg" alt v-else>
-      </div>
-      <h5>
-        {{ author_name }},
-        <span>{{ author_about }}</span>
-      </h5>
+      <router-link v-if="user.id == userId" class="avatar-wrapper" :to="{path: '/profile'}">
+        <div class="avatar">
+          <img :src="avatar" v-if="avatar && avatar.length > 0" class="rounded-circle">
+          <img src="@/assets/user.svg" alt v-else>
+        </div>
+        <h5>
+          {{ author_name }}
+          <span>, {{ author_about }}</span>
+        </h5>
+      </router-link>
+      <router-link v-else class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
+        <div class="avatar">
+          <img :src="avatar" v-if="avatar && avatar.length > 0" class="rounded-circle">
+          <img src="@/assets/user.svg" alt v-else>
+        </div>
+        <h5>
+          {{ author_name }}
+          <span>, {{ author_about }}</span>
+        </h5>
       </router-link>
       <span class="right">{{ created_at_in_word }}</span>
     </div>

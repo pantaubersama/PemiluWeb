@@ -32,6 +32,7 @@
         :id="question.id"
         :title="question.user.about"
         :question="question.body"
+        :me="user.id"
         :time="question.created_at_in_word.id"
         :name="question.user.full_name"
         :avatar="question.user.avatar.thumbnail_square.url"
