@@ -107,6 +107,13 @@ export default {
       const url = URL.createObjectURL(file)
       this.avatarURL = url
     }
+  },
+  created() {
+    document.documentElement.className = 'overflow-y-hidden'
+  },
+  destroyed() {
+    document.documentElement.className = ''
   }
+
 }
 </script>

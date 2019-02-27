@@ -189,6 +189,12 @@ export default {
       this.avatarFile = file
       this.avatarURL = URL.createObjectURL(file)
     }
+  },
+  created() {
+    document.documentElement.className = 'overflow-y-hidden'
+  },
+  destroyed() {
+    document.documentElement.className = ''
   }
 }
 </script>
@@ -199,37 +205,6 @@ img.avatar
   width: 48px
   object-fit: cover
   border-radius: 50%
-.custom-container
-  display: flex
-  flex-direction: column
-  position: relative
-  padding: 10px
-  label
-    font-size: 12px
-    line-height: 1.25
-    color: #4f4f4f
-    font-style: normal
-  input[type=text]
-    background: none
-    border: 1px solid #ececec
-    border-radius: 3px
-    padding: 10px 5px
-  button
-    background: #9b0012
-    border: none
-    border-top-right-radius: 3px
-    border-bottom-right-radius: 3px
-    position: absolute
-    bottom: 10px
-    right: 10px
-    top: 33px
-    cursor: pointer
-    .icon.icon-add
-      background: white no-repeat
-      -webkit-mask: url(~@/assets/icon-add.svg)
-      display: block
-      height: 25px
-      width: 25px
 .card-column.category-dropdown
   position: relative
 .category-btn

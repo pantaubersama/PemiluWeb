@@ -23,6 +23,9 @@ export const getters = {
 export const actions = {
   async people(ctx, payload) {
     await SearchAPI.people(payload).then(people => {
+      ctx.commit('showLottie/hideLottie',{},{
+        root: true
+      })
       ctx.commit('setPeople', people)
       if(people.length <= 0){
         ctx.commit('showLottie/showLottie',{},{
@@ -35,6 +38,9 @@ export const actions = {
   },
   async janjiPolitiks(ctx, payload) {
     await SearchAPI.janjiPolitiks(payload).then(janjiPolitiks => {
+      ctx.commit('showLottie/hideLottie',{},{
+        root: true
+      })
       ctx.commit('setJanjiPolitiks', janjiPolitiks)
       if(janjiPolitiks.length <= 0){
         ctx.commit('showLottie/showLottie',{},{
@@ -47,6 +53,9 @@ export const actions = {
   },
   async questions(ctx, payload) {
     await SearchAPI.questions(payload).then(questions => {
+      ctx.commit('showLottie/hideLottie',{},{
+        root: true
+      })
       ctx.commit('setQuestions', questions)
       if(questions.length <= 0){
         ctx.commit('showLottie/showLottie',{},{
@@ -59,6 +68,9 @@ export const actions = {
   },
   async quiz(ctx, payload) {
     await SearchAPI.quiz(payload).then(quizzes => {
+      ctx.commit('showLottie/hideLottie',{},{
+        root: true
+      })
       ctx.commit('setQuizzes', quizzes)
       if(quizzes.length <= 0){
         ctx.commit('showLottie/showLottie',{},{
@@ -71,6 +83,9 @@ export const actions = {
   },
   async pilpres(ctx, payload) {
     const pilpres = await SearchAPI.pilpres(payload)
+    ctx.commit('showLottie/hideLottie',{},{
+      root: true
+    })
     ctx.commit('setPilpres', pilpres)
     if(pilpres.length <= 0){
       ctx.commit('showLottie/showLottie',{},{
@@ -80,6 +95,9 @@ export const actions = {
   },
   async cluster(ctx, payload) {
     const cluster = await SearchAPI.cluster(payload)
+    ctx.commit('showLottie/hideLottie',{},{
+      root: true
+    })
     ctx.commit('setCluster', cluster)
     if(cluster.length <= 0){
       ctx.commit('showLottie/showLottie',{},{

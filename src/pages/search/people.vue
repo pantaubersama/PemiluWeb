@@ -1,6 +1,6 @@
 <template>
   <ul class="card search-type-people" >
-    <li v-if="users != ''">
+    <li>
       <div v-for="user in users" :key="user.id" class="user-item">
         <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: user.id}}">
           <img :src="user.avatar.url" :alt="user.username" class="avatar" v-if="user.avatar.url">
