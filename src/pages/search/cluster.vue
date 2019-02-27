@@ -1,13 +1,15 @@
 <template>
   <ul class="card search-type-people" >
-    <li v-if="clusters != ''">
+    <li>
       <div v-for="item in clusters" :key="item.id" class="user-item">
-        <img :src="item.image.url" :alt="item.username" class="avatar">
-        <div class="detail">
-          <div class="fullname">{{item.name}}</div>
-          <div class="category">{{item.category.name}}</div>
-        </div>
-        <hr class="separator">
+        <router-link :to="{ path: '/profile/cluster', query: { id: item.id }}">
+          <img :src="item.image.url" :alt="item.username" class="avatar">
+          <div class="detail">
+            <div class="fullname">{{item.name}}</div>
+            <div class="category">{{item.category.name}}</div>
+          </div>
+          <hr class="separator">
+        </router-link>
       </div>
     </li>
     <LottieEmpty v-if="showLottie"/>
@@ -48,19 +50,19 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-ul.card
-  padding: 10px 0
 
 .user-item
-  display: flex
-  flex-direction: row
-  justify-content: left
-  align-items: center
-  padding: 10px 20px
-  position: relative
-  border-bottom: 1px solid #ececec
+  a
+    display: flex
+    flex-direction: row
+    justify-content: left
+    align-items: center
+    padding: 10px 20px
+    position: relative
+    border-bottom: 1px solid #ececec
   &:last-child
-    border-bottom: initial
+    a
+      border-bottom: initial
 
 img.avatar
   flex: 0

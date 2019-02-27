@@ -416,6 +416,9 @@ export const mutations = {
   setClusterDetail(state, payload) {
     state.clusterDetail = payload
   },
+  emptyClusterDetail(state){
+    state.clusterDetail = []
+  },
   leaveClusters(state) {
     state.user.cluster = null
   },

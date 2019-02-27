@@ -7,7 +7,7 @@
         </a>
       </span>
       <div class="profile">
-        <img v-if="user.avatar" :src="user.avatar.url">
+        <img v-if="user.avatar.url" :src="user.avatar.url">
         <img v-else src="~@/assets/user.svg" alt>
         <span>
 

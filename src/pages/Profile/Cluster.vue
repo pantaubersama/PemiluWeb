@@ -36,6 +36,9 @@ export default {
       id: this.$route.query.id
     })
   },
+  destroyed() {
+    this.$store.commit('profile/emptyClusterDetail')
+  }
 
 }
 </script>
