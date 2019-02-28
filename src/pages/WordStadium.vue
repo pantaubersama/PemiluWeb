@@ -8,21 +8,8 @@
         </div>
 
         <div v-if="$route.query.type === 'personal'">
-          <div class="debat-list-container has--separator">
-            <div class="debat-list-container">
-              <div class="debat-list --challenge">
-                <div class="meta">
-                  <i class="icon icon-outline-lawan"></i>
-                  <div class="title">Challenge in Progress</div>
-                </div>
-                <div class="lottie-card">
-                  <div class="lottie-content" ref="comingsoonLottie"></div>
-                  <span class="lottie-title">Belum ada apa-apa :(</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="debat-list-container has--separator">
+          <wordstadium-progress-list :items="ownOngoing"/>
+          <div class="debat-list-container">
             <div class="debat-list-container">
               <div class="debat-title">
                 <h3 class="title">My Wordstadium</h3>
@@ -35,20 +22,24 @@
                   <i class="icon icon-debat-coming-soon"></i>
                   <div class="title">My Debat Coming Soon</div>
                 </div>
-                <div class="lottie-card">
-                  <div class="lottie-content" ref="comingsoon2Lottie"></div>
-                  <span class="lottie-title">Belum ada apa-apa :(</span>
-                </div>
+                <ul class="debat-item-list">
+                  <li v-for="item in ownComingSoon" :key="item.id">
+                    <panel-debat-coming-soon :data="item" />
+                  </li>
+                </ul>
+                <router-link class="see-more" to="/wordstadium/coming-soon">See more >></router-link>
               </div>
               <div class="debat-list --done">
                 <div class="meta">
                   <i class="icon icon-debat-coming-soon"></i>
                   <div class="title">My Debat Done</div>
                 </div>
-                <div class="lottie-card">
-                  <div class="lottie-content" ref="comingsoon3Lottie"></div>
-                  <span class="lottie-title">Belum ada apa-apa :(</span>
-                </div>
+                <ul class="debat-item-list">
+                  <li v-for="item in ownDone" :key="item.id">
+                    <panel-debat-done :data="item" />
+                  </li>
+                </ul>
+                <router-link class="see-more" to="/wordstadium/done">See more >></router-link>
               </div>
             </div>
           </div>
@@ -59,14 +50,8 @@
                 <div class="title">My Challenge</div>
               </div>
               <ul class="debat-item-list">
-                <li>
-                  <panel-debat-challenge></panel-debat-challenge>
-                </li>
-                <li>
-                  <panel-debat-challenge></panel-debat-challenge>
-                </li>
-                <li>
-                  <panel-debat-challenge></panel-debat-challenge>
+                <li v-for="item in ownChallenges" :key="item.id">
+                  <panel-debat-challenge :data="item" />
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/challenge">See more >></router-link>
@@ -75,7 +60,7 @@
         </div>
 
         <div v-else>
-          <wordstadium-live-list :lives="lives" v-if="$route.query.type !== 'personal'"/>
+          <wordstadium-live-list :lives="lives"/>
           <div class="debat-list-container">
             <div class="debat-title">
               <h3 class="title">Linimasa Debat</h3>
@@ -89,8 +74,8 @@
                 <div class="title">Debat: Coming Soon</div>
               </div>
               <ul class="debat-item-list">
-                <li>
-                  <panel-debat-coming-soon></panel-debat-coming-soon>
+                <li v-for="item in comingSoon" :key="item.id">
+                  <panel-debat-coming-soon :data="item" />
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/coming-soon">See more >></router-link>
@@ -101,8 +86,8 @@
                 <div class="title">Debat: Done</div>
               </div>
               <ul class="debat-item-list">
-                <li>
-                  <panel-debat-done></panel-debat-done>
+                <li v-for="item in done" :key="item.id">
+                  <panel-debat-done :data="item" />
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/done">See more >></router-link>
@@ -113,8 +98,8 @@
                 <div class="title">Challenge</div>
               </div>
               <ul class="debat-item-list">
-                <li>
-                  <panel-debat-challenge></panel-debat-challenge>
+                <li v-for="item in challenges" :key="item.id">
+                  <panel-debat-challenge :data="item" />
                 </li>
               </ul>
               <router-link class="see-more" to="/wordstadium/challenge">See more >></router-link>
@@ -130,10 +115,13 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 import LayoutTimeline from '@/layout/Timeline'
 import ComingSoon from '@/components/ComingSoon'
 import Lottie from 'lottie-web'
 import WordstadiumLiveList from '@/components/wordstadium/live-list'
+import WordstadiumProgressList from '@/components/wordstadium/progress-list'
 import CardDebat from '@/components/wordstadium/card-debat'
 import PanelDebatComingSoon from '@/components/wordstadium/panel-debat-coming-soon'
 import PanelDebatDone from '@/components/wordstadium/panel-debat-done'
@@ -145,52 +133,32 @@ export default {
     LayoutTimeline,
     ComingSoon,
     WordstadiumLiveList,
+    WordstadiumProgressList,
     CardDebat,
     PanelDebatComingSoon,
     PanelDebatDone,
     PanelDebatChallenge,
     Lottie
   },
-  data() {
-    return {
-      lives: []
-    }
-  },
-  methods: {
-    loadLottie() {
-      if (this.$route.query.type !== 'personal') return
-      this.comingsoonLottie = Lottie.loadAnimation({
-        container: this.$refs.comingsoonLottie,
-        path: '/lottie/empty-status.json',
-        autoplay: true,
-        loop: true,
-        renderer: 'svg'
-      })
-      this.comingsoon2Lottie = Lottie.loadAnimation({
-        container: this.$refs.comingsoon2Lottie,
-        path: '/lottie/empty-status.json',
-        autoplay: true,
-        loop: true,
-        renderer: 'svg'
-      })
-      this.comingsoon3Lottie = Lottie.loadAnimation({
-        container: this.$refs.comingsoon3Lottie,
-        path: '/lottie/empty-status.json',
-        autoplay: true,
-        loop: true,
-        renderer: 'svg'
-      })
-    }
+  computed: {
+    ...mapState({
+      challenges: s => s.wordstadium.challenges,
+      ownChallenges: s => s.wordstadium.ownChallenges
+    }),
+    ...mapGetters({
+      lives: 'wordstadium/lives',
+      ongoing: 'wordstadium/ongoing',
+      comingSoon: 'wordstadium/comingSoon',
+      done: 'wordstadium/done',
+      ownOngoing: 'wordstadium/ownOngoing',
+      ownComingSoon: 'wordstadium/ownComingSoon',
+      ownDone: 'wordstadium/ownDone'
+    })
   },
   mounted() {
-    this.loadLottie()
-  },
-  watch: {
-    $route(to, from) {
-      setTimeout(() => {
-        this.loadLottie()
-      }, 700)
-    }
+    this.$store.dispatch('wordstadium/getAllChallenges').finally(async () => {
+      await this.$store.dispatch('wordstadium/getMeAllChallenges')
+    })
   },
   destroyed() {
     this.comingsoonLottie.destroy()
