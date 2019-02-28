@@ -83,7 +83,6 @@
     <router-link
       to="/linimasa?type=janji-politik"
       class="load-more"
-      v-if="!paginations.isLast"
     >Tampilkan lebih banyak
       <div class="arrow-icon">
         <bottom-arrow/>

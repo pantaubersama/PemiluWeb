@@ -10,7 +10,6 @@
       />
       <div class="card-content" v-for="item in data" :key="item.id">
         <div v-if="loading">
-          <!-- TODO: seharuusnya menggunakan loader yang berbeda, disesuaikan dengan stylenya :) -->
           <ContentLoader/>
         </div>
         <JanjiPolitikItem
@@ -39,7 +38,7 @@
         </div>
       </div>
     </div>
-    <LottieEmpty v-if="showLottie"/>
+    <LottieEmpty v-if="showLottieJp"/>
   </div>
 
 </template>
@@ -96,7 +95,7 @@ export default {
       return `/linimasa/detail/`
     },
     ...mapState({
-      showLottie: s => s.showLottie.showLottie
+      showLottieJp: s => s.showLottie.showLottieJp
     })
   },
   methods: {

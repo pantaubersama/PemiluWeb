@@ -250,12 +250,7 @@ export const actions = {
       payload.id,
       state.paginations.historyLinimasa.page,
       state.paginations.historyLinimasa.perPage)
-    ctx.commit('setLinimasaHistory', data.janji_politiks)
-    if(data.janji_politiks.length <= 0){
-      ctx.commit('showLottie/showLottie',{},{
-        root: true
-      })
-    }
+      ctx.commit('setLinimasaHistory', data.janji_politiks)
   },
   async nextPageLinimasaHistory(ctx) {
     ctx.commit('nextPageLinimasaHistory')
