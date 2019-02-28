@@ -1,6 +1,17 @@
 <template>
   <div>
-    <div class="top">
+    <div v-if="this.$route.name == 'Profile' || this.$route.name == 'ProfileUser'" class="top">
+      <div class="avatar">
+        <img :src="avatar" v-if="avatar && avatar.length > 0" class="rounded-circle">
+        <img src="@/assets/user.svg" alt v-else>
+      </div>
+      <h5>
+        {{ author_name }}
+        <span>, {{ author_about }}</span>
+      </h5>
+      <span class="right">{{ created_at_in_word }}</span>
+    </div>
+    <div v-else class="top">
       <router-link v-if="user.id == userId" class="avatar-wrapper" :to="{path: '/profile'}">
         <div class="avatar">
           <img :src="avatar" v-if="avatar && avatar.length > 0" class="rounded-circle">
@@ -32,6 +43,7 @@
         </div>
       </div>
     </router-link>
+
     <span class="icon-right">
       <a href="javascript:void(0)" @click.stop="$emit('onShare', id)">
         <img src="@/assets/icon_share.svg">
@@ -96,7 +108,7 @@ export default {
     image: String,
     creator: Object,
     userAuth: Boolean,
-    user: Object,
+    user: [Object, Array],
     isActive: [Boolean, String]
   },
   computed: {

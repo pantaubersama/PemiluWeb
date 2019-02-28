@@ -6,7 +6,16 @@
       <span class="vote-count">{{ count }}</span>
     </button>
     <div class="content">
-      <div class="meta">
+      <div v-if="this.$route.name == 'Profile' || this.$route.name == 'ProfileUser'" class="meta">
+          <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+          <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+          <div class="title">
+            <div class="name">{{name}}</div>
+            <small class="question-title">{{title}}</small>
+          </div>
+        <small class="time">{{time}}</small>
+      </div>
+      <div v-else class="meta">
         <router-link v-if="me == userId" class="avatar-wrapper" :to="{path: '/profile'}">
           <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
           <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>

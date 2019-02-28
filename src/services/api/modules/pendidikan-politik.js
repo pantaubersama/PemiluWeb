@@ -12,7 +12,7 @@ const api = Api(BASE_URL, () => vueAuth.getToken())
 
 export const fetchQuestions = ({
   page = 1,
-  perPage = 100,
+  perPage = 150,
   query = '',
   operator = 'and',
   match = 'word_start',
@@ -109,7 +109,7 @@ const listNotParticipatedQuiz = (page = 1, perPage = 100) =>
 const listParticipatedQuiz = (
   type = QuizType.IN_PROGRESS,
   page = 1,
-  perPage = 100
+  perPage = 150
 ) =>
   api
     .get('/v1/quizzes/participated', {
@@ -120,7 +120,7 @@ const listParticipatedQuiz = (
       }
     })
     .then(resp => resp.data.data)
-const listAllQuiz = (type = QuizType.ALL, page = 1, perPage = 100) =>
+const listAllQuiz = (type = QuizType.ALL, page = 1, perPage = 150) =>
   axios
     .all([
       listNotParticipatedQuiz(page, perPage),
@@ -138,7 +138,7 @@ const listAllQuiz = (type = QuizType.ALL, page = 1, perPage = 100) =>
         }
       )
     )
-export const listQuizz = (type = QuizType.ALL, page = 1, perPage = 100) => {
+export const listQuizz = (type = QuizType.ALL, page = 1, perPage = 150) => {
   switch (type) {
     case QuizType.IN_PROGRESS:
     case QuizType.FINISHED:

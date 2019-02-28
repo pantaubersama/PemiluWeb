@@ -12,7 +12,7 @@ const pemilu = Api(PEMILU_URL, () => vueAuth.getToken())
 export const people = ({
   q,
   page = 1,
-  per_page = 100,
+  per_page = 150,
   filter_by = 'verified_all'
 } = {}) =>
   api
@@ -48,7 +48,7 @@ export const janjiPolitiks = ({
 
 export const questions = ({
   page = 1,
-  per_page = 100,
+  per_page = 150,
   q,
   o = 'and',
   m = 'word_start',
@@ -76,7 +76,7 @@ export const questions = ({
 export const pilpres = ({
   q,
   page = 1,
-  per_page = 100,
+  per_page = 150,
   filter_by = 'team_all'
 } = {}) =>
   pemilu
@@ -89,7 +89,7 @@ export const pilpres = ({
 export const cluster = ({
   q,
   page = 1,
-  per_page = 100,
+  per_page = 150,
   filter_value = null
 } = {}) =>
   api
@@ -99,13 +99,13 @@ export const cluster = ({
     .then(resp => resp.data.data.clusters)
 
 // eslint-disable-next-line camelcase
-export const clusterCategories = ({ page = 1, per_page = 100 } = {}) =>
+export const clusterCategories = ({ page = 1, per_page = 150 } = {}) =>
   api.get('/v1/categories', {
     params: { page, per_page }
   })
 
 // eslint-disable-next-line camelcase
-export const quiz = ({ q, page = 1, per_page = 100 } = {}) =>
+export const quiz = ({ q, page = 1, per_page = 150 } = {}) =>
   pemilu
     .get('/pendidikan_politik/v1/quizzes', {
       params: { page, per_page, q }

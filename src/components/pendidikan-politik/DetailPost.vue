@@ -69,7 +69,7 @@
         </div>
       </div>
     </div>
-    <a href="" class="card card-author" >
+    <router-link v-if="user.id == data.user.id " class="card card-author" :to="{path: '/profile'}">
       <div class="author-thumb">
         <img
           :src="data.user.avatar.medium_square.url"
@@ -81,7 +81,20 @@
       <div class="author-name">{{ data.user.full_name }}</div>
       <p>{{ data.user.about }}</p>
       <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
-    </a>
+    </router-link>
+    <router-link v-else class="card card-author" :to="{path: '/profile/user', query: {id: data.user.id}}">
+      <div class="author-thumb">
+        <img
+          :src="data.user.avatar.medium_square.url"
+          v-if="data.user.avatar.medium_square.url"
+          alt
+        >
+        <img src="@/assets/user.svg" alt v-else>
+      </div>
+      <div class="author-name">{{ data.user.full_name }}</div>
+      <p>{{ data.user.about }}</p>
+      <div class="time-posted">Posted {{ data.created_at_in_word.id }}</div>
+    </router-link>
   </div>
 </template>
 <script>
@@ -119,6 +132,7 @@ export default {
   },
 
   computed: {
+    ...mapState('profile', ['user']),
     shareURL() {
       return `/share/tanya/`
     }

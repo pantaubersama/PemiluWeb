@@ -87,7 +87,7 @@ export const actions = {
   },
   async listAllQuiz(ctx, {
     page = 1,
-    perPage = 100
+    perPage = 150
   } = {}) {
     const resp = await PenpolAPI.listQuizz(QuizType.ALL, page, perPage)
     const notParticipated = resp.filter(
@@ -105,7 +105,7 @@ export const actions = {
   listFilterQuiz(ctx, {
     type = QuizType.ALL,
     page = 1,
-    perPage = 100
+    perPage = 150
   } = {}) {
     return PenpolAPI.listQuizz(type, page, perPage).then(response => {
       ctx.commit('setQuizzes', response.quizzes)

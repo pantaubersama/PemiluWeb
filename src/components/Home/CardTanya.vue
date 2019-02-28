@@ -94,7 +94,7 @@ export default {
     fetchDataQuestions() {
       const payload = {
         page: 1,
-        perPage: 100,
+        perPage: 150,
         query: '',
         operator: 'and',
         match: 'word_start',
