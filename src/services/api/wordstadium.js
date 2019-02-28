@@ -25,6 +25,16 @@ export const getChallenge = (type = 'live_now') => {
     .then(resp => resp.data.data)
 }
 
+export const getMeChallenge = (type = 'live_now') => {
+  return api
+    .get('/word_stadium/v1/challenges/me', {
+      params: {
+        progress: type
+      }
+    })
+    .then(resp => resp.data.data)
+}
+
 export const getAllChallenge = () => {
   return axios
     .all([
@@ -32,6 +42,26 @@ export const getAllChallenge = () => {
       getChallenge(WordstadiumType.COMING_SOON),
       getChallenge(WordstadiumType.LIVE_NOW),
       getChallenge(WordstadiumType.DONE)
+    ])
+    .then(
+      axios.spread((ongoing, comingSoon, liveNow, done) => {
+        return Promise.resolve([
+          ...ongoing.challenges,
+          ...comingSoon.challenges,
+          ...liveNow.challenges,
+          ...done.challenges
+        ])
+      })
+    )
+}
+
+export const getMeAllChallenge = () => {
+  return axios
+    .all([
+      getMeChallenge(WordstadiumType.ONGOING),
+      getMeChallenge(WordstadiumType.COMING_SOON),
+      getMeChallenge(WordstadiumType.LIVE_NOW),
+      getMeChallenge(WordstadiumType.DONE)
     ])
     .then(
       axios.spread((ongoing, comingSoon, liveNow, done) => {
