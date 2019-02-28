@@ -14,6 +14,7 @@
           <div v-if="index <= 4">
             <tanya-item
               :id="question.id"
+              :me="me.id"
               :title="question.user.about"
               :question="question.body"
               :time="question.created_at_in_word.id"
@@ -79,7 +80,7 @@ export default {
   computed: {
     ...mapState({
       feedsQuestions: state => state.pendidikanPolitik.questions,
-      // loadingAnimating: state => state.loadingLottie.loadingAnimating
+      me: state => state.profile.user
     }),
     shareURL() {
       return `/share/tanya/`
@@ -93,7 +94,7 @@ export default {
     fetchDataQuestions() {
       const payload = {
         page: 1,
-        perPage: 100,
+        perPage: 150,
         query: '',
         operator: 'and',
         match: 'word_start',

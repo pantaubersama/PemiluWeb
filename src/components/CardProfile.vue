@@ -7,15 +7,18 @@
         </a>
       </span>
       <div class="profile">
-        <img v-if="user.avatar" :src="user.avatar.url">
+        <img v-if="user.avatar.url" :src="user.avatar.url">
         <img v-else src="~@/assets/user.svg" alt>
         <span>
-
           <h3>{{user.full_name}}, @{{user.username}}</h3>
           <div v-if="user.verified" class="line-verified">
             <verified-icon-default/>Terverifikasi
           </div>
-          <router-link v-else class="btn line" :to="{path: '/profile/verified', query: {steps: userSteps.next_step}}">
+          <router-link
+            v-else
+            class="btn line"
+            :to="{path: '/profile/verified', query: {steps: userSteps.next_step}}"
+          >
             <verified-icon-default/>Belum Verifikasi
           </router-link>
         </span>
@@ -58,7 +61,10 @@
 
       <div class="list-wrap">
         <h4 class="title">Badge
-          <router-link class="badge-more" to="/profile/badge">Lihat lainnya</router-link>
+          <router-link
+            class="badge-more"
+            :to="{path:'/profile/badge',query: {id: user.id}}"
+          >Lihat lainnya</router-link>
         </h4>
 
         <template v-if="badges.length > 0">
@@ -76,7 +82,6 @@
           </div>
         </template>
       </div>
-
     </div>
     <div class="card tabs">
       <div class="nav-tabs">
@@ -91,28 +96,6 @@
               <i class="icon icon-education"></i>
             </router-link>
           </li>
-
-          <!-- <li>
-            <router-link
-              class="tab-nav"
-              :to="{ path: '/profile', query: { history: 'wordstadium' }}"
-            >
-              <i class="icon icon-record"></i>
-            </router-link>
-          </li>
-          <li>
-            <router-link class="tab-nav" :to="{ path: '/profile', query: { history: 'lapor' }}">
-              <i class="icon icon-report"></i>
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              class="tab-nav"
-              :to="{ path: '/profile', query: { history: 'perhitungan' }}"
-            >
-              <i class="icon icon-date"></i>
-            </router-link>
-          </li>-->
         </ul>
       </div>
 
@@ -122,7 +105,7 @@
         :user="user"
         :loading="isLoading"
         :paginationsLinimasa="paginationsLinimasa"
-        @loadMoreLinimasa='loadMoreLinimasa'
+        @loadMoreLinimasa="loadMoreLinimasa"
       />
 
       <tanya-kandidat-card
@@ -130,18 +113,11 @@
         :questions="feedPenpol"
         :paginationsPenPol="paginationsPenPol"
         :loading="isLoading"
-        @loadMorePenPol='loadMorePenPol'
+        @loadMorePenPol="loadMorePenPol"
       />
-
-      <!-- <template v-else>
-        <comming-soon></comming-soon>
-      </template>-->
     </div>
 
-    <modal-request-cluster
-      v-if="modal === 'ModalRequestCluster'"
-      @close-request="closeModal()"
-    />
+    <modal-request-cluster v-if="modal === 'ModalRequestCluster'" @close-request="closeModal()"/>
 
     <modal-confirm-delete-cluster
       v-if="modal === 'ModalConfirmDeleteCluster'"
@@ -156,10 +132,7 @@
       :user="user"
     />
 
-    <modal-invite-cluster
-      v-if="modal === 'ModalInviteCluster'"
-      @close-request="closeModal()"
-    />
+    <modal-invite-cluster v-if="modal === 'ModalInviteCluster'" @close-request="closeModal()"/>
   </div>
 </template>
 
@@ -178,7 +151,6 @@ import JanjiPolitikCard from '@/components/profile/janji-politik-card'
 import TanyaKandidatCard from '@/components/profile/tanya-kandidat-card'
 import ShareOptions from '@/mixins/share-options'
 import ContentLoader from '@/components/Loading/ContentLoader'
-// import CommingSoon from '@/components/ComingSoon'
 export default {
   name: 'CardProfile',
   components: {
@@ -191,7 +163,6 @@ export default {
     ModalInviteCluster,
     TanyaKandidatCard,
     ContentLoader
-    // CommingSoon
   },
   mixins: [utils, authLink, ShareOptions],
   data() {
@@ -210,10 +181,7 @@ export default {
       paginationsLinimasa: s => s.profile.paginations.historyLinimasa,
       paginationsPenPol: s => s.profile.paginations.historyPenPol,
       userSteps: s => s.profile.stepVerificationUser
-    }),
-    sortedBadges() {
-      return this.badges.slice().sort((a, b) => a.position - b.position)
-    }
+    })
   },
   created() {
     if (this.$route.query.hasOwnProperty('edit-profile')) {
@@ -226,13 +194,21 @@ export default {
       await this.$store.dispatch('profile/getStepVerification')
       await this.$store.dispatch('profile/getLinimasaHistory', {
         id: this.user.id
+      }).then(() => {
+        if(this.feedLinimasa.length <= 0){
+          this.$store.commit('showLottie/showLottieJp')
+        }
       })
       await setTimeout(() => (this.isLoading = false), 1000)
       await this.$store.dispatch('profile/getBadges', {
-          id: this.user.id
-        })
+        id: this.user.id
+      })
       await this.$store.dispatch('profile/getQuestionHistory', {
         id: this.user.id
+      }).then(() => {
+        if(this.feedPenpol.length <= 0){
+          this.$store.commit('showLottie/showLottieTanya')
+        }
       })
     })
 
@@ -241,12 +217,13 @@ export default {
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
     this.$store.commit('profile/emptyStepVerification')
+    this.$store.commit('profile/emptyBadges')
   },
   methods: {
     loadMoreLinimasa() {
       if (this.paginationsLinimasa.isLast === false) {
         this.$store.dispatch('profile/nextPageLinimasaHistory')
-        this.$store.dispatch('profile/updateLinimasaHistory',{
+        this.$store.dispatch('profile/updateLinimasaHistory', {
           id: this.user.id
         })
       }
@@ -254,7 +231,7 @@ export default {
     loadMorePenPol() {
       if (this.paginationsPenPol.isLast === false) {
         this.$store.dispatch('profile/nextPageQuestionHistory')
-        this.$store.dispatch('profile/updateQuestionHistory',{
+        this.$store.dispatch('profile/updateQuestionHistory', {
           id: this.user.id
         })
       }

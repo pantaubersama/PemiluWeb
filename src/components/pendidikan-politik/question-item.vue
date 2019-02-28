@@ -6,14 +6,31 @@
       <span class="vote-count">{{ count }}</span>
     </button>
     <div class="content">
-      <div class="meta">
-        <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
-        <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
-        <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
-        <div class="title">
-          <div class="name">{{name}}</div>
-          <small class="question-title">{{title}}</small>
-        </div>
+      <div v-if="this.$route.name == 'Profile' || this.$route.name == 'ProfileUser'" class="meta">
+          <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+          <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+          <div class="title">
+            <div class="name">{{name}}</div>
+            <small class="question-title">{{title}}</small>
+          </div>
+        <small class="time">{{time}}</small>
+      </div>
+      <div v-else class="meta">
+        <router-link v-if="me == userId" class="avatar-wrapper" :to="{path: '/profile'}">
+          <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+          <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+          <div class="title">
+            <div class="name">{{name}}</div>
+            <small class="question-title">{{title}}</small>
+          </div>
+        </router-link>
+        <router-link v-else class="avatar-wrapper" :to="{path: '/profile/user', query: {id: userId}}">
+          <img :src="avatar" alt="avatar" class="avatar" v-if="avatar">
+          <img src="@/assets/user.svg" alt="avatar" class="avatar" v-else>
+          <div class="title">
+            <div class="name">{{name}}</div>
+            <small class="question-title">{{title}}</small>
+          </div>
         </router-link>
         <small class="time">{{time}}</small>
       </div>
@@ -81,6 +98,7 @@ export default {
     question: String,
     isVoted: Boolean,
     count: Number,
+    me: String,
     isActive: [Boolean, String]
   },
   data() {

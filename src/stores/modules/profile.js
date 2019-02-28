@@ -250,12 +250,7 @@ export const actions = {
       payload.id,
       state.paginations.historyLinimasa.page,
       state.paginations.historyLinimasa.perPage)
-    ctx.commit('setLinimasaHistory', data.janji_politiks)
-    if(data.janji_politiks.length <= 0){
-      ctx.commit('showLottie/showLottie',{},{
-        root: true
-      })
-    }
+      ctx.commit('setLinimasaHistory', data.janji_politiks)
   },
   async nextPageLinimasaHistory(ctx) {
     ctx.commit('nextPageLinimasaHistory')
@@ -405,6 +400,9 @@ export const mutations = {
   setBadges(state, payload) {
     state.badges = payload.badges
   },
+  emptyBadges(state, payload) {
+    state.badges = []
+  },
   setUserData(state, payload){
     state.profileUser = payload
     state.profileAvatar = payload.avatar.url
@@ -415,6 +413,9 @@ export const mutations = {
   },
   setClusterDetail(state, payload) {
     state.clusterDetail = payload
+  },
+  emptyClusterDetail(state){
+    state.clusterDetail = []
   },
   leaveClusters(state) {
     state.user.cluster = null
@@ -451,6 +452,9 @@ export const mutations = {
   },
   setListBadges(state, badges) {
     Vue.set(state, 'listBadges', badges)
+  },
+  emptyListBadges(state) {
+    state.listBadges = []
   },
   setPoliticalParties(state, payload) {
     state.politicalParties = payload.political_parties

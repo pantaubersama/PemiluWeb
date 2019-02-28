@@ -129,7 +129,7 @@ export default {
       this.isLoading = true
       const payload = {
         page: 1,
-        perPage: 100,
+        perPage: 150,
         query: '',
         clusterId: this.clusterId,
         filterBy: this.userStatus
@@ -144,7 +144,7 @@ export default {
       await (this.cleared = true)
       const payload = {
         page: 1,
-        perPage: 100,
+        perPage: 150,
         query: '',
         clusterId: '',
         filterBy: 'user_verified_all'
@@ -165,7 +165,7 @@ export default {
       this.isLoading = true
       const payload = {
         page: 1,
-        perPage: 100,
+        perPage: 150,
         query: '',
         filterBy: this.source
       }
@@ -176,7 +176,7 @@ export default {
     resetFeeds() {
       const payload = {
         page: 1,
-        perPage: 100,
+        perPage: 150,
         query: '',
         filterBy: 'team_all'
       }
@@ -192,19 +192,19 @@ export default {
   mounted() {
     const payload = {
       page: 1,
-      perPage: 100,
+      perPage: 150,
       query: ''
     }
     const payloadFeeds = {
       page: 1,
-      perPage: 100,
+      perPage: 150,
       query: ''
     }
     this.fetchBannerInfo('janji politik').then(async () => {
       await this.fetchJanjiPolitik(payload)
       await this.fetchFeedsPilpres(payloadFeeds)
       await this.$store.dispatch('profile/getClusterList')
-      await setTimeout(() => (this.isLoading = false), 1000)
+      await setTimeout(() => (this.isLoading = false), 500)
     })
   }
 }

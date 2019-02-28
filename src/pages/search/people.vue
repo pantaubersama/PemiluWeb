@@ -1,8 +1,17 @@
 <template>
   <ul class="card search-type-people" >
-    <li v-if="users != ''">
+    <li>
       <div v-for="user in users" :key="user.id" class="user-item">
-        <router-link class="avatar-wrapper" :to="{path: '/profile/user', query: {id: user.id}}">
+        <router-link v-if="me.id == user.id" class="avatar-wrapper" :to="{path: '/profile'}">
+          <img :src="user.avatar.url" :alt="user.username" class="avatar" v-if="user.avatar.url">
+          <img src="@/assets/user.svg" class="avatar" alt="thumbnail" v-else>
+          <div class="detail">
+            <div class="fullname">{{user.full_name}}</div>
+            <div class="username">@{{user.username}}</div>
+          </div>
+          <hr class="separator">
+        </router-link>
+        <router-link v-else class="avatar-wrapper" :to="{path: '/profile/user', query: {id: user.id}}">
           <img :src="user.avatar.url" :alt="user.username" class="avatar" v-if="user.avatar.url">
           <img src="@/assets/user.svg" class="avatar" alt="thumbnail" v-else>
           <div class="detail">
@@ -39,6 +48,7 @@ export default {
   computed: {
     ...mapState({
       users: s => s.search.people,
+      me: state => state.profile.user,
       showLottie: s => s.showLottie.showLottie
     })
   },

@@ -68,7 +68,7 @@ export const fetchFeedsPilpres = ({
   filterBy = 'team_all',
   query = '',
   page = 1,
-  perPage = 100
+  perPage = 150
 }) => {
   return httpClient
     .get(`${PREFIX}/v1/feeds/pilpres`, {
