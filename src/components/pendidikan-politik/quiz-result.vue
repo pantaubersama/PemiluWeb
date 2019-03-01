@@ -102,8 +102,14 @@ export default {
       quizzesResult: state => state.pendidikanPolitik.quizzesResult
     }),
     choice() {
+      var selectedData = null
       if (!this.quizzesResult || !this.quizzesResult.teams) return {}
-      return this.quizzesResult.teams.find(t => Math.max(t.percentage))
+        if (this.quizzesResult.teams[0].percentage === 50.0) {
+          selectedData = this.quizzesResult.teams[Math.floor(this.quizzesResult.teams.length * Math.random())]
+        } else {
+          selectedData = this.quizzesResult.teams.find(item => item.percentage === Math.max(...this.quizzesResult.teams.map(function(d) { return d.percentage })))
+        }
+      return selectedData
     },
     title() {
       if (!this.quizzesResult || !this.quizzesResult.quiz) return ''
