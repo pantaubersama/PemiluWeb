@@ -17,5 +17,9 @@ export const mutations = {
   },
   hideLottie(state) {
     state.showLottie = false
+  },
+  hideLottieUser(state){
+    state.showLottieTanya = false
+    state.showLottieJp = false
   }
 }
