@@ -181,6 +181,10 @@ export default {
       .then(async () => {
         await this.$store.dispatch('profile/getLinimasaHistory', {
           id: this.$route.query.id
+        }).then(() => {
+          if(this.feedLinimasa.length <= 0){
+            this.$store.commit('showLottie/showLottieJp')
+          }
         })
         await setTimeout(() => (this.isLoading = false), 1000)
         await this.$store.dispatch('profile/getBadges', {
@@ -188,11 +192,16 @@ export default {
         })
         await this.$store.dispatch('profile/getQuestionHistory', {
           id: this.$route.query.id
+        }).then(() => {
+          if(this.feedPenpol.length <= 0){
+            this.$store.commit('showLottie/showLottieTanya')
+          }
         })
       })
   },
   destroyed() {
     this.$store.commit('profile/emptyBadges')
+    this.$store.commit('showLottie/hideLottieUser')
   }
 }
 </script>

@@ -2,19 +2,15 @@
   <div class="panel-debat-container">
     <card-debat type="coming-soon">
       <template slot="body-lower">
-        <div class="date">
-          12 Maret 2019 &bull; 13:20 - 14:30
-        </div>
+        <div class="date">12 Maret 2019 &bull; 13:20 - 14:30</div>
       </template>
     </card-debat>
     <div class="panel-detail">
-      <small class="tag">ekonomi</small>
+      <small class="tag">{{ data.topic_list ? data.topic_list[0] : '' }}</small>
       <button type="button" class="menu-btn">
         <i class="icon icon-menu"></i>
       </button>
-      <p class="description">
-        2018 pertumbuhan ekonomi Indonesia mengalami pertumbuhan mencapai 5,27%. 2 periode yuk, biar 10,54%.
-      </p>
+      <p class="description" v-html="data.statement"></p>
     </div>
   </div>
 </template>
@@ -23,7 +19,10 @@
 import CardDebat from '@/components/wordstadium/card-debat'
 export default {
   name: 'PanelDebatComingSoon',
-  components: { CardDebat }
+  components: { CardDebat },
+  props: {
+    data: Object
+  }
 }
 </script>
 

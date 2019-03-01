@@ -1,9 +1,9 @@
 <template>
-  <div class="Wordstadium-live-list">
+  <div class="Wordstadium-progress-list">
     <div class="titlebar">
-      <i class="icon icon-live-now"></i>
-      <div class="title">Live now</div>
-      <router-link class="see-more" to="/wordstadium/live">See more >></router-link>
+      <i class="icon icon-outline-lawan"></i>
+      <div class="title">Challenge in Progress</div>
+      <router-link class="see-more" to="/wordstadium/progress">See more >></router-link>
     </div>
     <ul class="debat-item-list --horizontal">
       <button
@@ -14,8 +14,8 @@
       >
         <i class="icon icon-arrow-left"></i>
       </button>
-      <li v-for="item in lives" :key="item.id" :style="`transform: translateX(${scrollValue}px)`">
-        <card-debat type="live">
+      <li v-for="item in items" :key="item.id" :style="`transform: translateX(${scrollValue}px)`">
+        <card-debat type="challenge">
           <template slot="body-lower">
             <small class="tag">{{ item.topic_list ? item.topic_list[0] : '' }}</small>
             <p class="description" v-html="item.statement"></p>
@@ -43,7 +43,7 @@ export default {
     CardDebat
   },
   props: {
-    lives: Array
+    items: Array
   },
   data() {
     return {
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.Wordstadium-live-list
+.Wordstadium-progress-list
   .debat-card
     height: 180px
 .debat-card /deep/ .body-lower
@@ -114,7 +114,7 @@ export default {
       right: 0
     &.go-left
       left: 0
-.Wordstadium-live-list
+.Wordstadium-progress-list
   border-bottom: 5px solid #ececec
 
 .titlebar
@@ -128,13 +128,13 @@ i.icon
   display: inline-block
   height: 24px
   width: 24px
-  &.icon-live-now
-    background-image: url(~@/assets/icon-live.svg)
   &.icon-arrow-right
     background-image: url(~@/assets/ic-arrow-right.svg)
   &.icon-arrow-left
     background-image: url(~@/assets/ic-arrow-right.svg)
     transform: scaleX(-1)
+  &.icon-outline-lawan
+    background-image: url(~@/assets/ic-outline-lawan.svg)
 
 .title
   font-size: 20px
