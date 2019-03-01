@@ -154,18 +154,12 @@ const router = new VueRouter({
     {
       path: '/profile/badge',
       name: 'ProfileBadge',
-      component: () => import('@/pages/Profile/Badge'),
-      meta: {
-        AuthenticationRequired: true
-      }
+      component: () => import('@/pages/Profile/Badge')
     },
     {
       path: '/profile/badge/:badgeId',
       name: 'ProfileBadgeDetail',
-      component: () => import('@/pages/Profile/BadgeDetail'),
-      meta: {
-        AuthenticationRequired: true
-      }
+      component: () => import('@/pages/Profile/BadgeDetail')
     },
     {
       path: '/profile/data-lapor',

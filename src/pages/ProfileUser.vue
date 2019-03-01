@@ -201,6 +201,7 @@ export default {
   },
   destroyed() {
     this.$store.commit('profile/emptyBadges')
+    this.$store.commit('showLottie/hideLottieUser')
   }
 }
 </script>
