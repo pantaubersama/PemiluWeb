@@ -194,6 +194,16 @@ const router = new VueRouter({
       component: () => import('@/pages/wordstadium/debate')
     },
     {
+      path: '/wordstadium/detail',
+      name: 'DebatDetail',
+      component: () => import('@/pages/wordstadium/detail')
+    }, {
+      path: '/wordstadium/detail-self',
+      name: 'DebatDetailSelf',
+      component: () => import('@/pages/wordstadium/detail'),
+      props: { selfChallenge: true }
+    },
+    {
       path: '/wordstadium/own-debate',
       name: 'WordStadiumOwnDebate',
       component: () => import('@/pages/wordstadium/own-debate')

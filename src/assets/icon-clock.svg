@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:rgba(0,0,0,.9)}
+        </style>
+    </defs>
+    <g id="ic_clock" transform="translate(-16 -428)">
+        <path id="Path_97" d="M0 0h24v24H0z" class="cls-1" data-name="Path 97" transform="translate(16 428)"/>
+        <g id="clock-with-white-face" transform="translate(19 431)">
+            <g id="access-time">
+                <path id="Path_2067" d="M9 0a9 9 0 1 0 9 9 9.026 9.026 0 0 0-9-9zm0 16.2A7.2 7.2 0 1 1 16.2 9 7.221 7.221 0 0 1 9 16.2z" class="cls-2" data-name="Path 2067"/>
+                <path id="Path_2068" d="M230.85 127.5h-1.35v5.4l4.68 2.88.72-1.17-4.05-2.43z" class="cls-2" data-name="Path 2068" transform="translate(-221.4 -123)"/>
+            </g>
+        </g>
+    </g>
+</svg>

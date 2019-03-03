@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="536" height="203" viewBox="0 0 536 203">
+    <defs>
+        <style>
+            .cls-1,.cls-5,.cls-6,.cls-9{fill:none}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:url(#linear-gradient)}.cls-4{opacity:.698;fill:url(#linear-gradient-2)}.cls-5,.cls-6{stroke:#707070}.cls-5{stroke-width:23px}.cls-6{stroke-width:27.83px}.cls-7{fill:url(#linear-gradient-3)}.cls-8{fill:url(#linear-gradient-4)}.cls-10,.cls-12{fill:#fff}.cls-11,.cls-12{stroke:none}
+        </style>
+        <clipPath id="clip-path">
+            <path id="Rectangle_1611" d="M8 0h520a8 8 0 0 1 8 8v195H0V8a8 8 0 0 1 8-8z" class="cls-1" data-name="Rectangle 1611" transform="translate(0 5)"/>
+        </clipPath>
+        <linearGradient id="linear-gradient" x1=".222" x2=".778" y1="-.345" y2="1.345" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#22e1ff"/>
+            <stop offset=".699" stop-color="#1d8fe1"/>
+            <stop offset="1" stop-color="#625eb1"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-2" x1=".28" x2=".72" y1=".955" y2=".045" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#1ea1e7" stop-opacity="0"/>
+            <stop offset="1" stop-color="#92fe9d"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-3" x1=".038" x2=".962" y1="-.165" y2="1.165" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#22e1ff" stop-opacity="0"/>
+            <stop offset=".637" stop-color="#1d8fe1"/>
+            <stop offset="1" stop-color="#625eb1"/>
+        </linearGradient>
+        <linearGradient id="linear-gradient-4" x1="-.182" x2="1.182" y1="-.235" y2="1.235" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#22dffe"/>
+            <stop offset="1" stop-color="#615fb2"/>
+        </linearGradient>
+    </defs>
+    <g id="coming_soon_banner_vs_full" data-name="coming soon banner + vs full" transform="translate(-412 -97)">
+        <g id="coming_soon_banner_full" class="cls-2" data-name="coming soon banner full" transform="translate(412 92)">
+            <path id="Rectangle_Copy" d="M0 0h562.852v234.519H0z" class="cls-3" data-name="Rectangle Copy" transform="translate(-18.528 -10.574)"/>
+            <g id="Mask_by_Rectangle_Copy" data-name="Mask by Rectangle Copy" transform="translate(-374.972 -118.722)">
+                <path id="Rectangle" d="M1849.9 2464.055l740.586-434.555 107.1 174.057L1957 2638.111z" class="cls-4" transform="translate(-1356.046 -2029.724)"/>
+                <ellipse id="Oval" cx="193.955" cy="188.412" class="cls-5" rx="193.955" ry="188.412" transform="translate(111.99 530.28)"/>
+                <ellipse id="Oval_Copy" cx="305.945" cy="297.19" class="cls-6" data-name="Oval Copy" rx="305.945" ry="297.19" transform="translate(0 421.501)"/>
+                <path id="Rectangle-2" d="M1856.9 2293.549s255.886 59.777 314.944-24.642-78.714-313.032-78.714-313.032H1856.9z" class="cls-7" data-name="Rectangle" transform="translate(-1595.82 -1943.875)"/>
+                <path id="Oval-2" d="M2089.153 2377.774c0-101.4-16.875-219.318 86.983-219.318s289.119 117.913 289.119 219.318-84.193 183.609-188.051 183.609-188.051-82.204-188.051-183.609z" class="cls-8" data-name="Oval" transform="translate(-1201.981 -1938.355)"/>
+            </g>
+        </g>
+        <g id="Group_1055" data-name="Group 1055" transform="translate(332 -783)">
+            <g id="vs" transform="translate(320 960)">
+                <g id="Path_1529" class="cls-9" data-name="Path 1529">
+                    <path d="M-16.5-447.992V-476h56v28.008L11.5-420z" class="cls-11" transform="translate(16.5 476)"/>
+                    <path d="M11.503-422.828L37.5-448.821V-474h-52v25.18l26.003 25.992m0 2.828L-16.5-447.992V-476h56v28.008L11.503-420z" class="cls-12" transform="translate(16.5 476)"/>
+                </g>
+                <path id="Path_1527" d="M10.966-17.326H14.4L9.005-1.843H5.887L.551-17.326h3.525L7.505-5.572zm7.78 10.7a3.142 3.142 0 0 0 .589 1.586 3.429 3.429 0 0 0 2.754.956 5.921 5.921 0 0 0 1.9-.252 1.8 1.8 0 0 0 1.382-1.8 1.32 1.32 0 0 0-.686-1.187 7.473 7.473 0 0 0-2.154-.725l-1.672-.368a10.7 10.7 0 0 1-3.408-1.187 3.749 3.749 0 0 1-1.6-3.351A4.435 4.435 0 0 1 17.4-16.4a6.612 6.612 0 0 1 4.533-1.376 6.987 6.987 0 0 1 4.259 1.3 4.6 4.6 0 0 1 1.848 3.766h-3.175a2.217 2.217 0 0 0-1.243-1.99 4.24 4.24 0 0 0-1.918-.389 3.637 3.637 0 0 0-2.036.5 1.6 1.6 0 0 0-.761 1.408 1.329 1.329 0 0 0 .75 1.239 9.312 9.312 0 0 0 2.057.641l2.722.641a7.11 7.11 0 0 1 2.7 1.124 3.754 3.754 0 0 1 1.415 3.166A4.426 4.426 0 0 1 26.9-2.846a7.031 7.031 0 0 1-4.677 1.4 7.7 7.7 0 0 1-4.854-1.381 4.554 4.554 0 0 1-1.768-3.8z" class="cls-10" data-name="Path 1527" transform="translate(13.449 31.781)"/>
+            </g>
+            <path id="Rectangle_1639" d="M0 0h536v2H0z" class="cls-10" data-name="Rectangle 1639" transform="translate(80 960)"/>
+        </g>
+    </g>
+</svg>

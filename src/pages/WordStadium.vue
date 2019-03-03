@@ -7,105 +7,8 @@
           <router-link to="/wordstadium?type=personal">Personal</router-link>
         </div>
 
-        <div v-if="$route.query.type === 'personal'">
-          <wordstadium-progress-list :items="ownOngoing"/>
-          <div class="debat-list-container">
-            <div class="debat-list-container">
-              <div class="debat-title">
-                <h3 class="title">My Wordstadium</h3>
-                <p
-                  class="description"
-                >Daftar tantangan dan debat yang akan atau sudah kamu ikuti ditampilkan semua di sini.</p>
-              </div>
-              <div class="debat-list --coming-soon">
-                <div class="meta">
-                  <i class="icon icon-debat-coming-soon"></i>
-                  <div class="title">My Debat Coming Soon</div>
-                </div>
-                <ul class="debat-item-list">
-                  <li v-for="item in ownComingSoon" :key="item.id">
-                    <panel-debat-coming-soon :data="item" />
-                  </li>
-                </ul>
-                <router-link class="see-more" to="/wordstadium/coming-soon">See more >></router-link>
-              </div>
-              <div class="debat-list --done">
-                <div class="meta">
-                  <i class="icon icon-debat-coming-soon"></i>
-                  <div class="title">My Debat Done</div>
-                </div>
-                <ul class="debat-item-list">
-                  <li v-for="item in ownDone" :key="item.id">
-                    <panel-debat-done :data="item" />
-                  </li>
-                </ul>
-                <router-link class="see-more" to="/wordstadium/done">See more >></router-link>
-              </div>
-            </div>
-          </div>
-          <div class="debat-list-container">
-            <div class="debat-list --challenge">
-              <div class="meta">
-                <i class="icon icon-debat-challenge"></i>
-                <div class="title">My Challenge</div>
-              </div>
-              <ul class="debat-item-list">
-                <li v-for="item in ownChallenges" :key="item.id">
-                  <panel-debat-challenge :data="item" />
-                </li>
-              </ul>
-              <router-link class="see-more" to="/wordstadium/challenge">See more >></router-link>
-            </div>
-          </div>
-        </div>
-
-        <div v-else>
-          <wordstadium-live-list :lives="lives"/>
-          <div class="debat-list-container">
-            <div class="debat-title">
-              <h3 class="title">Linimasa Debat</h3>
-              <p
-                class="description"
-              >Daftar challenge dan debat yang akan atau sudah berlangsung ditampilkan semua disini.</p>
-            </div>
-            <div class="debat-list --coming-soon">
-              <div class="meta">
-                <i class="icon icon-debat-coming-soon"></i>
-                <div class="title">Debat: Coming Soon</div>
-              </div>
-              <ul class="debat-item-list">
-                <li v-for="item in comingSoon" :key="item.id">
-                  <panel-debat-coming-soon :data="item" />
-                </li>
-              </ul>
-              <router-link class="see-more" to="/wordstadium/coming-soon">See more >></router-link>
-            </div>
-            <div class="debat-list --done">
-              <div class="meta">
-                <i class="icon icon-debat-done"></i>
-                <div class="title">Debat: Done</div>
-              </div>
-              <ul class="debat-item-list">
-                <li v-for="item in done" :key="item.id">
-                  <panel-debat-done :data="item" />
-                </li>
-              </ul>
-              <router-link class="see-more" to="/wordstadium/done">See more >></router-link>
-            </div>
-            <div class="debat-list --challenge">
-              <div class="meta">
-                <i class="icon icon-debat-challenge"></i>
-                <div class="title">Challenge</div>
-              </div>
-              <ul class="debat-item-list">
-                <li v-for="item in challenges" :key="item.id">
-                  <panel-debat-challenge :data="item" />
-                </li>
-              </ul>
-              <router-link class="see-more" to="/wordstadium/challenge">See more >></router-link>
-            </div>
-          </div>
-        </div>
+        <wordstadium-personal v-if="$route.query.type === 'personal'"></wordstadium-personal>
+        <wordstadium-public v-else></wordstadium-public>
       </div>
     </template>
     <template slot="widget-wrapper">
@@ -115,55 +18,17 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-
+import { mapState, mapActions, mapGetters } from 'vuex'
 import LayoutTimeline from '@/layout/Timeline'
-import ComingSoon from '@/components/ComingSoon'
-import Lottie from 'lottie-web'
-import WordstadiumLiveList from '@/components/wordstadium/live-list'
-import WordstadiumProgressList from '@/components/wordstadium/progress-list'
-import CardDebat from '@/components/wordstadium/card-debat'
-import PanelDebatComingSoon from '@/components/wordstadium/panel-debat-coming-soon'
-import PanelDebatDone from '@/components/wordstadium/panel-debat-done'
-import PanelDebatChallenge from '@/components/wordstadium/panel-debat-challenge'
+import WordstadiumPublic from '@/pages/wordstadium/public'
+import WordstadiumPersonal from '@/pages/wordstadium/personal'
 
 export default {
   name: 'WordStadium',
   components: {
     LayoutTimeline,
-    ComingSoon,
-    WordstadiumLiveList,
-    WordstadiumProgressList,
-    CardDebat,
-    PanelDebatComingSoon,
-    PanelDebatDone,
-    PanelDebatChallenge,
-    Lottie
-  },
-  computed: {
-    ...mapState({
-      challenges: s => s.wordstadium.challenges,
-      ownChallenges: s => s.wordstadium.ownChallenges
-    }),
-    ...mapGetters({
-      lives: 'wordstadium/lives',
-      ongoing: 'wordstadium/ongoing',
-      comingSoon: 'wordstadium/comingSoon',
-      done: 'wordstadium/done',
-      ownOngoing: 'wordstadium/ownOngoing',
-      ownComingSoon: 'wordstadium/ownComingSoon',
-      ownDone: 'wordstadium/ownDone'
-    })
-  },
-  mounted() {
-    this.$store.dispatch('wordstadium/getAllChallenges').finally(async () => {
-      await this.$store.dispatch('wordstadium/getMeAllChallenges')
-    })
-  },
-  destroyed() {
-    this.comingsoonLottie.destroy()
-    this.comingsoon2Lottie.destroy()
-    this.comingsoon3Lottie.destroy()
+    WordstadiumPublic,
+    WordstadiumPersonal
   }
 }
 </script>

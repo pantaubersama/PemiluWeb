@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#111}
+        </style>
+    </defs>
+    <g id="ic_date" transform="translate(-24 -424)">
+        <path id="Path_97" d="M0 0h24v24H0z" class="cls-1" data-name="Path 97" transform="translate(24 424)"/>
+        <g id="Group_2528" data-name="Group 2528" transform="translate(24 423)">
+            <path id="Path_1934" d="M20 6h-3V3h-2v3H9V3H7v3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM4 20V10h16v10z" class="cls-2" data-name="Path 1934"/>
+            <path id="Rectangle_148" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 148" transform="translate(5 14)"/>
+            <path id="Rectangle_149" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 149" transform="translate(8 11)"/>
+            <path id="Rectangle_150" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 150" transform="translate(11 11)"/>
+            <path id="Rectangle_151" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 151" transform="translate(14 11)"/>
+            <path id="Rectangle_152" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 152" transform="translate(8 14)"/>
+            <path id="Rectangle_153" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 153" transform="translate(17 11)"/>
+            <path id="Rectangle_154" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 154" transform="translate(11 14)"/>
+            <path id="Rectangle_155" d="M0 0h2v2H0z" class="cls-2" data-name="Rectangle 155" transform="translate(14 14)"/>
+        </g>
+    </g>
+</svg>

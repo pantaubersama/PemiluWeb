@@ -3,8 +3,8 @@
     <div slot="main-content" class="Wordstadium-ComingSoon">
       <div class="card card-tabs">
         <div class="title-tabs">
-          <router-link to="/wordstadium/done">Publik</router-link>
-          <router-link to="/wordstadium/done?type=personal">Personal</router-link>
+          <router-link to="/wordstadium">Publik</router-link>
+          <router-link to="/wordstadium?type=personal">Personal</router-link>
         </div>
         <div class="debat-header">
           <div class="meta">
@@ -19,7 +19,7 @@
         <ul class="debat-list">
           <li v-for="item in items"
             :key="item">
-            <panel-debat-done></panel-debat-done>
+            <panel-debat type="done" :debat="item"></panel-debat>
           </li>
         </ul>
       </div>
@@ -30,12 +30,12 @@
 
 <script>
 import LayoutTimeline from '@/layout/Timeline'
-import PanelDebatDone from '@/components/wordstadium/panel-debat-done'
+import PanelDebat from '@/components/wordstadium/panel-debat'
 export default {
   name: 'Wordstadium-ComingSoon',
   components: {
     LayoutTimeline,
-    PanelDebatDone
+    PanelDebat
   },
   computed: {
     items() {

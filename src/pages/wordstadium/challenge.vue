@@ -3,8 +3,8 @@
     <div slot="main-content" class="Wordstadium-ComingSoon">
       <div class="card card-tabs">
         <div class="title-tabs">
-          <router-link to="/wordstadium/challenge">Publik</router-link>
-          <router-link to="/wordstadium/challenge?type=personal">Personal</router-link>
+          <router-link to="/wordstadium">Publik</router-link>
+          <router-link to="/wordstadium?type=personal">Personal</router-link>
         </div>
         <div class="debat-header">
           <div class="meta">
@@ -18,8 +18,13 @@
         </div>
         <ul class="debat-list">
           <li v-for="item in items"
-            :key="item">
-            <panel-debat-challenge></panel-debat-challenge>
+            :key="item.id">
+            <panel-debat type="challenge" :debat="item">
+              <template slot="debat-card-footer" slot-scope="props">
+                <template v-if="props.item.progress === 'waiting_opponent'">Menunggu Lawan Debat</template>
+                <template v-if="props.item.progress === 'waiting_confirmation'">Menunggu Konfirmasi</template>
+              </template>
+            </panel-debat>
           </li>
         </ul>
       </div>
@@ -29,17 +34,38 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import LayoutTimeline from '@/layout/Timeline'
-import PanelDebatChallenge from '@/components/wordstadium/panel-debat-challenge'
+import PanelDebat from '@/components/wordstadium/panel-debat'
 export default {
   name: 'Wordstadium-ComingSoon',
   components: {
     LayoutTimeline,
-    PanelDebatChallenge
+    PanelDebat
   },
   computed: {
+    $items() {
+      if (this.$route.query.type && this.$route.query.type === 'personal') {
+        return this.$store.getters['wordstadium/privateOngoing'](100)
+      }
+      return this.$store.getters['wordstadium/ongoing'](100)
+    },
     items() {
-      return Array.from(Array(10).keys())
+      return this.$items.map((item) => ({
+        ...item,
+        avatar: item.avatar || {}
+      }))
+    }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(route) {
+        if (route.query.type && route.query.type === 'personal') {
+          return this.$store.dispatch('wordstadium/getOngoingPrivateChallenges')
+        }
+        return this.$store.dispatch('wordstadium/getOngingChallenges')
+      }
     }
   }
 }

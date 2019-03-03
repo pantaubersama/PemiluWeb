@@ -1,25 +1,22 @@
 <template>
   <div class="panel-debat-container">
-    <card-debat type="done">
+    <card-debat :type="type" :debat="debat">
       <template slot="body-lower">
-        <div class="clap">
-          70 <i class="icon icon-clap"></i>
-        </div>
-        <div class="text">Clap</div>
-        <div class="clap">
-          70 <i class="icon icon-clap"></i>
-        </div>
+        <slot name="debat-card-footer" :item="debat"></slot>
       </template>
     </card-debat>
     <div class="panel-detail">
-      <small class="tag">{{ data.topic_list ? data.topic_list[0] : '' }}</small>
-      <button type="button" class="love-btn">
-        <i class="icon icon-love"></i> 50
-      </button>
+      <small class="tag"
+        v-for="tag in debat.topic_list"
+        :key="tag">
+        {{tag}}
+      </small>
       <button type="button" class="menu-btn">
         <i class="icon icon-menu"></i>
       </button>
-      <p class="description" v-html="data.statement"></p>
+      <p class="description">
+        {{debat.statement}}
+      </p>
     </div>
   </div>
 </template>
@@ -27,39 +24,22 @@
 <script>
 import CardDebat from '@/components/wordstadium/card-debat'
 export default {
-  name: 'PanelDebatDone',
-  components: { CardDebat },
-  props: {
-    data: Object
-  }
+  name: 'PanelDebat',
+  props: ['debat', 'type'],
+  components: { CardDebat }
 }
 </script>
 
 <style lang="sass" scoped>
 .panel-debat-container
   display: flex
+  width: 100%
 .debat-card /deep/ .body-lower
   display: flex
-  justify-content: space-between
+  justify-content: center
   height: 25px
   padding: 0 10px
-  .clap
-    flex: 0
-    flex-basis: 30px
-    font-size: 14px
-    font-weight: bold
-    line-height: 1.21
-    color: #212121
-    display: flex
-    align-items: flex-start
-  .text
-    flex: 1
-    font-size: 12px
-    font-weight: 500
-    line-height: 1.33
-    letter-spacing: 0.2px
-    text-align: center
-    color: #7c7c7c
+  text-align: center
 
 .panel-detail
   flex: 1
@@ -72,7 +52,6 @@ export default {
     border: 1px solid #f9d65c
     border-radius: 4px
     padding: 4px
-  button.love-btn,
   button.menu-btn
     display: inline-flex
     position: absolute
@@ -81,13 +60,6 @@ export default {
     background: white
     border: none
     cursor: pointer
-  button.love-btn
-    right: 35px
-    font-size: 12px
-    font-weight: bold
-    line-height: 1
-    color: #111111
-    align-items: center
   .description
     margin-top: 10px
     font-family: BwModelicaSS01, Lato, sans-serif
@@ -109,10 +81,5 @@ export default {
     -webkit-mask: url(~@/assets/icon_more_vertical.svg)
     transform: rotate(90deg)
     background-color: #333
-  &.icon-love
-    background-image: url(~@/assets/ic-love.svg)
-  &.icon-clap
-    background-image: url(~@/assets/ic-clap.svg)
-    transform: translateY(-5px)
 
 </style>

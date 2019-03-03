@@ -1,0 +1,64 @@
+{
+  "id": "d01deafa-a0aa-4eee-a715-935a0611ef65",
+  "type": "OpenChallenge",
+  "statement_source": "",
+  "statement": "Yok bahas sejarah gunung padang",
+  "show_time_at": "2019-03-15T16:15:00.000Z",
+  "time_limit": 90,
+  "progress": "waiting_confirmation",
+  "condition": "ongoing",
+  "topic_list": [
+    "sejarah"
+  ],
+  "created_at": "2019-02-26T09:18:23.701Z",
+  "audiences": [
+    {
+      "id": "45a51cb5-4dbb-4958-b57d-8414fecbfa65",
+      "role": "challenger",
+      "user_id": null,
+      "email": "hanif@extrainteger.com",
+      "full_name": "Hanif Sugiyanto",
+      "username": "Hanifdev",
+      "avatar": {
+        "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/3fcbf2f3-0a31-4e39-aaa9-e2b6340a8178/pantau-ios-01012019005053.jpg",
+        "thumbnail": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/3fcbf2f3-0a31-4e39-aaa9-e2b6340a8178/thumbnail_pantau-ios-01012019005053.jpg"
+        },
+        "thumbnail_square": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/3fcbf2f3-0a31-4e39-aaa9-e2b6340a8178/thumbnail_square_pantau-ios-01012019005053.jpg"
+        },
+        "medium": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/3fcbf2f3-0a31-4e39-aaa9-e2b6340a8178/medium_pantau-ios-01012019005053.jpg"
+        },
+        "medium_square": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/3fcbf2f3-0a31-4e39-aaa9-e2b6340a8178/medium_square_pantau-ios-01012019005053.jpg"
+        }
+      },
+      "about": "android"
+    },
+    {
+      "id": "507dc31e-cf95-45cb-932d-16e00bef664e",
+      "role": "opponent_candidate",
+      "user_id": null,
+      "email": "apiep@mailinator.com",
+      "full_name": "apiep uddin",
+      "username": "apiep",
+      "avatar": {
+        "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/c75dd755-df62-4d4e-a107-163d3bd6a67d/Capture.PNG",
+        "thumbnail": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/c75dd755-df62-4d4e-a107-163d3bd6a67d/thumbnail_Capture.PNG"
+        },
+        "thumbnail_square": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/c75dd755-df62-4d4e-a107-163d3bd6a67d/thumbnail_square_Capture.PNG"
+        },
+        "medium": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/c75dd755-df62-4d4e-a107-163d3bd6a67d/medium_Capture.PNG"
+        },
+        "medium_square": {
+          "url": "https://pantau-test.s3.amazonaws.com/uploads/user/avatar/c75dd755-df62-4d4e-a107-163d3bd6a67d/medium_square_Capture.PNG"
+        }
+      },
+      "about": "Hai tayo"
+    }
+  ]
+}
