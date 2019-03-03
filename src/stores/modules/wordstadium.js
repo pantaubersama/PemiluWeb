@@ -83,7 +83,7 @@ export const actions = {
 
 export const mutations = {
   setChallenges(state, data) {
-    data.challenges.forEach((challenge) => Vue.set(state.challenges, challenge.id, challenge))
+    data.forEach((challenge) => Vue.set(state.challenges, challenge.id, challenge))
   },
   setOwnChallenges(state, data) {
     data.challenges.forEach((challenge) => Vue.set(state.ownChallenges, challenge.id, challenge))

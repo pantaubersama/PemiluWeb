@@ -20,74 +20,15 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import LayoutTimeline from '@/layout/Timeline'
-import ComingSoon from '@/components/ComingSoon'
 import WordstadiumPublic from '@/pages/wordstadium/public'
 import WordstadiumPersonal from '@/pages/wordstadium/personal'
-import WordstadiumLiveList from '@/components/wordstadium/live-list'
-import WordstadiumProgressList from '@/components/wordstadium/progress-list'
-import CardDebat from '@/components/wordstadium/card-debat'
-import PanelDebatComingSoon from '@/components/wordstadium/panel-debat-coming-soon'
-import PanelDebatDone from '@/components/wordstadium/panel-debat-done'
-import PanelDebatChallenge from '@/components/wordstadium/panel-debat-challenge'
 
 export default {
   name: 'WordStadium',
   components: {
     LayoutTimeline,
-    ComingSoon,
-    WordstadiumLiveList,
-    WordstadiumProgressList,
-    CardDebat,
-    PanelDebatComingSoon,
-    PanelDebatDone,
-    PanelDebatChallenge,
     WordstadiumPublic,
     WordstadiumPersonal
-  },
-  computed: {
-    ...mapState({
-      challenges: s => s.wordstadium.challenges,
-      ownChallenges: s => s.wordstadium.ownChallenges
-    }),
-    ...mapGetters({
-      lives: 'wordstadium/lives',
-      ongoing: 'wordstadium/ongoing',
-      comingSoon: 'wordstadium/comingSoon',
-      done: 'wordstadium/done',
-      ownOngoing: 'wordstadium/ownOngoing',
-      ownComingSoon: 'wordstadium/ownComingSoon',
-      ownDone: 'wordstadium/ownDone'
-    })
-  },
-  mounted() {
-    this.$store.dispatch('wordstadium/getAllChallenges').finally(async () => {
-      await this.$store.dispatch('wordstadium/getMeAllChallenges')
-    })
-  },
-  data() {
-    return {
-      lives: []
-    }
-  },
-  mounted() {
-    this.getLiveChallenges()
-    this.getComingSoonChallenges()
-    this.getOngoingChallenges()
-  },
-  computed: {
-    ongoing() {
-      return this.$store.getters['wordstadium/ongoing']()
-    },
-    challenges() {
-      return this.ongoing
-    }
-  },
-  methods: {
-    ...mapActions({
-      getLiveChallenges: 'wordstadium/getLiveChallenges',
-      getComingSoonChallenges: 'wordstadium/getComingSoonChallenges',
-      getOngoingChallenges: 'wordstadium/getOngoingChallenges'
-    })
   }
 }
 </script>

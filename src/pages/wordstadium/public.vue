@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     ongoing() {
-      return this.$store.getters['wordstadium/ongoing']()
+      return this.$store.getters['wordstadium/ongoing']
     },
     challenges() {
       return this.ongoing

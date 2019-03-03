@@ -19,7 +19,7 @@
         <ul class="debat-list">
           <li v-for="item in items"
             :key="item">
-            <panel-debat-done></panel-debat-done>
+            <panel-debat type="done" :debat="item"></panel-debat>
           </li>
         </ul>
       </div>
@@ -30,12 +30,12 @@
 
 <script>
 import LayoutTimeline from '@/layout/Timeline'
-import PanelDebatDone from '@/components/wordstadium/panel-debat-done'
+import PanelDebat from '@/components/wordstadium/panel-debat'
 export default {
   name: 'Wordstadium-ComingSoon',
   components: {
     LayoutTimeline,
-    PanelDebatDone
+    PanelDebat
   },
   computed: {
     items() {
