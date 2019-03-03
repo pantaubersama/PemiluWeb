@@ -3,8 +3,8 @@
     <div slot="main-content" class="Wordstadium-ComingSoon">
       <div class="card card-tabs">
         <div class="title-tabs">
-          <router-link to="/wordstadium/challenge">Publik</router-link>
-          <router-link to="/wordstadium/challenge?type=personal">Personal</router-link>
+          <router-link to="/wordstadium">Publik</router-link>
+          <router-link to="/wordstadium?type=personal">Personal</router-link>
         </div>
         <div class="debat-header">
           <div class="meta">
@@ -45,6 +45,9 @@ export default {
   },
   computed: {
     $items() {
+      if (this.$route.query.type && this.$route.query.type === 'personal') {
+        return this.$store.getters['wordstadium/privateOngoing'](100)
+      }
       return this.$store.getters['wordstadium/ongoing'](100)
     },
     items() {
@@ -54,8 +57,16 @@ export default {
       }))
     }
   },
-  mounted() {
-    this.$store.dispatch('wordstadium/getOngoingChallenges')
+  watch: {
+    $route: {
+      immediate: true,
+      handler(route) {
+        if (route.query.type && route.query.type === 'personal') {
+          return this.$store.dispatch('wordstadium/getOngoingPrivateChallenges')
+        }
+        return this.$store.dispatch('wordstadium/getOngingChallenges')
+      }
+    }
   }
 }
 </script>

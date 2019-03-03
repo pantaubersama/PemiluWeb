@@ -5,7 +5,6 @@ import Api from '@/services/api/base'
 const BASE_URL = process.env.API_WORD_STADIUM_URL || 'https://staging-service.wordstadium.com/word_stadium'
 const api = Api(BASE_URL, () => vueAuth.getToken())
 
-
 export const WordstadiumType = {
   ALL: null,
   ONGOING: 'ongoing',
@@ -30,23 +29,25 @@ export const getAllChallenge = () => axios
     getChallenge(WordstadiumType.DONE)
   ])
   .then(axios.spread((ongoing, comingSoon, liveNow, done) => Promise.resolve([
-        ...ongoing.challenges,
-        ...comingSoon.challenges,
-        ...liveNow.challenges,
-        ...done.challenges
-      ])
-   ))
+    ...ongoing.challenges,
+    ...comingSoon.challenges,
+    ...liveNow.challenges,
+    ...done.challenges
+  ])))
 
 export const getMeAllChallenge = () => axios
-    .all([
-      getMeChallenge(WordstadiumType.ONGOING),
-      getMeChallenge(WordstadiumType.COMING_SOON),
-      getMeChallenge(WordstadiumType.LIVE_NOW),
-      getMeChallenge(WordstadiumType.DONE)
-    ])
-    .then(axios.spread((ongoing, comingSoon, liveNow, done) => Promise.resolve([
-      ...ongoing.challenges,
-      ...comingSoon.challenges,
-      ...liveNow.challenges,
-      ...done.challenges
-    ]))
+  .all([
+    getMeChallenge(WordstadiumType.ONGOING),
+    getMeChallenge(WordstadiumType.COMING_SOON),
+    getMeChallenge(WordstadiumType.LIVE_NOW),
+    getMeChallenge(WordstadiumType.DONE)
+  ])
+  .then(axios.spread((ongoing, comingSoon, liveNow, done) => Promise.resolve([
+    ...ongoing.challenges,
+    ...comingSoon.challenges,
+    ...liveNow.challenges,
+    ...done.challenges
+  ])))
+export const getPrivateChallenge = (type = 'live_now') => api
+  .get('/v1/challenges/me', { params: { progress: type } })
+  .then(resp => resp.data.data)

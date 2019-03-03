@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#111}
+        </style>
+    </defs>
+    <g id="baseline-more_horiz-24px" transform="translate(-320 -784)">
+        <path id="Path_107" d="M0 0h24v24H0z" class="cls-1" data-name="Path 107" transform="translate(320 784)"/>
+        <path id="Path_108" d="M6 10a2 2 0 1 0 2 2 2.006 2.006 0 0 0-2-2zm12 0a2 2 0 1 0 2 2 2.006 2.006 0 0 0-2-2zm-6 0a2 2 0 1 0 2 2 2.006 2.006 0 0 0-2-2z" class="cls-2" data-name="Path 108" transform="translate(320 784)"/>
+    </g>
+</svg>
