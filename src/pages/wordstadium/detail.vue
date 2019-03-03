@@ -40,7 +40,7 @@
           <ul class="tag-list">
             <li class="tag-item">ekonomi</li>
           </ul>
-          <div class="source">
+          <div v-if="!selfChallenge" class="source">
             <a href="#" class="source-link">http://twitter.com/somethingww</a>
             <div class="source-detail">
               <div class="source-avatar-container">
@@ -65,7 +65,7 @@
             2018 pertumbuhan ekonomi Indonesia mengalami perthumbuhan mencapai 5,27%.
             2 periode yuk, biar 10,54%
           </div>
-          <div class="detail-lawan">
+          <div v-if="!selfChallenge" class="detail-lawan">
             <div class="detail-lawan-title">
               Lawan debat
             </div>
@@ -139,6 +139,7 @@
 import LayoutTimeline from '@/layout/Timeline'
 export default {
   name: 'DetailDebat',
+  props: ['self-challenge'],
   components: {
     LayoutTimeline
   }
@@ -281,12 +282,11 @@ export default {
     color: #212121
 
 .debat-detail
-  flex: 0 0 550px
-  height: 550px
+  flex: 0 0 auto
   display: flex
   flex-direction: column
   background: white
-  padding: 10px 20px
+  padding: 20px
   .title
     flex: 0 0 24px
     font-size: 14px
