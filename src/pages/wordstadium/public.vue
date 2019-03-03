@@ -21,7 +21,6 @@
               12 Maret 2019 &bull; 13:20 - 14:30
             </template>
           </panel-debat>
-          <!-- <panel-debat-coming-soon :debat="props.item"></panel-debat-coming-soon> -->
         </template>
       </debat-list>
 

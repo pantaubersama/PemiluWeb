@@ -1,18 +1,19 @@
 <template>
   <div>
     <div class="debat-list-container has--separator">
-      <div class="debat-list-container">
-        <div class="debat-list --challenge">
-          <div class="meta">
-            <i class="icon icon-outline-lawan"></i>
-            <div class="title">Challenge in Progress</div>
-          </div>
-          <div class="lottie-card">
-            <div class="lottie-content" ref="lottie1"></div>
-            <span class="lottie-title">Belum ada apa-apa :(</span>
-          </div>
-        </div>
-      </div>
+      <debat-list :debat="comingSoon" link="/wordstadim/coming-soon?type=personal">
+        <template slot="meta">
+          <i class="icon icon-outline-lawan"></i>
+          <div class="title">Challenge in Progress</div>
+        </template>
+        <template slot="debat-item" slot-scope="props">
+          <panel-debat type="live" :debat="props.item">
+            <template slot="debat-card-footer">
+              12 Maret 2019 &bull; 13:20 - 14:30
+            </template>
+          </panel-debat>
+        </template>
+      </debat-list>
     </div>
     <div class="debat-list-container has--separator">
       <div class="debat-list-container">
@@ -22,26 +23,32 @@
             class="description"
           >Daftar tantangan dan debat yang akan atau sudah kamu ikuti ditampilkan semua di sini.</p>
         </div>
-        <div class="debat-list --coming-soon">
-          <div class="meta">
+        <debat-list :debat="comingSoon" link="/wordstadium/coming-soon?type=personal">
+          <template slot="meta">
             <i class="icon icon-debat-coming-soon"></i>
             <div class="title">My Debat Coming Soon</div>
-          </div>
-          <div class="lottie-card">
-            <div class="lottie-content" ref="lottie2"></div>
-            <span class="lottie-title">Belum ada apa-apa :(</span>
-          </div>
-        </div>
-        <div class="debat-list --done">
-          <div class="meta">
+          </template>
+          <template slot="debat-item" slot-scope="props">
+            <panel-debat type="coming-soon" :debat="props.item">
+              <template slot="debat-card-footer">
+                12 Maret 2019 &bull; 13:20 - 14:30
+              </template>
+            </panel-debat>
+          </template>
+        </debat-list>
+        <debat-list :debat="done" link="/wordstadium/done?type=personal">
+          <template slot="meta">
             <i class="icon icon-debat-coming-soon"></i>
             <div class="title">My Debat Done</div>
-          </div>
-          <div class="lottie-card">
-            <div class="lottie-content" ref="lottie3"></div>
-            <span class="lottie-title">Belum ada apa-apa :(</span>
-          </div>
-        </div>
+          </template>
+          <template slot="debat-item" slot-scope="props">
+            <panel-debat type="done" :debat="props.item">
+              <template slot="debat-card-footer">
+                12 Maret 2019 &bull; 13:20 - 14:30
+              </template>
+            </panel-debat>
+          </template>
+        </debat-list>
       </div>
     </div>
     <div class="debat-list-container">
@@ -86,36 +93,18 @@ export default {
     },
     lives() {
       return []
-    }
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler() {
-        for (let i of [1,2,3]) {
-          if (this.lottie[i] != null) this.lottie[i].play()
-        }
-      }
+    },
+    comingSoon() {
+      return Array.from(Array(5).keys())
+        .map((id) => ({ ...dummy, id: id }))
+    },
+    done() {
+      return this.comingSoon
     }
   },
   mounted() {
     this.$store.dispatch('wordstadium/getOngoingPrivateChallenges')
-    for (let i of [1, 2, 3]) {
-      this.lottie[i] = Lottie.loadAnimation({
-        container: this.$refs[`lottie${i}`],
-        path: '/lottie/empty-status.json',
-        loop: true,
-        autoplay: true,
-        renderer: 'svg'
-      })
-    }
-  },
-  destroyed() {
-    for (let i of [1,2,3]) {
-      if (this.lottie[i] != null) this.lottie[i].destroy()
-    }
-  },
-  methods: {}
+  }
 }
 </script>
 

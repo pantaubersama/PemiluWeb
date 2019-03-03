@@ -3,8 +3,8 @@
     <div slot="main-content" class="Wordstadium-ComingSoon">
       <div class="card card-tabs">
         <div class="title-tabs">
-          <router-link to="/wordstadium/done">Publik</router-link>
-          <router-link to="/wordstadium/done?type=personal">Personal</router-link>
+          <router-link to="/wordstadium">Publik</router-link>
+          <router-link to="/wordstadium?type=personal">Personal</router-link>
         </div>
         <div class="debat-header">
           <div class="meta">

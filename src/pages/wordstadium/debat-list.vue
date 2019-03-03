@@ -3,19 +3,52 @@
     <div class="meta">
       <slot name="meta"></slot>
     </div>
-    <ul class="debat-item-list">
-      <li v-for="item in debat" :key="item.id">
-        <slot name="debat-item" :item="item"></slot>
-      </li>
-    </ul>
-    <router-link class="see-more" :to="link">See more >></router-link>
+    <template v-if="!showLottie">
+      <ul class="debat-item-list">
+        <li v-for="item in debat" :key="item.id">
+          <slot name="debat-item" :item="item"></slot>
+        </li>
+      </ul>
+      <router-link class="see-more" :to="link">See more >></router-link>
+    </template>
+    <template v-else>
+      <div class="lottie-card">
+        <div class="lottie-content" ref="lottie"></div>
+        <span class="lottie-title">Belum ada apa-apa :(</span>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
+import Lottie from 'lottie-web'
 export default {
   name: 'DebatList',
-  props: ['debat', 'link']
+  props: ['debat', 'link'],
+  data() {
+    return {
+      lottie: false
+    }
+  },
+  computed: {
+    showLottie() {
+      return this.debat != null && this.debat.length <= 0
+    }
+  },
+  mounted() {
+    if (this.showLottie) {
+      this.lottie = Lottie.loadAnimation({
+        container: this.$refs.lottie,
+        path: '/lottie/empty-status.json',
+        loop: true,
+        autoplay: true,
+        renderer: 'svg'
+      })
+    }
+  },
+  destroyed() {
+    if (this.showLottie && this.lottie != null) this.lottie.destroy()
+  }
 }
 </script>
 
@@ -87,4 +120,27 @@ export default {
     line-height: 0.86
     text-align: center
     color: #f49422
+/deep/ .lottie-card
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  width: 100%
+  padding: 32px 0 16px 0
+  .lottie-content
+    padding: 32px 0 16px 0
+    margin-bottom: 16px
+    .lottie-title
+      display: block
+      margin: 16px 0 67px
+      height: 15px
+      font-family: Lato
+      font-size: 12px
+      font-style: italic
+      line-height: 1.17
+      text-align: center
+      color: #7c7c7c
+    svg
+      width: 80px !important
+      height: 80px !important
 </style>
