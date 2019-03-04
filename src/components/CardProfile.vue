@@ -1,11 +1,6 @@
 <template>
   <div class="profil-list">
     <div class="card grey">
-      <span class="edit-icon">
-        <a href="#" @click.prevent="() => modal = 'ModalEditProfile'">
-          <img src="@/assets/icon_edit.svg">
-        </a>
-      </span>
       <div class="profile">
         <img v-if="user.avatar.url" :src="user.avatar.url">
         <img v-else src="~@/assets/user.svg" alt>

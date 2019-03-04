@@ -2,7 +2,6 @@
   <div class="card card-quiz-result">
     <Headful
       type="hasil_kuis"
-      :title="`Hasil Kuis ${title}`"
       :image="imageThumbnail"
       :url="fullURL"
     />

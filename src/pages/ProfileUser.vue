@@ -206,9 +206,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.user-page
-  .grey
-    padding-top: 20px
 a.router-link-exact-active i.icon
   background-color: #bd081c
 i.icon

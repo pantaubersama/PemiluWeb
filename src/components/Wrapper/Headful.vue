@@ -1,6 +1,5 @@
 <template>
   <vue-headful
-    :title="title"
     :image="image"
     :url="url"
     :description="description"
