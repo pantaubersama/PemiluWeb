@@ -280,7 +280,15 @@ const router = new VueRouter({
           component: () => import('@/pages/share/Badge')
         }
       ]
-    }
+    },
+    {
+      path: '/notifikasi',
+      name: 'Notifikasi',
+      component: () => import('@/pages/Notifikasi'),
+      meta: {
+        AuthenticationRequired: true
+      }
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.name === from.name) {

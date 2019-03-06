@@ -22,7 +22,7 @@
         </router-link>
       </div>
     </li>
-    <LottieEmpty v-if="showLottie"/>
+    <LottieEmpty v-if="showLottie" :message="'Oops.. data kosong'"/>
   </ul>
 </template>
 

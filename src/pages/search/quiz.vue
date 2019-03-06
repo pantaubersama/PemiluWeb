@@ -1,7 +1,7 @@
 <template>
   <div class="card card-tabs">
     <quiz-list v-if="quizzes != ''" :quizzes="quizzes" @onClickKecenderungan="openPageKecenderungan"></quiz-list>
-    <LottieEmpty v-if="showLottie"/>
+    <LottieEmpty v-if="showLottie" :message="'Pencarian tidak ditemukan'"/>
   </div>
 </template>
 

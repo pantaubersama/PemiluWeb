@@ -12,7 +12,7 @@
         </router-link>
       </div>
     </li>
-    <LottieEmpty v-if="showLottie"/>
+    <LottieEmpty v-if="showLottie" :message="'Pencarian tidak ditemukan'"/>
   </ul>
 </template>
 

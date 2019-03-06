@@ -1,7 +1,7 @@
 <template>
   <div class="card card-tabs">
     <janji-politik-list :user="user" :data="janjiPolitiks" :loading="isLoading"/>
-    <LottieEmpty v-if="showLottie"/>
+    <LottieEmpty v-if="showLottie" :message="'Oops.. data kosong'"/>
   </div>
 </template>
 

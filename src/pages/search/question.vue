@@ -7,7 +7,7 @@
       @upvoted="onUpvote($event)"
       @removeVoted="onRemoveVote($event)"
     ></question-list>
-    <LottieEmpty v-if="showLottie"/>
+    <LottieEmpty v-if="showLottie" :message="'Oops.. data kosong'"/>
   </div>
 </template>
 

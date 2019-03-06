@@ -10,7 +10,10 @@
         :title="shareTitle"
       />
       <ul class="question-list">
-        <li v-for="(question, index) in feedsQuestions" :key="index">
+        <li v-if="loadingAnimating">
+          <ContentLoader/>
+        </li>
+        <li v-else v-for="(question, index) in feedsQuestions" :key="index">
           <div v-if="index <= 4">
             <tanya-item
               :id="question.id"
@@ -32,9 +35,6 @@
               @onReport="handleReport(question.id, $event)"
             ></tanya-item>
           </div>
-        </li>
-        <li v-if="loadingAnimating">
-          <ContentLoader/>
         </li>
         <router-link
           to="/pendidikan-politik"
