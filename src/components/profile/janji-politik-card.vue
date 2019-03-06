@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <LottieEmpty v-if="showLottieJp"/>
+    <LottieEmpty v-if="showLottieJp" :message="'Belum pernah membuat Janji Politik'"/>
   </div>
 
 </template>
