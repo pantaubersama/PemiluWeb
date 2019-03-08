@@ -27,12 +27,12 @@
           </a>
         </li>
       </ul>
-      <button
+      <!-- <button
         class="btn choice"
         type="button"
         @click.stop="$emit('onSelected', null)"
         :class="{ selected: (!selected || !selected.id) }"
-      >Belum menentukan pilihan</button>
+      >Belum menentukan pilihan</button> -->
     </div>
   </div>
 </template>

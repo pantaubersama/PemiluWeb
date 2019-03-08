@@ -78,7 +78,7 @@
       </div>
     </div>
     <div v-if="loadingAnimating">
-      <ContentLoader/>
+      <JpLoader/>
     </div>
     <router-link
       to="/linimasa?type=janji-politik"
@@ -105,7 +105,7 @@ import {
   IconDots
 } from '@/svg/icons'
 import ModalShare from '@/components/modal-share'
-import ContentLoader from '@/components/Loading/ContentLoader'
+import JpLoader from '@/components/Loading/JpLoader'
 export default {
   name: 'CardJP',
   components: {
@@ -116,7 +116,7 @@ export default {
     ShareIcon,
     CloseIcon,
     ModalShare,
-    ContentLoader
+    JpLoader
   },
   mixins: [authLink],
   data() {
@@ -132,13 +132,6 @@ export default {
     ...mapState('homeJanjiPolitik', ['feedsJanjiPolitik', 'paginations']),
     ...mapState('loadingLottie', ['loadingAnimating']),
     ...mapState('profile', ['user']),
-    // ...mapState({
-    //   janjiPolitiks: state => state.liniMasa.janjiPolitiks,
-    //   feedsPilpres: state => state.liniMasa.feedsPilpres,
-    //   user: state => state.profile.user,
-    //   userAuth: state => state.meLogout.userLogin,
-    //   clusters: state => state.profile.filterClusters
-    // }),
     shareURL() {
       return `/share/janjipolitik/`
     }
