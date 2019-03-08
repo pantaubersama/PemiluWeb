@@ -10,12 +10,11 @@
         :title="shareTitle"
       />
       <ul class="question-list">
-        <li v-if="loadingAnimating">
-          <ContentLoader/>
-        </li>
-        <li v-else v-for="(question, index) in feedsQuestions" :key="index">
-          <div v-if="index <= 4">
+
+        <li v-if="feedsQuestions" >
+          <div v-for="(question, index) in feedsQuestions" :key="index">
             <tanya-item
+              v-if="index <= 4"
               :id="question.id"
               :me="me.id"
               :title="question.user.about"
@@ -35,6 +34,9 @@
               @onReport="handleReport(question.id, $event)"
             ></tanya-item>
           </div>
+        </li>
+        <li v-if="loadingAnimating">
+          <TanyaLoader/>
         </li>
         <router-link
           to="/pendidikan-politik"
@@ -56,7 +58,7 @@ import { cleanURL } from '@/utils'
 import { BottomArrow, IconDots } from '@/svg/icons'
 import { mapState, mapActions, mapGetters } from 'vuex'
 import TanyaItem from '@/components/Home/CardTanyaItem'
-import ContentLoader from '@/components/Loading/ContentLoader'
+import TanyaLoader from '@/components/Loading/TanyaLoader'
 import ShareOptions from '@/mixins/share-options'
 import ModalShare from '@/components/modal-share'
 export default {
@@ -65,7 +67,7 @@ export default {
     BottomArrow,
     IconDots,
     TanyaItem,
-    ContentLoader,
+    TanyaLoader,
     ModalShare
   },
   mixins: [ShareOptions],
