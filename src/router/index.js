@@ -202,6 +202,21 @@ const router = new VueRouter({
       name: 'DebatDetailSelf',
       component: () => import('@/pages/wordstadium/detail'),
       props: { selfChallenge: true }
+    }, {
+      path: '/wordstadium/detail-expired',
+      component: () => import('@/pages/wordstadium/detail-expired')
+    }, {
+      path: '/wordstadium/detail-denied',
+      component: () => import('@/pages/wordstadium/detail-denied')
+    }, {
+      path: '/wordstadium/detail-awaiting',
+      component: () => import('@/pages/wordstadium/detail-awaiting')
+    }, {
+      path: '/wordstadium/detail-accepted',
+      component: () => import('@/pages/wordstadium/detail')
+    }, {
+      path: '/wordstadium/detail-other',
+      component: () => import('@/pages/wordstadium/detail')
     },
     {
       path: '/wordstadium/own-debate',
