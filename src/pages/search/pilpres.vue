@@ -20,7 +20,7 @@
           @toggleDropdown="toggleDropdown(item.id, $event)"
         ></PilpresItem>
       </div>
-      <LottieEmpty v-if="showLottie"/>
+      <LottieEmpty v-if="showLottie" :message="'Pencarian tidak ditemukan'"/>
     </ul>
   </div>
 </template>

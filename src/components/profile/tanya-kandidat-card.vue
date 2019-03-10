@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <LottieEmpty v-if="showLottieTanya"/>
+    <LottieEmpty v-if="showLottieTanya" :message="'Belum pernah membuat pertanyaan'"/>
   </ul>
 </template>
 
@@ -182,7 +182,7 @@ export default {
       @media (max-width: 575px)
         font-size: 14px
 
-.empty-post
+.empty-wrapper
   padding: 15px
   text-align: center
   p

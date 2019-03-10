@@ -9,6 +9,7 @@
           <logo-product></logo-product>
         </div>
       </router-link>
+
       <div class="ml-auto navbar-right align-item-center d-flex">
         <div class="d-none d-lg-flex">
           <div class="input-search">
@@ -38,9 +39,19 @@
           </div>
         </div>
 
-        <!-- <a href="#" class="notification">
-          <notification-icon></notification-icon>
-        </a> -->
+        <div class="notification" v-if="isLoggedIn">
+          <button
+            class="note"
+            :class="{'is-active': isDropdownNotifActive}"
+            @click.stop="toggleDropdownNotif()"
+          >
+            <i class="icon icon-pins"></i>
+          </button>
+          <div class="dropdown-content">
+            <header-notif/>
+          </div>
+        </div>
+
         <div class="profile-menu" v-if="userLogin">
           <div
             id="toggle-button"
@@ -108,6 +119,7 @@ import {
   LogoPantau
 } from '@/svg/icons'
 import HeaderNote from '@/components/HeaderNote'
+import HeaderNotif from '@/components/HeaderNotif'
 
 export default {
   name: 'Header',
@@ -118,13 +130,15 @@ export default {
     NotificationIcon,
     WordStadiumIcon,
     LogoPantau,
-    HeaderNote
+    HeaderNote,
+    HeaderNotif
   },
   mixins: [authLink],
   data() {
     return {
       isActive: false,
       isDropdownNoteActive: false,
+      isDropdownNotifActive: false,
       query: this.$route.query.q || ''
     }
   },
@@ -134,11 +148,13 @@ export default {
     }
     window.addEventListener('click', this.removeDropdown)
     window.addEventListener('click', this.removeDropdownNote)
+    window.addEventListener('click', this.removeDropdownNotif)
     window.addEventListener('click', this.removeSidebar)
   },
   beforeDestroy() {
     window.removeEventListener('click', this.removeDropdown)
     window.removeEventListener('click', this.removeDropdownNote)
+    window.removeEventListener('click', this.removeDropdownNotif)
     window.removeEventListener('click', this.removeSidebar)
   },
   computed: {
@@ -166,6 +182,13 @@ export default {
     toggleDropdownNote() {
       this.isDropdownNoteActive = !this.isDropdownNoteActive
       this.isActive = false
+      this.isDropdownNotifActive = false
+      this.$emit('removeSidebar')
+    },
+    toggleDropdownNotif() {
+      this.isDropdownNotifActive = !this.isDropdownNotifActive
+      this.isActive = false
+      this.isDropdownNoteActive = false
       this.$emit('removeSidebar')
     },
     removeDropdownNote(event) {
@@ -173,9 +196,15 @@ export default {
         this.isDropdownNoteActive = false
       }
     },
+    removeDropdownNotif(event) {
+      if (!event.target.parentNode.parentNode.classList.contains('image-notif')) {
+        this.isDropdownNotifActive = false
+      }
+    },
     toggleDropdown(event) {
       this.isActive = !this.isActive
       this.isDropdownNoteActive = false
+      this.isDropdownNotifActive = false
       this.$emit('removeSidebar')
     },
     removeDropdown(event) {

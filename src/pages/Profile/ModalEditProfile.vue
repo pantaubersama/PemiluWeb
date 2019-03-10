@@ -33,7 +33,7 @@
         <div class="card">
           <div class="card-column">
             <label for="name">Nama</label>
-            <input type="text" id="name" name="name" :value="user.full_name">
+            <input type="text" id="name" name="name" readonly :value="user.full_name">
           </div>
           <div class="card-column">
             <label for="username">Username</label>
@@ -93,7 +93,7 @@ export default {
         avatarFile: avatar,
         full_name: name,
         username,
-        description,
+        about: description,
         location,
         education: pendidikan,
         occupation: pekerjaan

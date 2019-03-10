@@ -1,6 +1,6 @@
 <template>
   <div class="empty-wrapper">
-    <div class="lottie-empty" ref="empty"></div>
+    <div class="lottie-empty" ref="emptyNotif"></div>
     <p>{{message}}</p>
   </div>
 </template>
@@ -9,14 +9,14 @@
 import { mapState,  mapActions } from 'vuex'
 import lottie from 'lottie-web'
 export default {
-  name: 'LottieEmpty',
+  name: 'LottieEmptyNotif',
   props: {
     message: String
   },
   mounted() {
     this.emptyLottie = lottie.loadAnimation({
-      container: this.$refs.empty,
-      path: '/lottie/empty-status.json',
+      container: this.$refs.emptyNotif,
+      path: '/lottie/empty-notif.json',
       autoplay: true,
       loop: true,
       renderer: 'svg'
@@ -24,7 +24,7 @@ export default {
   },
   destroyed() {
     this.emptyLottie.destroy()
-    this.$store.commit('showLottie/hideLottie')
+    this.$store.commit('showLottie/hideLottieNotif')
   },
 }
 </script>

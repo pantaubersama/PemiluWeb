@@ -17,6 +17,7 @@ import * as loadingLottie from '@/stores/modules/loading-lottie'
 import * as showLottie from '@/stores/modules/empty-lottie'
 import * as search from '@/stores/modules/search'
 import * as wordstadium from '@/stores/modules/wordstadium'
+import * as notification from '@/stores/modules/notification'
 
 // Lini Masa
 import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
@@ -54,7 +55,8 @@ export default new Vuex.Store({
     showLottie,
     LiniMasaDetail,
     PendidikanPolitikDetail,
-    PendidikanPolitikQuizParticipation
+    PendidikanPolitikQuizParticipation,
+    notification
   },
   strict: debug,
   plugins: [beforeAction]
