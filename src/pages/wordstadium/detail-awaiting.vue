@@ -2,9 +2,9 @@
   <layout-timeline>
     <template slot="main-content">
       <debat-detail
-        title="Open Challenge"
+        title="Direct Challenge"
         :debat="debat"
-        :with-source="false"
+        :with-source="true"
         :with-opponent="true"
         :challenger="challenger"
         :opponent="opponent"
