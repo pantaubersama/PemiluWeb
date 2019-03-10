@@ -12,6 +12,8 @@
         banner-text2="Tantangan melebihi batas waktu :("
       >
       <template slot="debat-subcontent">
+          <confirmation-panel></confirmation-panel>
+          <confirmation-panel></confirmation-panel>
       </template>
       </debat-detail>
     </template>
@@ -21,6 +23,7 @@
 <script>
 import LayoutTimeline from '@/layout/Timeline'
 import DebatDetail from '@/components/debat-detail'
+import ConfirmationPanel from '@/components/wordstadium/confirmation-panel'
 import dummyDebat from '@/pages/wordstadium/dummy-debat.json'
 
 const dummyUser = {
@@ -52,7 +55,8 @@ export default {
   name: 'DebatDetailExpired',
   components: {
     LayoutTimeline,
-    DebatDetail
+    DebatDetail,
+    ConfirmationPanel
   },
   computed: {
     debat() { return dummyDebat },
@@ -60,7 +64,7 @@ export default {
       return dummyUser
     },
     opponent() {
-      return null
+      return dummyUser
     }
   }
 }
@@ -73,4 +77,7 @@ export default {
   background-image: url(~@/assets/bg-debat-detail-expired.svg)
 .debat-detail-container /deep/ .debat-banner .banner-text-2
     color: #bd081c
+
+.debat-subcontent .confirmation-panel
+  margin-top: 20px
 </style>
