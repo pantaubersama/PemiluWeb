@@ -66,27 +66,6 @@
     <debat-source-panel
       v-if="withSource">
     </debat-source-panel>
-    <div v-if="withSource" class="source">
-      <a href="#" class="source-link">http://twitter.com/somethingww</a>
-      <div class="source-detail">
-        <div class="source-avatar-container">
-          <img src="~@/assets/trump.jpg" alt="trump" class="source-avatar">
-          <i class="icon icon-twitter"></i>
-        </div>
-        <div class="detail-container">
-          <div class="meta-container">
-            <div class="name">Ratu CebonganYK</div>
-            <div class="username">@ratu_cebonganYK</div>
-            <div class="date">&bull; 5 des</div>
-          </div>
-          <div class="content">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis non, hic,
-            aliquid voluptas sed aperiam quia, corrupti tempore fugit quod in reprehenderit
-            autem doloremque adipisci nihil molestiae illo qui voluptates?
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="debat-subtitle">
       2018 pertumbuhan ekonomi Indonesia mengalami perthumbuhan mencapai 5,27%.
       2 periode yuk, biar 10,54%
