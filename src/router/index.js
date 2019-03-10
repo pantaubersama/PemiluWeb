@@ -212,6 +212,9 @@ const router = new VueRouter({
       path: '/wordstadium/detail-awaiting',
       component: () => import('@/pages/wordstadium/detail-awaiting')
     }, {
+      path: '/wordstadium/detail-waiting',
+      component: () => import('@/pages/wordstadium/detail-waiting')
+    }, {
       path: '/wordstadium/detail-accepted',
       component: () => import('@/pages/wordstadium/detail')
     }, {
