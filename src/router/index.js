@@ -206,6 +206,9 @@ const router = new VueRouter({
       path: '/wordstadium/detail-expired',
       component: () => import('@/pages/wordstadium/detail-expired')
     }, {
+      path: '/wordstadium/detail-confirm',
+      component: () => import('@/pages/wordstadium/detail-confirm')
+    }, {
       path: '/wordstadium/detail-denied',
       component: () => import('@/pages/wordstadium/detail-denied')
     }, {

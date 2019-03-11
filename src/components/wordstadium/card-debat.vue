@@ -10,15 +10,20 @@
       <span v-if="type === 'coming-soon'">Coming Soon</span>
       <span v-if="type === 'live'"><i class="icon icon-live-now"></i> Live</span>
       <span v-if="type === 'done'">Done</span>
-      <span v-if="type === 'challenge'">Open Challenge</span>
-      <img src="~@/assets/trump.jpg" alt="qwe" class="user-a">
-      <img src="~@/assets/trump.jpg" alt="asd" class="user-b">
+      <span v-if="type === 'challenge'">{{challengeType}}</span>
+      <img :src="challengerAvatar"
+        :alt="challenger.username" class="user-a">
+      <img v-if="opponent != null"
+        :src="opponentAvatar"
+        :alt="opponent.username" class="user-b">
+      <img v-else src="~@/assets/trump.jpg" alt="asd" class="user-b">
     </div>
     <div class="body">
       <div class="versus"></div>
       <div class="challenger">
-        <div class="challenger-column column-1">Ratu cebongan something something</div>
-        <div class="challenger-column column-2">Raja kampreta something something</div>
+        <div class="challenger-column column-1">{{challenger.full_name}}</div>
+        <div v-if="opponent != null" class="challenger-column column-2">{{opponent.full_name}}</div>
+        <div v-else class="challenger-column column-2">Placeholder</div>
       </div>
     </div>
     <div class="body-lower">
@@ -30,7 +35,30 @@
 <script>
 export default {
   name: 'CardDebat',
-  props: ['type']
+  props: ['type', 'debat'],
+  computed: {
+    challengeType() {
+      if (this.debat == null) return 'Open Challenge'
+      return this.debat.type.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    },
+    challenger() {
+      if (this.debat == null) return 'Placeholder'
+      return this.debat.audiences.find(it => it.role === 'challenger')
+    },
+    opponent() {
+      if (this.debat == null) return 'Placeholder'
+      return this.debat.audiences.find(it => it.role === 'opponent_candidate')
+    },
+    challengerAvatar() {
+      if (this.challenger.avatar == null) return ''
+      return this.challenger.avatar.medium.url
+    },
+    opponentAvatar() {
+      if (this.opponent == null) return ''
+      if (this.opponent.avatar == null) return ''
+      return this.opponent.avatar.medium.url
+    }
+  }
 }
 </script>
 

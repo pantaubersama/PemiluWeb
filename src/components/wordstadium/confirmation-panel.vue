@@ -8,7 +8,10 @@
       <div class="username">@raja_kampret</div>
     </div>
     <div class="button-container">
-      <button type="button" class="confirm-button" :disabled="disabled">
+      <button type="button"
+        class="confirm-button"
+        :disabled="disabled"
+        @click.prevent="$emit('confirm')">
         Confirm
       </button>
     </div>
@@ -59,10 +62,10 @@ export default {
 .button-container
   flex: 0 0 auto
   button.confirm-button
+    background: #08bda8
     height: 32px
     width: 120px
     text-transform: uppercase
-    background: #ececec
     border: none
     border-radius: 2px
     font-size: 12px
@@ -71,5 +74,9 @@ export default {
     letter-spacing: 1.2px
     text-align: center
     color: #ffffff
+    cursor: pointer
+    &:disabled
+      background: #ececec
+      cursor: not-allowed
 
 </style>

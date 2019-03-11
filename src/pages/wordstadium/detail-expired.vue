@@ -12,8 +12,8 @@
         banner-text2="Tantangan melebihi batas waktu :("
       >
       <template slot="debat-subcontent">
-          <confirmation-panel></confirmation-panel>
-          <confirmation-panel></confirmation-panel>
+          <confirmation-panel disabled></confirmation-panel>
+          <confirmation-panel disabled></confirmation-panel>
       </template>
       </debat-detail>
     </template>
