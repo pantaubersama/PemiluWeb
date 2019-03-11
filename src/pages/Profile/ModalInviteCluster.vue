@@ -4,6 +4,7 @@
       <button class="close-btn" @click="$emit('close-request')">
         <i class="icon icon-close"></i>
       </button>
+
       <div class="card email-panel">
         <h3 class="title">Bagikan Undangan Lewat Email</h3>
         <vue-tags-input
@@ -15,9 +16,11 @@
           v-validate="'email'"
           :class="{'input': true, 'is-danger': errors.has('emails') }"
           data-vv-validate-on="blur|input"
+          @before-adding-tag="checkTag"
           :add-on-key="[13,',']"
           @tags-changed="newTags => emails = newTags"
         ></vue-tags-input>
+
         <small>Multiple value, don't forget to press enter for each email</small>
         <span v-show="errors.has('emails')" class="help is-danger">{{ errors.first('emails') }}</span>
         <input
@@ -74,10 +77,10 @@ export default {
   components: { Modal, IconAvatar, VueTagsInput },
   data() {
     return {
-      email:'',
+      email: '',
       emails: [],
       isInviting: false,
-      inviteLabel: 'Undang'
+      inviteLabel: 'Undang',
     }
   },
   computed: {
@@ -106,19 +109,32 @@ export default {
       this.$clipboard(event.target.value)
       this.$toaster.info('Berhasil menyalin teks.')
     },
+    checkTag(obj) {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          obj.addTag()
+        }else{
+          return false
+        }
+      })
+    },
     invite() {
-      const clusterId = this.cluster.id
-      const emails = this.emails.map(a => a.text).join()
-      this.isInviting = true
-      this.inviteLabel = 'Mengundang'
-      return ProfileAPI.inviteToCluster(clusterId, emails).then(data => {
-        this.isInviting = false
-        this.inviteLabel = 'Terundang'
-        this.$toaster.info('Berhasil mengirimkan undangan.')
-        window.setTimeout(() => {
-          this.inviteLabel = 'Undang'
-          this.emails = []
-        }, 1500)
+      this.$validator.validateAll().then(result => {
+        if (result && this.emails.length > 0) {
+          const clusterId = this.cluster.id
+          const emails = this.emails.map(a => a.text).join()
+          this.isInviting = true
+          this.inviteLabel = 'Mengundang'
+          return ProfileAPI.inviteToCluster(clusterId, emails).then(data => {
+            this.isInviting = false
+            this.inviteLabel = 'Terundang'
+            this.$toaster.info('Berhasil mengirimkan undangan.')
+            window.setTimeout(() => {
+              this.inviteLabel = 'Undang'
+              this.emails = []
+            }, 1500)
+          })
+        }
       })
     }
   }
