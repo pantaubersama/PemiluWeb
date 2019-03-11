@@ -1,7 +1,8 @@
 .modal-quiz-question
   padding: 0
   margin: 0
-
+  @media (max-width: 575px)
+    margin: 0 -10px
 .modal-header
   border-width: 0
   margin: 0
@@ -10,6 +11,8 @@
 .modal-header--question
   align-items: center
   color: #ffffff
+  @media (max-width: 575px)
+    padding: 0 10px
 
   .modal-title
     font-size: 12px
@@ -26,7 +29,6 @@
 .modal-background--question
   margin: 0
   padding: 0
-  background-size: contain
   position: fixed
   top: 0
   left: 0
@@ -35,38 +37,52 @@
   z-index: -1
 
   &.background-1
-    background: url(~@/assets/bg-01.svg) no-repeat top center;
+    background: url(~@/assets/bg-01.svg) no-repeat top center
+    background-size: contain
 
   &.background-2
-    background: url(~@/assets/bg-01.svg) no-repeat top center;
+    background: url(~@/assets/bg-01.svg) no-repeat top center
+    background-size: contain
 
 .modal-body--question
   margin: 0
   padding: 0
   color: #ffffff
 
-  h2
-    height: 120px
-    font-size: 18px
-    line-height: 24px
-    text-align: center
-    display: flex
-    justify-content: center
-    align-items: center
+  .question-title
+    max-height: 120px
+    overflow: auto
+    margin: 20px 0
+    @media (max-width: 575px)
+      max-height: 75px
 
+    h2
+      font-size: 18px
+      line-height: 24px
+      text-align: center
+      display: flex
+      justify-content: center
+      align-items: center
+      @media (max-width: 575px)
+        font-size: 16px
+
+.question-text
+  @media (max-width: 575px)
+    max-height: 335px
+    overflow: auto
+    margin-bottom: 10px
 .row-question
   height: 100%
   margin: 0
   padding: 0
-  @media (max-width: 575px)
-    margin: 0 -15px
+  flex-wrap: nowrap
 
   .col
     margin: 0
     padding-left: 4px
     padding-right: 4px
     min-height: 381px
-    min-width: 220px
+    width: 50%
 
 .col-question
   margin: 0
@@ -81,6 +97,8 @@
 
   p
     padding: 14px
+    @media (max-width: 575px)
+      font-size: 13px
 
   .btn
     border-radius: 0

@@ -8,11 +8,13 @@
     </template>
     <template slot="title">{{currentQuestion.content}}</template>
     <template slot="content">
-      <h2>{{currentQuestion.content}}</h2>
+      <div class="question-title">
+        <h2>{{currentQuestion.content}}</h2>
+      </div>
       <div class="row row-question">
         <div class="col" v-for="(answer, index) in currentQuestion.answers" :key="answer.id">
           <div class="col-question">
-            <p v-html="answer.content"></p>
+            <div class="question-text" v-html="answer.content"></div>
             <button
               class="btn btn-primary"
               :disabled="answer.answered"
