@@ -7,7 +7,7 @@
       <div class="displayname">Raja Kampreta</div>
       <div class="username">@raja_kampret</div>
     </div>
-    <div class="button-container">
+    <div v-if="withButton" class="button-container">
       <button type="button"
         class="confirm-button"
         :disabled="disabled"
@@ -21,7 +21,7 @@
 <script>
 export default {
   name: 'ConfirmationPanel',
-  props: ['disabled']
+  props: ['disabled', 'with-button']
 }
 </script>
 
