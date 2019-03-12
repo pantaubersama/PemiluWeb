@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="outline-challenge-accepted-24px" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}.cls-2{fill:none}
+        </style>
+    </defs>
+    <circle id="Ellipse_21" cx="3" cy="3" r="3" class="cls-1" data-name="Ellipse 21" transform="translate(13 9)"/>
+    <path id="Path_1938" d="M16 15.89c-2 0-6 1.07-6 3.58V21h12v-1.53c0-2.47-4-3.58-6-3.58z" class="cls-1" data-name="Path 1938"/>
+    <path id="Path_1939" d="M9.46 13L8 15.2 6.54 13H5V4h14v4a4.94 4.94 0 0 1 1 1h1V2H3v13h2.46L8 18.8l2.54-3.8H12a4.92 4.92 0 0 1-.9-2z" class="cls-1" data-name="Path 1939"/>
+    <path id="Rectangle_159" d="M0 0h24v24H0z" class="cls-2" data-name="Rectangle 159"/>
+    <path id="Path_1940" d="M9 11.41l-2.71-2.7 1.42-1.42L9 8.59l3.29-3.3 1.42 1.42z" class="cls-1" data-name="Path 1940"/>
+</svg>

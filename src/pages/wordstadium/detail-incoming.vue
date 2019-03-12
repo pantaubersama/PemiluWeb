@@ -2,16 +2,20 @@
   <layout-timeline>
     <template slot="main-content">
       <debat-detail
-        title="Direct Challenge"
+        title="Open Challenge"
         :debat="debat"
-        :with-source="true"
-        :with-opponent="true"
+        :with-source="false"
+        :with-opponent="false"
         :challenger="challenger"
         :opponent="opponent"
-        banner-text1="Menunggu,"
-        banner-text2="Raja Kampreta mengkonfirmasi tantangan"
+        banner-text1="Ini adalah Open Challenge,"
+        banner-text2="Terima tantangan ini?"
       >
       <template slot="debat-subcontent">
+        <button type="button" class="accept-challenge">
+          <i class="icon icon-accept-challenge"></i>
+          <div class="text">Terima tantangan</div>
+        </button>
       </template>
       </debat-detail>
     </template>
@@ -49,7 +53,7 @@ const dummyUser = {
 }
 
 export default {
-  name: 'DebatDetailAwaiting',
+  name: 'DebatDetailIncoming',
   components: {
     LayoutTimeline,
     DebatDetail
@@ -60,7 +64,7 @@ export default {
       return dummyUser
     },
     opponent() {
-      return dummyUser
+      return null
     }
   }
 }
@@ -70,7 +74,36 @@ export default {
 .debat-detail-container /deep/ .header
   background-image: url(~@/assets/bg-debat-detail-banner-challenge.svg)
 .debat-detail-container /deep/ .debat-banner
-  background-image: url(~@/assets/bg-debat-detail-expired.svg)
-.debat-detail-container /deep/ .debat-banner .banner-text-2
-    color: #bd081c
+  background-image: url(~@/assets/bg-debat-detail-waiting.svg)
+
+.debat-detail-container /deep/ .debat-subcontent
+  margin-top: 20px
+  display: flex
+  height: 300px
+  align-items: flex-end
+  justify-content: center
+
+.accept-challenge
+  background: #08bda8
+  border: none
+  cursor: pointer
+  display: flex
+  height: 40px
+  width: 300px
+  align-items: center
+  border-radius: 2px
+
+  .icon
+    flex: 0 0 25px
+    background-image: url(~@/assets/icon-accept-challenge.svg)
+  .text
+    flex: 1
+    text-indent: -25px
+    font-size: 12px
+    font-weight: bold
+    font-stretch: condensed
+    line-height: 1.25
+    letter-spacing: 0.5px
+    text-align: center
+    color: #ffffff
 </style>

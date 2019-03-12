@@ -52,7 +52,7 @@ const dummyUser = {
 }
 
 export default {
-  name: 'DebatDetailExpired',
+  name: 'DebatDetailWaiting',
   components: {
     LayoutTimeline,
     DebatDetail

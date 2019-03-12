@@ -40,7 +40,7 @@
       <ul>
         <li>
           <button @click.stop="copy()">
-            <link-icon></link-icon> Tautan
+            <link-icon></link-icon> Salin Tautan
           </button>
         </li>
         <li>
@@ -327,6 +327,8 @@ export default {
       background-image: url(~@/assets/icon-share.svg)
     &.icon-menu
       background-image: url(~@/assets/icon-menu.svg)
+  .dropdown-content
+    padding: 5px 10px
   .menu-btn.active + .dropdown-content
     display: block
   .dropdown-content button
