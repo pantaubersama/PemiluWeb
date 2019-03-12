@@ -30,7 +30,7 @@
           <div class="title">Challenge</div>
         </template>
         <template slot="debat-item" slot-scope="props">
-          <panel-debat-challenge :debat="props.item"></panel-debat-challenge>
+          <panel-debat type="challenge" :debat="props.item"></panel-debat>
         </template>
       </debat-list>
     </div>
@@ -42,8 +42,6 @@ import dummy from '@/pages/wordstadium/dummy-debat.json'
 import WordstadiumLiveList from '@/components/wordstadium/live-list'
 import CardDebat from '@/components/wordstadium/card-debat'
 import PanelDebat from '@/components/wordstadium/panel-debat'
-import PanelDebatComingSoon from '@/components/wordstadium/panel-debat-coming-soon'
-import PanelDebatChallenge from '@/components/wordstadium/panel-debat-challenge'
 import DebatList from '@/pages/wordstadium/debat-list'
 export default {
   name: 'WordstadiumPublic',
@@ -51,16 +49,15 @@ export default {
     DebatList,
     CardDebat,
     PanelDebat,
-    WordstadiumLiveList,
-    PanelDebatComingSoon,
-    PanelDebatChallenge
+    WordstadiumLiveList
   },
   computed: {
     ongoing() {
-      return this.$store.getters['wordstadium/ongoing']
+      return this.$store.getters['wordstadium/challenges']
     },
     challenges() {
-      return this.ongoing
+      return this.$store.getters['wordstadium/challenges']
+        .slice(0, 3)
     },
     lives() {
       return Array.from(Array(5).keys())
@@ -72,7 +69,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('wordstadium/getOngoingChallenges')
+    this.$store.dispatch('wordstadium/getChallenges')
   },
   methods: {}
 }
