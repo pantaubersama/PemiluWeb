@@ -29,7 +29,7 @@
                 :to="{ path: '/profile/cluster', query: { id: user.cluster.id }}"
               >Lihat Cluster</router-link>
             </li>
-            <li>
+            <li v-if="user.is_moderator">
               <button @click="$emit('invite-cluster')">Undang Anggota</button>
             </li>
             <li>

@@ -9,7 +9,9 @@
       </div>
 
       <div slot="description" class="quiz-description">
-        <p>{{quiz.description}}</p>
+        <div class="quiz-description-text">
+          <p>{{quiz.description}}</p>
+        </div>
         <button
           type="button"
           class="btn btn-block btn-primary"

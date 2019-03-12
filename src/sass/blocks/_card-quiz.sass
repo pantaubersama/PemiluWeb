@@ -46,7 +46,6 @@
     padding: 24px
     margin: 0
     position: relative
-    height: 571px
     border-width: 0
     @media (max-width: 575px)
       padding: 15px
@@ -67,21 +66,6 @@
             height: 100%
             width: 100%
 
-        &-panel
-          width: 75%
-          margin: 0
-          padding: 0
-          min-height: 306px
-          background-color: #f4f4f4
-          position: absolute;
-          top: 60%;
-          left: 50%;
-          transform: translate(-50%, -50%)
-          display: flex;
-          flex-direction: column
-          justify-content: space-between
-          align-items: center
-          border-radius: 0
 
         &-title
           height: 90px
@@ -101,7 +85,6 @@
           align-items: center
           height: 100%
           width: 100%
-          min-height: 216px
 
           p
             padding: 8px 20px
@@ -121,30 +104,24 @@
         &-background
           z-index: 1
           top: 0
+          height: 200px
           img
             height: 100%
             width: 100%
+            object-fit: cover
 
         &-panel
-          width: 75%
-          margin: 0
-          padding: 0
-          min-height: 306px
           background-color: #f4f4f4
-          position: absolute;
-          top: 60%;
-          left: 50%;
-          transform: translate(-50%, -50%)
           display: flex;
           flex-direction: column
           justify-content: space-between
           align-items: center
           border-radius: 0
-          @media (max-width: 575px)
-            width: calc(100% - 30px)
+          margin-top: 30px
+
         &-title
           height: 90px
-          margin-top: 30px
+          margin-top: 0
           padding: 8px 4px
           width: 100%
 
@@ -153,10 +130,15 @@
           flex-direction: column
           justify-content: space-between
           height: 100%
+          &-text
+            max-height: 180px
+            overflow: auto
+            margin-bottom: 30px
 
           p
             padding: 8px 20px
             align-items: flex-start
+            margin-bottom: 0
 
           .btn
             border-radius: 0

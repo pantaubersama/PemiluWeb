@@ -25,7 +25,7 @@
     </li>
 
     <li v-if="loading" :style="{'margin': '10px 0', 'border-width': 0}">
-      <ContentLoader/>
+      <TanyaLoader/>
     </li>
     <li v-for="question in questions" :key="question.id" v-else>
       <question-item
@@ -57,7 +57,7 @@ import { cleanURL } from '@/utils'
 
 import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 import ModalShare from '@/components/modal-share'
-import ContentLoader from '@/components/Loading/ContentLoader'
+import TanyaLoader from '@/components/Loading/TanyaLoader'
 import QuestionItem from '@/components/pendidikan-politik/question-item'
 import ModalCreate from '@/components/pendidikan-politik/modal-create'
 import PendidikanPolitikCreateItem from '@/components/pendidikan-politik/penpol-create-item'
@@ -66,7 +66,7 @@ export default {
   name: 'QuestionList',
   components: {
     QuestionItem,
-    ContentLoader,
+    TanyaLoader,
     ModalCreate,
     ModalShare,
     PendidikanPolitikCreateItem
