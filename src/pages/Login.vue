@@ -26,6 +26,7 @@ import { http } from '@/services/http'
 import { vueAuth } from '@/services/symbolic'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LinimasaAPI from '@/services/api/modules/lini-masa'
+import firebase from '@/mixins/firebase'
 export default {
   name: 'Login',
   components: {
@@ -89,7 +90,6 @@ export default {
               const url = shouldUpdateProfile
                 ? '/profile?edit-profile=1'
                 : this.$route.query.redirect || '/'
-
               this.$router.push(url)
             }
           )

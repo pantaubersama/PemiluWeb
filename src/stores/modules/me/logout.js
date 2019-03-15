@@ -22,6 +22,9 @@ export const actions = {
       ctx.dispatch('profile/setToken', null, {
         root: true
       })
+      ctx.commit('profile/clearFirebaseKey', null, {
+        root: true
+      })
       router.replace('/')
     })
   }

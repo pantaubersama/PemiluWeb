@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "firebase": "^5.8.6",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "lottie-web": "^5.4.2",

@@ -8,6 +8,7 @@ import * as PenpolAPI from '@/services/api/modules/pendidikan-politik'
 export const namespaced = true
 export const state = {
   token: null,
+  firebaseKey: null,
   user: {
     id: null,
     email: null,
@@ -107,6 +108,10 @@ export const state = {
 export const actions = {
   setToken(ctx, token) {
     ctx.commit('setToken', token)
+  },
+  async setNotification() {
+    const data = await ProfileAPI.setNotification(state.firebaseKey)
+    return Promise.resolve(data)
   },
   async getMe(ctx) {
     const user = await ProfileAPI.getMe()
@@ -341,6 +346,12 @@ export const actions = {
 export const mutations = {
   setToken(state, token) {
     state.token = token
+  },
+  setFirebaseKey(state, token) {
+    state.firebaseKey = token
+  },
+  clearFirebaseKey(state) {
+    state.firebaseKey = null
   },
   setProfileData(state, payload) {
     state.user = {
