@@ -15,6 +15,12 @@ export const getMe = () => api
   .then(resp => resp.data)
   .then(data => data.data.user)
 
+export const setNotification = firebaseKey => api
+  .put('/v1/me/firebase_keys',{
+    firebase_key: firebaseKey,
+    firebase_key_type: 'web'
+  })
+
 export const getUser = id =>
   api
     .get(`/v1/users/${id}/simple`)
