@@ -55,9 +55,9 @@ export default {
           .catch(err => {
             console.log('Unable to get permission to notify.', err)
           })
-        messaging.onMessage(payload => {
-          console.log('on Message', payload.data.payload)
-        })
+          messaging.onMessage(payload => {
+            console.log('on Message', payload.data.payload)
+          })
       }
     }
   }
