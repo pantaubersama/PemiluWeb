@@ -10,13 +10,12 @@ export const state = {
   userLogin: false
 }
 
-
 export const actions = {
   logout(ctx) {
     ApiV2MeLogout.logout(result => {
       vueAuth.storage.removeItem(vueAuth.tokenName)
       ctx.commit('userLogout')
-      ctx.commit('profile/removeProfileData',null,{
+      ctx.commit('profile/removeProfileData', null, {
         root: true
       })
       ctx.dispatch('profile/setToken', null, {
@@ -29,7 +28,6 @@ export const actions = {
     })
   }
 }
-
 
 export const mutations = {
   userLogin(state) {

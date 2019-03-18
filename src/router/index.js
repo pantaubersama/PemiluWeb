@@ -315,7 +315,7 @@ const router = new VueRouter({
       meta: {
         AuthenticationRequired: true
       }
-    },
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.name === from.name) {

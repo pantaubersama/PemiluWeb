@@ -14,8 +14,10 @@ import {
 } from './services/http'
 import store from '@/stores'
 import VeeValidate from 'vee-validate'
+import firebase from '@/mixins/firebase'
 Vue.config.productionTip = false
 
+Vue.use(firebase)
 Vue.use(SocialSharing)
 Vue.use(Clipboard)
 Vue.use(Autocomplete)
@@ -29,7 +31,7 @@ Vue.use(VeeValidate, {
         required: (field) => `* Wajib Diisi.`,
         email: (field) => `Format email yang kamu masukkan salah`,
         regex: (field) => `Format nomor KTP tidak valid`,
-        min: (field, [length]) => `Minimal ${length} karakter.`,
+        min: (field, [length]) => `Minimal ${length} karakter.`
       }
     }
   }
