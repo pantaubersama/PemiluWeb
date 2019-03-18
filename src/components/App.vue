@@ -38,25 +38,25 @@ export default {
         if (token == null) return
         this.$store.dispatch('profile/setToken', this.token)
         this.$store.dispatch('profile/getMe')
-        const messaging = firebase.messaging()
-        messaging
-          .requestPermission()
-          .then(() => {
-            console.log('Notification permission granted.')
-            // get the token in the form of promise
-            return messaging.getToken()
-          })
-          .then(firebaseToken => {
-            console.log(firebaseToken)
-            this.$store.commit('profile/setFirebaseKey', firebaseToken)
-            this.$store.dispatch('profile/setNotification')
-          })
-          .catch(err => {
-            console.log('Unable to get permission to notify.', err)
-          })
-          messaging.onMessage(payload => {
-            console.log('on Message', payload)
-          })
+        // const messaging = firebase.messaging()
+        // messaging
+        //   .requestPermission()
+        //   .then(() => {
+        //     console.log('Notification permission granted.')
+        //     // get the token in the form of promise
+        //     return messaging.getToken()
+        //   })
+        //   .then(firebaseToken => {
+        //     console.log(firebaseToken)
+        //     this.$store.commit('profile/setFirebaseKey', firebaseToken)
+        //     this.$store.dispatch('profile/setNotification')
+        //   })
+        //   .catch(err => {
+        //     console.log('Unable to get permission to notify.', err)
+        //   })
+        //   messaging.onMessage(payload => {
+        //     console.log('on Message', payload)
+        //   })
       }
     }
   }
