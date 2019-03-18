@@ -14,10 +14,10 @@ import {
 } from './services/http'
 import store from '@/stores'
 import VeeValidate from 'vee-validate'
-import firebase from '@/mixins/firebase'
+
 Vue.config.productionTip = false
 
-Vue.use(firebase)
+
 Vue.use(SocialSharing)
 Vue.use(Clipboard)
 Vue.use(Autocomplete)
