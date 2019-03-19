@@ -26,7 +26,6 @@ import { http } from '@/services/http'
 import { vueAuth } from '@/services/symbolic'
 import * as ProfileAPI from '@/services/api/profile'
 import * as LinimasaAPI from '@/services/api/modules/lini-masa'
-import firebase from '@/mixins/firebase'
 export default {
   name: 'Login',
   components: {
