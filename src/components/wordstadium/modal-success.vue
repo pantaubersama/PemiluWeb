@@ -3,7 +3,7 @@
     <div key="2" class="modal-wrapper">
       <div class="modal-full">
         <div class="modal-content">
-          <img src="@/assets/dildo.jpg" alt="user">
+          <img src="@/assets/user.svg" alt="user">
           <p>{{ text }}</p>
         </div>
       </div>

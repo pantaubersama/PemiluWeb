@@ -11,7 +11,7 @@
         </div>
         <div class="user-info">
           <router-link to="/profile">
-            <img src="@/assets/dildo.jpg" alt="user">
+            <img src="@/assets/user.svg" alt="user">
             <div class="user-title">
               <h5>Ratu CebonganYK</h5>
               <span>@ratu_cebonganYK</span>
@@ -20,10 +20,7 @@
         </div>
         <div class="user-info user-info__right">
           <router-link to="/profile/raja_kampreta">
-            <img src="@/assets/dildo.jpg" alt="user">
-            <!-- <div class="mask-avatar">
-              <img src="@/assets/dildo.jpg" alt="user">
-            </div>-->
+            <img src="@/assets/user.svg" alt="user">
             <div class="user-title">
               <h5>Raja Kampreta</h5>
               <span>@raja_kampreta</span>
@@ -51,7 +48,7 @@
         <h2 class="head head--primary">Inilah hasilnya:</h2>
         <div class="content-result">
           <div class="content-user content-user__left">
-            <img src="@/assets/dildo.jpg" alt="user">
+            <img src="@/assets/user.svg" alt="user">
             <div class="content-info">
               <appreciate-yellow/>
               <div class="content-claps">
@@ -60,7 +57,7 @@
             </div>
           </div>
           <div class="content-user content-user__right">
-            <img src="@/assets/dildo.jpg" alt="user">
+            <img src="@/assets/user.svg" alt="user">
             <div class="content-info">
               <appreciate-yellow/>
               <div class="content-claps">
@@ -133,7 +130,7 @@
       </div>
       <div class="separator">&nbsp;</div>
       <div class="content-user">
-        <img src="@/assets/dildo.jpg" alt="user">
+        <img src="@/assets/user.svg" alt="user">
         <h5>Ratu CebonganYK</h5>
         <p>Berjuang bersama untuk Indonesia</p>
         <span>Posted 8 days ago</span>

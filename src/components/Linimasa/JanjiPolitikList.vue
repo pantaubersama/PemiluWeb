@@ -23,8 +23,7 @@
     />
     <div class="card-content" v-for="item in data" :key="item.id">
       <div v-if="loading">
-        <!-- TODO: seharuusnya menggunakan loader yang berbeda, disesuaikan dengan stylenya :) -->
-        <ContentLoader/>
+        <JpLoader/>
       </div>
 
       <JanjiPolitikItem
@@ -58,7 +57,7 @@ import { utils } from '@/mixins/utils'
 import { cleanURL } from '@/utils'
 import { LinkIcon, AlertIcon, ShareIcon, CloseIcon } from '@/svg/icons'
 
-import ContentLoader from '@/components/Loading/ContentLoader'
+import JpLoader from '@/components/Loading/JpLoader'
 import ModalCreate from '@/components/Linimasa/ModalCreate'
 import ModalShare from '@/components/modal-share'
 import JanjiPolitikItem from '@/components/Linimasa/JanjiPolitikItem'
@@ -67,7 +66,7 @@ import ShareOptions from '@/mixins/share-options'
 export default {
   name: 'JanjiPolitikList',
   components: {
-    ContentLoader,
+    JpLoader,
     JanjiPolitikItem,
     JanjiPolitikCreateItem,
     ModalCreate,
