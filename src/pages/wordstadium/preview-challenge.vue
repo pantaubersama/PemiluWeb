@@ -11,7 +11,7 @@
         </div>
         <div class="user-info">
           <router-link to="/profile">
-            <img src="@/assets/dildo.jpg" alt="user">
+            <img src="@/assets/user.svg" alt="user">
             <div class="user-title">
               <h5>Ratu CebonganYK</h5>
               <span>@ratu_cebonganYK</span>
@@ -22,7 +22,7 @@
           <router-link to="/profile/raja_kampreta">
             <div class="mask-avatar">
               <span>?</span>
-              <img src="@/assets/dildo.jpg" alt="user">
+              <img src="@/assets/user.svg" alt="user">
             </div>
             <div class="user-title">
               <h5>Raja Kampreta</h5>
@@ -82,7 +82,7 @@
             <div class="preview-content">
               <div class="thumbnail-avatar thumbnail-avatar__large">
                 <icon-twitter/>
-                <img src="@/assets/dildo.jpg" alt="user">
+                <img src="@/assets/user.svg" alt="user">
               </div>
               <div class="preview-content__info">
                 <h5>
@@ -107,7 +107,7 @@
           <div class="detail-lawan">
             <div class="thumbnail-avatar">
               <icon-twitter/>
-              <img src="@/assets/dildo.jpg" alt="user">
+              <img src="@/assets/user.svg" alt="user">
             </div>
             <div class="detail-lawan__user">
               <h5>Raja Kampreta</h5>
@@ -164,7 +164,7 @@
       </div>
       <div class="separator">&nbsp;</div>
       <div class="content-user">
-        <img src="@/assets/dildo.jpg" alt="user">
+        <img src="@/assets/user.svg" alt="user">
         <h5>Ratu CebonganYK</h5>
         <p>Berjuang bersama untuk Indonesia</p>
         <span>Posted 8 days ago</span>

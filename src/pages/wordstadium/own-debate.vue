@@ -7,8 +7,8 @@
             <live-red/>Live Now
           </div>
           <div class="detail">
-            <img src="@/assets/dildo.jpg" alt="thumbnail" class="img-float left">
-            <img src="@/assets/dildo.jpg" alt="thumbnail" class="img-float right">
+            <img src="@/assets/user.svg" alt="thumbnail" class="img-float left">
+            <img src="@/assets/user.svg" alt="thumbnail" class="img-float right">
             <div class="thumb left">
               <div class="user-title">
                 <h5 class="in--active">Ratu CebonganYK</h5>
@@ -144,7 +144,7 @@
           <h5>Komentar ({{ comments.length }})</h5>
         </div>
         <div class="comment-area">
-          <img src="@/assets/dildo.jpg" alt="user">
+          <img src="@/assets/user.svg" alt="user">
           <textarea placeholder="Tulis komentar" name="komentar" cols="30" rows="3"></textarea>
         </div>
         <div class="activity-list">
@@ -154,8 +154,7 @@
           <div class="activity-content" v-for="comment in comments" :key="comment.id">
             <div class="activity-thumbnail">
               <img :src="comment.avatar" :alt="comment.user" v-if="comment.avatar">
-              <!-- TODO: Please change this image with default avatar -->
-              <img src="@/assets/dildo.jpg" alt="avatar" v-else>
+              <img src="@/assets/user.svg" alt="avatar" v-else>
             </div>
             <div class="activity-description">
               <p>

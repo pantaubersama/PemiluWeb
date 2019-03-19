@@ -7,8 +7,8 @@
             <live-red/>Live Now
           </div>
           <div class="detail">
-            <img src="@/assets/dildo.jpg" alt="thumbnail" class="img-float left">
-            <img src="@/assets/dildo.jpg" alt="thumbnail" class="img-float right">
+            <img src="@/assets/user.svg" alt="thumbnail" class="img-float left">
+            <img src="@/assets/user.svg" alt="thumbnail" class="img-float right">
             <div class="thumb left">
               <div class="user-title">
                 <h5 class="in--active">Ratu CebonganYK</h5>
@@ -133,8 +133,7 @@
           <div class="activity-content" v-for="comment in comments" :key="comment.id">
             <div class="activity-thumbnail">
               <img :src="comment.avatar" :alt="comment.user" v-if="comment.avatar">
-              <!-- TODO: Please change this image with default avatar -->
-              <img src="@/assets/dildo.jpg" alt="avatar" v-else>
+              <img src="@/assets/user.svg" alt="avatar" v-else>
             </div>
             <div class="activity-description">
               <p>

@@ -11,7 +11,7 @@
         </div>
         <div class="user-info">
           <router-link to="/profile">
-            <img src="@/assets/dildo.jpg" alt="user">
+            <img src="@/assets/user.svg" alt="user">
             <div class="user-title">
               <h5>Ratu CebonganYK</h5>
               <span>@ratu_cebonganYK</span>
@@ -41,7 +41,7 @@
           >
             <div class="link">{{ pernyataan.link }}</div>
             <div class="preview-content">
-              <img src="@/assets/dildo.jpg" alt="user">
+              <img src="@/assets/user.svg" alt="user">
               <div class="preview-content__info">
                 <h5>
                   Raja Kampreta
@@ -182,7 +182,7 @@
         </div>
         <div class="sidebar-content">
           <div class="sidebar-thumbnail">
-            <img src="@/assets/dildo.jpg" alt="user">
+            <img src="@/assets/user.svg" alt="user">
           </div>
           <div class="sidebar-description">
             <h6>Bidang Kajian</h6>
