@@ -9,11 +9,29 @@
 
         <wordstadium-personal v-if="$route.query.type === 'personal'"></wordstadium-personal>
         <wordstadium-public v-else></wordstadium-public>
+        <create-challenge-modal
+          v-if="modal === 'CreateChallenge'"
+          @close="modal = null">
+        </create-challenge-modal>
       </div>
     </template>
-    <template slot="widget-wrapper">
-      <div class="d-none d-lg-block">&nbsp;</div>
-    </template>
+    <div slot="widget-wrapper">
+      <div class="card widget-wordstadium">
+        <div class="title">Chivalry Over Bigotry</div>
+        <div class="text">
+          Explore WordStadium. Kamu bisa cari tantangan terbuka dan debat
+          yang akan atau sudah berlangsung.
+          <a href="#">Read more...</a>
+        </div>
+        <img src="~@/assets/img-wordstadium-widget.svg">
+      </div>
+      <div class="create-challenge-container">
+        <button type="button" @click.prevent="modal = 'CreateChallenge'">
+          <i class="icon icon-pencil"></i>
+          <div class="text">Buat tantangan</div>
+        </button>
+      </div>
+    </div>
   </LayoutTimeline>
 </template>
 
@@ -22,18 +40,86 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import LayoutTimeline from '@/layout/Timeline'
 import WordstadiumPublic from '@/pages/wordstadium/public'
 import WordstadiumPersonal from '@/pages/wordstadium/personal'
+import CreateChallengeModal from '@/components/wordstadium/modal-challenge'
 
 export default {
   name: 'WordStadium',
   components: {
     LayoutTimeline,
     WordstadiumPublic,
-    WordstadiumPersonal
+    WordstadiumPersonal,
+    CreateChallengeModal
+  },
+  data() {
+    return {
+      modal: null
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+.create-challenge-container button
+  display: flex
+  align-items: center
+  max-width: 260px
+  height: 40px
+  width: 100%
+  border-radius: 8px
+  border: solid 1px #f49422
+  background-color: #f49422
+  text-transform: uppercase
+  color: white
+  font-size: 12px
+  font-weight: bold
+  font-stretch: condensed
+  line-height: 1.25
+  letter-spacing: 0.5px
+  text-align: center
+  cursor: pointer
+  .icon.icon-pencil
+    flex: 0 0 20px
+    height: 20px
+    width: 20px
+  .text
+    flex: 1
+    text-indent: -10px
+.widget-wordstadium
+  display: flex
+  flex-direction: column
+  align-items: center
+  background-image: url('~@/assets/img-debat-header-bg.svg')
+  background-repeat: no-repeat
+  background-position: bottom
+  padding-bottom: 20px
+
+  .title
+    flex: 0 0 auto
+    align-self: flex-start
+    font-family: Lato
+    font-size: 14px
+    font-weight: 900
+    font-style: italic
+    line-height: 1.07
+    color: #f6b42a
+    padding: 10px
+    border: none
+  .text
+    flex: 1 auto
+    align-self: flex-start
+    padding: 10px
+    font-size: 12px
+    line-height: 1.25
+    color: #7c7c7c
+    a
+      color: #111111
+      font-weight: 600
+  img
+    flex: 0 0 100px
+    height: 99px
+    width: 187px
+
+
 a.see-more
   margin-top: 10px
   text-align: center
@@ -112,6 +198,8 @@ a.see-more
   background-repeat: no-repeat
   background-position: center
   background-size: contain
+  &.icon-pencil
+    background-image: url(~@/assets/icon-pencil.svg)
   &.icon-debat-coming-soon
     background-image: url(~@/assets/ic-debat-coming-soon.svg)
   &.icon-debat-done
