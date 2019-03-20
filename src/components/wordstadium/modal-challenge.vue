@@ -18,7 +18,7 @@
                 <word-colored/>
               </div>
               <div class="column-description">
-                <router-link to="/wordstadium/create-challenge">
+                <router-link to="/wordstadium/create-challenge?type=open">
                   <h5>Open Challenge</h5>
                   <p>Setelah menyiapkan bahan debat terkait bidang kajian tertentu; Kamu akan mengundang lawan untuk diajak berdebat satu lawan satu. Jangan lupa promosikan Open Challenge-mu, yaa! Supaya semakin banyak yang memantau~</p>
                 </router-link>
@@ -29,7 +29,7 @@
                 <twitter-icon/>
               </div>
               <div class="column-description">
-                <router-link to="/wordstadium/create-challenge">
+                <router-link to="/wordstadium/create-challenge?type=direct">
                   <h5>Direct Challenge</h5>
                   <p>Dari sini, kamu bisa mengundang langsung lawan debatmu yang sudah punya Symbolic ID atau mention akun Twitter-nya. Jangan lupa menyiapkan bidang kajian dan bahasan debat terbaikmu!</p>
                 </router-link>
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div key="1" class="modal-mask" @click.stop="$emit('close-request')"></div>
+    <div key="1" class="modal-mask" @click.stop="$emit('close')"></div>
   </transition-group>
 </template>
 

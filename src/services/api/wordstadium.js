@@ -13,6 +13,14 @@ export const WordstadiumType = {
   DONE: 'done'
 }
 
+export const createOpenChallenge = (data) => api
+  .post('/v1/challenges/open', data)
+  .then((res) => res.data.data)
+
+export const createDirectChallenge = (data) => api
+  .post('/v1/challenges/direct', data)
+  .then(res => res.data.data)
+
 export const getChallenge = (type = WordstadiumType.CHALLENGE) => api
   .get('/v1/challenges/all', { params: { progress: type } })
   .then(resp => resp.data.data)

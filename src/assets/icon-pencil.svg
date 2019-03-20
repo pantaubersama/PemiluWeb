@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="outline-create-24px" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#fff}
+        </style>
+    </defs>
+    <path id="Path_787" d="M0 0h20v20H0z" class="cls-1" data-name="Path 787"/>
+    <path id="Path_788" d="M3 14.875V18h3.125l9.217-9.217-3.125-3.125zm2.433 1.458h-.766v-.767l7.55-7.55.767.767zM17.758 5.192l-1.95-1.95a.835.835 0 0 0-1.175 0l-1.525 1.525 3.125 3.125 1.525-1.525a.83.83 0 0 0 0-1.175z" class="cls-2" data-name="Path 788" transform="translate(-.5 -.5)"/>
+</svg>

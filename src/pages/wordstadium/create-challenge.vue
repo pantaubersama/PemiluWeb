@@ -7,7 +7,8 @@
           <div class="versus">
             <vs-icon/>
           </div>
-          <div class="description">DIRECT CHALLENGE</div>
+          <div v-if="type === 'direct'" class="description">DIRECT CHALLENGE</div>
+          <div v-if="type === 'open'" class="description">OPEN CHALLENGE</div>
         </div>
         <div class="user-info">
           <router-link to="/profile">
@@ -20,10 +21,13 @@
         </div>
       </div>
       <div class="content-bidang" :class="{'content-bidang__completed': formCompleted}">
-        <div class="row-bidang" :class="{'row-bidang__active': kajian}">
+        <div class="row-bidang" :class="{'row-bidang__active': showPernyataan}">
           <h5>Bidang Kajian</h5>
           <p>Pilih Bidang Kajian yang sesuai dengan materi debat kamu. Misal: Ekonomi, Agama, Sosial, Politik, dan sebagainya.</p>
-          <span class="badge" v-if="kajian">{{ kajian }}</span>
+          <span v-if="kajian" class="badge"
+            @click.prevent="showModal('modal-bidang')" >
+            {{ kajian }}
+          </span>
           <a
             href="javascript:void(0)"
             class="link-bidang"
@@ -31,14 +35,14 @@
             v-else
           >Pilih bidang kajian</a>
         </div>
-        <div class="row-bidang" :class="{'row-bidang__active': pernyataan.text || pernyataan.link}">
+        <div class="row-bidang" v-if="showPernyataan"
+          :class="{'row-bidang__active': showUser}">
           <h5>Pernyataan</h5>
           <p>Tulis pernyataan yang sesuai dengan Bidang Kajian. Kamu juga bisa menyertakan tautan/link di sini.</p>
           <div
             class="alert alert-preview alert-secondary alert-dismissible fade show"
             role="alert"
-            v-if="pernyataan && pernyataan.link"
-          >
+            v-if="pernyataan && pernyataan.link">
             <div class="link">{{ pernyataan.link }}</div>
             <div class="preview-content">
               <img src="@/assets/dildo.jpg" alt="user">
@@ -76,7 +80,8 @@
             <outline-link/>Sertakan link disini...
           </a>
         </div>
-        <div class="row-bidang" :class="{'row-bidang__active': dateTime.date && dateTime.time}">
+        <div class="row-bidang" v-if="showUser"
+          :class="{'row-bidang__active': showDatetime}">
           <h5>Lawan Debat</h5>
           <p>Undang orang untuk menjadi lawan debat kamu. Undang lawan debatmu dari Symbolic ID, atau mention langsung akun Twitternya.</p>
           <div class="input-group input-challenge">
@@ -87,7 +92,8 @@
                   aria-label="Username Symbolic"
                   id="user-symbolic"
                   name="user-lawan"
-                >
+                  value="symbolic"
+                  v-model="radioUserLawan">
                 <label for="user-symbolic">&nbsp;</label>
               </div>
               <div class="input-group-text">
@@ -95,12 +101,11 @@
               </div>
             </div>
             <input
-              value="Raja Kampreta"
+              v-model="user.symbolic"
               type="text"
               class="form-control"
               aria-label="Username Symbolic"
-              placeholder="Username Symbolic"
-            >
+              placeholder="Username Symbolic">
           </div>
           <div class="input-group input-challenge">
             <div class="input-group-prepend">
@@ -110,7 +115,8 @@
                   aria-label="Username Twitter"
                   id="user-twitter"
                   name="user-lawan"
-                >
+                  value="twitter"
+                  v-model="radioUserLawan">
                 <label for="user-twitter">&nbsp;</label>
               </div>
               <div class="input-group-text">
@@ -122,10 +128,11 @@
               class="form-control"
               aria-label="Username Twitter"
               placeholder="Username Twitter"
-            >
+              v-model="user.twitter">
           </div>
         </div>
-        <div class="row-bidang" :class="{'row-bidang__active': dateTime.date && dateTime.time}">
+        <div class="row-bidang" v-if="showDatetime"
+          :class="{'row-bidang__active': showSaldo}">
           <h5>Date & Time</h5>
           <p>
             Tentukan waktu dan tanggal debat yang kamu inginkan. Jangan sampai salah momen,
@@ -137,7 +144,7 @@
                 <date-secondary/>
               </span>
             </div>
-            <input v-model="dateTime.date" type="text" class="form-control" placeholder="Tanggal">
+            <input v-model="datetime.date" type="date" class="form-control" placeholder="Tanggal">
           </div>
           <div class="input-group input-bidang">
             <div class="input-group-prepend">
@@ -145,10 +152,11 @@
                 <clock/>
               </span>
             </div>
-            <input v-model="dateTime.time" type="text" class="form-control" placeholder="Waktu">
+            <input v-model="datetime.time" type="time" class="form-control" placeholder="Waktu">
           </div>
         </div>
-        <div class="row-bidang" :class="{'row-bidang__active': saldo}">
+        <div class="row-bidang" v-if="showSaldo"
+          :class="{'row-bidang__active': saldo}">
           <h5>Saldo Waktu</h5>
           <p>Tentukan durasi atau Saldo Waktu debat untuk kamu dan lawan debatmu. Masing-masing akan mendapat bagian yang sama rata.</p>
           <div class="input-group input-bidang">
@@ -157,23 +165,58 @@
                 <saldo/>
               </span>
             </div>
-            <input v-model="saldo" type="text" class="form-control" placeholder="Pilih saldo waktu">
+            <!-- <input v-model="saldo" type="text" class="form-control" placeholder="Pilih saldo waktu"> -->
+            <select v-model="saldo" class="form-control" placeholder="Pilih saldo waktu">
+              <option value="-1" hidden disabled selected>Pilih saldo waktu</option>
+              <option v-for="saldo in saldoChoices" :key="saldo" :value="saldo">
+                {{saldo}}
+              </option>
+            </select>
             <div class="input-group-append">
               <span class="input-group-text">menit</span>
             </div>
           </div>
         </div>
-        <div class="row-bidang row-bidang__action" :class="{'row-bidang__active': formCompleted}">
+        <div v-if="formCompleted"
+          class="row-bidang row-bidang__action"
+          :class="{'row-bidang__active': formCompleted}">
           <div class="row-action">
             <a
               href="javascript:void(0)"
               class="btn-primary"
               :class="{'btn-primary__active': saldo}"
-              @click.stop="showModal('modal-success')"
+              @click.stop="submit()"
             >Lanjutkan</a>
           </div>
         </div>
       </div>
+      <modal-kajian
+        v-if="modal === 'modal-bidang'"
+        :bidang="bidangKajian"
+        @onSelect="(b) => {
+          kajian = b.name;
+          modal = false;
+        }"
+        @close-request="modal = false">
+      </modal-kajian>
+      <modal-link
+        v-if="modal === 'modal-link'"
+        @input="(link) => {
+          pernyataan.link = link;
+          modal = false;
+        }"
+        @close-request="modal = false">
+      </modal-link>
+      <modal-success
+        text="Tantanganmu Berhasil Dipublikasikan"
+        v-if="modal === 'modal-success'"
+        @close-request="modal = false">
+      </modal-success>
+      <modal-challenge
+        v-if="modal === 'modal-challenge'"
+        @close-request="modal = false"
+        @close="modal = false">
+      </modal-challenge>
     </div>
     <div slot="widget-wrapper">
       <div class="sidebar-challenge">
@@ -204,34 +247,8 @@
           </div>
         </div>
       </div>
-      <modal-kajian
-        v-if="modal === 'modal-bidang'"
-        :bidang="bidangKajian"
-        @onSelect="(b) => {
-          kajian = b.name;
-          modal = false;
-        }"
-        @close-request="modal = false"
-      />
-      <modal-link
-        v-if="modal === 'modal-link'"
-        @input="(link) => {
-          pernyataan.link = link;
-          modal = false;
-        }"
-        @close-request="modal = false"
-      />
-      <modal-success
-        text="Tantanganmu Berhasil Dipublikasikan"
-        v-if="modal === 'modal-success'"
-        @close-request="modal = false"
-      />
-      <modal-challenge
-        v-if="modal === 'modal-challenge'"
-        @close-request="modal = false"
-        @close="modal = false"
-      />
     </div>
+
   </timeline-layout>
 </template>
 
@@ -250,6 +267,8 @@ import {
   HighlightOff,
   VsIcon
 } from '@/svg/icons'
+import * as OpiniumAPI from '@/services/api/opinium'
+import * as WordstadiumAPI from '@/services/api/wordstadium'
 
 export default {
   name: 'WordStadiumCreateChallenge',
@@ -269,15 +288,19 @@ export default {
   },
   data() {
     return {
-      kajian: null,
+      kajian: 'ekonomi',
       pernyataan: {
-        text:
-          '2018 pertumbuhan ekonomi Indonesia mengalami pertumbuhan mencapai 5,27%.2 periode yuk, biar 10,54%.',
+        text: 'Pertanyaan',
         link: null
       },
-      dateTime: { date: 'Selasa, 24 Maret 2019', time: '16.00' },
-      saldo: 120,
+      user: {
+        symbolic: null,
+        twitter: 'qwe'
+      },
+      datetime: { date: '2019-03-19', time: '14:03' },
+      saldo: -1,
       modal: false,
+      radioUserLawan: 'twitter',
       bidangKajian: [
         { id: 1, name: 'Politik' },
         { id: 2, name: 'Ekonomi' },
@@ -289,22 +312,69 @@ export default {
         { id: 8, name: 'Pangan' },
         { id: 9, name: 'Infrastruktur' },
         { id: 10, name: 'Sumber daya alam' }
-      ]
+      ],
+      saldoChoices: [ 30, 60, 90, 120, 150, 180 ]
     }
   },
   computed: {
+    type() {
+      return this.$route.query.type || 'open'
+    },
+    showPernyataan() {
+      return this.kajian != null && this.kajian.length !== 0
+    },
+    showUser() {
+      return this.pernyataan.text != null && this.pernyataan.text.length !== 0
+        || this.pernyataan.link != null && this.pernyataan.link.length !== 0
+    },
+    showDatetime() {
+      // return this.user.symbolic != null && this.user.symbolic.length !== 0
+      //   || this.user.twitter != null && this.user.twitter.length !== 0
+      return this.radioUserLawan != null
+        && this.user[this.radioUserLawan] != null
+        && this.user[this.radioUserLawan].length !== 0
+    },
+    showSaldo() {
+      return this.datetime.date != null || this.datetime.time != null
+    },
     formCompleted() {
-      return (
-        this.kajian &&
-        (this.pernyataan.text || this.pernyataan.link) &&
-        (this.dateTime.date && this.dateTime.time) &&
-        this.saldo
-      )
+      return this.showPernyataan && this.showUser && this.showDatetime && this.showSaldo && this.saldo !== -1
+    },
+    date() {
+      if (this.datetime.date == null) return null
+      if (this.datetime.time == null) return null
+      const date = new Date(this.datetime.date)
+      date.setHours(this.datetime.time.split(':')[0])
+      date.setMinutes(this.datetime.time.split(':')[1])
+      return date.toISOString()
     }
+  },
+  mounted() {
+    OpiniumAPI.listTags()
+      .then((res) => {
+        this.bidangKajian = res
+      })
   },
   methods: {
     showModal(name = 'modal-bidang') {
       this.modal = name
+    },
+    async submit() {
+      const data = {
+        statement: this.pernyataan.text,
+        statement_source: this.pernyataan.link,
+        show_time_at: this.date,
+        time_limit: this.saldo,
+        topic_list: this.kajian
+      }
+      return WordstadiumAPI.createOpenChallenge(data)
+        .then((resp) => {
+          console.log(`success create ${this.type} challenge`, resp.challenge)
+          this.showModal('modal-success')
+          setTimeout(() => {
+            this.$router.push('/wordstadium')
+          }, 1500)
+        })
     }
   }
 }
