@@ -76,7 +76,7 @@
       </div>
       <div class="meta">
         <div class="avatar-container">
-          <img src="~@/assets/trump.jpg" alt="trump" class="avatar">
+          <img src="~@/assets/user.svg" alt="trump" class="avatar">
           <i class="icon icon-twitter"></i>
         </div>
         <div class="user-data">
@@ -111,7 +111,7 @@
   <ul class="posting-list">
     <li class="posting-item">
       <div class="avatar-container">
-        <img class="avatar" src="~@/assets/trump.jpg" alt="avatar-username">
+        <img class="avatar" src="~@/assets/user.svg" alt="avatar-username">
       </div>
       <div class="name">Raja Kampreta</div>
       <div class="text">
@@ -123,7 +123,7 @@
     </li>
     <li class="posting-item">
       <div class="avatar-container">
-        <img class="avatar" src="~@/assets/trump.jpg" alt="avatar-username">
+        <img class="avatar" src="~@/assets/user.svg" alt="avatar-username">
       </div>
       <div class="name">Raja Kampreta</div>
       <div class="text">

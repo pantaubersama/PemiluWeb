@@ -169,7 +169,10 @@ const router = new VueRouter({
     {
       path: '/wordstadium',
       name: 'WordStadium',
-      component: () => import('@/pages/WordStadium')
+      component: () => import('@/pages/WordStadium'),
+      meta: {
+        AuthenticationRequired: true
+      }
     },
     {
       path: '/wordstadium/coming-soon',

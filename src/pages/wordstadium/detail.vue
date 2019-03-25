@@ -6,14 +6,14 @@
           <div class="title">Coming Soon</div>
           <div class="challenge-detail">
             <div class="challenger-info">
-              <div class="avatar-container"><img src="~@/assets/trump.jpg" alt="trump" class="avatar"></div>
+              <div class="avatar-container"><img src="~@/assets/user.svg" alt="trump" class="avatar"></div>
               <div class="profile-info">
                 <div class="name">Raja Kampreta</div>
                 <div class="username">@raja_kampreta</div>
               </div>
             </div>
             <div class="opponent-info">
-              <div class="avatar-container"><img src="~@/assets/trump.jpg" alt="trump" class="avatar"></div>
+              <div class="avatar-container"><img src="~@/assets/user.svg" alt="trump" class="avatar"></div>
               <div class="profile-info">
                 <div class="name">Ratu CebonganYK</div>
                 <div class="username">@ratu_cebonganYK</div>
@@ -44,7 +44,7 @@
             <a href="#" class="source-link">http://twitter.com/somethingww</a>
             <div class="source-detail">
               <div class="source-avatar-container">
-                <img src="~@/assets/trump.jpg" alt="trump" class="source-avatar">
+                <img src="~@/assets/user.svg" alt="trump" class="source-avatar">
                 <i class="icon icon-twitter"></i>
               </div>
               <div class="detail-container">
@@ -71,7 +71,7 @@
             </div>
             <div class="meta">
               <div class="avatar-container">
-                <img src="~@/assets/trump.jpg" alt="trump" class="avatar">
+                <img src="~@/assets/user.svg" alt="trump" class="avatar">
                 <i class="icon icon-twitter"></i>
               </div>
               <div class="user-data">
@@ -106,7 +106,7 @@
         <ul class="posting-list">
           <li class="posting-item">
             <div class="avatar-container">
-              <img class="avatar" src="~@/assets/trump.jpg" alt="avatar-username">
+              <img class="avatar" src="~@/assets/user.svg" alt="avatar-username">
             </div>
             <div class="name">Raja Kampreta</div>
             <div class="text">
@@ -118,7 +118,7 @@
           </li>
           <li class="posting-item">
             <div class="avatar-container">
-              <img class="avatar" src="~@/assets/trump.jpg" alt="avatar-username">
+              <img class="avatar" src="~@/assets/user.svg" alt="avatar-username">
             </div>
             <div class="name">Raja Kampreta</div>
             <div class="text">
