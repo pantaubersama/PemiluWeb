@@ -1,7 +1,7 @@
 <template>
   <div class="confirmation-panel">
     <div class="avatar-container">
-      <img src="~@/assets/trump.jpg" alt="trump" class="avatar">
+      <img src="~@/assets/user.svg" alt="trump" class="avatar">
     </div>
     <div class="user-detail">
       <div class="displayname">Raja Kampreta</div>

@@ -19,16 +19,9 @@
         </router-link>
       </li>
 
-      <li>
+      <li v-if="isProtected()">
         <router-link to="/wordstadium">
           <record-icon/>Menguji
-        </router-link>
-      </li>
-
-      <!--
-      <li>
-        <router-link to="/lapor">
-          <report-icon/>Menjaga
         </router-link>
       </li>
 
@@ -36,12 +29,13 @@
         <router-link to="/perhitungan">
           <date-icon/>Merayakan
         </router-link>
-      </li>-->
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { authLink } from '@/mixins/link'
 import {
   HomeIcon,
   AssignmentIcon,
@@ -59,6 +53,7 @@ export default {
     RecordIcon,
     ReportIcon,
     DateIcon
-  }
+  },
+  mixins: [authLink]
 }
 </script>

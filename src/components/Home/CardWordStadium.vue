@@ -9,7 +9,7 @@
       <div class="panel-wrapper">
         <div class="pro">
           <div class="thumb">
-            <img src="@/assets/trump.jpg" alt="">
+            <img src="@/assets/user.svg" alt="">
           </div>
           <div class="title">PRO</div>
         </div>
@@ -18,7 +18,7 @@
         </div>
         <div class="con">
           <div class="thumb">
-            <img src="@/assets/trump.jpg" alt="">
+            <img src="@/assets/user.svg" alt="">
           </div>
           <div class="title">CON</div>
         </div>

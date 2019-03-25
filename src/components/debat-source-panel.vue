@@ -5,7 +5,7 @@
     </a>
     <div class="source-detail">
       <div class="source-avatar-container">
-        <img src="~@/assets/trump.jpg" alt="trump" class="source-avatar">
+        <img src="~@/assets/user.svg" alt="trump" class="source-avatar">
         <i class="icon icon-twitter"></i>
       </div>
       <div class="detail-container">

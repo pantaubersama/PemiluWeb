@@ -13,6 +13,7 @@ export const state = {
       isLast: false
     }
   },
+  notif:[],
 }
 
 export const actions = {
@@ -70,6 +71,9 @@ export const actions = {
 export const mutations = {
   setRecentNotification(state, data) {
     state.recentNotification = data.notifications
+  },
+  setNotif(state, data) {
+    state.notif = data
   },
   setFullNotification(state, data) {
     state.fullNotification = data.notifications

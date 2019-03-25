@@ -2,7 +2,7 @@ import axios from 'axios'
 import { vueAuth } from '@/services/symbolic'
 import Api from '@/services/api/base'
 
-const BASE_URL = process.env.API_WORD_STADIUM_URL || 'https://staging-service.wordstadium.com/word_stadium'
+const BASE_URL = process.env.API_WORD_STADIUM_URL || 'https://staging-service.wordstadium.com'
 const api = Api(BASE_URL, () => vueAuth.getToken())
 
 export const WordstadiumType = {
@@ -22,11 +22,11 @@ export const createDirectChallenge = (data) => api
   .then(res => res.data.data)
 
 export const getChallenge = (type = WordstadiumType.CHALLENGE) => api
-  .get('/v1/challenges/all', { params: { progress: type } })
+  .get('/word_stadium/v1/challenges/all', { params: { progress: type } })
   .then(resp => resp.data.data)
 
 export const getMeChallenge = (type = WordstadiumType.CHALLENGE) => api
-  .get('/v1/challenges/me', { params: { progress: type } })
+  .get('/word_stadium/v1/challenges/me', { params: { progress: type } })
   .then(resp => resp.data.data)
 
 export const getAllChallenge = () => axios
@@ -57,5 +57,5 @@ export const getMeAllChallenge = () => axios
     ...done.challenges
   ])))
 export const getPrivateChallenge = (type = WordstadiumType.CHALLENGE) => api
-  .get('/v1/challenges/me', { params: { progress: type } })
+  .get('/word_stadium/v1/challenges/me', { params: { progress: type } })
   .then(resp => resp.data.data)

@@ -57,7 +57,8 @@ export default {
             console.log('Unable to get permission to notify.', err)
           })
         messaging.onMessage(payload => {
-          console.log('on Message', payload.data)
+          console.log(payload)
+          this.$store.commit('notification/setNotif', payload)
         })
       }
     }

@@ -11,12 +11,13 @@
       <span v-if="type === 'live'"><i class="icon icon-live-now"></i> Live</span>
       <span v-if="type === 'done'">Done</span>
       <span v-if="type === 'challenge'">{{challengeType}}</span>
-      <img :src="challengerAvatar"
+      <img v-if="challengerAvatar" :src="challengerAvatar"
         :alt="challenger.username" class="user-a">
-      <img v-if="opponent != null"
+      <img src="~@/assets/user.svg" alt="asd" class="user-a" v-else>
+      <img v-if="opponentAvatar"
         :src="opponentAvatar"
         :alt="opponent.username" class="user-b">
-      <img v-else src="~@/assets/trump.jpg" alt="asd" class="user-b">
+      <img src="~@/assets/user.svg" alt="asd" class="user-b" v-else>
     </div>
     <div class="body">
       <div class="versus"></div>
