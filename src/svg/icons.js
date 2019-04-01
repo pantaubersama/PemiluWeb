@@ -61,6 +61,7 @@ import HighlightOff from './icons/highlight-off.svg'
 import WordColored from './icons/word-colored.svg'
 import OutlineChallengeAccepted from './icons/outline-challenge-accepted.svg'
 import IconNotif from './icons/notif-icon.svg'
+import OutlineArrow from './icons/outline-arrow.svg'
 
 export {
   AlertIcon,
@@ -125,5 +126,6 @@ export {
   HighlightOff,
   WordColored,
   OutlineChallengeAccepted,
-  IconNotif
+  IconNotif,
+  OutlineArrow
 }

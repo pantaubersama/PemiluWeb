@@ -6,6 +6,9 @@ import PlanIllustration from './illustrations/plan.svg'
 import TeachingIllustration from './illustrations/teaching.svg'
 import ProfileIllustration from './illustrations/profile.svg'
 import ChallengeIllustration from './illustrations/challenge.svg'
+import PerhitunganIllustration from './illustrations/perhitungan.svg'
+import UnduhIllustration from './illustrations/unduh.svg'
+import ExploreIllustration from './illustrations/explore.svg'
 
 export {
   CoachingIllustration,
@@ -15,5 +18,8 @@ export {
   PlanIllustration,
   TeachingIllustration,
   ProfileIllustration,
-  ChallengeIllustration
+  ChallengeIllustration,
+  PerhitunganIllustration,
+  UnduhIllustration,
+  ExploreIllustration
 }

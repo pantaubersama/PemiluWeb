@@ -264,9 +264,21 @@ const router = new VueRouter({
       component: () => import('@/pages/Lapor')
     },
     {
-      path: '/perhitungan',
-      name: 'Perhitungan',
-      component: () => import('@/pages/Perhitungan')
+      path: '/merayakan',
+      name: 'merayakan',
+      component: () => import('@/pages/Merayakan'),
+      children: [
+        {
+          path: 'hint',
+          name: 'MerayakanHint',
+          component: () => import('@/pages/Merayakan')
+        },
+      ]
+    },
+    {
+      path: '/merayakan/explore/:type',
+      name: 'MerayakanExplore',
+      component: () => import('@/components/Merayakan/Explore/index.vue')
     },
     {
       path: '/share',
