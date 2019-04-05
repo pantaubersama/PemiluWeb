@@ -45,7 +45,7 @@ export default {
   @media (max-width: 767px)
     padding: 0
     .modal-container
-      transform: translateX(-7px)
+      // transform: translateX(-7px)
       max-width: 90vw
 .keseruan-close-icon
   position: fixed
@@ -55,10 +55,11 @@ export default {
   top: 30px
   cursor: pointer
   @media (max-width: 767px)
-    right: 25px
+    right: 10px
     top: 20px
+    width: 35px
   svg
-    width: 50px
+    width: 100%
     fill: #ffffff
 </style>
 

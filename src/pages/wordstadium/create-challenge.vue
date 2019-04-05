@@ -411,7 +411,7 @@ export default {
     align-items: center
     justify-content: center
     color: #ffffff
-    font-family: BwModelica, Lato
+    font-family: 'Bw Modelica'
     font-size: 22px
     font-weight: 400
     line-height: 27px
@@ -450,7 +450,7 @@ export default {
       justify-content: center
       align-items: center
       height: calc(100% - 56px)
-      font-family: BwModelica, Lato
+      font-family: 'Bw Modelica'
       font-size: 14px
       font-weight: 400
       line-height: 16px
@@ -713,7 +713,7 @@ export default {
     border-bottom: 1px solid #ececec
 
     h5
-      font-family: BwModelica, Lato
+      font-family: 'Bw Modelica'
       font-size: 14px
       font-weight: 400
       line-height: 17px
@@ -734,7 +734,7 @@ export default {
         height: 120px
 
     h6
-      font-family: BwModelica, Lato
+      font-family: 'Bw Modelica'
       font-size: 14px
       font-weight: 400
       line-height: 16px

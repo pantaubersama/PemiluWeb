@@ -91,7 +91,7 @@ export default {
     transform: translateX(0)
     padding-bottom: 20px
     @media (max-width: 767px)
-      transform: translateX(-7px)
+      // transform: translateX(-7px)
       max-width: 90vw
 .modal-unduh
   text-align: center
@@ -132,15 +132,16 @@ export default {
 .unduh-close-icon
   position: fixed
   width: 50px
-  z-index: 9998
+  z-index: 9999
   right: 50px
   top: 30px
   cursor: pointer
   @media (max-width: 767px)
-    right: 25px
+    right: 10px
     top: 20px
+    width: 35px
   svg
-    width: 50px
+    width: 100%
     fill: #ffffff
 </style>
 

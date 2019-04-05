@@ -19,8 +19,8 @@
             </div>
             <div v-if="$route.name != 'MerayakanHint'">
               <ElectionPercentage />
-              <router-link :to="{name: 'MerayakanExplore', params: {type: 'presiden'}}">
-                <Explore/>
+              <router-link :to="{name: 'MerayakanExplore', params: {type: 'presiden'},  query: { d: 'nasional' }}">
+                <ExploreWidget/>
               </router-link>
             </div>
           </div>
@@ -37,7 +37,7 @@
 
           </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="$route.name != 'MerayakanHint'">
           <a href="#" @click.prevent="() => modal = 'ModalKeseruan'">
             <Keseruan />
             </a>
@@ -53,7 +53,7 @@ import ElectionPercentage from '@/components/Merayakan/ElectionPercentage'
 import Hint from '@/components/Merayakan/Hint'
 import Participan from '@/components/Merayakan/Participan'
 import Unduh from '@/components/Merayakan/Unduh'
-import Explore from '@/components/Merayakan/Explore'
+import ExploreWidget from '@/components/Merayakan/ExploreWidget'
 import Detail from '@/components/Merayakan/Detail'
 import ModalUnduh from '@/components/Merayakan/ModalUnduh'
 import Keseruan from '@/components/Merayakan/Keseruan'
@@ -66,7 +66,7 @@ export default {
     Hint,
     Participan,
     Unduh,
-    Explore,
+    ExploreWidget,
     Detail,
     ModalUnduh,
     Keseruan,

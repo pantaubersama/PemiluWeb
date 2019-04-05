@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :class="{'sidebar-open': isSidebarActive}">
+  <div class="wrapper search-page" :class="{'sidebar-open': isSidebarActive}">
     <div class="menu-bg"></div>
     <Header
       @toggleSidebar="isSidebarActive = !isSidebarActive"
@@ -120,18 +120,25 @@ export default {
 <style lang="sass" scoped>
 .wrapper /deep/ .header input.form-control
   font-weight: normal
-
-.wrapper
+.search-page
   padding-top: 135px
+  @media (max-width: 991px)
+    padding-top: 160px
 
 .SearchLayout
   position: fixed
   top: 64px
   width: 100%
-  z-index: 8
+  z-index: 1
+  @media (max-width: 991px)
+    top: 90px
+  @media (max-width: 767px)
+    top: 105px
 
 .container.main-wrapper .sidebar
-  top: 125px
+  top: 135px
+  @media (max-width: 991px)
+    top: 0
 
 .SearchLayout
   background: white
@@ -149,18 +156,17 @@ export default {
     max-width: 720px
   @media (max-width: 767px)
     max-width: 540px
-    padding: 10px 0
+    padding: 0
     justify-content: flex-start
-    height: 70px
     align-items: center
 
   li
     text-transform: uppercase
     padding: 8px 14px
-    // min-width: 125px
     text-align: center
     @media (max-width: 767px)
       min-width: 125px
+      font-size: 13px
     a
       color: #333
       font-weight: bold

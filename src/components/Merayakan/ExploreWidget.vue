@@ -15,7 +15,7 @@
 import { ExploreIllustration } from '@/svg/illustrations'
 import { OutlineArrow } from '@/svg/icons'
   export default {
-    name: 'Explore',
+    name: 'ExploreWidget',
     components: {
       ExploreIllustration,
       OutlineArrow

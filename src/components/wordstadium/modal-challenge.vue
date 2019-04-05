@@ -100,7 +100,7 @@ export default {
       height: 24px
 
 .modal-content
-  font-family: BwModelica, Lato
+  font-family: 'Bw Modelica'
   font-size: 16px
   line-height: 20px
   font-weight: bold
@@ -116,7 +116,7 @@ export default {
 
   h5
     height: 27px
-    font-family: BwModelica, Lato
+    font-family: 'Bw Modelica'
     font-size: 22px
     font-weight: bold
     font-style: normal
