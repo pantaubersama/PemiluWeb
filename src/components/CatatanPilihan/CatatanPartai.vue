@@ -141,7 +141,7 @@ export default {
         flex-direction: column
         flex: 1
         h6
-          font-family: BwModelica, Lato
+          font-family: 'Bw Modelica'
           font-weight: 600
           font-size: 13px
           color: #4f4f4f

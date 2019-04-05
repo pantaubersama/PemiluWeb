@@ -102,6 +102,18 @@
           </div>
         </button>
       </div>
+      <div class="d-flex d-lg-none mobile-search">
+          <div class="input-search">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="CARI"
+              :value="searchValue"
+              @keypress="search($event)"
+            >
+            <search-icon></search-icon>
+          </div>
+        </div>
     </div>
   </div>
 </template>

@@ -221,14 +221,14 @@ export default {
     .desc-container
       margin-left: 10px
       span.text1
-        font-family: BwModelica, Lato
+        font-family: 'Bw Modelica'
         font-size: 12px
         font-stretch: condensed
         line-height: 1.33
         letter-spacing: 0.3px
         color: #111111
       .total
-        font-family: BwModelica, Lato
+        font-family: 'Bw Modelica'
         font-size: 16px
         font-weight: bold
         font-stretch: condensed
