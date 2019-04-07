@@ -1,11 +1,12 @@
 <template>
   <div class="confirmation-panel">
     <div class="avatar-container">
-      <img src="~@/assets/user.svg" alt="trump" class="avatar">
+      <img v-if="user.avatar.url == null" src="~@/assets/user.svg" :alt="user.username" class="avatar">
+      <img v-else :src="user.avatar.url" :alt="user.username" class="avatar">
     </div>
     <div class="user-detail">
-      <div class="displayname">Raja Kampreta</div>
-      <div class="username">@raja_kampret</div>
+      <div class="displayname">{{user.full_name}}</div>
+      <div class="username">@{{user.username}}</div>
     </div>
     <div v-if="withButton" class="button-container">
       <button type="button"
@@ -21,7 +22,7 @@
 <script>
 export default {
   name: 'ConfirmationPanel',
-  props: ['disabled', 'with-button']
+  props: ['disabled', 'with-button', 'user']
 }
 </script>
 

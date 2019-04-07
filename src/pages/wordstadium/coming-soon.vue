@@ -17,9 +17,12 @@
           </p>
         </div>
         <ul class="debat-list">
-          <li v-for="item in items"
-            :key="item">
-            <panel-debat-coming-soon></panel-debat-coming-soon>
+          <li v-for="item in items" :key="item.id">
+            <panel-debat type="coming-soon" :debat="item">
+              <template slot="debat-card-footer">
+                {{item.show_time_at}}
+              </template>
+            </panel-debat>
           </li>
         </ul>
       </div>
@@ -29,18 +32,29 @@
 </template>
 
 <script>
+import datefns from 'date-fns'
 import LayoutTimeline from '@/layout/Timeline'
-import PanelDebatComingSoon from '@/components/wordstadium/panel-debat-coming-soon'
+import PanelDebat from '@/components/wordstadium/panel-debat'
+import DebatList from '@/pages/wordstadium/debat-list'
+
 export default {
   name: 'Wordstadium-ComingSoon',
   components: {
     LayoutTimeline,
-    PanelDebatComingSoon
+    PanelDebat,
+    DebatList
   },
   computed: {
     items() {
-      return Array.from(Array(10).keys())
+      const comingSoon = this.$store.getters['wordstadium/comingSoon'] || []
+      return comingSoon.map((data) => ({
+        ...data,
+        show_time_at: datefns.format(data.show_time_at, 'DD MMMM YYYY • hh:mm')
+      }))
     }
+  },
+  mounted() {
+    this.$store.dispatch('wordstadium/getComingSoonChallenges')
   }
 }
 </script>

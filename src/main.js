@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import datefns from 'date-fns'
 import SocialSharing from 'vue-social-sharing'
 import Clipboard from 'v-clipboard'
 import Autocomplete from 'v-autocomplete'
@@ -17,6 +18,14 @@ import VeeValidate from 'vee-validate'
 import firebase from '@/mixins/firebase'
 Vue.config.productionTip = false
 
+Vue.prototype.$datefns = datefns
+Vue.prototype.$getChallengeTitle = (title) => title.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+Vue.prototype.$getShowTime = (time, saldo = 0) => {
+  const current = datefns.format(time, 'DD MMMM YYYY • HH:mm')
+  let finish = datefns.addMinutes(time, saldo).toISOString()
+  finish = datefns.format(finish, 'HH:mm')
+  return `${current} - ${finish}`
+}
 
 Vue.use(firebase)
 Vue.use(SocialSharing)

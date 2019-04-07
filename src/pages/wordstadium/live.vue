@@ -3,8 +3,8 @@
     <div slot="main-content" class="Wordstadium-ComingSoon">
       <div class="card card-tabs">
         <div class="title-tabs">
-          <router-link to="/wordstadium/live">Publik</router-link>
-          <router-link to="/wordstadium/live?type=personal">Personal</router-link>
+          <router-link to="/wordstadium">Publik</router-link>
+          <router-link to="/wordstadium?type=personal">Personal</router-link>
         </div>
         <div class="debat-header">
           <div class="meta">
@@ -20,8 +20,8 @@
         </div>
         <ul class="debat-list">
           <li v-for="item in items"
-            :key="item">
-            <panel-debat-live></panel-debat-live>
+            :key="item.id">
+            <panel-debat type="live" :debat="item"></panel-debat>
           </li>
         </ul>
       </div>
@@ -32,17 +32,20 @@
 
 <script>
 import LayoutTimeline from '@/layout/Timeline'
-import PanelDebatLive from '@/components/wordstadium/panel-debat-live'
+import PanelDebat from '@/components/wordstadium/panel-debat'
 export default {
   name: 'Wordstadium-ComingSoon',
   components: {
     LayoutTimeline,
-    PanelDebatLive
+    PanelDebat
   },
   computed: {
     items() {
-      return Array.from(Array(10).keys())
+      return this.$store.getters['wordstadium/lives'] || []
     }
+  },
+  mounted() {
+    this.$store.dispatch('wordstadium/getChallenge', 'live_now')
   }
 }
 </script>

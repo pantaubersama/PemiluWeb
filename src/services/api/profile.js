@@ -10,6 +10,7 @@ const BASE_URL = process.env.API_BASE_URL
 
 const api = Api(BASE_URL, () => vueAuth.getToken())
 
+
 export const getMe = () => api
   .get('/v1/me')
   .then(resp => resp.data)
@@ -21,11 +22,9 @@ export const setNotification = firebaseKey => api
     firebase_key_type: 'web'
   })
 
-export const getUser = id =>
-  api
-    .get(`/v1/users/${id}/simple`)
-    .then(resp => resp.data)
-    .then(data => data.data.user)
+export const getUser = id => api
+  .get(`/v1/users/${id}/simple`)
+  .then(resp => resp.data.data.user)
 
 export const updateAvatar = avatar => {
   const formData = new FormData()
@@ -35,6 +34,12 @@ export const updateAvatar = avatar => {
     .then(resp => resp.data)
     .then(data => data.data.user)
 }
+
+export const getUsers = (query) => api
+  .get('/v1/users', {
+    params: { q: query }
+  })
+  .then(resp => resp.data.data.users)
 
 export const updateProfile = user =>
   api

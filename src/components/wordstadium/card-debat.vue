@@ -14,17 +14,17 @@
       <img v-if="challengerAvatar" :src="challengerAvatar"
         :alt="challenger.username" class="user-a">
       <img src="~@/assets/user.svg" alt="asd" class="user-a" v-else>
-      <img v-if="opponentAvatar"
+      <img v-if="opponent != null && opponentAvatar"
         :src="opponentAvatar"
         :alt="opponent.username" class="user-b">
-      <img src="~@/assets/user.svg" alt="asd" class="user-b" v-else>
+      <img v-if="opponent != null && opponentAvatar == null"
+        src="~@/assets/user.svg" alt="asd" class="user-b">
     </div>
     <div class="body">
       <div class="versus"></div>
       <div class="challenger">
         <div class="challenger-column column-1">{{challenger.full_name}}</div>
         <div v-if="opponent != null" class="challenger-column column-2">{{opponent.full_name}}</div>
-        <div v-else class="challenger-column column-2">Placeholder</div>
       </div>
     </div>
     <div class="body-lower">
@@ -48,7 +48,7 @@ export default {
     },
     opponent() {
       if (this.debat == null) return 'Placeholder'
-      return this.debat.audiences.find(it => it.role === 'opponent_candidate')
+      return this.debat.audiences.find(it => it.role.indexOf('opponent') > -1)
     },
     challengerAvatar() {
       if (this.challenger.avatar == null) return ''
