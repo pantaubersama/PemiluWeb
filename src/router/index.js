@@ -259,6 +259,11 @@ const router = new VueRouter({
       component: () => import('@/pages/wordstadium/preview-challenge')
     },
     {
+      path: '/wordstadium/challenges/:id',
+      name: 'ChallengeDetail',
+      component: () => import('@/components/wordstadium/detail/index.vue')
+    },
+    {
       path: '/lapor',
       name: 'Lapor',
       component: () => import('@/pages/Lapor')

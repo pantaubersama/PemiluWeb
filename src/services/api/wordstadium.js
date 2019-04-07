@@ -13,21 +13,37 @@ export const WordstadiumType = {
   DONE: 'done'
 }
 
-export const createOpenChallenge = (data) => api
-  .post('/v1/challenges/open', data)
-  .then((res) => res.data.data)
+export const askAsOpponent = (id) => api
+  .put('/word_stadium/v1/challenges/open/ask_as_opponent', { id })
+  .then(res => res.data.data)
 
-export const createDirectChallenge = (data) => api
-  .post('/v1/challenges/direct', data)
+export const accept = (id, audience_id) => api
+  .put('/word_stadium/v1/challenges/open/opponent_candidates', { id, audience_id })
+  .then(res => res.data.data)
+
+export const promote = (id) => api
+  .post(`/word_stadium/v1/challenges/open/promote/${id}`)
+  .then(res => res.data.data)
+
+export const reject = (id, reason_rejected) => api
+  .put('/word_stadium/v1/challenges/direct/reject', { id, reason_rejected })
+  .then(res => res.data.data)
+
+export const approve = (id) => api
+  .put('/word_stadium/v1/challenges/direct/approve', { id })
+  .then(res => res.data.data)
+
+export const createChallenge = (type, data) => api
+  .post(`/word_stadium/v1/challenges/${type}`, data)
   .then(res => res.data.data)
 
 export const getChallenge = (type = WordstadiumType.CHALLENGE) => api
   .get('/word_stadium/v1/challenges/all', { params: { progress: type } })
-  .then(resp => resp.data.data)
+  .then(resp => resp.data.data.challenges)
 
 export const getMeChallenge = (type = WordstadiumType.CHALLENGE) => api
   .get('/word_stadium/v1/challenges/me', { params: { progress: type } })
-  .then(resp => resp.data.data)
+  .then(resp => resp.data.data.challenges)
 
 export const getAllChallenge = () => axios
   .all([
@@ -37,10 +53,10 @@ export const getAllChallenge = () => axios
     getChallenge(WordstadiumType.DONE)
   ])
   .then(axios.spread((challenge, comingSoon, liveNow, done) => Promise.resolve([
-    ...challenge.challenges,
-    ...comingSoon.challenges,
-    ...liveNow.challenges,
-    ...done.challenges
+    ...challenge,
+    ...comingSoon,
+    ...liveNow,
+    ...done
   ])))
 
 export const getMeAllChallenge = () => axios
@@ -51,11 +67,15 @@ export const getMeAllChallenge = () => axios
     getMeChallenge(WordstadiumType.DONE)
   ])
   .then(axios.spread((challenge, comingSoon, liveNow, done) => Promise.resolve([
-    ...challenge.challenges,
-    ...comingSoon.challenges,
-    ...liveNow.challenges,
-    ...done.challenges
+    ...challenge,
+    ...comingSoon,
+    ...liveNow,
+    ...done
   ])))
 export const getPrivateChallenge = (type = WordstadiumType.CHALLENGE) => api
   .get('/word_stadium/v1/challenges/me', { params: { progress: type } })
-  .then(resp => resp.data.data)
+  .then(resp => resp.data.data.challenges)
+
+export const getChallengeById = (id) => api
+  .get(`/word_stadium/v1/challenges/${id}`)
+  .then(resp => resp.data.data.challenge)

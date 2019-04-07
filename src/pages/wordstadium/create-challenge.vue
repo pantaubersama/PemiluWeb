@@ -80,7 +80,7 @@
             <outline-link/>Sertakan link disini...
           </a>
         </div>
-        <div class="row-bidang" v-if="showUser"
+        <div class="row-bidang" v-if="showUser && type === 'direct'"
           :class="{'row-bidang__active': showDatetime}">
           <h5>Lawan Debat</h5>
           <p>Undang orang untuk menjadi lawan debat kamu. Undang lawan debatmu dari Symbolic ID, atau mention langsung akun Twitternya.</p>
@@ -100,12 +100,17 @@
                 <img src="@/assets/ic_symbolic.png" alt="symbolic">
               </div>
             </div>
-            <input
-              v-model="user.symbolic"
-              type="text"
-              class="form-control"
-              aria-label="Username Symbolic"
-              placeholder="Username Symbolic">
+            <v-autocomplete
+              class="input-autocomplete form-control"
+              v-model="selectedSymbolicUser"
+              :items="users"
+              :get-label="(item) => item.username || ''"
+              :auto-select-one-item="false"
+              :keep-open="false"
+              :component-item="acTemplate"
+              @change="getUsers($event)"
+              @item-selected="user.symbolic = $event.id"
+            ></v-autocomplete>
           </div>
           <div class="input-group input-challenge">
             <div class="input-group-prepend">
@@ -258,6 +263,7 @@ import ModalKajian from '@/components/wordstadium/modal-kajian'
 import ModalLink from '@/components/wordstadium/modal-link'
 import ModalSuccess from '@/components/wordstadium/modal-success'
 import ModalChallenge from '@/components/wordstadium/modal-challenge'
+import UserAutocomplete from '@/pages/wordstadium/user-autocomplete'
 import { OrangeStadiumBackground } from '@/svg/backgrounds'
 import {
   DateSecondary,
@@ -267,6 +273,7 @@ import {
   HighlightOff,
   VsIcon
 } from '@/svg/icons'
+import * as ProfileAPI from '@/services/api/profile'
 import * as OpiniumAPI from '@/services/api/opinium'
 import * as WordstadiumAPI from '@/services/api/wordstadium'
 
@@ -291,14 +298,17 @@ export default {
       kajian: 'ekonomi',
       pernyataan: {
         text: 'Pertanyaan',
-        link: null
+        link: 'https://twitter.com/'
       },
+      users: [],
+      selectedSymbolicUser: null,
+      acTemplate: UserAutocomplete,
       user: {
         symbolic: null,
         twitter: 'qwe'
       },
       datetime: { date: '2019-03-19', time: '14:03' },
-      saldo: -1,
+      saldo: 60,
       modal: false,
       radioUserLawan: 'twitter',
       bidangKajian: [
@@ -324,12 +334,14 @@ export default {
       return this.kajian != null && this.kajian.length !== 0
     },
     showUser() {
-      return this.pernyataan.text != null && this.pernyataan.text.length !== 0
+      return this.type === 'direct' && this.pernyataan.text != null
+        && this.pernyataan.text.length !== 0
         || this.pernyataan.link != null && this.pernyataan.link.length !== 0
     },
     showDatetime() {
       // return this.user.symbolic != null && this.user.symbolic.length !== 0
       //   || this.user.twitter != null && this.user.twitter.length !== 0
+      if (this.type === 'open') return this.showPernyataan
       return this.radioUserLawan != null
         && this.user[this.radioUserLawan] != null
         && this.user[this.radioUserLawan].length !== 0
@@ -347,6 +359,15 @@ export default {
       date.setHours(this.datetime.time.split(':')[0])
       date.setMinutes(this.datetime.time.split(':')[1])
       return date.toISOString()
+    },
+    selectedUser() {
+      return this.user[this.radioUserLawan]
+    },
+    screenName() {
+      if (this.type === 'open') return null
+      return this.selectedSymbolicUser == null
+        ? this.selectedUser
+        : this.selectedSymbolicUser.full_name
     }
   },
   mounted() {
@@ -365,9 +386,13 @@ export default {
         statement_source: this.pernyataan.link,
         show_time_at: this.date,
         time_limit: this.saldo,
-        topic_list: this.kajian
+        topic_list: this.kajian,
       }
-      return WordstadiumAPI.createOpenChallenge(data)
+      if (this.type === 'direct') {
+        data.invitation_id = this.selectedUser
+        data.screen_name = this.screenName
+      }
+      return WordstadiumAPI.createChallenge(this.type, data)
         .then((resp) => {
           console.log(`success create ${this.type} challenge`, resp.challenge)
           this.showModal('modal-success')
@@ -375,12 +400,37 @@ export default {
             this.$router.push('/wordstadium')
           }, 1500)
         })
+    },
+    async getUsers(query) {
+      const users = await ProfileAPI.getUsers(query)
+      this.users = users
+      return users
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+.input-autocomplete
+  & /deep/ .v-autocomplete-list
+    display: block
+    background: white
+    box-shadow: 0 0 5px rgba(0,0,0,.3)
+    border-radius: 3px
+    padding: 5px
+    position: absolute
+    z-index: 10
+  & /deep/ .v-autocomplete-input
+    height: 100%
+    width: 100%
+    border: 0
+    background: transparent
+    font-weight: bold
+  & /deep/ .v-autocomplete-input-group
+    height: 100%
+    width: 100%
+
+
 .container
   color: #999999
   background-color: #ffffff
@@ -565,7 +615,8 @@ export default {
       width: 280px
       margin: 8px 0
 
-      .form-control, .input-group-text
+      .form-control,
+      .input-group-text
         background-color: transparent
         border-width: 0
         padding: 0 8px 0 0

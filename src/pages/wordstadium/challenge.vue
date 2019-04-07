@@ -46,9 +46,9 @@ export default {
   computed: {
     $items() {
       if (this.$route.query.type && this.$route.query.type === 'personal') {
-        return this.$store.getters['wordstadium/privateOngoing'](100)
+        return this.$store.getters['wordstadium/challenges']
       }
-      return this.$store.getters['wordstadium/ongoing'](100)
+      return this.$store.getters['wordstadium/challenges']
     },
     items() {
       return this.$items.map((item) => ({
@@ -62,9 +62,9 @@ export default {
       immediate: true,
       handler(route) {
         if (route.query.type && route.query.type === 'personal') {
-          return this.$store.dispatch('wordstadium/getOngoingPrivateChallenges')
+          return this.$store.dispatch('wordstadium/getPrivateChallenge', 'challenge')
         }
-        return this.$store.dispatch('wordstadium/getOngingChallenges')
+        return this.$store.dispatch('wordstadium/getChallenge', 'challenge')
       }
     }
   }

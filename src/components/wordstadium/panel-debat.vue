@@ -1,5 +1,5 @@
 <template>
-  <div class="panel-debat-container">
+  <div class="panel-debat-container" @click.prevent="onClick(debat.id)">
     <card-debat :type="type" :debat="debat">
       <template slot="body-lower">
         <slot name="debat-card-footer" :item="debat"></slot>
@@ -26,7 +26,12 @@ import CardDebat from '@/components/wordstadium/card-debat'
 export default {
   name: 'PanelDebat',
   props: ['debat', 'type'],
-  components: { CardDebat }
+  components: { CardDebat },
+  methods: {
+    onClick(id) {
+      this.$router.push(`/wordstadium/challenges/${id}`)
+    }
+  }
 }
 </script>
 

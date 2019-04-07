@@ -18,8 +18,18 @@
         </div>
         <ul class="debat-list">
           <li v-for="item in items"
-            :key="item">
-            <panel-debat type="done" :debat="item"></panel-debat>
+            :key="item.id">
+            <panel-debat type="done" :debat="item">
+              <div slot="debat-card-footer" class="footer-done">
+                <div class="clap clap-1">
+                  <i class="icon icon-clap"></i> {{getClapCount(item.audiences[0])}}
+                </div>
+                <div class="clap-text">Clap</div>
+                <div class="clap clap-2">
+                  <i class="icon icon-clap"></i> {{getClapCount(item.audiences[1])}}
+                </div>
+              </div>
+            </panel-debat>
           </li>
         </ul>
       </div>
@@ -32,14 +42,23 @@
 import LayoutTimeline from '@/layout/Timeline'
 import PanelDebat from '@/components/wordstadium/panel-debat'
 export default {
-  name: 'Wordstadium-ComingSoon',
+  name: 'Wordstadium-Done',
   components: {
     LayoutTimeline,
     PanelDebat
   },
   computed: {
     items() {
-      return Array.from(Array(10).keys())
+      return this.$store.getters['wordstadium/done'] || []
+    }
+  },
+  mounted() {
+    this.$store.dispatch('wordstadium/getChallenge', 'done')
+  },
+  methods: {
+    getClapCount(user) {
+      if (user == null) return 0
+      return user.clap_count
     }
   }
 }
@@ -63,6 +82,17 @@ export default {
     -webkit-mask: url(~@/assets/icon_more_vertical.svg)
     transform: rotate(90deg)
     background-color: #333
+  &.icon-clap
+    background-image: url(~@/assets/ic-clap.svg)
+    background-size: 20px
+.footer-done
+  flex: 1
+  display: flex
+  justify-content: space-between
+  align-items: center
+  .clap
+    display: flex
+    align-items: center
 
 .debat-list li
   padding: 0 16px

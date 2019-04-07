@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="debat-list-container has--separator">
-      <debat-list :debat="comingSoon" link="/wordstadim/coming-soon?type=personal">
+      <debat-list :debat="live" link="/wordstadim/coming-soon?type=personal">
         <template slot="meta">
           <i class="icon icon-outline-lawan"></i>
           <div class="title">Challenge in Progress</div>
@@ -31,7 +31,8 @@
           <template slot="debat-item" slot-scope="props">
             <panel-debat type="coming-soon" :debat="props.item">
               <template slot="debat-card-footer">
-                12 Maret 2019 &bull; 13:20 - 14:30
+                <!-- 12 Maret 2019 &bull; 13:20 - 14:30 -->
+                {{$getShowTime(props.item.show_time_at, props.item.time_limit)}}
               </template>
             </panel-debat>
           </template>
@@ -44,7 +45,8 @@
           <template slot="debat-item" slot-scope="props">
             <panel-debat type="done" :debat="props.item">
               <template slot="debat-card-footer">
-                12 Maret 2019 &bull; 13:20 - 14:30
+                <!-- 12 Maret 2019 &bull; 13:20 - 14:30 -->
+                {{$getShowTime(props.item.show_time_at, props.item.time_limit)}}
               </template>
             </panel-debat>
           </template>
@@ -71,6 +73,7 @@ import Lottie from 'lottie-web'
 import CardDebat from '@/components/wordstadium/card-debat'
 import DebatList from '@/pages/wordstadium/debat-list'
 import PanelDebat from '@/components/wordstadium/panel-debat'
+import { mapGetters } from 'vuex';
 export default {
   name: 'WordstadiumPersonal',
   components: {
@@ -85,25 +88,21 @@ export default {
     }
   },
   computed: {
-    ongoing() {
-      return this.$store.getters['wordstadium/privateOngoing']()
-    },
+    ...mapGetters({
+      live: 'wordstadium/privateLive',
+      comingSoon: 'wordstadium/privateComingSoon',
+      done: 'wordstadium/privateDone',
+      _challenges: 'wordstadium/privateChallenge'
+    }),
     challenges() {
-      return this.ongoing
-    },
-    lives() {
-      return []
-    },
-    comingSoon() {
-      return Array.from(Array(5).keys())
-        .map((id) => ({ ...dummy, id: id }))
-    },
-    done() {
-      return this.comingSoon
+      return this._challenges.slice(0, 5)
     }
   },
   mounted() {
-    this.$store.dispatch('wordstadium/getOngoingPrivateChallenges')
+    this.$store.dispatch('wordstadium/getPrivateChallenge', 'coming_soon')
+    this.$store.dispatch('wordstadium/getPrivateChallenge', 'done')
+    this.$store.dispatch('wordstadium/getPrivateChallenge', 'challenge')
+    this.$store.dispatch('wordstadium/getPrivateChallenge', 'live_now')
   }
 }
 </script>

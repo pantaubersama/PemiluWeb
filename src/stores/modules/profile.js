@@ -534,5 +534,6 @@ export const getters = {
         return ''
     }
   },
-  token: () => vueAuth.getToken()
+  token: () => vueAuth.getToken(),
+  username: (s) => s.user.username
 }

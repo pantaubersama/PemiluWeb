@@ -16,10 +16,34 @@
           <div class="title">Debat: Coming Soon</div>
         </template>
         <template slot="debat-item" slot-scope="props">
-          <panel-debat type="coming-soon" :debat="props.item">
+          <panel-debat type="coming-soon"
+            :debat="props.item"
+            @click="$router.push(`/wordstadium/challenges/${props.item.id}`)">
             <template slot="debat-card-footer">
-              12 Maret 2019 &bull; 13:20 - 14:30
+              {{props.item.footer}}
             </template>
+          </panel-debat>
+        </template>
+      </debat-list>
+
+      <debat-list :debat="done" link="/wordstadium/done">
+        <template slot="meta">
+          <i class="icon icon-debat-done"></i>
+          <div class="title">Debat: Done</div>
+        </template>
+        <template slot="debat-item" slot-scope="props">
+          <panel-debat type="done"
+            :debat="props.item"
+            @click="$router.push(`/wordstadium/challenges/${props.item.id}`)">
+            <div slot="debat-card-footer" class="footer-done">
+              <div class="clap clap-1">
+                <i class="icon icon-clap"></i> {{props.item.audiences[0].clap_count}}
+              </div>
+              <div class="clap-text">Clap</div>
+              <div class="clap clap-2">
+                <i class="icon icon-clap"></i> {{props.item.audiences[1].clap_count}}
+              </div>
+            </div>
           </panel-debat>
         </template>
       </debat-list>
@@ -30,7 +54,13 @@
           <div class="title">Challenge</div>
         </template>
         <template slot="debat-item" slot-scope="props">
-          <panel-debat type="challenge" :debat="props.item"></panel-debat>
+          <panel-debat type="challenge"
+            :debat="props.item"
+            @click="$router.push(`/wordstadium/challenges/${props.item.id}`)">
+            <template slot="debat-card-footer">
+              {{props.item.footer}}
+            </template>
+          </panel-debat>
         </template>
       </debat-list>
     </div>
@@ -38,7 +68,7 @@
 </template>
 
 <script>
-import dummy from '@/pages/wordstadium/dummy-debat.json'
+import datefns from 'date-fns'
 import WordstadiumLiveList from '@/components/wordstadium/live-list'
 import CardDebat from '@/components/wordstadium/card-debat'
 import PanelDebat from '@/components/wordstadium/panel-debat'
@@ -52,24 +82,45 @@ export default {
     WordstadiumLiveList
   },
   computed: {
-    ongoing() {
-      return this.$store.getters['wordstadium/challenges']
+    comingSoon() {
+      const comingSoon = this.$store.getters['wordstadium/comingSoon'] || []
+      return comingSoon
+        .slice(0, 5) // Limit to only 5 first
+        .map((data) => ({
+          ...data,
+          footer: this.$getShowTime(data.show_time_at, data.time_limit)
+        }))
     },
     challenges() {
-      return this.$store.getters['wordstadium/challenges']
-        .slice(0, 3)
+      const challenges = this.$store.getters['wordstadium/challenges'] || []
+      return challenges
+        .slice(0, 5)
+        .map((data) => ({
+          ...data,
+          footer: data.progress.split('_').map(it => it.charAt(0).toUpperCase() + it.substring(1)).join(' ')
+        }))
     },
     lives() {
-      return Array.from(Array(5).keys())
-        .map((id) => ({ ...dummy, id: id }))
+      const lives = this.$store.getters['wordstadium/lives'] || []
+      return lives
+        .slice(0, 5)
+        .map((data) => ({
+          ...data,
+          show_time_at: this.$getShowTime(data.show_time_at, data.time_limit)
+        }))
     },
-    comingSoon() {
-      return Array.from(Array(5).keys())
-        .map((id) => ({ ...dummy, id: id }))
+    done() {
+      const done = this.$store.getters['wordstadium/done'] || []
+      return done
+        .slice(0, 5)
+        .map((data) => ({
+          ...data,
+          footer: `Clap ${data.clap_count}`
+        }))
     }
   },
   mounted() {
-    this.$store.dispatch('wordstadium/getChallenges')
+    this.$store.dispatch('wordstadium/getAllChallenges')
   },
   methods: {}
 }
@@ -97,5 +148,16 @@ export default {
     background-color: #333
   &.icon-love
     background-image: url(~@/assets/ic-love.svg)
+  &.icon-clap
+    background-image: url(~@/assets/ic-clap.svg)
+    background-size: 20px
+.footer-done
+  flex: 1
+  display: flex
+  justify-content: space-between
+  align-items: center
+  .clap
+    display: flex
+    align-items: center
 
 </style>

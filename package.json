@@ -11,10 +11,14 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@johmun/vue-tags-input": "^2.0.1",
+    "axios": "^0.18.0",
+    "date-fns": "^1.30.1",
     "firebase": "^5.8.6",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "lottie-web": "^5.4.2",
+    "store": "^2.0.12",
     "v-autocomplete": "^1.8.2",
     "v-clipboard": "^2.2.1",
     "v-toaster": "^1.0.3",
@@ -23,12 +27,11 @@
     "vue-headful": "^2.0.1",
     "vue-meta": "^1.5.5",
     "vue-router": "^3.0.1",
-    "vue-social-sharing": "^2.3.3"
+    "vue-social-sharing": "^2.3.3",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@johmun/vue-tags-input": "^2.0.1",
     "autoprefixer": "^7.1.2",
-    "axios": "^0.18.0",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -68,7 +71,6 @@
     "sass-loader": "^6.0.7",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
-    "store": "^2.0.12",
     "style-loader": "^0.23.1",
     "svg-to-vue-component": "^0.2.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
@@ -79,7 +81,6 @@
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
-    "vuex": "^3.0.1",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",

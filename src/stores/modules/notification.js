@@ -48,7 +48,7 @@ export const actions = {
       commit('loadingLottie/stopLoading', {}, {
         root: true
       })
-    })
+    }, (err) => {})
   },
   nextPageNotification({commit}) {
     commit('nextPageNotification')
