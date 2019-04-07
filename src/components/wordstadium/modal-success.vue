@@ -46,7 +46,7 @@ export default {
   width: 318px
 
 .modal-content
-  font-family: BwModelica, Lato
+  font-family: 'Bw Modelica'
   font-size: 16px
   line-height: 20px
   font-weight: bold

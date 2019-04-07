@@ -238,7 +238,7 @@ export default {
   border-bottom: none
   .title
     flex: 0 0 40px
-    font-family: BwModelica, Lato
+    font-family: 'Bw Modelica'
     font-size: 22px
     font-weight: bold
     font-stretch: condensed

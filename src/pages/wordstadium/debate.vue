@@ -325,7 +325,7 @@ export default {
         top: -1px
 
       .description
-        font-family: BwModelica, Lato
+        font-family: 'Bw Modelica'
         font-size: 14px
         font-weight: 400
         line-height: 16px
@@ -592,7 +592,7 @@ export default {
       height: 24px
 
   h5
-    font-family: BwModelica, Lato
+    font-family: 'Bw Modelica'
     font-size: 14px
     font-weight: 400
     line-height: 22px

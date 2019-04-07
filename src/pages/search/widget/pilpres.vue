@@ -52,7 +52,7 @@ export default {
   height: 26px
   border-radius: 2px
   font-size: 12px
-  line-height: 1.25
+  line-height: 1
   letter-spacing: 1.2px
   text-align: center
   &.btn-primary
@@ -75,7 +75,7 @@ ul.radio-group
 li label
   font-family: Lato
   font-size: 12px
-  line-height: 1.25
+  line-height: 1
   letter-spacing: 0.3px
   color: #393939
 </style>

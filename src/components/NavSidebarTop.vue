@@ -26,7 +26,7 @@
       </li>
 
       <li>
-        <router-link to="/perhitungan">
+        <router-link to="/merayakan">
           <date-icon/>Merayakan
         </router-link>
       </li>
