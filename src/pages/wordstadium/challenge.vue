@@ -44,9 +44,12 @@ export default {
     PanelDebat
   },
   computed: {
+    type() {
+      return this.$route.query.type || 'public'
+    },
     $items() {
-      if (this.$route.query.type && this.$route.query.type === 'personal') {
-        return this.$store.getters['wordstadium/challenges']
+      if (this.type && this.type === 'personal') {
+        return this.$store.getters['wordstadium/privateChallenge']
       }
       return this.$store.getters['wordstadium/challenges']
     },

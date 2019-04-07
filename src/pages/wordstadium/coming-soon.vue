@@ -45,8 +45,16 @@ export default {
     DebatList
   },
   computed: {
+    type() {
+      return this.$route.query.type || 'public'
+    },
     items() {
-      const comingSoon = this.$store.getters['wordstadium/comingSoon'] || []
+      let comingSoon = []
+      if (this.type === 'personal') {
+        comingSoon = this.$store.getters['wordstadium/privateComingSoon'] || []
+      } else {
+        comingSoon = this.$store.getters['wordstadium/comingSoon'] || []
+      }
       return comingSoon.map((data) => ({
         ...data,
         show_time_at: datefns.format(data.show_time_at, 'DD MMMM YYYY • hh:mm')
@@ -54,7 +62,11 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('wordstadium/getComingSoonChallenges')
+    if (this.type === 'personal') {
+      this.$store.dispatch('wordstadium/getPrivateChallenge', 'coming_soon')
+    } else {
+      this.$store.dispatch('wordstadium/getComingSoonChallenges')
+    }
   }
 }
 </script>

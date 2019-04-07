@@ -48,12 +48,25 @@ export default {
     PanelDebat
   },
   computed: {
+    type() {
+      return this.$route.query.type || 'public'
+    },
     items() {
-      return this.$store.getters['wordstadium/done'] || []
+      let item = []
+      if (this.type === 'personal') {
+        item = this.$store.getters['wordstadium/privateDone'] || []
+      } else {
+        item = this.$store.getters['wordstadium/done'] || []
+      }
+      return item
     }
   },
   mounted() {
-    this.$store.dispatch('wordstadium/getChallenge', 'done')
+    if (this.type === 'personal') {
+      this.$store.dispatch('wordstadium/getPrivateChallenge', 'done')
+    } else {
+      this.$store.dispatch('wordstadium/getChallenge', 'done')
+    }
   },
   methods: {
     getClapCount(user) {

@@ -40,12 +40,17 @@ export default {
     PanelDebat
   },
   computed: {
+    type() {
+      return this.$route.query.type || 'public'
+    },
     items() {
+      if (this.type === 'personal') return this.$store.getters['wordstadium/privateLive'] || []
       return this.$store.getters['wordstadium/lives'] || []
     }
   },
   mounted() {
-    this.$store.dispatch('wordstadium/getChallenge', 'live_now')
+    if (this.type === 'personal') this.$store.dispatch('wordstadium/getPrivateChallenge', 'live_now')
+    else this.$store.dispatch('wordstadium/getChallenge', 'live_now')
   }
 }
 </script>
