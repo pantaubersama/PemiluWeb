@@ -295,34 +295,23 @@ export default {
   },
   data() {
     return {
-      kajian: 'ekonomi',
+      kajian: '',
       pernyataan: {
-        text: 'Pertanyaan',
-        link: 'https://twitter.com/'
+        text: '',
+        link: ''
       },
       users: [],
       selectedSymbolicUser: null,
       acTemplate: UserAutocomplete,
       user: {
         symbolic: null,
-        twitter: 'qwe'
+        twitter: null
       },
-      datetime: { date: '2019-03-19', time: '14:03' },
+      datetime: { date: null, time: null },
       saldo: 60,
       modal: false,
       radioUserLawan: 'twitter',
-      bidangKajian: [
-        { id: 1, name: 'Politik' },
-        { id: 2, name: 'Ekonomi' },
-        { id: 3, name: 'Hukum' },
-        { id: 4, name: 'HAM' },
-        { id: 5, name: 'Korupsi' },
-        { id: 6, name: 'Terorisme' },
-        { id: 7, name: 'Energi' },
-        { id: 8, name: 'Pangan' },
-        { id: 9, name: 'Infrastruktur' },
-        { id: 10, name: 'Sumber daya alam' }
-      ],
+      bidangKajian: [],
       saldoChoices: [ 30, 60, 90, 120, 150, 180 ]
     }
   },

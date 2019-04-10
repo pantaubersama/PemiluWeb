@@ -3,16 +3,18 @@
     <template slot="main-content">
       <div class="container">
         <div class="heading">
+          <img v-if="challenger.avatar == null" src="@/assets/user.svg" alt="thumbnail" class="img-float left">
+          <img v-else :src="challenger.avatar.url" :alt="challenger.username" class="img-float left">
+          <img v-if="opponent.avatar == null" src="@/assets/user.svg" alt="thumbnail" class="img-float left">
+          <img v-else :src="opponent.avatar.url" :alt="opponent.username" class="img-float right">
           <div class="status">
             <live-red/>Live Now
           </div>
           <div class="detail">
-            <img src="@/assets/user.svg" alt="thumbnail" class="img-float left">
-            <img src="@/assets/user.svg" alt="thumbnail" class="img-float right">
             <div class="thumb left">
               <div class="user-title">
-                <h5>Raja Kampreta</h5>
-                <span>@raja_kampreta</span>
+                <h5>{{challenger.full_name}}</h5>
+                <span>@{{challenger.username}}</span>
               </div>
             </div>
             <div class="thumb center">
@@ -21,16 +23,14 @@
               </div>
               <div class="description">
                 <p>
-                  2018 pertumbuhan ekonomi Indonesia mengalami
-                  pertumbuhan mencapai 5,27%.
-                  2 periode yuk, biar 10,54%.
+                  {{debat.statement}}
                 </p>
               </div>
             </div>
             <div class="thumb right">
               <div class="user-title">
-                <h5 class="in--active">Anik Kemala</h5>
-                <span>@anik_kemala</span>
+                <h5 class="in--active">{{opponent.full_name}}</h5>
+                <span>@{{opponent.username}}</span>
               </div>
             </div>
           </div>
@@ -39,7 +39,7 @@
           <div class="info-status">
             <status-wordstadium/>Status
           </div>
-          <div class="info-placeholder">Giliran Anik Kemala menulis argumen...</div>
+          <div class="info-placeholder">Giliran {{opponent.full_name}} menulis argumen...</div>
           <div class="info-action">
             <button class="btn" type="button" @click.prevent="showDetail = !showDetail">Detail debat
               <expand-more v-if="showDetail"/>
@@ -53,54 +53,82 @@
               <tr>
                 <td colspan="2">
                   <span>Bidang kajian</span>
-                  <span class="badge">ekonomi</span>
+                  <span class="badge">{{debat.topic_list[0]}}</span>
                 </td>
                 <td>
                   <span>Published on</span>
-                  <date-secondary/>20 Maret 2019
+                  <date-secondary/>{{debat.created_at | dateFormat('DD MMMM YYYY')}}
                 </td>
               </tr>
               <tr>
                 <td>
                   <span>Date</span>
-                  <date-secondary/>Selasa, 24 Maret 2019
+                  <date-secondary/>{{debat.show_time_at | dateFormat('dddd, DD MMMM YYYY')}}
                 </td>
                 <td>
                   <span>Time</span>
                   <clock/>16.00 WIB
+                  <clock/>{{debat.show_time_at | dateFormat('HH.mm')}} WIB
                 </td>
                 <td>
                   <span>Saldo Waktu</span>
-                  <saldo/>120 menit
+                  <saldo/>{{debat.time_limit}} menit
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="conversations">
-          <div
-            class="conversation"
-            v-for="conversation in conversations"
-            :class="conversation.in_right ? 'right' : 'left'"
-            :key="conversation.id"
-          >
+          <div class="conversation"
+            v-for="word in words"
+            :class="word.in_right ? 'right' : 'left'"
+            :key="word.id">
             <div class="conversation-text">
-              <p class="has--dashed" v-html="conversation.description"></p>
+              <p class="has--dashed" v-html="word.body"></p>
             </div>
             <div class="conversation-action">
-              <div class="action-time">{{ conversation.created_at_in_word }}</div>
+              <div class="action-time">{{ word.created_at | dateDistanceFromNow }}</div>
               <div class="action-info">
-                <div class="info-duration">Estimasi baca {{ conversation.time }}</div>
+                <div class="info-duration">Estimasi baca {{ word.read_time }}</div>
                 <div class="info-like">
-                  <button class="btn">
-                    <appreciate-yellow v-if="conversation.clapped"/>
+                  <button class="btn" type="button"
+                    :disabled="word.is_clap"
+                    @click.prevent="clap(word)">
+                    <appreciate-yellow v-if="word.is_clap"/>
                     <appreciate-black v-else/>
                   </button>
-                  {{ conversation.like_count }}
+                  {{ word.clap_count }}
                 </div>
               </div>
-              <div class="action-mine" v-if="conversation.clapped">You clapped to this argument</div>
+              <div class="action-mine" v-if="word.is_clap">You clapped to this argument</div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="container row conversation--area"
+        v-if="isOwned">
+        <div class="conversation-area">
+          <div class="conversation-textarea">
+            <!-- Using @paste.prevent to disallow paste -->
+            <textarea
+              ref="inputArgument"
+              placeholder="Tulis argumen anda di sini..."
+              name="komentar"
+              cols="30"
+              rows="4"
+              v-model="argument"
+              @keydown.enter="onSubmitArgument($event)"
+            ></textarea>
+            <span
+              class="conversation-textarea__info"
+            >{{ argument.length }} / 255</span>
+          </div>
+          <div class="conversation-action">
+            <button class="btn cancel">BATAL</button>
+            <button class="btn publish"
+              :class="{enabled: argument.length > 0}"
+              @click.prevent="onSubmitArgument($event)"
+            >PUBLISH</button>
           </div>
         </div>
       </div>
@@ -113,25 +141,41 @@
           </div>
           <h5>Komentar ({{ comments.length }})</h5>
         </div>
-        <div class="comment-area">
+        <div v-if="!isOwned" class="comment-area">
           <img src="@/assets/user.svg" alt="user">
-          <textarea placeholder="Tulis komentar" name="komentar" cols="30" rows="3"></textarea>
+          <textarea placeholder="Tulis komentar"
+            ref="inputComment"
+            name="komentar"
+            cols="30"
+            rows="3"
+            v-model="comment"
+            @keydown.enter="onSubmitComment($event)"
+          ></textarea>
         </div>
         <div class="activity-list">
-          <div class="activity-collapse">Paling baru
-            <filter-icon/>
-          </div>
+          <button v-if="commentSort === 'asc'"
+            type="button"
+            class="activity-collapse"
+            @click.prevent="commentSort = 'desc'">Paling baru
+            <filter-icon class="comment-sort" :class="commentSort"/>
+          </button>
+          <button v-if="commentSort === 'desc'"
+            type="button"
+            class="activity-collapse"
+            @click.prevent="commentSort = 'asc'">Paling lama
+            <filter-icon class="comment-sort" :class="commentSort"/>
+          </button>
           <div class="activity-content" v-for="comment in comments" :key="comment.id">
             <div class="activity-thumbnail">
-              <img :src="comment.avatar" :alt="comment.user" v-if="comment.avatar">
+              <img :src="comment.author.avatar.url" :alt="comment.user" v-if="comment.author.avatar">
               <img class="image" src="@/assets/user.svg" alt="avatar" v-else>
             </div>
             <div class="activity-description">
               <p>
-                <strong>{{ comment.user }}</strong>
-                {{ comment.text }}
+                <strong>{{ comment.author.full_name }}</strong>
+                {{ comment.body }}
               </p>
-              <span class="activity-time">{{ comment.created_at_in_word }}</span>
+              <span class="activity-time">{{ comment.created_at | dateDistanceFromNow }}</span>
             </div>
           </div>
         </div>
@@ -156,9 +200,11 @@ import {
   VsIcon
 } from '@/svg/icons'
 import LayoutWordstadium from '@/layout/Wordstadium'
+import {mapGetters, mapActions} from 'vuex'
+import * as WordstadiumAPI from '@/services/api/wordstadium'
 
 export default {
-  name: 'WordStadiumDebate',
+  name: 'DetailLive',
   components: {
     ExpandMore,
     ExpandCollapse,
@@ -177,52 +223,155 @@ export default {
   data() {
     return {
       showDetail: false,
-      conversations: [
-        {
-          id: 1,
-          in_right: true,
-          description:
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.',
-          created_at_in_word: '40 menit yang lalu',
-          time: '5 menit',
-          like_count: 20,
-          clapped: true
-        },
-        {
-          id: 2,
-          in_right: false,
-          description:
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.',
-          created_at_in_word: '40 menit yang lalu',
-          time: '5 menit',
-          like_count: 20,
-          clapped: false
-        }
-      ],
-      comments: [
-        {
-          id: 1,
-          user: 'Ratu CebonganYK',
-          avatar: null,
-          text:
-            'aku memberikan komentar pada debat ini. Komentar yang sangat komentar sekali.',
-          created_at_in_word: '5 menit yang lalu'
-        },
-        {
-          id: 2,
-          user: 'Ratu CebonganYK',
-          avatar: null,
-          text:
-            'aku memberikan komentar lagi pada debat ini. Komentar yang sangat komentar sekali.',
-          created_at_in_word: '7 menit yang lalu'
-        }
-      ]
+      argument: '',
+      comment: '',
+      commentSort: 'asc',
     }
+  },
+  computed: {
+    ...mapGetters({
+      challenge: 'wordstadium/challengeById',
+      wordsById: 'wordstadium/wordsById',
+      commentsById: 'wordstadium/commentsById'
+    }),
+    debatId() { return this.$route.params.id },
+    debat() { return this.challenge(this.debatId) },
+    challenger() { return this.debat.audiences.find(it => it.role === 'challenger') },
+    opponent() { return this.debat.audiences.find(it => it.role === 'opponent') },
+    words() { return this.wordsById(this.debatId) },
+    comments() {
+      const comments = (this.commentsById(this.debatId) || [])
+        .map((it) => ({ ...it, date: new Date(it.created_at) }))
+      if (this.commentSort === 'asc') {
+        return comments.slice().sort((a, b) => b.date - a.date)
+      }
+      return comments.slice().sort((a, b) => a.date - b.date)
+    },
+    me() { return this.$store.state.profile.user },
+    isOwned() {
+      return this.challenger.username === this.me.username || this.opponent.username === this.me.username
+    }
+  },
+  methods: {
+    ...mapActions({
+      getChallenge: 'wordstadium/getChallengeById',
+      getWords: 'wordstadium/getWords',
+      getComments: 'wordstadium/getComments',
+      clap: 'wordstadium/clap',
+      postComment: 'wordstadium/postComment',
+      postArgument: 'wordstadium/postArgument'
+    }),
+    onSubmitComment(event) {
+      if (event.shiftKey) return false
+      event.preventDefault()
+      this.$refs.inputComment.disabled = true
+      this.postComment({ challenge_id: this.debat.id, words: this.comment })
+        .then(() => {
+          this.comment = ''
+          this.$refs.inputComment.disabled = false
+        })
+        .catch(() => {
+          this.$refs.inputComment.disabled = false
+        })
+    },
+    onSubmitArgument(event) {
+      if (event.shiftKey) return false
+      event.preventDefault()
+      this.$refs.inputArgument.disabled = true
+      this.postArgument({ challenge_id: this.debat.id, words: this.argument })
+        .then(() => {
+          this.argument = ''
+          this.$refs.inputArgument.disabled = false
+        })
+        .catch(() => {
+          this.$refs.inputArgument.disabled = false
+        })
+    },
+  },
+  mounted() {
+    this.getChallenge(this.debatId)
+    this.getWords({ id: this.debatId })
+    this.getComments({ id: this.debatId })
   }
 }
 </script>
 
 <style lang="sass" scoped>
+.comment-sort
+  &.asc
+    transform: scaleY(1)
+  &.desc
+    transform: scaleY(-1)
+
+.container.row.conversation--area
+  margin-top: 20px
+
+.conversation-area
+  padding: 16px
+  width: 100%
+  .conversation-textarea
+    margin: 0
+    padding: 0
+    &:before
+      position: absolute
+      content: ''
+      background-color: #cbcbcb
+      height: 96px
+      width: 5px
+      z-index: 2
+      margin: 0
+      border-radius: 2px
+
+    textarea
+      font-family: Lato
+      font-style: italic
+      font-size: 14px
+      line-height: 16px
+      border: none
+      overflow: auto
+      outline: none
+      box-shadow: none
+      resize: none
+      background: #f9f9f9
+      width: calc(100% - 16px)
+      padding: 16px
+      margin-left: 16px
+      &::placeholder
+        color: #aaaaaa
+    &__info
+      color: #aaaaaa
+      font-family: Lato
+      font-size: 10px
+      line-height: 12px
+      display: block
+      text-align: right
+  .conversation-action
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    flex-direction: row
+    margin-top: 16px
+    .btn
+      font-family: Lato
+      font-size: 12px
+      line-height: 15px
+      height: 40px
+      width: 120px
+      border-radius: 2px
+      letter-spacing: 1.2px
+      transition: all .3s ease
+      &:hover, &:active, &:focus
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .33)
+      &.cancel
+        color: #cbcbcb
+        background-color: transparent
+        margin-right: 8px
+      &.publish
+        color: #ffffff
+        background-color: #cbcbcb
+        &.enabled
+          background-color: #08bda8
+
 .container
   color: #999999
   background-color: #ffffff
@@ -244,6 +393,23 @@ export default {
   z-index: 1
   background: url('~@/assets/banner-live-now-full.svg') no-repeat center
   background-size: cover
+  position: relative
+  overflow: hidden
+  .img-float
+    width: 88px
+    height: 88px
+    top: -15px
+    left: auto
+    right: auto
+    position: absolute
+    z-index: 4
+    border-radius: 50%
+    &.left
+      left: -15px
+      border-radius: 0 8px 60px 0
+    &.right
+      right: -15px
+      border-radius: 8px 0 0 60px
 
   .status
     display: flex
@@ -276,19 +442,16 @@ export default {
     .img-float
       width: 88px
       height: 88px
-      top: auto
+      top: -20px
       left: auto
       right: auto
-      position: fixed
+      position: absolute
       z-index: 4
-
+      border-radius: 50%
       &.left
-        transform: translate(-364px, -44px)
-        border-radius: 8px 0 60px 0
-
+        left: -15px
       &.right
-        transform: translate(364px, -44px)
-        border-radius: 0 8px 0 60px
+        right: -5px
 
     .thumb
       flex: 0 27%
@@ -494,20 +657,18 @@ export default {
     width: 50%
     padding: 16px
     margin-top: -80px
-
     &.right
       margin-left: auto
-
       .has--dashed
         padding-right: 18px
         border-right: 5px solid #eb3037
-
+        flex: 1 0 100%
     &.left
       margin-left: 0
-
       .has--dashed
         padding-left: 18px
         border-left: 5px solid #08bda8
+        flex: 1 0 100%
 
     &:first-child
       margin-top: 0
@@ -644,7 +805,12 @@ export default {
     line-height: 13px
     text-align: right
     color: #aaaaaa
-    margin: 4px 16px 10px
+    margin: 0 0 20px
+    background: none
+    border: none
+    width: 100%
+    padding: 5px 10px
+    cursor: pointer
 
     svg
       width: 14px
@@ -653,13 +819,13 @@ export default {
 
   .activity-content
     display: flex
-    justify-content: center
+    justify-content: flex-start
     align-items: flex-start
     flex-direction: row
 
     .activity-thumbnail
-      flex: 0 80px
-      height: 100%
+      flex: 0 0 40px
+      height: 40px
       padding: 4px 6px 0 10px
 
     .activity-description
@@ -668,11 +834,13 @@ export default {
       font-weight: 400
       font-size: 12px
       line-height: 14px
-
+      flex: 1 0 auto
+      margin-left: 10px
       p
         margin: 0
         padding: 0
-
+        max-width: 150px
+        white-space: pre-line
         strong
           color: #212121
           letter-spacing: 0.29px

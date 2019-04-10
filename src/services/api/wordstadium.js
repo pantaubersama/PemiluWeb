@@ -79,3 +79,28 @@ export const getPrivateChallenge = (type = WordstadiumType.CHALLENGE) => api
 export const getChallengeById = (id) => api
   .get(`/word_stadium/v1/challenges/${id}`)
   .then(resp => resp.data.data.challenge)
+
+export const getWords = (challenge_id, page = 1) => api
+  .get('/word_stadium/v1/words/fighter', {
+    params: {
+      challenge_id,
+      page,
+      per_page: 100
+    }
+  })
+  .then(res => res.data.data.words)
+
+export const getComments = (challenge_id, page = 1) => api
+  .get('/word_stadium/v1/words/audience', {
+    params: { challenge_id, page, per_page: 100 }
+  })
+  .then(res => res.data.data.words)
+export const clap = (word_id) => api
+  .put('/word_stadium/v1/words/clap', { word_id })
+  .then(res => res.data.data)
+export const postComment = (challenge_id, words) => api
+  .post('/word_stadium/v1/words/audience/comment', { challenge_id, words })
+  .then(res => res.data.data)
+export const postArgument = (challenge_id, words) => api
+  .post('/word_stadium/v1/words/fighter/attack', { challenge_id, words })
+  .then(res => res.data.data.words)

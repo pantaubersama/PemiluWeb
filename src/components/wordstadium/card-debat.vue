@@ -1,5 +1,5 @@
 <template>
-  <div class="debat-card">
+  <div class="debat-card" @click="$emit('click', $event)">
     <div class="header"
       :class="{
         '--coming-soon': type === 'coming-soon',

@@ -92,14 +92,14 @@
         <i class="icon icon-calendar"></i>
         <div class="date-value">
           <!-- Selasa, 24 Maret 2019 -->
-          {{$datefns.format(debat.show_time_at, 'dddd, DD MMMM YYYY')}}
+          {{debat.show_time_at | dateFormat('dddd, DD MMMM YYYY')}}
         </div>
       </div>
       <div class="time">
         <i class="icon icon-clock"></i>
         <div class="time-value">
           <!-- 16.00 -->
-          {{$datefns.format(debat.show_time_at, 'HH.mm')}}
+          {{debat.show_time_at | dateFormat('HH.mm')}}
         </div>
       </div>
     </div>
