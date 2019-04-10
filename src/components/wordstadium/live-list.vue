@@ -15,7 +15,7 @@
         <i class="icon icon-arrow-left"></i>
       </button>
       <li v-for="item in lives" :key="item.id" :style="`transform: translateX(${scrollValue}px)`">
-        <card-debat type="live">
+        <card-debat :debat="item" type="live" @click="onClick(item.id)">
           <template slot="body-lower">
             <small class="tag">{{ item.topic_list ? item.topic_list[0] : '' }}</small>
             <p class="description" v-html="item.statement"></p>
@@ -63,6 +63,9 @@ export default {
         window.clearInterval(this.intervalId)
         this.intervalId = -1
       }
+    },
+    onClick(debatId) {
+      this.$router.push(`/wordstadium/challenges/${debatId}`)
     }
   }
 }

@@ -57,7 +57,7 @@ export default {
       }
       return comingSoon.map((data) => ({
         ...data,
-        show_time_at: datefns.format(data.show_time_at, 'DD MMMM YYYY • hh:mm')
+        show_time_at: this.$options.filter.dateFormat(data.show_time_at, 'DD MMMM YYYY • hh:mm')
       }))
     }
   },

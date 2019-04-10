@@ -31,7 +31,8 @@ export default {
   },
   computed: {
     distance() {
-      return this.$datefns.distanceInWords(this.debat.show_time_at, new Date())
+      // return this.$datefns.distanceInWords(this.debat.show_time_at, new Date())
+      return this.$options.filters.dateDistance(this.debat.show_time_at)
     },
     challenger() {
       if (this.debat == null) return null

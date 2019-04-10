@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import datefns from 'date-fns'
+import localeId from 'date-fns/locale/id'
 import SocialSharing from 'vue-social-sharing'
 import Clipboard from 'v-clipboard'
 import Autocomplete from 'v-autocomplete'
@@ -26,6 +27,19 @@ Vue.prototype.$getShowTime = (time, saldo = 0) => {
   finish = datefns.format(finish, 'HH:mm')
   return `${current} - ${finish}`
 }
+
+Vue.filter('dateFormat', (value, format) => {
+  if (!value) return ''
+  return datefns.format(value, format, { locale: localeId })
+})
+Vue.filter('dateDistance', (value) => {
+  if (!value) return ''
+  return datefns.distanceInWords(value,  new Date(), { locale: localeId })
+})
+Vue.filter('dateDistanceFromNow', (value) => {
+  if (!value) return ''
+  return datefns.distanceInWordsToNow(value, { locale: localeId })
+})
 
 Vue.use(firebase)
 Vue.use(SocialSharing)

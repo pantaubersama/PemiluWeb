@@ -92,7 +92,7 @@
               </span>
             </div>
             <input
-              :value="$datefns.format(debat.show_time_at, 'dddd, DD MMMM YYYY')"
+              :value="debat.show_time_at | dateFormat('dddd, DD MMMM YYYY')"
               type="text"
               class="form-control"
               placeholder="Tanggal"
@@ -105,7 +105,7 @@
                 <clock/>
               </span>
             </div>
-            <input :value="$datefns.format(debat.show_time_at, 'HH:mm')" type="text" class="form-control" placeholder="Waktu" readonly>
+            <input :value="debat.show_time_at | dateFormat('HH:mm')" type="text" class="form-control" placeholder="Waktu" readonly>
           </div>
         </div>
         <div class="detail-row">
