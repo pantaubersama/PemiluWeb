@@ -26,9 +26,12 @@ export default {
   },
   methods: {
     trimCharacters(text, maxLength = 137) {
-      if (!text) return text
-      const string = text.substr(0, maxLength)
-      return string.substr(0, Math.min(string.length, string.lastIndexOf(' ')))
+      const dots = text.length > maxLength
+      if (dots) {
+        text = text.substr(0, maxLength)
+        text = text.substr(0, Math.min(text.length, text.lastIndexOf(' ')))
+      }
+      return dots ? `${text}` : text
     }
   }
 }

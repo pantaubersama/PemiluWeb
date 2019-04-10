@@ -25,7 +25,7 @@ import { OutlineArrow } from '@/svg/icons'
 
 <style lang="sass" scoped>
 .merayakan-explore
-  padding: 25px 20px
+  padding: 22px 20px
   background-color: #fff
   border-radius: 0.25rem
   display: flex

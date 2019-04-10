@@ -15,19 +15,38 @@
           </div>
           <form>
             <div class="card-column">
-              <input type="text" name="nama" placeholder="Nama">
+              <input type="text" v-model="name" name="nama" placeholder="Nama">
             </div>
             <div class="card-column">
-              <input type="text" name="komunitas" placeholder="Komunitan/Organisasi">
+              <input type="text" v-model="organization" name="komunitas" placeholder="Komunitas/Organisasi">
             </div>
             <div class="card-column">
-              <input type="text" name="Email" placeholder="Komunitan/Organisasi">
+              <input
+                type="text"
+                v-model="email"
+                name="email"
+                placeholder="Email"
+                v-validate="'required|email'"
+                :class="{'input': true, 'is-danger': errors.has('email') }"
+                data-vv-validate-on="blur|input"
+              >
+              <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
             </div>
             <div class="card-column">
-              <input type="text" name="handphone" placeholder="No Handphone">
+              <input
+                type="text"
+                v-model="phone"
+                v-validate="'numeric'"
+                :class="{'input': true, 'is-danger': errors.has('handphone') }"
+                data-vv-validate-on="blur|input"
+                name="handphone"
+                placeholder="No Handphone"
+              >
+              <span v-show="errors.has('handphone')" class="help is-danger">{{ errors.first('handphone') }}</span>
             </div>
             <div class="card-column">
               <textarea
+                v-model="necessity"
                 rows="6"
                 placeholder="Keperluan Penggunaan Data"
               ></textarea>
@@ -35,7 +54,7 @@
           <button
             type="button"
             class="btn btn-block btn-submit"
-            @click.prevent="submit"
+            @click.prevent="submit()"
           >
           <span v-if="isSubmitting">Mengirim</span>
           <span v-else>Kirim</span>
@@ -57,14 +76,32 @@ export default {
   data() {
     return {
       isSubmitting: false,
+      name: '',
+      organization: '',
+      email: '',
+      phone: '',
+      necessity: ''
     }
   },
   computed: {
   },
   methods: {
     submit(event) {
-      this.isSubmitting = true
-
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.isSubmitting = true
+          this.$store.dispatch('requestData/requestData',{
+            name: this.name,
+            organization: this.organization,
+            email: this.email,
+            phone: this.phone,
+            necessity: this.necessity
+          } ).then(() => {
+            this.$emit('close-request')
+            this.$toaster.info('Berhasil Melakukan Request Data.')
+          })
+        }
+      })
     },
   },
   created() {
@@ -110,6 +147,7 @@ export default {
     margin-bottom: 20px
   .card-column
     margin-bottom: 15px
+    position: relative
     input, textarea
       width: 100%
       border: 1px solid #cbcbcb
@@ -123,6 +161,10 @@ export default {
         border-color: #6ccfc0
     textarea
       resize: none
+    .help.is-danger
+      top: 100%
+      left: 0
+      font-size: 10px
   .btn-submit
     background-color: #08bda8
     color: #FFFFFF

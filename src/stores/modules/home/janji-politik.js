@@ -36,7 +36,7 @@ export const actions = {
   updateJanjiPolitik({
     commit,
     state
-  }, id) {
+  }, payload) {
     commit('loadingLottie/playLoading', {}, {
       root: true
     })

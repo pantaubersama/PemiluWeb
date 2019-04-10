@@ -1,15 +1,21 @@
 <template>
   <div class="card merayakan widget-blog">
     <div class="count-wrapper">
-      <div class="total-count">3.000.000</div>
+      <div class="total-count">{{total}}</div>
       <p>User telah berpartisipasi dalam Gotong - Royong perhitungan Pantau Bersama</p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
   export default {
-    name: 'Participan'
+    name: 'Participan',
+    computed: {
+    ...mapState({
+      total: s => s.hitungSummary.total,
+    })
+  },
   }
 </script>
 
