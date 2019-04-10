@@ -18,6 +18,10 @@ import * as showLottie from '@/stores/modules/empty-lottie'
 import * as search from '@/stores/modules/search'
 import * as wordstadium from '@/stores/modules/wordstadium'
 import * as notification from '@/stores/modules/notification'
+import * as hitungSummary from '@/stores/hitung/summary'
+import * as hitungBanner from '@/stores/hitung/banner'
+import * as suasanaTps from '@/stores/hitung/suasana-tps'
+import * as requestData from '@/stores/hitung/request-data'
 
 // Lini Masa
 import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
@@ -56,7 +60,11 @@ export default new Vuex.Store({
     LiniMasaDetail,
     PendidikanPolitikDetail,
     PendidikanPolitikQuizParticipation,
-    notification
+    notification,
+    hitungSummary,
+    hitungBanner,
+    suasanaTps,
+    requestData
   },
   strict: debug,
   plugins: [beforeAction]

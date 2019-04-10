@@ -6,11 +6,11 @@
     <div key="2" class="modal-wrapper keseruan-wrapper" @click.stop>
       <div class="modal-container">
         <div class="modal-keseruan">
-          <img src="@/assets/thumb-img.png" alt>
+          <img :src="fullImage" alt>
         </div>
       </div>
     </div>
-    <div key="3" class="modal-mask" @click.stop="$emit('close-request')"></div>
+    <div key="3" class="modal-mask" @click.prevent="$emit('close-request')"></div>
   </transition-group>
 </template>
 
@@ -19,9 +19,9 @@ import { CloseIcon } from '@/svg/icons'
 export default {
   name: 'ModalKeseruan',
   components: { CloseIcon },
-  data() {
-    return {
-
+  props: {
+    fullImage: {
+      type: String
     }
   },
   computed: {

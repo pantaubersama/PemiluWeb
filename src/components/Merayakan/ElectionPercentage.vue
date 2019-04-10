@@ -1,8 +1,7 @@
 <template>
   <div class="election-percentage">
 
-    <p>Pembaruan terakhir pukul 04.32 WIB</p>
-
+    <p>Pembaruan terakhir {{updateTime}}</p>
     <div class="candidate-wrapper">
 
       <div class="candidate">
@@ -10,14 +9,14 @@
           <img src="@/assets/paslonjokowi.png">
         </div>
         <div class="text-wrapper">
-          <div class="percent"><b>30</b>%</div>
+          <div class="percent"><b>{{jokowi}}</b>%</div>
           <div class="candidate-name">
             <b>Joko Widodo</b>
             <p>Ma'kruf Amin</p>
           </div>
         </div>
         <div class="voice-rate">
-          Rerata: 1.000.000 suara
+          Rerata: {{jokowiTotal}} suara
         </div>
         <div class="coalition-parties">
           <img src="@/assets/party2.png" alt="">
@@ -29,14 +28,14 @@
           <img src="@/assets/paslonprabowo.png">
         </div>
         <div class="text-wrapper">
-          <div class="percent"><b>70</b>%</div>
+          <div class="percent"><b>{{prabowo}}</b>%</div>
           <div class="candidate-name">
             <b>Prabowo Subianto</b>
             <p>Sandiaga Uno</p>
           </div>
         </div>
         <div class="voice-rate">
-          Rerata: 1.000.000 suara
+          Rerata: {{prabowoTotal}} suara
         </div>
         <div class="coalition-parties">
           <img src="@/assets/party1.png" alt="">
@@ -47,8 +46,8 @@
 
     <div class="percentage-bar">
       <div class="progress">
-        <div class="progress-bar" role="progressbar" :style="`width:${this.jokowi}%`" :aria-valuenow="`${this.jokowi}`" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar" role="progressbar" :style="`width:${this.prabowo}%`" :aria-valuenow="`${this.prabowo}`" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" role="progressbar" :style="`width:${jokowi}%`" :aria-valuenow="`${jokowi}`" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" role="progressbar" :style="`width:${prabowo}%`" :aria-valuenow="`${prabowo}`" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
 
@@ -56,15 +55,20 @@
 </template>
 
 <script>
-  export default {
-    name: 'ElectionPercantage',
-    data() {
-      return {
-        jokowi: 30,
-        prabowo: 70
-      }
-    },
-  }
+import { mapState } from 'vuex'
+export default {
+  name: 'ElectionPercantage',
+  computed: {
+    ...mapState({
+      jokowi: s => s.hitungSummary.jokowi_percentage,
+      jokowiTotal: s => s.hitungSummary.jokowi_total,
+      prabowo: s => s.hitungSummary.prabowo_percentage,
+      prabowoTotal: s => s.hitungSummary.prabowo_total,
+      updateTime: s => s.hitungSummary.update_time
+    })
+  },
+
+}
 </script>
 
 <style lang="sass" scoped>
@@ -83,7 +87,7 @@
     display: flex
     .candidate
       flex: 1
-      padding: 0 20px
+      padding: 0 5px 0 20px
       @media (max-width: 575px)
         padding: 0 15px
       .thumb
@@ -110,16 +114,16 @@
         p
           margin: 0
         .percent
-          font-size: 36px
+          font-size: 30px
           font-family: 'Bw Modelica'
           color: #9b0012
           margin-right: 5px
-          line-height: 1.2
+          line-height: 1.3
           @media (max-width: 575px)
             font-size: 20px
         .candidate-name
           line-height: 1.2
-          font-size: 14px
+          font-size: 12px
           text-transform: uppercase
           @media (max-width: 575px)
             font-size: 13px
@@ -133,6 +137,7 @@
           width: auto
       &:last-child
         text-align: right
+        padding: 0 20px 0 5px
         .thumb
           margin-left: auto
         .text-wrapper
@@ -168,6 +173,7 @@
     .progress
       height: 45px
       border-radius: 0
+      justify-content: space-between
       &-bar
         &:first-child
           background-color: #9b0012

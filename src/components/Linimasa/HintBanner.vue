@@ -26,11 +26,5 @@ export default {
       type: Object
     }
   }
-  // methods: {
-  //   getOrDefault(value) {
-  //     if (!this.object) return ''
-  //     return value
-  //   }
-  // }
 }
 </script>
