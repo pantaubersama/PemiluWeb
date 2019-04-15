@@ -17,7 +17,6 @@
   },
   "prettier.singleQuote": true,
   "prettier.tslintIntegration": true,
-  "vetur.format.defaultFormatter.js": "prettier-eslint",
   "prettier.jsxBracketSameLine": true,
   "prettier.eslintIntegration": true,
   "prettier.htmlWhitespaceSensitivity": "strict"
