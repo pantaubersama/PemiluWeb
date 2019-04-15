@@ -25,14 +25,20 @@
 import { OutlineArrow } from '@/svg/icons'
 export default {
   name: 'CityCard',
+  props: ['item'],
   components: {
     OutlineArrow
   },
   data() {
     return {
-      kota: 'Aceh',
       suara_sah: '100.000',
       suara_tidak_sah: '10.000'
+    }
+  },
+  computed: {
+    kota() {
+      if (this.item == null) return ''
+      return this.item.name
     }
   }
 }

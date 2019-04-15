@@ -22,6 +22,7 @@ import * as hitungSummary from '@/stores/hitung/summary'
 import * as hitungBanner from '@/stores/hitung/banner'
 import * as suasanaTps from '@/stores/hitung/suasana-tps'
 import * as requestData from '@/stores/hitung/request-data'
+import * as perhitungan from '@/stores/modules/perhitungan'
 
 // Lini Masa
 import LiniMasaDetail from '@/stores/linimasa/janjipolitik/detail'
@@ -64,8 +65,9 @@ export default new Vuex.Store({
     hitungSummary,
     hitungBanner,
     suasanaTps,
-    requestData
+    requestData,
+    perhitungan,
   },
   strict: debug,
-  plugins: [beforeAction]
+  plugins: [beforeAction],
 })
