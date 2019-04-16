@@ -14,9 +14,11 @@
       </li>
     </ul>
     <ul class="list" v-if="directory === 'candidate'">
-      <li class="item"><city-card :item="dapil"></city-card></li>
+      <li class="item">
+        <city-card :item="dapil"></city-card>
+      </li>
       <li class="item" v-for="item in items" :key="item.id">
-        <candidate-card :candidate="item"></candidate-card>
+        <candidate-card :candidate="item" :with-header="true"></candidate-card>
       </li>
     </ul>
   </div>
@@ -129,6 +131,7 @@ export default {
       handler(id) {
         if (id == null) return
         this.listCandidates({ dapilId: id })
+        this.getCandidatesSummary({ dapilId: id, level: 2 })
       }
     },
   },
@@ -143,6 +146,7 @@ export default {
       listVillages: 'perhitungan/getVillages',
       listDapils: 'perhitungan/getDapils',
       listCandidates: 'perhitungan/getCandidates',
+      getCandidatesSummary: 'perhitungan/getCandidatesSummary',
     }),
     onItemClick(code) {
       let directory = null

@@ -32,16 +32,29 @@ export const actions = {
       .then(resp => resp.villages.map(it => ({ ...it, districtCode })))
       .then(villages => ctx.commit('setVillages', { villages }))
   },
-  getDapils(ctx, { provinceCode, regencyCode }) {
-    return PerhitunganAPI.getDapils(provinceCode, regencyCode)
+  getDapils(ctx, { provinceCode, regencyCode, tingkat }) {
+    return PerhitunganAPI.getDapils(provinceCode, regencyCode, tingkat)
       .then(resp => resp.dapils)
       .then(dapils => dapils.map(it => ({ ...it, provinceCode, regencyCode, name: it.nama, code: it.id })))
       .then(dapils => ctx.commit('setDapils', { dapils }))
   },
-  getCandidates(ctx, { dapilId }) {
-    return PerhitunganAPI.getCandidates(dapilId)
+  getCandidates(ctx, { dapilId, tingkat }) {
+    return PerhitunganAPI.getCandidates(dapilId, tingkat)
       .then(candidates => candidates.map(it => ({ ...it, dapilId })))
       .then(candidates => ctx.commit('setCandidates', { candidates }))
+  },
+  getCandidatesSummary(ctx, { dapilId, level = 2 }) {
+    return PerhitunganAPI.getCandidatesSummary(dapilId, level)
+      .then((summary) => {
+        const validVote = summary.valid_vote
+        const invalidVote = summary.invalid_vote.total_vote
+        const candidates = summary.percentages.map((candidate) => ({
+          ...candidate,
+          id: Number(candidate.id)
+        }))
+        ctx.commit('setVoteCount', { dapilId, validVote, invalidVote })
+        ctx.commit('setCandidatePercentage', { dapilId, candidates })
+      })
   }
 }
 export const mutations = {
@@ -62,6 +75,21 @@ export const mutations = {
   },
   setCandidates(state, { candidates }) {
     candidates.forEach(candidate => Vue.set(state.candidates, candidate.id, candidate))
+  },
+  setVoteCount(state, { dapilId, validVote, invalidVote }) {
+    const dapil = state.dapils[dapilId]
+    Vue.set(state.dapils, dapilId, {
+      ...dapil,
+      validVote,
+      invalidVote
+    })
+  },
+  setCandidatePercentage(state, { dapilId, candidates }) {
+    candidates.forEach((it) => {
+      const index = state.candidates[dapilId].candidates.findIndex(c => c.id === it.id)
+      const candidate = state.candidates[dapilId].candidates[index]
+      Vue.set(state.candidates[dapilId].candidates, index, { ...candidate, ...it })
+    })
   }
 }
 

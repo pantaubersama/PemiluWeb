@@ -1,6 +1,6 @@
 <template>
   <div class="card transparent">
-    <div class="vote-party">
+    <div class="vote-party" v-if="withHeader">
       <div class="thumb">
         <img v-if="candidate.logo == null" src="https://placeimg.com/240/240/tech/1" :alt="candidate.acronym">
         <img v-else :src="candidate.logo.thumbnail.url" :alt="candidate.acronym" :title="candidate.acronym">
@@ -20,9 +20,11 @@
         <li v-for="(item, index) in candidate.candidates" :key="item.id">
           <div class="candidate-name">{{index + 1}}. {{item.name}}</div>
           <div class="vote-result">
-            <div class="percentage">70%</div>
+            <div v-if="item.percentage == null" class="percentage">0%</div>
+            <div v-else class="percentage">{{item.percentage}}%</div>
             <span>|</span>
-            <div class="vote">1.000.000 suara</div>
+            <div v-if="item.cv == null" class="vote">0 suara</div>
+            <div v-else class="vote">{{item.cv}} suara</div>
           </div>
         </li>
       </ul>
@@ -33,7 +35,7 @@
 <script>
 export default {
   name: 'CandidateCard',
-  props: ['candidate']
+  props: ['candidate', 'with-header']
 }
 </script>
 

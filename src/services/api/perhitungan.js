@@ -27,3 +27,7 @@ export const getDapils = (province_code, regency_code, tingkat='kabupaten') => a
 export const getCandidates = (dapil_id, tingkat = 'kabupaten') => api
   .get('/v1/candidates', { params: { dapil_id, tingkat } })
   .then(resp => resp.data.data)
+
+export const getCandidatesSummary = (dapil_id, level = 2) => api
+  .get('/v1/summary/candidates/show', { params: { dapil_id, level } })
+  .then(resp => resp.data.data)
