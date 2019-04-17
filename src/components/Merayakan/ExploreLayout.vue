@@ -11,29 +11,23 @@
         <div class="col-lg-8 offset-lg-2">
           <ul class="explore-tag">
             <li>
-              <router-link
-              :to="{ name: 'MerayakanExplore', params: { type: 'presiden' }, query: { d: 'nasional' } }"
-            >Presiden</router-link>
+              <router-link :to="{ name: 'MerayakanExplore', params: { type: 'presiden' }}">Presiden</router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: 'MerayakanExplore', params: { type: 'dpr' }}">DPR RI</router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: 'MerayakanExplore', params: { type: 'dpd' }}">DPD</router-link>
             </li>
             <li>
               <router-link
-              :to="{ name: 'MerayakanExplore', params: { type: 'dpr' }}"
-            >DRP RI</router-link>
+                :to="{ name: 'MerayakanExplore', params: { type: 'dprd-provinsi' }}"
+              >DPRD Provinsi</router-link>
             </li>
             <li>
               <router-link
-              :to="{ name: 'MerayakanExplore', params: { type: 'dpd' }}"
-            >DPD</router-link>
-            </li>
-            <li>
-              <router-link
-              :to="{ name: 'MerayakanExplore', params: { type: 'dprd-provinsi' }}"
-            >DPRD Provinsi</router-link>
-            </li>
-            <li>
-              <router-link
-              :to="{ name: 'MerayakanExplore', params: { type: 'dprd-kabupaten' }}"
-            >DPRD Kabupaten/Kota</router-link>
+                :to="{ name: 'MerayakanExplore', params: { type: 'dprd-kabupaten' }}"
+              >DPRD Kabupaten/Kota</router-link>
             </li>
           </ul>
         </div>
@@ -81,16 +75,8 @@ export default {
   computed: {
     searchType() {
       return this.$route.params.type
-    },
-    // query() {
-    //   return this.$route.query.q
-    // }
-  },
-  // methods: {
-  //   onSearch(query) {
-  //     console.log('query: ', query)
-  //   }
-  // }
+    }
+  }
 }
 </script>
 

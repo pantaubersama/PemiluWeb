@@ -37,7 +37,7 @@ export default {
   components: { CardListItem, Breadcrumbs, CandidateCard, CityCard },
   computed: {
     ...mapGetters({
-      getDapils: 'perhitungan/dapils',
+      getDapils: 'perhitungan/dapilsByTingkat',
       getCandidates: 'perhitungan/candidates',
       dapilById: 'perhitungan/dapil',
     }),
@@ -48,7 +48,7 @@ export default {
     dapilId() { return this.$route.query.dapil },
     items() {
       if (this.directory === 'national')
-        return this.getDapils(undefined)
+        return this.getDapils('dpd')
       if (this.directory === 'candidate')
         return this.getCandidates(this.dapilId)
     },

@@ -33,14 +33,14 @@ import * as PerhitunganAPI from '@/services/api/perhitungan'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'Explore--DprdKabupaten',
+  name: 'Explore--Dpr',
   components: { CardListItem, Breadcrumbs, CandidateCard, CityCard },
   computed: {
     ...mapGetters({
       getRegencies: 'perhitungan/regencies',
       getDistricts: 'perhitungan/districts',
       getVillages: 'perhitungan/villages',
-      getDapils: 'perhitungan/dapils',
+      getDapils: 'perhitungan/dapilsByTingkat',
       getCandidates: 'perhitungan/candidates',
       provinceById: 'perhitungan/province',
       regencyById: 'perhitungan/regency',
@@ -51,15 +51,6 @@ export default {
     province() {
       return this.provinceById(this.provinceCode)
     },
-    regency() {
-      return this.regencyById(this.regencyCode)
-    },
-    district() {
-      return this.districtById(this.districtCode)
-    },
-    village() {
-      return this.villageById(this.villageCode)
-    },
     dapil() { return this.dapilById(this.dapilId) },
     directory() {
       return this.$route.query.d || 'national'
@@ -67,38 +58,20 @@ export default {
     provinceCode() {
       return this.$route.query.province
     },
-    regencyCode() {
-      return this.$route.query.regency
-    },
-    districtCode() {
-      return this.$route.query.district
-    },
-    villageCode() {
-      return this.$route.query.village
-    },
     dapilId() { return this.$route.query.dapil },
     items() {
       if (this.directory === 'national')
         return this.$store.getters['perhitungan/provinces']
-      if (this.directory === 'regency')
-        return this.getRegencies(this.provinceCode)
       if (this.directory === 'dapil')
-        return this.getDapils(this.regencyCode)
-      if (this.directory === 'district')
-        return this.getDistricts(this.regencyCode)
-      if (this.directory === 'village')
-        return this.getVillages(this.districtCode)
+        return this.getDapils('dpr')
+          .filter(it => it.provinceCode === this.provinceCode)
       if (this.directory === 'candidate')
         return this.getCandidates(this.dapilId)
     },
     breadcrumbs() {
       const breadcrumbs = [{ query: { d: 'national' }, text: 'Nasional' }]
       if (this.provinceCode != null)
-        breadcrumbs.push({ query: { d: 'regency', province: this.provinceCode }, text: 'Kabupaten/Kota' })
-      if (this.regencyCode != null)
-        breadcrumbs.push({ query: { d: 'dapil', province: this.provinceCode, regency: this.regencyCode }, text: 'Dapil' })
-      if (this.districtCode != null && this.district != null)
-        breadcrumbs.push({ query: { d: 'village', province: this.provinceCode, regency: this.regencyCode, district: this.districtCode }, text: this.district.name })
+        breadcrumbs.push({ query: { d: 'dapil', province: this.provinceCode }, text: 'Dapil' })
       if (this.dapilId != null && this.dapil != null)
         breadcrumbs.push({ query: { d: 'candidate', province: this.provinceCode, regency: this.regencyCode, dapil: this.dapilId }, text: this.dapil.name })
       return breadcrumbs
@@ -108,30 +81,15 @@ export default {
     provinceCode: {
       immediate: true,
       handler(code) {
-        if (code != null) this.listRegencies(code)
-      }
-    },
-    regencyCode: {
-      immediate: true,
-      handler(code) {
-        if (code == null) return
-        this.listDistricts(code)
-        this.listDapils({ provinceCode: this.provinceCode, regencyCode: code })
-      }
-    },
-    districtCode: {
-      immediate: true,
-      handler(code) {
-        if (code == null) return
-        this.listVillages(code)
+        if (code != null) this.listDapils({ provinceCode: code, tingkat: 'dpr' })
       }
     },
     dapilId: {
       immediate: true,
       handler(id) {
         if (id == null) return
-        this.listCandidates({ dapilId: id })
-        this.getCandidatesSummary({ dapilId: id, level: 2 })
+        this.listCandidates({ dapilId: id, tingkat: 'dpr' })
+        this.getCandidatesSummary({ dapilId: id, level: 0 })
       }
     },
   },
@@ -141,29 +99,21 @@ export default {
   methods: {
     ...mapActions({
       listProvinces: 'perhitungan/getProvinces',
-      listRegencies: 'perhitungan/getRegencies',
-      listDistricts: 'perhitungan/getDistricts',
-      listVillages: 'perhitungan/getVillages',
       listDapils: 'perhitungan/getDapils',
       listCandidates: 'perhitungan/getCandidates',
       getCandidatesSummary: 'perhitungan/getCandidatesSummary',
     }),
     onItemClick(code) {
       let directory = null
-      if (this.directory === 'national') directory = 'regency'
-      else if (this.directory === 'regency') directory = 'dapil'
+      if (this.directory === 'national') directory = 'dapil'
       else if (this.directory === 'dapil') directory = 'candidate'
-      else if (this.directory === 'district') directory = 'village'
       else directory = this.directory
       this.$router.push({
         path: this.$route.path,
         query: {
           d: directory,
           province: this.directory === 'national' ? code : this.provinceCode,
-          regency: this.directory === 'regency' ? code : this.regencyCode,
-          district: this.directory === 'district' ? code : this.districtCode,
           dapil: this.directory === 'dapil' ? code : this.dapilId,
-          village: this.directory === 'village' ? code : this.villageCode
         }
       })
     }

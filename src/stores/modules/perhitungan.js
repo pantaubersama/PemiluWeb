@@ -8,7 +8,10 @@ export const state = {
   districts: {},
   villages: {},
   dapils: {},
-  candidates: {}
+  candidates: {},
+  presidents: {},
+  realCounts: {},
+  formC1: {},
 }
 
 export const actions = {
@@ -19,7 +22,7 @@ export const actions = {
   },
   getRegencies(ctx, provinceCode) {
     return PerhitunganAPI.getRegencies(provinceCode)
-      .then(resp => resp.regencies.map(it => ({ ...it, provinceCode})))
+      .then(resp => resp.regencies.map(it => ({ ...it, provinceCode })))
       .then(regencies => ctx.commit('setRegencies', { regencies }))
   },
   getDistricts(ctx, regencyCode) {
@@ -54,6 +57,40 @@ export const actions = {
         }))
         ctx.commit('setVoteCount', { dapilId, validVote, invalidVote })
         ctx.commit('setCandidatePercentage', { dapilId, candidates })
+      })
+  },
+  getPresidentSummary(ctx, { region = null, level = 0 } = {}) {
+    return PerhitunganAPI.getPresidentSummary(region, level)
+      .then(resp => resp.percentages.map(it => ({ ...it, level })))
+      .then((resp) => {
+        ctx.commit('setPresidentSummary', { region, percentages: resp })
+      })
+  },
+  getPresident(ctx, { region, tps, realCountId, level = 6 }) {
+    return PerhitunganAPI.getPresident({ region, tps, realCountId, level })
+      .then((resp) => {
+        const percentage = { ...resp.percentage, level }
+        ctx.commit('setPresidentSummary', { region, percentages: [percentage] })
+      })
+  },
+  getRealCounts(ctx, { userId = null, villageCode = null, dapilId = null, page = 1 } = {}) {
+    return PerhitunganAPI.getRealCounts({ userId, village_code: villageCode, dapilId, page })
+      .then(resp => resp.real_counts)
+      .then((data) => {
+        const realCounts = data.map(it => ({
+          ...it,
+          userId,
+          villageCode,
+          dapilId
+        }))
+        ctx.commit('setRealCounts', { realCounts })
+      })
+  },
+  getFormC1(ctx, { realCountId, type = 'presiden' }) {
+    return PerhitunganAPI.getFormC1({ realCountId, type })
+      .then((resp) => {
+        const form = resp.form_c1
+        ctx.commit('setFormC1', { form })
       })
   }
 }
@@ -90,6 +127,32 @@ export const mutations = {
       const candidate = state.candidates[dapilId].candidates[index]
       Vue.set(state.candidates[dapilId].candidates, index, { ...candidate, ...it })
     })
+  },
+  setPresidentSummary(state, { region, percentages }) {
+    percentages
+      .filter(it => it.region != null)
+      .forEach((it) => {
+        const regionCode = it.region.code
+        const percentage = it.percentage
+        if (it.percentage != null) {
+          percentage.jokowi = percentage.candidates[0]
+          percentage.prabowo = percentage.candidates[1]
+        }
+        Vue.set(state.presidents, regionCode, {
+          ...it,
+          region: {
+            ...it.region,
+            parentCode: region
+          },
+          percentage: percentage
+        })
+      })
+  },
+  setRealCounts(state, { realCounts }) {
+    realCounts.forEach(count => Vue.set(state.realCounts, count.id, count))
+  },
+  setFormC1(state, { form }) {
+    Vue.set(state.formC1, form.id, form)
   }
 }
 
@@ -111,9 +174,31 @@ export const getters = {
 
   dapils: (state) => (regencyCode) => Object.values(state.dapils)
     .filter(it => it.regencyCode === regencyCode),
+  dapilsByProvince: (state) => (provinceCode) => Object.values(state.dapils)
+    .filter(it => it.provinceCode === provinceCode),
+  dapilsByTingkat: (state) => (tingkat) => Object.values(state.dapils)
+    .filter(it => it.tingkat === tingkat),
   dapil: (state) => (dapilId) => state.dapils[dapilId],
 
   candidates: (state) => (dapilId) => Object.values(state.candidates)
     .filter(it => it.dapilId === dapilId),
-  candidate: (state) => (candidateId) => state.candidate[candidateId]
+  candidate: (state) => (candidateId) => state.candidate[candidateId],
+
+  presidents: (state) => Object.values(state.presidents)
+    .slice()
+    .sort((a, b) => a.region.name > b.region.name ? 1 : -1),
+  presidentsByLevel: (s, getters) => (level) => getters.presidents
+    .filter(it => it.level === level),
+  presidentsByRegion: (state) => (regionCode) => state.presidents[regionCode],
+
+  realCounts: (state) => Object.values(state.realCounts),
+  realCount: (state) => (id) => state.realCounts[id],
+  realCountsByUser: (s, getters) => (userId) => getters.realCounts
+    .filter(it => it.userId === userId),
+  realCountsByVillage: (s, getters) => (villageCode) => getters.realCounts
+    .filter(it => it.villageCode === villageCode),
+  realCountByDapil: (s, getters) => (dapilId) => getters.realCounts
+    .filter(it => it.dapilId === dapilId),
+  forms: (state) => Object.values(state.formC1),
+  form: (s, getters) => (realCountId) => getters.forms.find(it => it.real_count.id === realCountId)
 }

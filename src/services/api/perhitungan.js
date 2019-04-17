@@ -31,3 +31,18 @@ export const getCandidates = (dapil_id, tingkat = 'kabupaten') => api
 export const getCandidatesSummary = (dapil_id, level = 2) => api
   .get('/v1/summary/candidates/show', { params: { dapil_id, level } })
   .then(resp => resp.data.data)
+
+export const getPresidentSummary = (region, level = 0) => api
+  .get('/v1/summary/president/list', { params: { region, level }})
+  .then(resp => resp.data.data)
+export const getPresident = ({ region, tps, realCountId, level = 6 }) => api
+  .get('/v1/summary/president/show', { params: { region, level, tps, hitung_real_count_id: realCountId }})
+  .then(resp => resp.data.data)
+
+export const getRealCounts = ({ user_id = null, village_code = null, dapil_id = null, page = 1, per_page = 100 } = {}) => api
+  .get('/v1/real_counts', { params: { user_id, village_code, dapil_id, page, per_page }})
+  .then(resp => resp.data.data)
+
+export const getFormC1 = ({ realCountId, type = 'president' }) => api
+  .get('/v1/form_c1', { params: { hitung_real_count_id: realCountId, form_c1_type: type } })
+  .then(resp => resp.data.data)
