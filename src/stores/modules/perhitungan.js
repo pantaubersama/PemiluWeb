@@ -56,7 +56,14 @@ export const actions = {
           id: Number(candidate.id)
         }))
         ctx.commit('setVoteCount', { dapilId, validVote, invalidVote })
-        ctx.commit('setCandidatePercentage', { dapilId, candidates })
+        if (level === 3) {
+          ctx.commit('setCandidatePercentage', {
+            dapilId,
+            candidates: [{ id: dapilId, candidates }]
+          })
+        } else {
+          ctx.commit('setCandidatePercentage', { dapilId, candidates })
+        }
       })
   },
   getPresidentSummary(ctx, { region = null, level = 0 } = {}) {
