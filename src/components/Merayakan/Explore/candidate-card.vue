@@ -10,9 +10,9 @@
         <span>No Urut {{candidate.serial_number}}</span>
       </div>
       <div class="vote-result">
-        <div class="percentage">{{Math.ceil(candidate.percentage)}}%</div>
+        <div class="percentage">{{Math.ceil(candidate.percentage || 0)}}%</div>
         <span>|</span>
-        <div class="vote">{{candidate.total_vote}} suara</div>
+        <div class="vote">{{candidate.total_vote || 0}} suara</div>
       </div>
     </div>
     <div class="vote-candidate">

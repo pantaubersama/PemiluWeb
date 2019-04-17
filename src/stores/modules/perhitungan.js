@@ -123,6 +123,8 @@ export const mutations = {
   },
   setCandidatePercentage(state, { dapilId, candidates }) {
     candidates.map((it) => {
+      it.percentage = it.percentage || 0
+      it.total_vote = it.total_vote || 0
       const partai = state.candidates[it.id]
       const sum = it.candidates.map(it => it.cv).reduce((sum, acc) => sum + acc, 0)
       const members = partai.candidates.map((member) => {
