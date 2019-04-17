@@ -28,8 +28,8 @@ export const getCandidates = (dapil_id, tingkat = 'kabupaten') => api
   .get('/v1/candidates', { params: { dapil_id, tingkat } })
   .then(resp => resp.data.data)
 
-export const getCandidatesSummary = (dapil_id, level = 2) => api
-  .get('/v1/summary/candidates/show', { params: { dapil_id, level } })
+export const getCandidatesSummary = ({ dapil_id, hitung_real_count_id, level = 2 }) => api
+  .get('/v1/summary/candidates/show', { params: { dapil_id, hitung_real_count_id, level } })
   .then(resp => resp.data.data)
 
 export const getPresidentSummary = (region, level = 0) => api

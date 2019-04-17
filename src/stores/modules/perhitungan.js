@@ -46,8 +46,8 @@ export const actions = {
       .then(candidates => candidates.map(it => ({ ...it, dapilId })))
       .then(candidates => ctx.commit('setCandidates', { candidates }))
   },
-  getCandidatesSummary(ctx, { dapilId, level = 2 }) {
-    return PerhitunganAPI.getCandidatesSummary(dapilId, level)
+  getCandidatesSummary(ctx, { dapilId, realCountId, level = 2 }) {
+    return PerhitunganAPI.getCandidatesSummary({ dapil_id: dapilId, hitung_real_count_id: realCountId, level })
       .then((summary) => {
         const validVote = summary.valid_vote
         const invalidVote = summary.invalid_vote.total_vote
@@ -74,7 +74,7 @@ export const actions = {
       })
   },
   getRealCounts(ctx, { userId = null, villageCode = null, dapilId = null, page = 1 } = {}) {
-    return PerhitunganAPI.getRealCounts({ userId, village_code: villageCode, dapilId, page })
+    return PerhitunganAPI.getRealCounts({ user_id: userId, village_code: villageCode, dapil_id: dapilId, page })
       .then(resp => resp.real_counts)
       .then((data) => {
         const realCounts = data.map(it => ({
@@ -127,7 +127,7 @@ export const mutations = {
       const sum = it.candidates.map(it => it.cv).reduce((sum, acc) => sum + acc, 0)
       const members = partai.candidates.map((member) => {
         const m = it.candidates.find(it => Number(it.id) === Number(member.id))
-        m.percentage = (m.cv / sum) * 100
+        m.percentage = ((m.cv / sum) * 100) || 0
         return { ...m, ...member }
       })
       return { ...it, ...partai, candidates: members }
@@ -202,7 +202,7 @@ export const getters = {
     .filter(it => it.userId === userId),
   realCountsByVillage: (s, getters) => (villageCode) => getters.realCounts
     .filter(it => it.villageCode === villageCode),
-  realCountByDapil: (s, getters) => (dapilId) => getters.realCounts
+  realCountsByDapil: (s, getters) => (dapilId) => getters.realCounts
     .filter(it => it.dapilId === dapilId),
   forms: (state) => Object.values(state.formC1),
   form: (s, getters) => (realCountId) => getters.forms.find(it => it.real_count.id === realCountId)

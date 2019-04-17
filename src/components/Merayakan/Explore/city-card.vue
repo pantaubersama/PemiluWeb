@@ -1,5 +1,5 @@
 <template>
-  <div class="city-card">
+  <div class="city-card" @click.prevent="$emit('click')">
     <div class="card">
       <div class="title">
         {{kota}}
