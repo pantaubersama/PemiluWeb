@@ -1,5 +1,5 @@
 <template>
-  <div class="city-card">
+  <div class="city-card" @click.prevent="$emit('click')">
     <div class="card">
       <div class="title">
         {{kota}}
@@ -29,10 +29,18 @@ export default {
   components: {
     OutlineArrow
   },
-  data() {
-    return {
-      suara_sah: '100.000',
-      suara_tidak_sah: '10.000'
+  computed: {
+    kota() {
+      if (this.item == null) return ''
+      return this.item.name
+    },
+    suara_sah() {
+      if (this.item == null) return '-'
+      return this.item.validVote
+    },
+    suara_tidak_sah() {
+      if (this.item == null) return '-'
+      return this.item.invalidVote
     }
   },
   computed: {
