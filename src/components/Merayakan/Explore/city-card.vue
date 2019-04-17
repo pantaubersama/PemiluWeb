@@ -41,9 +41,7 @@ export default {
     suara_tidak_sah() {
       if (this.item == null) return '-'
       return this.item.invalidVote
-    }
-  },
-  computed: {
+    },
     kota() {
       if (this.item == null) return ''
       return this.item.name
