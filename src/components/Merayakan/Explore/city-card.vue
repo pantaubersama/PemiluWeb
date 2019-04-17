@@ -42,6 +42,12 @@ export default {
       if (this.item == null) return '-'
       return this.item.invalidVote
     }
+  },
+  computed: {
+    kota() {
+      if (this.item == null) return ''
+      return this.item.name
+    }
   }
 }
 </script>
