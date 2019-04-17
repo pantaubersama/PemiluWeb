@@ -86,10 +86,10 @@ export default {
     },
     dapilId: {
       immediate: true,
-      handler(id) {
+      async handler(id) {
         if (id == null) return
-        this.listCandidates({ dapilId: id, tingkat: 'dpr' })
-        this.getCandidatesSummary({ dapilId: id, level: 0 })
+        await this.listCandidates({ dapilId: id, tingkat: 'dpr' })
+        await this.getCandidatesSummary({ dapilId: id, level: 0 })
       }
     },
   },

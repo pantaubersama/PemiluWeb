@@ -122,11 +122,16 @@ export const mutations = {
     })
   },
   setCandidatePercentage(state, { dapilId, candidates }) {
-    candidates.forEach((it) => {
-      const index = state.candidates[dapilId].candidates.findIndex(c => c.id === it.id)
-      const candidate = state.candidates[dapilId].candidates[index]
-      Vue.set(state.candidates[dapilId].candidates, index, { ...candidate, ...it })
-    })
+    candidates.map((it) => {
+      const partai = state.candidates[it.id]
+      const sum = it.candidates.map(it => it.cv).reduce((sum, acc) => sum + acc, 0)
+      const members = partai.candidates.map((member) => {
+        const m = it.candidates.find(it => Number(it.id) === Number(member.id))
+        m.percentage = (m.cv / sum) * 100
+        return { ...m, ...member }
+      })
+      return { ...it, ...partai, candidates: members }
+    }).forEach(it => Vue.set(state.candidates, it.id, it))
   },
   setPresidentSummary(state, { region, percentages }) {
     percentages

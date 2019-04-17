@@ -10,9 +10,9 @@
         <span>No Urut {{candidate.serial_number}}</span>
       </div>
       <div class="vote-result">
-        <div class="percentage">70%</div>
+        <div class="percentage">{{Math.ceil(candidate.percentage)}}%</div>
         <span>|</span>
-        <div class="vote">1.000.000 suara</div>
+        <div class="vote">{{candidate.total_vote}} suara</div>
       </div>
     </div>
     <div class="vote-candidate">
@@ -21,7 +21,7 @@
           <div class="candidate-name">{{index + 1}}. {{item.name}}</div>
           <div class="vote-result">
             <div v-if="item.percentage == null" class="percentage">0%</div>
-            <div v-else class="percentage">{{item.percentage}}%</div>
+            <div v-else class="percentage">{{item.percentage.toFixed(2)}}%</div>
             <span>|</span>
             <div v-if="item.cv == null" class="vote">0 suara</div>
             <div v-else class="vote">{{item.cv}} suara</div>
