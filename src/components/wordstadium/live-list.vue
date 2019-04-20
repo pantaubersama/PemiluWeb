@@ -73,8 +73,11 @@ export default {
 
 <style lang="sass" scoped>
 .Wordstadium-live-list
+  margin: 0 -10px
   .debat-card
+    margin: 15px 8px
     height: 180px
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.1)
 .debat-card /deep/ .body-lower
   margin-top: 5px !important
   display: flex
@@ -104,6 +107,7 @@ export default {
   display: flex
   overflow: hidden
   position: relative
+
   button
     position: absolute
     top: 50%

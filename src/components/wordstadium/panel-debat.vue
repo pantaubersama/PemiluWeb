@@ -39,6 +39,11 @@ export default {
 .panel-debat-container
   display: flex
   width: 100%
+  @media (max-width:767px)
+    flex-direction: column
+    .debat-card
+      width: 100%
+
 .debat-card /deep/ .body-lower
   display: flex
   justify-content: center
@@ -53,6 +58,9 @@ export default {
   margin-left: 10px
   padding-top: 0
   position: relative
+  @media (max-width:767px)
+    margin-left: 0
+    padding: 0
   small
     border: 1px solid #f9d65c
     border-radius: 4px

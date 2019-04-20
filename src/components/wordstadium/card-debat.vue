@@ -80,7 +80,7 @@ i.icon.icon-live-now
   border: 1px solid #ececec
   border-radius: 8px
   overflow: hidden
-  margin-top: 10px;
+  margin-top: 15px
 
   .header
     height: 60px
@@ -95,12 +95,16 @@ i.icon.icon-live-now
     z-index: 1
     &.--coming-soon
       background: url(~@/assets/img-debat-coming-soon-bg.svg)
+      background-size: cover
     &.--live
       background: url(~@/assets/img-debat-live-bg.svg)
+      background-size: cover
     &.--done
       background: url(~@/assets/img-debat-done-bg.svg)
+      background-size: cover
     &.--challenge
       background: url(~@/assets/img-debat-challenge-bg.svg)
+      background-size: cover
 
     span
       text-align: center

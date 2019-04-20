@@ -90,16 +90,19 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.isSubmitting = true
-          this.$store.dispatch('requestData/requestData',{
-            name: this.name,
-            organization: this.organization,
-            email: this.email,
-            phone: this.phone,
-            necessity: this.necessity
-          } ).then(() => {
-            this.$emit('close-request')
-            this.$toaster.info('Berhasil Melakukan Request Data.')
-          })
+          this.$store
+            .dispatch('requestData/requestData',{
+              name: this.name,
+              organization: this.organization,
+              email: this.email,
+              phone: this.phone,
+              necessity: this.necessity
+            })
+            .then(() => {
+              this.isSubmitting = false
+              this.$emit('close-request')
+              this.$toaster.info('Berhasil Melakukan Request Data.')
+            })
         }
       })
     },

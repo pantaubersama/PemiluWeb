@@ -1,22 +1,27 @@
 <template>
   <LayoutTimeline>
     <template slot="main-content">
-      <div class="card card-tabs">
-        <div class="title-tabs">
+      <div class="card card-tabs" v-if="$route.name != 'WordStadiumHint'">
+        <div class="title-tabs wordstadium-tabs">
           <router-link to="/wordstadium">Publik</router-link>
           <router-link to="/wordstadium?type=personal">Personal</router-link>
         </div>
 
         <wordstadium-personal v-if="$route.query.type === 'personal'"></wordstadium-personal>
         <wordstadium-public v-else></wordstadium-public>
-        <create-challenge-modal
-          v-if="modal === 'CreateChallenge'"
-          @close="modal = null">
-        </create-challenge-modal>
+        <create-challenge-modal v-if="modal === 'CreateChallenge'" @close="modal = null"></create-challenge-modal>
       </div>
+      <!-- <div v-if="$route.query.banner == 'publik'">
+        <HintBanner :object=""/>
+        ini detailnya public
+      </div>
+      <div v-if="$route.query.banner == 'personal'">
+        <HintBanner :object=""/>
+        ini detailnya personal
+      </div> -->
     </template>
     <div slot="widget-wrapper">
-      <div class="card widget-wordstadium">
+      <div class="card widget-wordstadium d-none d-lg-flex">
         <div class="title">Chivalry Over Bigotry</div>
         <div class="text">
           Explore WordStadium. Kamu bisa cari tantangan terbuka dan debat
@@ -25,7 +30,19 @@
         </div>
         <img src="~@/assets/img-wordstadium-widget.svg">
       </div>
-      <div class="create-challenge-container">
+      <!-- <div v-if="$route.query.type === 'personal'">
+        <router-link :to="{name: 'WordStadiumHint', query: { banner: 'personal' }}">
+          <WidgetBanner :data="" />
+          personal
+        </router-link>
+      </div>
+      <div v-if="$route.query.type == null && $route.name == 'WordStadium'">
+        <router-link :to="{name: 'WordStadiumHint', query: { banner: 'publik' }}">
+          <WidgetBanner :data="" />
+          publik
+        </router-link>
+      </div> -->
+      <div class="create-challenge-container" v-if="$route.name != 'WordStadiumHint'">
         <button type="button" @click.prevent="modal = 'CreateChallenge'">
           <i class="icon icon-pencil"></i>
           <div class="text">Buat tantangan</div>
@@ -59,31 +76,43 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.create-challenge-container button
-  display: flex
-  align-items: center
-  max-width: 260px
-  height: 40px
-  width: 100%
-  border-radius: 8px
-  border: solid 1px #f49422
-  background-color: #f49422
-  text-transform: uppercase
-  color: white
-  font-size: 12px
-  font-weight: bold
-  font-stretch: condensed
-  line-height: 1.25
-  letter-spacing: 0.5px
-  text-align: center
-  cursor: pointer
-  .icon.icon-pencil
-    flex: 0 0 20px
-    height: 20px
-    width: 20px
-  .text
-    flex: 1
-    text-indent: -10px
+.wordstadium-tabs
+  a.router-link-exact-active,
+  a.active
+    color: #f6b42a
+
+.create-challenge-container
+  @media (max-width: 767px)
+    padding: 15px
+  button
+    display: flex
+    align-items: center
+    max-width: 260px
+    height: 40px
+    width: 100%
+    border-radius: 8px
+    border: solid 1px #f49422
+    background-color: #f49422
+    text-transform: uppercase
+    color: white
+    font-size: 12px
+    font-weight: bold
+    font-stretch: condensed
+    line-height: 1.25
+    letter-spacing: 0.5px
+    text-align: center
+    cursor: pointer
+    @media (max-width: 991px)
+      max-width: none
+      margin-bottom: 15px
+
+    .icon.icon-pencil
+      flex: 0 0 20px
+      height: 20px
+      width: 20px
+    .text
+      flex: 1
+      text-indent: -10px
 .widget-wordstadium
   display: flex
   flex-direction: column

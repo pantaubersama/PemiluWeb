@@ -80,6 +80,10 @@ export default {
   border: 1px solid #ececec
   border-radius: 15px
   width: 736px
+  max-height: 90vh
+  overflow: auto
+  @media (max-width: 767px)
+    width: 100%
 
 .modal-header
   .close-icon
@@ -139,26 +143,31 @@ export default {
     align-items: center
     justify-content: center
     flex-direction: row
+    @media (max-width: 767px)
+      flex-direction: column
 
     .content-column
       display: flex
       align-items: flex-start
       justify-content: center
       flex-direction: row
-      width: 50%
+      flex: 1
       text-align: left
       border-radius: 8px
       background-color: #f9f9f9
       padding: 17px 16px 12px 16px
       height: 142px
       overflow: hidden
+      @media (max-width: 767px)
+        height: auto
 
       &:first-child
         margin-right: 8px
 
       &:last-child
         margin-left: 8px
-
+      @media (max-width: 767px)
+        margin: 0 0 10px !important
       .column-icon
         width: 32px
         margin-right: 16px
