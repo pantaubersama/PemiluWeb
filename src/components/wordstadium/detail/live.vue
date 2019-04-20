@@ -11,26 +11,28 @@
             <live-red/>Live Now
           </div>
           <div class="detail">
-            <div class="thumb left">
-              <div class="user-title">
-                <h5>{{challenger.full_name}}</h5>
-                <span>@{{challenger.username}}</span>
+            <div class="versus">
+              <vs-icon/>
+            </div>
+            <div class="thumb-name">
+              <div class="thumb left">
+                <div class="user-title">
+                  <h5>{{challenger.full_name}}</h5>
+                  <span>@{{challenger.username}}</span>
+                </div>
+              </div>
+              <div class="thumb right">
+                <div class="user-title">
+                  <h5 class="in--active">{{opponent.full_name}}</h5>
+                  <span>@{{opponent.username}}</span>
+                </div>
               </div>
             </div>
             <div class="thumb center">
-              <div class="versus">
-                <vs-icon/>
-              </div>
               <div class="description">
                 <p>
                   {{debat.statement}}
                 </p>
-              </div>
-            </div>
-            <div class="thumb right">
-              <div class="user-title">
-                <h5 class="in--active">{{opponent.full_name}}</h5>
-                <span>@{{opponent.username}}</span>
               </div>
             </div>
           </div>
@@ -380,9 +382,10 @@ export default {
   padding: 0
   margin: 0
   overflow: hidden
-
+  @media (max-width: 767px)
+    border-radius: 0
 .heading
-  height: 192px
+  min-height: 192px
   display: flex
   flex-direction: column
   align-items: center
@@ -395,6 +398,8 @@ export default {
   background-size: cover
   position: relative
   overflow: hidden
+  @media (max-width: 767px)
+    border-radius: 0
   .img-float
     width: 88px
     height: 88px
@@ -428,16 +433,24 @@ export default {
       width: 18px
       height: 18px
       margin-right: 10px
+  .thumb-name
+    width: 100%
+    display: flex
+    justify-content: space-between
+    margin-top: -56px
 
   .detail
     display: flex
-    flex-direction: row
-    align-items: space-between
-    justify-content: center
+    flex-direction: column
+    // align-items: space-between
+    // justify-content: center
+    align-items: center
     height: 100%
     width: 75%
     border-top: 1px solid #ffffff
     margin: 0
+    @media (max-width: 767px)
+      width: 100%
 
     .img-float
       width: 88px
@@ -455,6 +468,8 @@ export default {
 
     .thumb
       flex: 0 27%
+      @media (max-width: 767px)
+        flex: 0 45%
 
       &.left, &.right
         padding: 14px
@@ -473,19 +488,7 @@ export default {
         flex-direction: column
         justify-content: space-between
         margin: 0
-
-      .versus
-        height: 56px
-        width: 56px
-        color: #ffffff
-        font-weight: 800
-        font-size: 24px
-        text-transform: uppercase
-        display: flex
-        align-items: center
-        justify-content: center
-        position: relative
-        top: -1px
+        padding: 0 15px 15px
 
       .description
         font-family: BwModelica, Lato
@@ -494,6 +497,20 @@ export default {
         line-height: 16px
         letter-spacing: 0.34px
         color: #ffffff
+        p
+          margin-bottom: 0
+  .versus
+    height: 56px
+    width: 56px
+    color: #ffffff
+    font-weight: 800
+    font-size: 24px
+    text-transform: uppercase
+    display: flex
+    align-items: center
+    justify-content: center
+    position: relative
+    top: -1px
 
 .left
   .user-title
@@ -555,6 +572,10 @@ export default {
   flex-direction: row
   height: 40px
   background-color: #f9f9f9
+  @media (max-width: 767px)
+    height: auto
+    flex-direction: column
+    padding: 10px
 
   .info-status, .info-action
     font-family: BwModelicaSS01, Lato
@@ -566,6 +587,8 @@ export default {
     display: flex
     justify-content: center
     align-items: center
+    @media (max-width: 767px)
+      flex: auto
 
     svg
       width: 24px
@@ -598,10 +621,12 @@ export default {
     display: flex
     opacity: 1
     visibility: visible
+    overflow: auto
+    justify-content: end
 
   table
     border-collapse: collapse
-    overflow: hidden
+    overflow: auto
 
     tr
       td
@@ -657,6 +682,8 @@ export default {
     width: 50%
     padding: 16px
     margin-top: -80px
+    @media (max-width: 767px)
+      width: 100%
     &.right
       margin-left: auto
       .has--dashed

@@ -124,18 +124,6 @@
         Posted 8 days ago
       </div>
     </li>
-    <li class="posting-item">
-      <div class="avatar-container">
-        <img class="avatar" src="~@/assets/user.svg" alt="avatar-username">
-      </div>
-      <div class="name">Raja Kampreta</div>
-      <div class="text">
-        Berjuang bersama untuk Umat
-      </div>
-      <div class="time">
-        Posted 8 days ago
-      </div>
-    </li>
   </ul>
 
   <modal-share v-if="isSharing"
@@ -236,6 +224,9 @@ export default {
   border-top-left-radius: 10px
   border-top-right-radius: 10px
   border-bottom: none
+  @media (max-width: 767px)
+    height: auto
+    border-radius: 0
   .title
     flex: 0 0 40px
     font-family: 'Bw Modelica'

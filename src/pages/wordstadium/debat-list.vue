@@ -111,7 +111,7 @@ export default {
     color: #212121
     margin-left: 8px
   a.see-more
-    margin-top: 10px
+    margin-top: 15px
     text-align: center
     margin-left: 50%
     transform: translateX(-50%)

@@ -8,10 +8,11 @@
             <vs-icon/>
           </div>
         </div>
+
         <div class="user-info">
-          <router-link to="/profile">
-            <img v-if="challenger.avatar == null" src="@/assets/user.svg" alt="user">
-            <img v-else :src="challenger.avatar.url" :alt="challenger.username">
+          <router-link :to="{path: '/profile/user', query: {id: challenger.user_id}}">
+            <img v-if="challenger.avatar.url != null" :src="challenger.avatar.url" :alt="challenger.username">
+            <img v-else src="@/assets/user.svg" alt="user">
             <div class="user-title">
               <h5>{{challenger.full_name}}</h5>
               <span>@{{challenger.username}}</span>
@@ -19,9 +20,9 @@
           </router-link>
         </div>
         <div class="user-info user-info__right">
-          <router-link to="/profile/raja_kampreta">
-            <img v-if="opponent.avatar == null" src="@/assets/user.svg" alt="user">
-            <img v-else :src="opponent.avatar.url" :alt="opponent.username">
+          <router-link :to="{path: '/profile/user', query: {id: opponent.user_id}}">
+            <img v-if="opponent.avatar.url != null" :src="opponent.avatar.url" :alt="opponent.username">
+            <img v-else src="@/assets/user.svg" alt="user">
             <div class="user-title">
               <h5>{{opponent.full_name}}</h5>
               <span>@{{opponent.username}}</span>
@@ -29,6 +30,7 @@
           </router-link>
         </div>
       </div>
+
       <div class="heading-info">
         <div class="info info--left">
           <button class="btn btn--uppercase">
@@ -49,8 +51,8 @@
         <h2 class="head head--primary">Inilah hasilnya:</h2>
         <div class="content-result">
           <div class="content-user content-user__left">
-            <img v-if="challenger.avatar == null" src="@/assets/user.svg" alt="user">
-            <img v-else :src="challenger.avatar.url" :alt="challenger.username">
+            <img v-if="challenger.avatar.url != null" :src="challenger.avatar.url" :alt="challenger.username">
+            <img v-else src="@/assets/user.svg" alt="user">
             <div class="content-info">
               <appreciate-yellow/>
               <div class="content-claps">
@@ -59,8 +61,8 @@
             </div>
           </div>
           <div class="content-user content-user__right">
-            <img v-if="opponent.avatar == null" src="@/assets/user.svg" alt="user">
-            <img v-else :src="opponent.avatar.url" :alt="opponent.username">
+            <img v-if="opponent.avatar.url != null" :src="opponent.avatar.url" :alt="opponent.username">
+            <img v-else src="@/assets/user.svg" alt="user">
             <div class="content-info">
               <appreciate-yellow/>
               <div class="content-claps">

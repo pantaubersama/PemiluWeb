@@ -127,6 +127,17 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.debat-title
+  border-bottom: 1px solid #ececec
+  padding: 15px 0
+  .title
+    text-transform: uppercase
+    font-size: 20px
+    font-weight: 900
+  .description
+    margin-bottom: 0
+    color: #7c7c7c
+    font-size: 12px
 .icon
   display: inline-block
   height: 24px
